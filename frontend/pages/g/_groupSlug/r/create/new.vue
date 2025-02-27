@@ -35,21 +35,20 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRefs, ref, useContext, useRouter, computed, useRoute } from "@nuxtjs/composition-api";
-import { AxiosResponse } from "axios";
+import type { AxiosResponse } from "axios";
 import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
-import { VForm } from "~/types/vuetify";
+import type { VForm } from "~/types/vuetify";
 
-export default defineComponent({
+export default defineNuxtComponent({
   setup() {
     const state = reactive({
       error: false,
       loading: false,
     });
-    const { $auth } = useContext();
+    const { $auth } = useNuxtApp();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
 
     const api = useUserApi();
     const router = useRouter();

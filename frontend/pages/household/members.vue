@@ -80,12 +80,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, useContext } from "@nuxtjs/composition-api";
+
 import { useUserApi } from "~/composables/api";
 import { UserOut } from "~/lib/api/types/user";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     UserAvatar,
   },
@@ -93,7 +93,7 @@ export default defineComponent({
   setup() {
     const api = useUserApi();
 
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
 
     const members = ref<UserOut[] | null[]>([]);
 

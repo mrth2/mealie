@@ -280,7 +280,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, computed, useContext } from "@nuxtjs/composition-api";
+
 import type { LocaleObject } from "@nuxtjs/i18n";
 import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
@@ -301,38 +301,38 @@ interface IngredientFoodWithOnHand extends IngredientFood {
   onHand: boolean;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { MultiPurposeLabel, RecipeDataAliasManagerDialog },
   setup() {
     const userApi = useUserApi();
-    const { $auth, i18n } = useContext();
+    const { $auth, i18n } = useNuxtApp();
     const tableConfig = {
       hideColumns: true,
       canExport: true,
     };
     const tableHeaders = [
       {
-        text: i18n.tc("general.id"),
+        text: i18n.t("general.id"),
         value: "id",
         show: false,
       },
       {
-        text: i18n.tc("general.name"),
+        text: i18n.t("general.name"),
         value: "name",
         show: true,
       },
       {
-        text: i18n.tc("general.plural-name"),
+        text: i18n.t("general.plural-name"),
         value: "pluralName",
         show: true,
       },
       {
-        text: i18n.tc("recipe.description"),
+        text: i18n.t("recipe.description"),
         value: "description",
         show: true,
       },
       {
-        text: i18n.tc("shopping-list.label"),
+        text: i18n.t("shopping-list.label"),
         value: "label",
         show: true,
         sort: (label1: MultiPurposeLabelOut | null, label2: MultiPurposeLabelOut | null) => {
@@ -342,12 +342,12 @@ export default defineComponent({
         },
       },
       {
-        text: i18n.tc("tool.on-hand"),
+        text: i18n.t("tool.on-hand"),
         value: "onHand",
         show: true,
       },
       {
-        text: i18n.tc("general.date-added"),
+        text: i18n.t("general.date-added"),
         value: "createdAt",
         show: false,
       }

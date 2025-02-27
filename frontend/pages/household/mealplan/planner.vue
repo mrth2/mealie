@@ -54,13 +54,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useRoute, useRouter, watch } from "@nuxtjs/composition-api";
 import { isSameDay, addDays, parseISO } from "date-fns";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { useMealplans } from "~/composables/use-group-mealplan";
 import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
 
-export default defineComponent({
+export default defineNuxtComponent({
   middleware: ["auth"],
   setup() {
     const route = useRoute();
@@ -74,7 +73,7 @@ export default defineComponent({
     });
 
     // Force to /view if current route is /planner
-    if (route.value.path === "/household/mealplan/planner") {
+    if (route.path === "/household/mealplan/planner") {
       router.push("/household/mealplan/planner/view");
     }
 

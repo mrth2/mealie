@@ -19,7 +19,7 @@
                   url="none"
                   file-name="image"
                   accept="image/*"
-                  :text="$i18n.tc('recipe.upload-image')"
+                  :text="$t('recipe.upload-image')"
                   :text-btn="false"
                   :post="false"
                   @uploaded="uploadImage"
@@ -30,7 +30,7 @@
                   @click="clearImage"
                 >
                   <v-icon left>{{ $globals.icons.close }}</v-icon>
-                  {{ $i18n.tc("recipe.remove-image") }}
+                  {{ $i18n.t("recipe.remove-image") }}
                 </v-btn>
               </v-col>
               <v-spacer />
@@ -47,7 +47,7 @@
         <v-card-actions>
           <BaseButton
             type="submit"
-            :text="$i18n.tc('admin.run-test')"
+            :text="$t('admin.run-test')"
             :icon="$globals.icons.check"
             :loading="loading"
             class="ml-auto"
@@ -64,12 +64,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-import { VForm } from "~/types/vuetify";
+import type { VForm } from "~/types/vuetify";
 
-export default defineComponent({
+export default defineNuxtComponent({
   layout: "admin",
   setup() {
     const api = useAdminApi();

@@ -12,25 +12,11 @@
     <v-form v-if="!userError" ref="refHouseholdEditForm" @submit.prevent="handleSubmit">
       <v-card outlined>
         <v-card-text>
-          <v-select
-            v-if="groups"
-            v-model="household.groupId"
-            disabled
-            :items="groups"
-            rounded
-            class="rounded-lg"
-            item-text="name"
-            item-value="id"
-            :return-object="false"
-            filled
-            :label="$tc('group.user-group')"
-            :rules="[validators.required]"
-          />
-          <v-text-field
-            v-model="household.name"
-            :label="$t('household.household-name')"
-            :rules="[validators.required]"
-          />
+          <v-select v-if="groups" v-model="household.groupId" disabled :items="groups" rounded class="rounded-lg"
+            item-text="name" item-value="id" :return-object="false" filled :label="$tc('group.user-group')"
+            :rules="[validators.required]" />
+          <v-text-field v-model="household.name" :label="$t('household.household-name')"
+            :rules="[validators.required]" />
           <HouseholdPreferencesEditor v-if="household.preferences" v-model="household.preferences" />
         </v-card-text>
       </v-card>
@@ -42,26 +28,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRoute, onMounted, ref, useContext } from "@nuxtjs/composition-api";
 import HouseholdPreferencesEditor from "~/components/Domain/Household/HouseholdPreferencesEditor.vue";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { validators } from "~/composables/use-validators";
-import { HouseholdInDB } from "~/lib/api/types/household";
-import { VForm } from "~/types/vuetify";
+import type { HouseholdInDB } from "~/lib/api/types/household";
+import type { VForm } from "~/types/vuetify";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     HouseholdPreferencesEditor,
   },
   layout: "admin",
   setup() {
     const route = useRoute();
-    const { i18n } = useContext();
+    const i18n = useI18n();
 
     const { groups } = useGroups();
-    const householdId = route.value.params.id;
+    const householdId = route.params.id;
 
     // ==============================================
     // New User Form
@@ -78,12 +63,12 @@ export default defineComponent({
       const { data, error } = await adminApi.households.getOne(householdId);
 
       if (error?.response?.status === 404) {
-        alert.error(i18n.tc("user.user-not-found"));
+        alert.error(i18n.t("user.user-not-found"));
         userError.value = true;
       }
 
       if (data) {
-          household.value = data;
+        household.value = data;
       }
     });
 
@@ -95,9 +80,9 @@ export default defineComponent({
       const { response, data } = await adminApi.households.updateOne(household.value.id, household.value);
       if (response?.status === 200 && data) {
         household.value = data;
-        alert.success(i18n.tc("settings.settings-updated"));
+        alert.success(i18n.t("settings.settings-updated"));
       } else {
-        alert.error(i18n.tc("settings.settings-update-failed"));
+        alert.error(i18n.t("settings.settings-update-failed"));
       }
     }
 

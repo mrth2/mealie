@@ -2,20 +2,16 @@
   <v-container fluid>
     <section>
       <!-- Delete Dialog -->
-      <BaseDialog
-        v-model="deleteDialog"
-        :title="$tc('settings.backup.delete-backup')"
-        color="error"
-        :icon="$globals.icons.alertCircle"
-        @confirm="deleteBackup()"
-      >
+      <BaseDialog v-model="deleteDialog" :title="$tc('settings.backup.delete-backup')" color="error"
+        :icon="$globals.icons.alertCircle" @confirm="deleteBackup()">
         <v-card-text>
           {{ $t("general.confirm-delete-generic") }}
         </v-card-text>
       </BaseDialog>
 
       <!-- Import Dialog -->
-      <BaseDialog v-model="importDialog" color="error" :title="$t('settings.backup.backup-restore')" :icon="$globals.icons.database">
+      <BaseDialog v-model="importDialog" color="error" :title="$t('settings.backup.backup-restore')"
+        :icon="$globals.icons.database">
         <v-divider></v-divider>
         <v-card-text>
           <i18n path="settings.backup.back-restore-description">
@@ -27,20 +23,16 @@
           <p class="mt-3">
             <i18n path="settings.backup.postgresql-note">
               <template #backup-restore-process>
-                <a href="https://nightly.mealie.io/documentation/getting-started/usage/backups-and-restoring/" >{{ $t('settings.backup.backup-restore-process-in-the-documentation') }}</a >
+                <a href="https://nightly.mealie.io/documentation/getting-started/usage/backups-and-restoring/">{{
+                  $t('settings.backup.backup-restore-process-in-the-documentation') }}</a>
               </template>
             </i18n>
             {{ $t('') }}
           </p>
 
 
-          <v-checkbox
-            v-model="confirmImport"
-            class="checkbox-top"
-            color="error"
-            hide-details
-            :label="$t('settings.backup.irreversible-acknowledgment')"
-          ></v-checkbox>
+          <v-checkbox v-model="confirmImport" class="checkbox-top" color="error" hide-details
+            :label="$t('settings.backup.irreversible-acknowledgment')"></v-checkbox>
         </v-card-text>
         <v-card-actions class="justify-center pt-0">
           <BaseButton delete :disabled="!confirmImport || runningRestore" @click="restoreBackup(selected)">
@@ -57,49 +49,33 @@
       <section>
         <BaseCardSectionTitle :title="$tc('settings.backup-and-exports')">
           <v-card-text class="py-0 px-1">
-          <i18n path="settings.backup.experimental-description" />
+            <i18n path="settings.backup.experimental-description" />
           </v-card-text>
         </BaseCardSectionTitle>
         <v-toolbar color="transparent" flat class="justify-between">
-        <BaseButton class="mr-2" @click="createBackup"> {{ $t("settings.backup.create-heading") }} </BaseButton>
-        <AppButtonUpload
-                :text-btn="false"
-                url="/api/admin/backups/upload"
-                accept=".zip"
-                color="info"
-                @uploaded="refreshBackups()"
-              />
+          <BaseButton class="mr-2" @click="createBackup"> {{ $t("settings.backup.create-heading") }} </BaseButton>
+          <AppButtonUpload :text-btn="false" url="/api/admin/backups/upload" accept=".zip" color="info"
+            @uploaded="refreshBackups()" />
         </v-toolbar>
 
-        <v-data-table
-          :headers="headers"
-          :items="backups.imports || []"
-          class="elevation-0"
-          hide-default-footer
-          disable-pagination
-          :search="search"
-          @click:row="setSelected"
-        >
+        <v-data-table :headers="headers" :items="backups.imports || []" class="elevation-0" hide-default-footer
+          disable-pagination :search="search" @click:row="setSelected">
           <template #item.date="{ item }">
             {{ $d(Date.parse(item.date), "medium") }}
           </template>
           <template #item.actions="{ item }">
-            <v-btn
-              icon
-              class="mx-1"
-              color="error"
-              @click.stop="
-                deleteDialog = true;
-                deleteTarget = item.name;
-              "
-            >
+            <v-btn icon class="mx-1" color="error" @click.stop="
+              deleteDialog = true;
+            deleteTarget = item.name;
+            ">
               <v-icon> {{ $globals.icons.delete }} </v-icon>
             </v-btn>
-            <BaseButton small download :download-url="backupsFileNameDownload(item.name)" class="mx-1" @click.stop="() => {}"/>
+            <BaseButton small download :download-url="backupsFileNameDownload(item.name)" class="mx-1"
+              @click.stop="() => { }" />
             <BaseButton small @click.stop="setSelected(item); importDialog = true">
               <template #icon> {{ $globals.icons.backupRestore }}</template>
               {{ $t("settings.backup.backup-restore") }}
-          </BaseButton>
+            </BaseButton>
           </template>
         </v-data-table>
         <v-divider></v-divider>
@@ -117,17 +93,17 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, toRefs, useContext, onMounted, useRoute } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
-import { AllBackups } from "~/lib/api/types/admin";
+import type { AllBackups } from "~/lib/api/types/admin";
 import { alert } from "~/composables/use-toast";
 
-export default defineComponent({
+export default defineNuxtComponent({
   layout: "admin",
   setup() {
-    const { i18n, $auth } = useContext();
+    const i18n = useI18n();
+    const { $auth } = useNuxtApp();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
 
     const adminApi = useAdminApi();
     const selected = ref("");
@@ -149,9 +125,9 @@ export default defineComponent({
 
       if (data?.error === false) {
         refreshBackups();
-        alert.success(i18n.tc("settings.backup.backup-created"));
+        alert.success(i18n.t("settings.backup.backup-created"));
       } else {
-        alert.error(i18n.tc("settings.backup.error-creating-backup-see-log-file"));
+        alert.error(i18n.t("settings.backup.error-creating-backup-see-log-file"));
       }
     }
 
@@ -163,9 +139,9 @@ export default defineComponent({
         console.log(error);
         state.importDialog = false;
         state.runningRestore = false;
-        alert.error(i18n.tc("settings.backup.restore-fail"));
+        alert.error(i18n.t("settings.backup.restore-fail"));
       } else {
-        alert.success(i18n.tc("settings.backup.restore-success"));
+        alert.success(i18n.t("settings.backup.restore-success"));
         $auth.logout();
       }
     }
@@ -176,7 +152,7 @@ export default defineComponent({
       const { data } = await adminApi.backups.delete(deleteTarget.value);
 
       if (!data?.error) {
-        alert.success(i18n.tc("settings.backup.backup-deleted"));
+        alert.success(i18n.t("settings.backup.backup-deleted"));
         refreshBackups();
       }
     }

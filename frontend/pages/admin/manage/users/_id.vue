@@ -12,36 +12,15 @@
       <v-card outlined>
         <v-card-text>
           <div class="d-flex">
-            <p> {{ $t("user.user-id-with-value", {id: user.id} ) }}</p>
+            <p> {{ $t("user.user-id-with-value", { id: user.id }) }}</p>
           </div>
           <!-- This is disabled since we can't properly handle changing the user's group in most scenarios -->
-          <v-select
-            v-if="groups"
-            v-model="user.group"
-            disabled
-            :items="groups"
-            rounded
-            class="rounded-lg"
-            item-text="name"
-            item-value="name"
-            :return-object="false"
-            filled
-            :label="$tc('group.user-group')"
-            :rules="[validators.required]"
-          />
-          <v-select
-            v-if="households"
-            v-model="user.household"
-            :items="households"
-            rounded
-            class="rounded-lg"
-            item-text="name"
-            item-value="name"
-            :return-object="false"
-            filled
-            :label="$tc('household.user-household')"
-            :rules="[validators.required]"
-          />
+          <v-select v-if="groups" v-model="user.group" disabled :items="groups" rounded class="rounded-lg"
+            item-text="name" item-value="name" :return-object="false" filled :label="$tc('group.user-group')"
+            :rules="[validators.required]" />
+          <v-select v-if="households" v-model="user.household" :items="households" rounded class="rounded-lg"
+            item-text="name" item-value="name" :return-object="false" filled :label="$tc('household.user-household')"
+            :rules="[validators.required]" />
           <div class="d-flex py-2 pr-2">
             <BaseButton type="button" :loading="generatingToken" create @click.prevent="handlePasswordReset">
               {{ $t("user.generate-password-reset-link") }}
@@ -77,26 +56,26 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useRoute, onMounted, ref, useContext } from "@nuxtjs/composition-api";
+
 import { useAdminApi, useUserApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
 import { alert } from "~/composables/use-toast";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
-import { VForm } from "~/types/vuetify";
-import { UserOut } from "~/lib/api/types/user";
+import type { VForm } from "~/types/vuetify";
+import type { UserOut } from "~/lib/api/types/user";
 
-export default defineComponent({
+export default defineNuxtComponent({
   layout: "admin",
   setup() {
     const { userForm } = useUserForm();
     const { groups } = useGroups();
     const { useHouseholdsInGroup } = useAdminHouseholds();
-    const { i18n } = useContext();
+    const i18n = useI18n();
     const route = useRoute();
 
-    const userId = route.value.params.id;
+    const userId = route.params.id;
 
     // ==============================================
     // New User Form
@@ -121,7 +100,7 @@ export default defineComponent({
       const { data, error } = await adminApi.users.getOne(userId);
 
       if (error?.response?.status === 404) {
-        alert.error(i18n.tc("user.user-not-found"));
+        alert.error(i18n.t("user.user-not-found"));
         userError.value = true;
       }
 
@@ -159,9 +138,9 @@ export default defineComponent({
       if (!user.value?.email) return;
       const { response } = await userApi.email.sendForgotPassword({ email: user.value.email });
       if (response && response.status === 200) {
-        alert.success(i18n.tc("profile.email-sent"));
+        alert.success(i18n.t("profile.email-sent"));
       } else {
-        alert.error(i18n.tc("profile.error-sending-email"));
+        alert.error(i18n.t("profile.error-sending-email"));
       }
     }
 

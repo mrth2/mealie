@@ -21,21 +21,21 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+
 import HouseholdPreferencesEditor from "~/components/Domain/Household/HouseholdPreferencesEditor.vue";
 import { VForm } from "~/types/vuetify";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { ReadHouseholdPreferences } from "~/lib/api/types/household";
 import { alert } from "~/composables/use-toast";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     HouseholdPreferencesEditor,
   },
   middleware: ["auth", "can-manage-household-only"],
   setup() {
     const { household, actions: householdActions } = useHouseholdSelf();
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
 
     const refHouseholdEditForm = ref<VForm | null>(null);
 
@@ -129,9 +129,9 @@ export default defineComponent({
 
       const data = await householdActions.updatePreferences();
       if (data) {
-        alert.success(i18n.tc("settings.settings-updated"));
+        alert.success(i18n.t("settings.settings-updated"));
       } else {
-        alert.error(i18n.tc("settings.settings-update-failed"));
+        alert.error(i18n.t("settings.settings-update-failed"));
       }
     }
 

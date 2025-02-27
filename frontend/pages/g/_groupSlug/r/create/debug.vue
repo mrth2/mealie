@@ -54,12 +54,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, ref, useRouter, computed, useRoute } from "@nuxtjs/composition-api";
 import { useAppInfo, useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { Recipe } from "~/lib/api/types/recipe";
 
-export default defineComponent({
+export default defineNuxtComponent({
   setup() {
     const state = reactive({
       error: false,
@@ -76,11 +75,11 @@ export default defineComponent({
       set(recipe_import_url: string | null) {
         if (recipe_import_url !== null) {
           recipe_import_url = recipe_import_url.trim();
-          router.replace({ query: { ...route.value.query, recipe_import_url } });
+          router.replace({ query: { ...route.query, recipe_import_url } });
         }
       },
       get() {
-        return route.value.query.recipe_import_url as string | null;
+        return route.query.recipe_import_url as string | null;
       },
     });
 

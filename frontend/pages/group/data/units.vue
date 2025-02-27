@@ -237,7 +237,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, useContext } from "@nuxtjs/composition-api";
+
 import type { LocaleObject } from "@nuxtjs/i18n";
 import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
@@ -247,11 +247,11 @@ import { useLocales } from "~/composables/use-locales";
 import { useUnitStore } from "~/composables/store";
 import { VForm } from "~/types/vuetify";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { RecipeDataAliasManagerDialog },
   setup() {
     const userApi = useUserApi();
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
     const tableConfig = {
       hideColumns: true,
       canExport: true,
@@ -298,7 +298,7 @@ export default defineComponent({
         show: true,
       },
       {
-        text: i18n.tc("general.date-added"),
+        text: i18n.t("general.date-added"),
         value: "createdAt",
         show: false,
       },

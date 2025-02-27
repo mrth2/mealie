@@ -106,7 +106,7 @@
   </v-container>
 </template>
 <script lang="ts">
-import { defineComponent, useAsync, reactive, useContext, toRefs } from "@nuxtjs/composition-api";
+
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 import { GroupEventNotifierCreate, GroupEventNotifierOut } from "~/lib/api/types/household";
@@ -123,7 +123,7 @@ interface OptionSection {
   options: OptionKey[];
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   middleware: ["auth", "advanced-only"],
   setup() {
     const api = useUserApi();
@@ -177,12 +177,12 @@ export default defineComponent({
 
     // ===============================================================
     // Options Definitions
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
 
     const optionsSections: OptionSection[] = [
       {
         id: 1,
-        text: i18n.tc("events.recipe-events"),
+        text: i18n.t("events.recipe-events"),
         options: [
           {
             text: i18n.t("general.create") as string,
@@ -200,27 +200,27 @@ export default defineComponent({
       },
       {
         id: 2,
-        text: i18n.tc("events.user-events"),
+        text: i18n.t("events.user-events"),
         options: [
           {
-            text: i18n.tc("events.when-a-new-user-joins-your-group"),
+            text: i18n.t("events.when-a-new-user-joins-your-group"),
             key: "userSignup",
           },
         ],
       },
       {
         id: 3,
-        text: i18n.tc("events.mealplan-events"),
+        text: i18n.t("events.mealplan-events"),
         options: [
           {
-            text: i18n.tc("events.when-a-user-in-your-group-creates-a-new-mealplan"),
+            text: i18n.t("events.when-a-user-in-your-group-creates-a-new-mealplan"),
             key: "mealplanEntryCreated",
           },
         ],
       },
       {
         id: 4,
-        text: i18n.tc("events.shopping-list-events"),
+        text: i18n.t("events.shopping-list-events"),
         options: [
           {
             text: i18n.t("general.create") as string,
@@ -238,7 +238,7 @@ export default defineComponent({
       },
       {
         id: 5,
-        text: i18n.tc("events.cookbook-events"),
+        text: i18n.t("events.cookbook-events"),
         options: [
           {
             text: i18n.t("general.create") as string,
@@ -256,7 +256,7 @@ export default defineComponent({
       },
       {
         id: 6,
-        text: i18n.tc("events.tag-events"),
+        text: i18n.t("events.tag-events"),
         options: [
           {
             text: i18n.t("general.create") as string,
@@ -274,7 +274,7 @@ export default defineComponent({
       },
       {
         id: 7,
-        text: i18n.tc("events.category-events"),
+        text: i18n.t("events.category-events"),
         options: [
           {
             text: i18n.t("general.create") as string,

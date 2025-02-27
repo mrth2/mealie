@@ -3,9 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, useRouter } from "@nuxtjs/composition-api";
-
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     value: {
       type: Boolean,

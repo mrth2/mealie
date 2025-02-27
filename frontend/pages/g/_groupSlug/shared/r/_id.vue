@@ -6,44 +6,34 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, useAsync, useContext, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
+<script setup lang="ts">
 import RecipePage from "~/components/Domain/Recipe/RecipePage/RecipePage.vue";
 import { usePublicApi } from "~/composables/api/api-client";
 
-export default defineComponent({
-  components: { RecipePage },
-  layout: "basic",
-  setup() {
-    const { $auth } = useContext();
-    const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+setPageLayout('basic');
 
-    const router = useRouter();
-    const recipeId = route.value.params.id;
-    const api = usePublicApi();
+const { $auth } = useNuxtApp();
+const route = useRoute();
+const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
 
-    const { title } = useMeta();
+const router = useRouter();
+const recipeId = route.params.id as string;
+const api = usePublicApi();
 
-    const recipe = useAsync(async () => {
-      const { data, error } = await api.shared.getShared(recipeId);
+const title = ref(route.meta.title);
 
-      if (error) {
-        console.error("error loading recipe -> ", error);
-        router.push(`/g/${groupSlug.value}`);
-      }
+const { data: recipe } = await useAsyncData('recipe', async () => {
+  const { data, error } = await api.shared.getShared(recipeId);
 
-      if (data) {
-        title.value = data?.name || "";
-      }
+  if (error) {
+    console.error("error loading recipe -> ", error);
+    router.push(`/g/${groupSlug.value}`);
+  }
 
-      return data;
-    });
+  if (data) {
+    title.value = data?.name || "";
+  }
 
-    return {
-      recipe,
-    };
-  },
-  head: {},
+  return data;
 });
 </script>

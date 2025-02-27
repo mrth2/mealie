@@ -94,14 +94,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, useContext } from "@nuxtjs/composition-api";
+
 import { validators } from "~/composables/use-validators";
 import { useTagStore, useTagData } from "~/composables/store";
 import { RecipeTag } from "~/lib/api/types/admin";
 
-export default defineComponent({
+export default defineNuxtComponent({
   setup() {
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
     const tableConfig = {
       hideColumns: true,
       canExport: true,

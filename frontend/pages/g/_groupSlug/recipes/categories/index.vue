@@ -14,11 +14,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+
 import RecipeOrganizerPage from "~/components/Domain/Recipe/RecipeOrganizerPage.vue";
 import { useCategoryStore } from "~/composables/store";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     RecipeOrganizerPage,
   },

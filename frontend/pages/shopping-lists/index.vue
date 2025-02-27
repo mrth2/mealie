@@ -7,25 +7,14 @@
     </BaseDialog>
 
     <!-- Settings -->
-    <BaseDialog
-        v-model="ownerDialog"
-        :icon="$globals.icons.admin"
-        :title="$t('user.edit-user')"
-        @confirm="updateOwner"
-      >
-        <v-container>
-          <v-form>
-            <v-select
-              v-model="updateUserId"
-              :items="allUsers"
-              item-text="fullName"
-              item-value="id"
-              :label="$t('general.owner')"
-              :prepend-icon="$globals.icons.user"
-            />
-          </v-form>
-        </v-container>
-      </BaseDialog>
+    <BaseDialog v-model="ownerDialog" :icon="$globals.icons.admin" :title="$t('user.edit-user')" @confirm="updateOwner">
+      <v-container>
+        <v-form>
+          <v-select v-model="updateUserId" :items="allUsers" item-text="fullName" item-value="id"
+            :label="$t('general.owner')" :prepend-icon="$globals.icons.user" />
+        </v-form>
+      </v-container>
+    </BaseDialog>
 
     <BaseDialog v-model="deleteDialog" :title="$tc('general.confirm')" color="error" @confirm="deleteOne">
       <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-delete-this-item') }}</v-card-text>
@@ -38,7 +27,8 @@
     </BasePageTitle>
 
     <v-container class="d-flex justify-end px-0 pt-0 pb-4">
-      <v-checkbox v-model="preferences.viewAllLists" hide-details :label="$tc('general.show-all')" class="my-auto mr-4" />
+      <v-checkbox v-model="preferences.viewAllLists" hide-details :label="$tc('general.show-all')"
+        class="my-auto mr-4" />
       <BaseButton create @click="createDialog = true" />
     </v-container>
 
@@ -49,12 +39,8 @@
     </v-container>
 
     <section>
-      <v-card
-        v-for="list in shoppingListChoices"
-        :key="list.id"
-        class="my-2 left-border"
-        :to="`/shopping-lists/${list.id}`"
-      >
+      <v-card v-for="list in shoppingListChoices" :key="list.id" class="my-2 left-border"
+        :to="`/shopping-lists/${list.id}`">
         <v-card-title>
           <v-icon left>
             {{ $globals.icons.cartCheck }}
@@ -81,24 +67,23 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useAsync, useContext, reactive, ref, toRefs, useRoute, useRouter, watch } from "@nuxtjs/composition-api";
-import { ShoppingListOut } from "~/lib/api/types/household";
+import type { ShoppingListOut } from "~/lib/api/types/household";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
-import { UserOut } from "~/lib/api/types/user";
+import type { UserOut } from "~/lib/api/types/user";
 
-export default defineComponent({
+export default defineNuxtComponent({
   middleware: "auth",
   setup() {
-    const { $auth } = useContext();
+    const { $auth } = useNuxtApp();
     const ready = ref(false);
     const userApi = useUserApi();
     const route = useRoute();
     const router = useRouter();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
     const overrideDisableRedirect = ref(false);
-    const disableRedirect = computed(() => route.value.query.disableRedirect === "true" || overrideDisableRedirect.value);
+    const disableRedirect = computed(() => route.query.disableRedirect === "true" || overrideDisableRedirect.value);
     const preferences = useShoppingListPreferences();
 
     const state = reactive({
@@ -110,9 +95,9 @@ export default defineComponent({
       ownerTarget: ref<ShoppingListOut | null>(null),
     });
 
-    const shoppingLists = useAsync(async () => {
+    const { data: shoppingLists } = useAsyncData(useAsyncKey(), async () => {
       return await fetchShoppingLists();
-    }, useAsyncKey());
+    });
 
     const shoppingListChoices = computed(() => {
       if (!shoppingLists.value) {
@@ -206,7 +191,7 @@ export default defineComponent({
       }
       const { data } = await userApi.shopping.lists.updateOne(
         state.ownerTarget.id,
-        {...fullList, userId: updateUserId.value},
+        { ...fullList, userId: updateUserId.value },
       );
 
       if (data) {

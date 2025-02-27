@@ -135,7 +135,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext, computed, reactive, useRouter, useAsync, onBeforeMount } from "@nuxtjs/composition-api";
+
 import { useDark, whenever } from "@vueuse/core";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useAppInfo } from "~/composables/api";
@@ -144,14 +144,14 @@ import { alert } from "~/composables/use-toast";
 import { useAsyncKey } from "~/composables/use-utils";
 import { AppStartupInfo } from "~/lib/api/types/admin";
 
-export default defineComponent({
+export default defineNuxtComponent({
   layout: "blank",
 
   setup() {
     const isDark = useDark();
 
     const router = useRouter();
-    const { $auth, i18n, $axios } = useContext();
+    const { $auth, i18n, $axios } = useNuxtApp();
     const { loggedIn } = useLoggedInState();
     const groupSlug = computed(() => $auth.user?.groupSlug);
     const isDemo = ref(false);

@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+
 import RecipeOrganizerPage from "~/components/Domain/Recipe/RecipeOrganizerPage.vue";
 import { useToolStore } from "~/composables/store";
 import { RecipeTool } from "~/lib/api/types/recipe";
@@ -23,13 +23,13 @@ interface RecipeToolWithOnHand extends RecipeTool {
   onHand: boolean;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     RecipeOrganizerPage,
   },
   middleware: ["auth", "group-only"],
   setup() {
-    const { $auth } = useContext();
+    const { $auth } = useNuxtApp();
     const toolStore = useToolStore();
     const dialog = ref(false);
 

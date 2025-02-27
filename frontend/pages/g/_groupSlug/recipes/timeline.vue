@@ -11,11 +11,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
+
 import { useUserApi } from "~/composables/api";
 import RecipeTimeline from "~/components/Domain/Recipe/RecipeTimeline.vue";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { RecipeTimeline },
   middleware: ["auth", "group-only"],
   setup() {

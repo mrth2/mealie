@@ -3,14 +3,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useAsync, useContext, useRouter } from "@nuxtjs/composition-api";
+
 import { useAsyncKey } from "~/composables/use-utils";
 import { AppInfo, AppStartupInfo } from "~/lib/api/types/admin";
 
-export default defineComponent({
+export default defineNuxtComponent({
   layout: "blank",
   setup() {
-    const { $auth, $axios } = useContext();
+    const { $auth, $axios } = useNuxtApp();
     const router = useRouter();
     const groupSlug = computed(() => $auth.user?.groupSlug);
 

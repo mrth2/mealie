@@ -34,10 +34,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive, useContext } from "@nuxtjs/composition-api";
+
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-export default defineComponent({
+export default defineNuxtComponent({
   layout: "basic",
 
   setup() {
@@ -47,7 +47,7 @@ export default defineComponent({
       error: false,
     });
 
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
     const api = useUserApi();
 
     async function requestLink() {
@@ -58,11 +58,11 @@ export default defineComponent({
       if (response?.status === 200) {
         state.loading = false;
         state.error = false;
-        alert.success(i18n.tc("profile.email-sent"));
+        alert.success(i18n.t("profile.email-sent"));
       } else {
         state.loading = false;
         state.error = true;
-        alert.error(i18n.tc("profile.error-sending-email"));
+        alert.error(i18n.t("profile.error-sending-email"));
       }
     }
 

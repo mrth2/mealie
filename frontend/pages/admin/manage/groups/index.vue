@@ -76,15 +76,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
+
 import { fieldTypes } from "~/composables/forms";
 import { useGroups } from "~/composables/use-groups";
 import { GroupInDB } from "~/lib/api/types/user";
 
-export default defineComponent({
+export default defineNuxtComponent({
   layout: "admin",
   setup() {
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
     const { groups, refreshAllGroups, deleteGroup, createGroup } = useGroups();
 
     const state = reactive({

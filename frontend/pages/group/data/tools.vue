@@ -101,7 +101,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, useContext } from "@nuxtjs/composition-api";
+
 import { validators } from "~/composables/use-validators";
 import { useToolStore, useToolData } from "~/composables/store";
 import { RecipeTool } from "~/lib/api/types/recipe";
@@ -110,9 +110,9 @@ interface RecipeToolWithOnHand extends RecipeTool {
   onHand: boolean;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   setup() {
-    const { $auth, i18n } = useContext();
+    const { $auth, i18n } = useNuxtApp();
     const tableConfig = {
       hideColumns: true,
       canExport: true,

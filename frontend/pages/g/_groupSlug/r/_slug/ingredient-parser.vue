@@ -16,11 +16,7 @@
         </div>
         <div class="d-flex align-center mb-n4">
           <div class="mb-4">{{ $tc("recipe.parser.select-parser") }}</div>
-          <BaseOverflowButton
-            v-model="parser"
-            btn-class="mx-2 mb-4"
-            :items="availableParsers"
-          />
+          <BaseOverflowButton v-model="parser" btn-class="mx-2 mb-4" :items="availableParsers" />
         </div>
       </BaseCardSectionTitle>
 
@@ -34,23 +30,12 @@
       </div>
 
       <div v-if="parserLoading">
-        <AppLoader
-          v-if="parserLoading"
-          :loading="parserLoading"
-          waiting-text=""
-        />
+        <AppLoader v-if="parserLoading" :loading="parserLoading" waiting-text="" />
       </div>
       <div v-else>
         <v-expansion-panels v-model="panels" multiple>
-          <draggable
-            v-if="parsedIng.length > 0"
-            v-model="parsedIng"
-            handle=".handle"
-            delay="250"
-            :delay-on-touch-only="true"
-            :style="{ width: '100%' }"
-            ghost-class="ghost"
-          >
+          <draggable v-if="parsedIng.length > 0" v-model="parsedIng" handle=".handle" delay="250"
+            :delay-on-touch-only="true" :style="{ width: '100%' }" ghost-class="ghost">
             <v-expansion-panel v-for="(ing, index) in parsedIng" :key="index">
               <v-expansion-panel-header class="my-0 py-0" disable-icon-rotate>
                 <template #default="{ open }">
@@ -68,24 +53,17 @@
                 </template>
               </v-expansion-panel-header>
               <v-expansion-panel-content class="pb-0 mb-0">
-                <RecipeIngredientEditor v-model="parsedIng[index].ingredient" allow-insert-ingredient @insert-ingredient="insertIngredient(index)"  @delete="deleteIngredient(index)" />
+                <RecipeIngredientEditor v-model="parsedIng[index].ingredient" allow-insert-ingredient
+                  @insert-ingredient="insertIngredient(index)" @delete="deleteIngredient(index)" />
                 {{ ing.input }}
                 <v-card-actions>
                   <v-spacer />
-                  <BaseButton
-                    v-if="errors[index].unitError && errors[index].unitErrorMessage !== ''"
-                    color="warning"
-                    small
-                    @click="createUnit(ing.ingredient.unit, index)"
-                  >
+                  <BaseButton v-if="errors[index].unitError && errors[index].unitErrorMessage !== ''" color="warning"
+                    small @click="createUnit(ing.ingredient.unit, index)">
                     {{ errors[index].unitErrorMessage }}
                   </BaseButton>
-                  <BaseButton
-                    v-if="errors[index].foodError && errors[index].foodErrorMessage !== ''"
-                    color="warning"
-                    small
-                    @click="createFood(ing.ingredient.food, index)"
-                  >
+                  <BaseButton v-if="errors[index].foodError && errors[index].foodErrorMessage !== ''" color="warning"
+                    small @click="createFood(ing.ingredient.food, index)">
                     {{ errors[index].foodErrorMessage }}
                   </BaseButton>
                 </v-card-actions>
@@ -99,7 +77,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext, useRoute, useRouter, watch } from "@nuxtjs/composition-api";
+
 import { invoke, until } from "@vueuse/core";
 import draggable from "vuedraggable";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
@@ -127,21 +105,22 @@ interface Error {
   foodErrorMessage: string;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     RecipeIngredientEditor,
     draggable
   },
   middleware: ["auth", "group-only"],
   setup() {
-    const { $auth, i18n } = useContext();
+    const i18n = useI18n();
+    const { $auth } = useNuxtApp();
     const panels = ref<number[]>([]);
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
 
     const router = useRouter();
-    const slug = route.value.params.slug;
+    const slug = route.params.slug as string;
     const api = useUserApi();
     const appInfo = useAppInfo();
 
@@ -159,15 +138,15 @@ export default defineComponent({
     const availableParsers = computed(() => {
       return [
         {
-          "text": i18n.tc("recipe.parser.natural-language-processor"),
+          "text": i18n.t("recipe.parser.natural-language-processor"),
           "value": "nlp",
         },
         {
-          "text": i18n.tc("recipe.parser.brute-parser"),
+          "text": i18n.t("recipe.parser.brute-parser"),
           "value": "brute",
         },
         {
-          "text": i18n.tc("recipe.parser.openai-parser"),
+          "text": i18n.t("recipe.parser.openai-parser"),
           "value": "openai",
           "hide": !appInfo.value?.enableOpenai,
         },
@@ -193,14 +172,14 @@ export default defineComponent({
       if (unitError || foodError) {
         if (unitError) {
           if (ing?.ingredient?.unit?.name) {
-            const unit = ing.ingredient.unit.name || i18n.tc("recipe.parser.no-unit");
+            const unit = ing.ingredient.unit.name || i18n.t("recipe.parser.no-unit");
             unitErrorMessage = i18n.t("recipe.parser.missing-unit", { unit }).toString();
           }
         }
 
         if (foodError) {
           if (ing?.ingredient?.food?.name) {
-            const food = ing.ingredient.food.name || i18n.tc("recipe.parser.no-food");
+            const food = ing.ingredient.food.name || i18n.t("recipe.parser.no-food");
             foodErrorMessage = i18n.t("recipe.parser.missing-food", { food }).toString();
           }
         }

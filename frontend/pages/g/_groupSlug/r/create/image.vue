@@ -8,24 +8,11 @@
           <v-container class="pa-0">
             <v-row>
               <v-col cols="auto" align-self="center">
-                <AppButtonUpload
-                  v-if="!uploadedImage"
-                  class="ml-auto"
-                  url="none"
-                  file-name="image"
-                  accept="image/*"
-                  :text="$i18n.tc('recipe.upload-image')"
-                  :text-btn="false"
-                  :post="false"
-                  @uploaded="uploadImage"
-                />
-                <v-btn
-                  v-if="!!uploadedImage"
-                  color="error"
-                  @click="clearImage"
-                >
+                <AppButtonUpload v-if="!uploadedImage" class="ml-auto" url="none" file-name="image" accept="image/*"
+                  :text="$t('recipe.upload-image')" :text-btn="false" :post="false" @uploaded="uploadImage" />
+                <v-btn v-if="!!uploadedImage" color="error" @click="clearImage">
                   <v-icon left>{{ $globals.icons.close }}</v-icon>
-                  {{ $i18n.tc('recipe.remove-image') }}
+                  {{ $t('recipe.remove-image') }}
                 </v-btn>
               </v-col>
               <v-spacer />
@@ -44,12 +31,8 @@
               <v-row style="max-width: 600px;">
                 <v-spacer />
                 <v-col cols="12">
-                  <ImageCropper
-                    :img="uploadedImagePreviewUrl"
-                    cropper-height="50vh"
-                    cropper-width="100%"
-                    @save="updateUploadedImage"
-                  />
+                  <ImageCropper :img="uploadedImagePreviewUrl" cropper-height="50vh" cropper-width="100%"
+                    @save="updateUploadedImage" />
                 </v-col>
                 <v-spacer />
               </v-row>
@@ -62,12 +45,8 @@
               <BaseButton rounded block type="submit" :loading="loading" />
             </p>
             <p>
-              <v-checkbox
-                v-model="shouldTranslate"
-                hide-details
-                :label="$t('recipe.should-translate-description')"
-                :disabled="loading"
-              />
+              <v-checkbox v-model="shouldTranslate" hide-details :label="$t('recipe.should-translate-description')"
+                :disabled="loading" />
             </p>
             <p v-if="loading" class="mb-0">
               {{ $t('recipe.please-wait-image-procesing') }}
@@ -80,31 +59,21 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  reactive,
-  ref,
-  toRefs,
-  useContext,
-  useRoute,
-  useRouter,
-} from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-import { VForm } from "~/types/vuetify";
+import type { VForm } from "~/types/vuetify";
 
-export default defineComponent({
+export default defineNuxtComponent({
   setup() {
     const state = reactive({
       loading: false,
     });
 
-    const { i18n } = useContext();
+    const i18n = useI18n();
     const api = useUserApi();
     const route = useRoute();
     const router = useRouter();
-    const groupSlug = computed(() => route.value.params.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || "");
 
     const domUrlForm = ref<VForm | null>(null);
     const uploadedImage = ref<Blob | File>();
@@ -138,7 +107,7 @@ export default defineComponent({
       const translateLanguage = shouldTranslate.value ? i18n.locale : undefined;
       const { data, error } = await api.recipes.createOneFromImage(uploadedImage.value, uploadedImageName.value, translateLanguage);
       if (error || !data) {
-        alert.error(i18n.tc("events.something-went-wrong"));
+        alert.error(i18n.t("events.something-went-wrong"));
         state.loading = false;
       } else {
         router.push(`/g/${groupSlug.value}/r/${data}`);

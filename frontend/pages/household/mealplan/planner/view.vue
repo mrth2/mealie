@@ -51,14 +51,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+
 import { MealsByDate } from "./types";
 import { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 import GroupMealPlanDayContextMenu from "~/components/Domain/Household/GroupMealPlanDayContextMenu.vue";
 import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
 import { RecipeSummary } from "~/lib/api/types/recipe";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     GroupMealPlanDayContextMenu,
     RecipeCardMobile,
@@ -81,17 +81,17 @@ export default defineComponent({
       recipes: RecipeSummary[];
     };
 
-  const { i18n } = useContext();
+  const { i18n } = useNuxtApp();
 
     const plan = computed<Days[]>(() => {
       return props.mealplans.reduce((acc, day) => {
         const out: Days = {
           date: day.date,
           sections: [
-            { title: i18n.tc("meal-plan.breakfast"), meals: [] },
-            { title: i18n.tc("meal-plan.lunch"), meals: [] },
-            { title: i18n.tc("meal-plan.dinner"), meals: [] },
-            { title: i18n.tc("meal-plan.side"), meals: [] },
+            { title: i18n.t("meal-plan.breakfast"), meals: [] },
+            { title: i18n.t("meal-plan.lunch"), meals: [] },
+            { title: i18n.t("meal-plan.dinner"), meals: [] },
+            { title: i18n.t("meal-plan.side"), meals: [] },
           ],
           recipes: [],
         };

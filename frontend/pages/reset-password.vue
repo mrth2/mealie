@@ -67,12 +67,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive, useContext } from "@nuxtjs/composition-api";
+
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { validators } from "@/composables/use-validators";
 import { useRouteQuery } from "~/composables/use-router";
-export default defineComponent({
+export default defineNuxtComponent({
   layout: "basic",
 
   setup() {
@@ -84,8 +84,8 @@ export default defineComponent({
       error: false,
     });
 
-    const { i18n } = useContext();
-    const passwordMatch = () => state.password === state.passwordConfirm || i18n.tc("user.password-must-match");
+    const { i18n } = useNuxtApp();
+    const passwordMatch = () => state.password === state.passwordConfirm || i18n.t("user.password-must-match");
 
     // ===================
     // Token Getter
@@ -109,11 +109,11 @@ export default defineComponent({
       if (response?.status === 200) {
         state.loading = false;
         state.error = false;
-        alert.success(i18n.tc("user.password-updated"));
+        alert.success(i18n.t("user.password-updated"));
       } else {
         state.loading = false;
         state.error = true;
-        alert.error(i18n.tc("events.something-went-wrong"));
+        alert.error(i18n.t("events.something-went-wrong"));
       }
     }
 

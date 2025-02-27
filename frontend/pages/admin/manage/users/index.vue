@@ -68,14 +68,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs, useContext, useRouter, computed } from "@nuxtjs/composition-api";
+
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useUser, useAllUsers } from "~/composables/use-user";
 import { UserOut } from "~/lib/api/types/user";
 import UserInviteDialog from "~/components/Domain/User/UserInviteDialog.vue";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     UserInviteDialog,
   },
@@ -84,11 +84,11 @@ export default defineComponent({
     const api = useAdminApi();
     const refUserDialog = ref();
     const inviteDialog = ref();
-    const { $auth } = useContext();
+    const { $auth } = useNuxtApp();
 
     const user = computed(() => $auth.user);
 
-    const { $globals, i18n } = useContext();
+    const { $globals, i18n } = useNuxtApp();
 
     const router = useRouter();
 

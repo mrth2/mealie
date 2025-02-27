@@ -311,29 +311,18 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  onMounted,
-  reactive,
-  ref,
-  toRefs,
-  useContext,
-  useRoute,
-  watch
-} from "@nuxtjs/composition-api";
 import { watchDebounced } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useFoodStore, usePublicFoodStore, useToolStore, usePublicToolStore } from "~/composables/store";
-import { IngredientFood, RecipeSuggestionQuery, RecipeSuggestionResponseItem, RecipeTool } from "~/lib/api/types/recipe";
+import type { IngredientFood, RecipeSuggestionQuery, RecipeSuggestionResponseItem, RecipeTool } from "~/lib/api/types/recipe";
 import { Organizer } from "~/lib/api/types/non-generated";
 import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
 import RecipeSuggestion from "~/components/Domain/Recipe/RecipeSuggestion.vue";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
-import { QueryFilterJSON } from "~/lib/api/types/response";
-import { FieldDefinition } from "~/composables/use-query-filter-builder";
+import type { QueryFilterJSON } from "~/lib/api/types/response";
+import type { FieldDefinition } from "~/composables/use-query-filter-builder";
 import { useRecipeFinderPreferences } from "~/composables/use-users/preferences";
 
 interface RecipeSuggestions {
@@ -341,14 +330,15 @@ interface RecipeSuggestions {
   missingItems: RecipeSuggestionResponseItem[];
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { QueryFilterBuilder, RecipeSuggestion, SearchFilter },
   setup() {
-    const { $auth, $vuetify, i18n } = useContext();
+    const i18n = useI18n();
+    const { $auth, $vuetify } = useNuxtApp();
     const route = useRoute();
     const useMobile = computed(() => $vuetify.breakpoint.smAndDown);
 
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
     const { isOwnGroup } = useLoggedInState();
     const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
 
@@ -548,17 +538,17 @@ export default defineComponent({
     const queryFilterBuilderFields: FieldDefinition[] = [
       {
         name: "recipe_category.id",
-        label: i18n.tc("category.categories"),
+        label: i18n.t("category.categories"),
         type: Organizer.Category,
       },
       {
         name: "tags.id",
-        label: i18n.tc("tag.tags"),
+        label: i18n.t("tag.tags"),
         type: Organizer.Tag,
       },
       {
         name: "household_id",
-        label: i18n.tc("household.households"),
+        label: i18n.t("household.households"),
         type: Organizer.Household,
       },
     ];

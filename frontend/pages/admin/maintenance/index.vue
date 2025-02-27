@@ -84,11 +84,11 @@
 </template>
 
 <script lang="ts">
-import { computed, ref, defineComponent, reactive, useContext } from "@nuxtjs/composition-api";
+
 import { useAdminApi } from "~/composables/api";
 import { MaintenanceStorageDetails, MaintenanceSummary } from "~/lib/api/types/admin";
 
-export default defineComponent({
+export default defineNuxtComponent({
   layout: "admin",
   setup() {
     const state = reactive({
@@ -99,13 +99,13 @@ export default defineComponent({
     });
 
     const adminApi = useAdminApi();
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
 
     // ==========================================================================
     // General Info
 
     const infoResults = ref<MaintenanceSummary>({
-      dataDirSize: i18n.tc("about.unknown-version"),
+      dataDirSize: i18n.t("about.unknown-version"),
       cleanableDirs: 0,
       cleanableImages: 0,
     });
@@ -115,7 +115,7 @@ export default defineComponent({
       const { data } = await adminApi.maintenance.getInfo();
 
       infoResults.value = data ?? {
-        dataDirSize: i18n.tc("about.unknown-version"),
+        dataDirSize: i18n.t("about.unknown-version"),
         cleanableDirs: 0,
         cleanableImages: 0,
       };
@@ -152,7 +152,7 @@ export default defineComponent({
     };
 
     function storageDetailsText(key: string) {
-      return storageTitles[key] ?? i18n.tc("about.unknown-version");
+      return storageTitles[key] ?? i18n.t("about.unknown-version");
     }
 
     const storageDetails = ref<MaintenanceStorageDetails | null>(null);

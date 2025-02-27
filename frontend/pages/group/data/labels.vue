@@ -139,7 +139,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref, useContext } from "@nuxtjs/composition-api";
+
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
@@ -148,11 +148,11 @@ import { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import { useLocales } from "~/composables/use-locales";
 import { useLabelData, useLabelStore } from "~/composables/store";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { MultiPurposeLabel },
   setup() {
     const userApi = useUserApi();
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
     const tableConfig = {
       hideColumns: true,
       canExport: true,

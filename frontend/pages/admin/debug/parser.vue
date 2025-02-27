@@ -63,7 +63,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
+
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
 import { IngredientConfidence } from "~/lib/api/types/recipe";
@@ -71,7 +71,7 @@ import { Parser } from "~/lib/api/user/recipes/recipe";
 
 type ConfidenceAttribute = "average" | "comment" | "name" | "unit" | "quantity" | "food";
 
-export default defineComponent({
+export default defineNuxtComponent({
   layout: "admin",
   setup() {
     const api = useUserApi();
@@ -83,7 +83,7 @@ export default defineComponent({
       parser: "nlp" as Parser,
     });
 
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
 
     const confidence = ref<IngredientConfidence>({});
 

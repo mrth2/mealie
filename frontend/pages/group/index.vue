@@ -30,10 +30,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+
 import { useGroupSelf } from "~/composables/use-groups";
 
-export default defineComponent({
+export default defineNuxtComponent({
   middleware: ["auth", "can-manage-only"],
   setup() {
     const { group, actions: groupActions } = useGroupSelf();

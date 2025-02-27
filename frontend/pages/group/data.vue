@@ -27,9 +27,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
-
-export default defineComponent({
+export default defineNuxtComponent({
   middleware: ["auth", "can-organize-only"],
   props: {
     value: {
@@ -38,67 +36,67 @@ export default defineComponent({
     },
   },
   setup() {
-    const { i18n } = useContext();
+    const i18n = useI18n();
     const buttonLookup: { [key: string]: string } = {
-      recipes: i18n.tc("general.recipes"),
-      recipeActions: i18n.tc("recipe.recipe-actions"),
-      foods: i18n.tc("general.foods"),
-      units: i18n.tc("general.units"),
-      labels: i18n.tc("data-pages.labels.labels"),
-      categories: i18n.tc("category.categories"),
-      tags: i18n.tc("tag.tags"),
-      tools: i18n.tc("tool.tools"),
+      recipes: i18n.t("general.recipes"),
+      recipeActions: i18n.t("recipe.recipe-actions"),
+      foods: i18n.t("general.foods"),
+      units: i18n.t("general.units"),
+      labels: i18n.t("data-pages.labels.labels"),
+      categories: i18n.t("category.categories"),
+      tags: i18n.t("tag.tags"),
+      tools: i18n.t("tool.tools"),
     };
 
     const route = useRoute();
 
     const DATA_TYPE_OPTIONS = computed(() => [
       {
-        text: i18n.tc("general.recipes"),
+        text: i18n.t("general.recipes"),
         value: "new",
         to: "/group/data/recipes",
       },
       {
-        text: i18n.tc("recipe.recipe-actions"),
+        text: i18n.t("recipe.recipe-actions"),
         value: "new",
         to: "/group/data/recipe-actions",
         divider: true,
       },
       {
-        text: i18n.tc("general.foods"),
+        text: i18n.t("general.foods"),
         value: "url",
         to: "/group/data/foods",
       },
       {
-        text: i18n.tc("general.units"),
+        text: i18n.t("general.units"),
         value: "new",
         to: "/group/data/units",
       },
       {
-        text: i18n.tc("data-pages.labels.labels"),
+        text: i18n.t("data-pages.labels.labels"),
         value: "new",
         to: "/group/data/labels",
         divider: true,
       },
       {
-        text: i18n.tc("category.categories"),
+        text: i18n.t("category.categories"),
         value: "new",
         to: "/group/data/categories",
       },
       {
-        text: i18n.tc("tag.tags"),
+        text: i18n.t("tag.tags"),
         value: "new",
         to: "/group/data/tags",
       },
       {
-        text: i18n.tc("tool.tools"),
+        text: i18n.t("tool.tools"),
         value: "new",
         to: "/group/data/tools",
       }
     ]);
 
     const buttonText = computed(() => {
-      const last = route.value.path
+      const last = route.path
         .split("/")
         .pop()
         // convert hypenated-values to camelCase
@@ -110,7 +108,7 @@ export default defineComponent({
         return buttonLookup[last];
       }
 
-      return i18n.tc("data-pages.select-data");
+      return i18n.t("data-pages.select-data");
     });
 
     return {

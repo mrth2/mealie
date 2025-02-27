@@ -64,14 +64,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext, ref } from "@nuxtjs/composition-api";
+
 import { useUserApi } from "~/composables/api";
 import { VForm } from "~/types/vuetify";
 
-export default defineComponent({
+export default defineNuxtComponent({
   middleware: ["auth", "advanced-only"],
   setup() {
-    const nuxtContext = useContext();
+    const nuxtContext = useNuxtApp();
 
     const user = computed(() => {
       return nuxtContext.$auth.user;

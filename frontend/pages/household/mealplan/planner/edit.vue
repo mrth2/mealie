@@ -224,7 +224,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, reactive, ref, watch, onMounted, useContext } from "@nuxtjs/composition-api";
+
 import { format } from "date-fns";
 import { SortableEvent } from "sortablejs";
 import draggable from "vuedraggable";
@@ -236,7 +236,7 @@ import { useUserApi } from "~/composables/api";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     draggable,
     RecipeCardImage,
@@ -253,7 +253,7 @@ export default defineComponent({
   },
   setup(props) {
     const api = useUserApi();
-    const { $auth } = useContext();
+    const { $auth } = useNuxtApp();
     const { household } = useHouseholdSelf();
     const requiredRule = (value: any) => !!value || "Required."
 
