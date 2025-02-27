@@ -78,13 +78,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, useContext } from "@nuxtjs/composition-api";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { detectServerBaseUrl } from "~/composables/use-utils";
-import { RecipeAsset } from "~/lib/api/types/recipe";
+import type { RecipeAsset } from "~/lib/api/types/recipe";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     slug: {
       type: String,
@@ -115,7 +114,8 @@ export default defineComponent({
       },
     });
 
-    const { $globals, i18n, req } = useContext();
+    const i18n = useI18n();
+    const { $globals, req } = useNuxtApp();
 
     const iconOptions = [
       {

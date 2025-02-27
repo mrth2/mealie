@@ -28,11 +28,11 @@ dense :value="value[key]" :label="labels[key].label" :suffix="labels[key].suffix
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+
 import { useNutritionLabels } from "~/composables/recipes";
 import { Nutrition } from "~/lib/api/types/recipe";
 import { NutritionLabelType } from "~/composables/recipes/use-recipe-nutrition";
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     value: {
       type: Object as () => Nutrition,

@@ -71,7 +71,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
+
 import { useDark } from "@vueuse/core";
 import { validators } from "~/composables/use-validators";
 import { useUserRegistrationForm } from "~/composables/use-users/user-registration-form";
@@ -85,7 +85,7 @@ const inputAttrs = {
   class: "rounded-lg",
 };
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { UserPasswordStrength },
   layout: "blank",
   setup() {

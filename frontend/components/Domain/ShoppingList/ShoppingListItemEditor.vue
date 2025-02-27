@@ -116,13 +116,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watch } from "@nuxtjs/composition-api";
+
 import { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/household";
 import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     value: {
       type: Object as () => ShoppingListItemCreate | ShoppingListItemOut,

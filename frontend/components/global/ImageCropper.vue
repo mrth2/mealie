@@ -32,12 +32,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+
 
 import { Cropper } from "vue-advanced-cropper";
 import "vue-advanced-cropper/dist/style.css";
 
-export default defineComponent({
+export default defineNuxtComponent({
 	components: { Cropper },
     props: {
         img: {
@@ -55,7 +55,7 @@ export default defineComponent({
     },
     setup(_, context) {
         const cropper = ref<Cropper>();
-        const { $globals } = useContext();
+        const { $globals } = useNuxtApp();
 
         interface Control {
             color: string;

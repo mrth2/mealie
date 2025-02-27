@@ -121,12 +121,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
+
 import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
 import { validators } from "~/composables/use-validators";
 import { RecipeIngredient } from "~/lib/api/types/recipe";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     value: {
       type: Object as () => RecipeIngredient,
@@ -142,27 +142,27 @@ export default defineComponent({
     }
   },
   setup(props, { listeners }) {
-    const { i18n, $globals } = useContext();
+    const { i18n, $globals } = useNuxtApp();
 
     const contextMenuOptions = computed(() => {
       const options = [
         {
-          text: i18n.tc("recipe.toggle-section"),
+          text: i18n.t("recipe.toggle-section"),
           event: "toggle-section",
         },
         {
-          text: i18n.tc("recipe.insert-above"),
+          text: i18n.t("recipe.insert-above"),
           event: "insert-above",
         },
         {
-          text: i18n.tc("recipe.insert-below"),
+          text: i18n.t("recipe.insert-below"),
           event: "insert-below",
         },
       ];
 
       if (props.allowInsertIngredient) {
         options.push({
-          text: i18n.tc("recipe.insert-ingredient") ,
+          text: i18n.t("recipe.insert-ingredient") ,
           event: "insert-ingredient",
         })
       }
@@ -177,7 +177,7 @@ export default defineComponent({
 
       if (props.value.originalText) {
         options.push({
-          text: i18n.tc("recipe.see-original-text"),
+          text: i18n.t("recipe.see-original-text"),
           event: "toggle-original",
         });
       }
@@ -189,7 +189,7 @@ export default defineComponent({
       const out = [
         {
           icon: $globals.icons.dotsVertical,
-          text: i18n.tc("general.menu"),
+          text: i18n.t("general.menu"),
           event: "open",
           children: contextMenuOptions.value,
         },
@@ -199,7 +199,7 @@ export default defineComponent({
         // @ts-expect-error - TODO: fix this
         out.unshift({
           icon: $globals.icons.delete,
-          text: i18n.tc("general.delete"),
+          text: i18n.t("general.delete"),
           event: "delete",
         });
       }

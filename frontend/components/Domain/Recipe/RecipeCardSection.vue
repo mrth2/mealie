@@ -123,33 +123,20 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  onMounted,
-  reactive,
-  ref,
-  toRefs,
-  useAsync,
-  useContext,
-  useRoute,
-  useRouter,
-  watch,
-} from "@nuxtjs/composition-api";
 import { useThrottleFn } from "@vueuse/core";
 import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useLazyRecipes } from "~/composables/recipes";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { Recipe } from "~/lib/api/types/recipe";
 import { useUserSortPreferences } from "~/composables/use-users/preferences";
-import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
+import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 
 const REPLACE_RECIPES_EVENT = "replaceRecipes";
 const APPEND_RECIPES_EVENT = "appendRecipes";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     RecipeCard,
     RecipeCardMobile,
@@ -192,7 +179,7 @@ export default defineComponent({
       shuffle: "shuffle",
     };
 
-    const { $auth, $globals, $vuetify } = useContext();
+    const { $auth, $globals, $vuetify } = useNuxtApp();
     const { isOwnGroup } = useLoggedInState();
     const useMobileCards = computed(() => {
       return $vuetify.breakpoint.smAndDown || preferences.value.useMobileCards;
@@ -207,7 +194,7 @@ export default defineComponent({
     });
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
 
     const page = ref(1);
     const perPage = 32;

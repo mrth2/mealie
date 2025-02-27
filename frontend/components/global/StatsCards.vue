@@ -19,9 +19,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 
-export default defineComponent({
+
+export default defineNuxtComponent({
   props: {
     icon: {
       type: String,
@@ -37,7 +37,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { $globals } = useContext();
+    const { $globals } = useNuxtApp();
 
     const activeIcon = computed(() => {
       return props.icon ?? $globals.icons.primary;

@@ -74,9 +74,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 
-export default defineComponent({
+
+export default defineNuxtComponent({
   props: {
     value: {
       type: Number,
@@ -160,15 +160,15 @@ export default defineComponent({
     }
   },
   setup(props, context) {
-    const { $globals, i18n } = useContext();
+    const { $globals, i18n } = useNuxtApp();
     const ready = ref(false);
     const langDialog = ref(false);
 
-    const prevButtonTextRef = computed(() => props.prevButtonText || i18n.tc("general.back"));
+    const prevButtonTextRef = computed(() => props.prevButtonText || i18n.t("general.back"));
     const prevButtonIconRef = computed(() => props.prevButtonIcon || $globals.icons.back);
     const nextButtonTextRef = computed(
       () => props.nextButtonText || (
-          props.nextButtonIsSubmit ? i18n.tc("general.submit") : i18n.tc("general.next")
+          props.nextButtonIsSubmit ? i18n.t("general.submit") : i18n.t("general.next")
         )
       );
     const nextButtonIconRef = computed(

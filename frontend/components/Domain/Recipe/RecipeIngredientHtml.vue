@@ -4,9 +4,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+
 import { sanitizeIngredientHTML } from "~/composables/recipes/use-recipe-ingredients";
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     markup: {
       type: String,

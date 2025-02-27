@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "@nuxtjs/composition-api";
+
 import { whenever } from "@vueuse/core";
 import { validators } from "~/composables/use-validators";
 import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
@@ -55,7 +55,7 @@ export interface GenericAlias {
   name: string;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     value: {
       type: Boolean,

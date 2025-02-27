@@ -53,25 +53,24 @@
 </template>
 
   <script lang="ts">
-  import { computed, defineComponent, useRoute, ref, useContext, useMeta, reactive, useRouter } from "@nuxtjs/composition-api";
   import { useLazyRecipes } from "~/composables/recipes";
   import RecipeCardSection from "@/components/Domain/Recipe/RecipeCardSection.vue";
   import { useCookbook, useCookbooks } from "~/composables/use-group-cookbooks";
   import { useLoggedInState } from "~/composables/use-logged-in-state";
-  import { RecipeCookBook } from "~/lib/api/types/cookbook";
+  import type { RecipeCookBook } from "~/lib/api/types/cookbook";
   import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
 
-  export default defineComponent({
+  export default defineNuxtComponent({
     components: { RecipeCardSection, CookbookEditor },
     setup() {
-      const { $auth } = useContext();
+      const { $auth } = useNuxtApp();
       const { isOwnGroup } = useLoggedInState();
 
       const route = useRoute();
-      const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+      const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
 
       const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
-      const slug = route.value.params.slug;
+      const slug = route.params.slug as string;
       const { getOne } = useCookbook(isOwnGroup.value ? null : groupSlug.value);
       const { actions } = useCookbooks();
       const router = useRouter();
@@ -106,7 +105,7 @@
 
         if (response?.slug && book.value?.slug !== response?.slug) {
           // if name changed, redirect to new slug
-          router.push(`/g/${route.value.params.groupSlug}/cookbooks/${response?.slug}`);
+          router.push(`/g/${route.params.groupSlug}/cookbooks/${response?.slug}`);
         } else {
           // otherwise reload the page, since the recipe criteria changed
           router.go(0);
@@ -115,10 +114,8 @@
         editTarget.value = null;
       }
 
-      useMeta(() => {
-        return {
-          title: book?.value?.name || "Cookbook",
-        };
+      useSeoMeta({
+        title: book?.value?.name || "Cookbook",
       });
 
       return {
@@ -138,6 +135,5 @@
         actions,
       };
     },
-    head: {}, // Must include for useMeta
   });
   </script>

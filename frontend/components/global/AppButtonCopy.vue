@@ -38,10 +38,10 @@
 
 <script lang="ts">
 import { useClipboard } from "@vueuse/core"
-import { defineComponent, ref } from "@nuxtjs/composition-api";
+
 import { VTooltip } from "~/types/vuetify";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     copyText: {
       type: String,

@@ -33,10 +33,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from "@nuxtjs/composition-api";
+
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserSelfRatings } from "~/composables/use-users";
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     emitOnly: {
       type: Boolean,

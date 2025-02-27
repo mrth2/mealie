@@ -125,7 +125,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+
 import DOMPurify from "dompurify";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { useStaticRoutes } from "~/composables/api";
@@ -148,7 +148,7 @@ type InstructionSection = {
   instructions: RecipeStep[];
 };
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     RecipeTimeCard,
   },
@@ -167,7 +167,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
     const preferences = useUserPrintPreferences();
     const { recipeImage } = useStaticRoutes();
     const { imageKey } = usePageState(props.recipe.slug);

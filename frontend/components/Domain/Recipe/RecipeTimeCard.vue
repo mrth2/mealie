@@ -40,9 +40,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 
-export default defineComponent({
+
+export default defineNuxtComponent({
   props: {
     stacked: {
       type: Boolean,
@@ -70,7 +70,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
 
     function isEmpty(str: string | null) {
       return !str || str.length === 0;

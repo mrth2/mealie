@@ -9,10 +9,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
+
 import { useDropZone } from "@vueuse/core";
 
-export default defineComponent({
+export default defineNuxtComponent({
   setup(_, context) {
     const el = ref<HTMLDivElement>();
 

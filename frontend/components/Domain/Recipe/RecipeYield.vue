@@ -15,11 +15,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+
 import DOMPurify from "dompurify";
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     yieldQuantity: {
       type: Number,
@@ -39,7 +39,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
 
     function sanitizeHTML(rawHtml: string) {
       return DOMPurify.sanitize(rawHtml, {

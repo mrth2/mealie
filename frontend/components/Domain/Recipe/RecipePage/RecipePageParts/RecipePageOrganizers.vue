@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
@@ -65,7 +65,7 @@ import RecipeOrganizerSelector from "@/components/Domain/Recipe/RecipeOrganizerS
 import RecipeNutrition from "~/components/Domain/Recipe/RecipeNutrition.vue";
 import RecipeChips from "@/components/Domain/Recipe/RecipeChips.vue";
 import RecipeAssets from "@/components/Domain/Recipe/RecipeAssets.vue";
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     RecipeOrganizerSelector,
     RecipeNutrition,

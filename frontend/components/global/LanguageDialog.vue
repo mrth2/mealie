@@ -22,11 +22,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { useLocales } from "~/composables/use-locales";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     value: {
       type: Boolean,

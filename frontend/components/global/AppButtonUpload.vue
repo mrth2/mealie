@@ -11,12 +11,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+
 import { useUserApi } from "~/composables/api";
 
 const UPLOAD_EVENT = "uploaded";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     small: {
       type: Boolean,
@@ -64,7 +64,7 @@ export default defineComponent({
     const uploader = ref<HTMLInputElement | null>(null);
     const isSelecting = ref(false);
 
-    const { i18n, $globals } = useContext();
+    const { i18n, $globals } = useNuxtApp();
     const effIcon = props.icon ? props.icon : $globals.icons.upload;
 
     const defaultText = i18n.t("general.upload");

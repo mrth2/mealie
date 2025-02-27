@@ -30,10 +30,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+
 import { ContextMenuItem } from "~/composables/use-context-presents";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     items: {
       type: Array as () => ContextMenuItem[],

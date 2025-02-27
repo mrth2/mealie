@@ -14,14 +14,8 @@
           <div>
             {{ $t("recipe.recipe-image") }}
           </div>
-          <AppButtonUpload
-            class="ml-auto"
-            url="none"
-            file-name="image"
-            :text-btn="false"
-            :post="false"
-            @uploaded="uploadImage"
-          />
+          <AppButtonUpload class="ml-auto" url="none" file-name="image" :text-btn="false" :post="false"
+            @uploaded="uploadImage" />
         </v-card-title>
         <v-card-text class="mt-n5">
           <div>
@@ -40,13 +34,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
+
 import { useUserApi } from "~/composables/api";
 
 const REFRESH_EVENT = "refresh";
 const UPLOAD_EVENT = "upload";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     slug: {
       type: String,
@@ -75,7 +69,7 @@ export default defineComponent({
       state.menu = false;
     }
 
-    const { i18n } = useContext();
+    const i18n = useI18n();
     const messages = props.slug ? [""] : [i18n.t("recipe.save-recipe-before-use")];
 
     return {

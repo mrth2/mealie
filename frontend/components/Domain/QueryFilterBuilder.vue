@@ -2,50 +2,21 @@
   <v-card class="ma-0" style="overflow-x: auto;">
     <v-card-text class="ma-0 pa-0">
       <v-container fluid class="ma-0 pa-0">
-        <draggable
-          :value="fields"
-          handle=".handle"
-          delay="250"
-          :delay-on-touch-only="true"
-          v-bind="{
-            animation: 200,
-            group: 'recipe-instructions',
-            ghostClass: 'ghost',
-          }"
-          @start="drag = true"
-          @end="onDragEnd"
-        >
-          <v-row
-            v-for="(field, index) in fields"
-            :key="index"
-            class="d-flex flex-nowrap"
-            style="max-width: 100%;"
-          >
-            <v-col
-              :cols="attrs.fields.icon.cols"
-              :class="attrs.col.class"
-              :style="attrs.fields.icon.style"
-            >
-              <v-icon
-                class="handle"
-                style="width: 100%; height: 100%;"
-              >
+        <draggable :value="fields" handle=".handle" delay="250" :delay-on-touch-only="true" v-bind="{
+          animation: 200,
+          group: 'recipe-instructions',
+          ghostClass: 'ghost',
+        }" @start="drag = true" @end="onDragEnd">
+          <v-row v-for="(field, index) in fields" :key="index" class="d-flex flex-nowrap" style="max-width: 100%;">
+            <v-col :cols="attrs.fields.icon.cols" :class="attrs.col.class" :style="attrs.fields.icon.style">
+              <v-icon class="handle" style="width: 100%; height: 100%;">
                 {{ $globals.icons.arrowUpDown }}
               </v-icon>
             </v-col>
-            <v-col
-              :cols="attrs.fields.logicalOperator.cols"
-              :class="attrs.col.class"
-              :style="attrs.fields.logicalOperator.style"
-            >
-              <v-select
-                v-if="index"
-                v-model="field.logicalOperator"
-                :items="[logOps.AND, logOps.OR]"
-                item-text="label"
-                item-value="value"
-                @input="setLogicalOperatorValue(field, index, $event)"
-              >
+            <v-col :cols="attrs.fields.logicalOperator.cols" :class="attrs.col.class"
+              :style="attrs.fields.logicalOperator.style">
+              <v-select v-if="index" v-model="field.logicalOperator" :items="[logOps.AND, logOps.OR]" item-text="label"
+                item-value="value" @input="setLogicalOperatorValue(field, index, $event)">
                 <template #selection="{ item }">
                   <span :class="attrs.select.textClass" style="width: 100%;">
                     {{ item.label }}
@@ -53,17 +24,10 @@
                 </template>
               </v-select>
             </v-col>
-            <v-col
-              v-if="showAdvanced"
-              :cols="attrs.fields.leftParens.cols"
-              :class="attrs.col.class"
-              :style="attrs.fields.leftParens.style"
-            >
-              <v-select
-                v-model="field.leftParenthesis"
-                :items="['', '(', '((', '(((']"
-                @input="setLeftParenthesisValue(field, index, $event)"
-              >
+            <v-col v-if="showAdvanced" :cols="attrs.fields.leftParens.cols" :class="attrs.col.class"
+              :style="attrs.fields.leftParens.style">
+              <v-select v-model="field.leftParenthesis" :items="['', '(', '((', '(((']"
+                @input="setLeftParenthesisValue(field, index, $event)">
                 <template #selection="{ item }">
                   <span :class="attrs.select.textClass" style="width: 100%;">
                     {{ item }}
@@ -71,17 +35,8 @@
                 </template>
               </v-select>
             </v-col>
-            <v-col
-              :cols="attrs.fields.fieldName.cols"
-              :class="attrs.col.class"
-              :style="attrs.fields.fieldName.style"
-            >
-              <v-select
-                v-model="field.label"
-                :items="fieldDefs"
-                item-text="label"
-                @change="setField(index, $event)"
-              >
+            <v-col :cols="attrs.fields.fieldName.cols" :class="attrs.col.class" :style="attrs.fields.fieldName.style">
+              <v-select v-model="field.label" :items="fieldDefs" item-text="label" @change="setField(index, $event)">
                 <template #selection="{ item }">
                   <span :class="attrs.select.textClass" style="width: 100%;">
                     {{ item.label }}
@@ -89,19 +44,11 @@
                 </template>
               </v-select>
             </v-col>
-            <v-col
-              :cols="attrs.fields.relationalOperator.cols"
-              :class="attrs.col.class"
-              :style="attrs.fields.relationalOperator.style"
-            >
-              <v-select
-                v-if="field.type !== 'boolean'"
-                v-model="field.relationalOperatorValue"
-                :items="field.relationalOperatorOptions"
-                item-text="label"
-                item-value="value"
-                @input="setRelationalOperatorValue(field, index, $event)"
-              >
+            <v-col :cols="attrs.fields.relationalOperator.cols" :class="attrs.col.class"
+              :style="attrs.fields.relationalOperator.style">
+              <v-select v-if="field.type !== 'boolean'" v-model="field.relationalOperatorValue"
+                :items="field.relationalOperatorOptions" item-text="label" item-value="value"
+                @input="setRelationalOperatorValue(field, index, $event)">
                 <template #selection="{ item }">
                   <span :class="attrs.select.textClass" style="width: 100%;">
                     {{ item.label }}
@@ -109,120 +56,44 @@
                 </template>
               </v-select>
             </v-col>
-            <v-col
-              :cols="attrs.fields.fieldValue.cols"
-              :class="attrs.col.class"
-              :style="attrs.fields.fieldValue.style"
-            >
-              <v-select
-                v-if="field.fieldOptions"
-                v-model="field.values"
-                :items="field.fieldOptions"
-                item-text="label"
-                item-value="value"
-                multiple
-                @input="setFieldValues(field, index, $event)"
-              />
-              <v-text-field
-                v-else-if="field.type === 'string'"
-                v-model="field.value"
-                @input="setFieldValue(field, index, $event)"
-              />
-              <v-text-field
-                v-else-if="field.type === 'number'"
-                v-model="field.value"
-                type="number"
-                @input="setFieldValue(field, index, $event)"
-              />
-              <v-checkbox
-                v-else-if="field.type === 'boolean'"
-                v-model="field.value"
-                @change="setFieldValue(field, index, $event)"
-              />
-              <v-menu
-                v-else-if="field.type === 'date'"
-                v-model="datePickers[index]"
-                :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
-                max-width="290px"
-                min-width="auto"
-              >
+            <v-col :cols="attrs.fields.fieldValue.cols" :class="attrs.col.class" :style="attrs.fields.fieldValue.style">
+              <v-select v-if="field.fieldOptions" v-model="field.values" :items="field.fieldOptions" item-text="label"
+                item-value="value" multiple @input="setFieldValues(field, index, $event)" />
+              <v-text-field v-else-if="field.type === 'string'" v-model="field.value"
+                @input="setFieldValue(field, index, $event)" />
+              <v-text-field v-else-if="field.type === 'number'" v-model="field.value" type="number"
+                @input="setFieldValue(field, index, $event)" />
+              <v-checkbox v-else-if="field.type === 'boolean'" v-model="field.value"
+                @change="setFieldValue(field, index, $event)" />
+              <v-menu v-else-if="field.type === 'date'" v-model="datePickers[index]" :close-on-content-click="false"
+                transition="scale-transition" offset-y max-width="290px" min-width="auto">
                 <template #activator="{ on, attrs: menuAttrs }">
-                  <v-text-field
-                    v-model="field.value"
-                    persistent-hint
-                    :prepend-icon="$globals.icons.calendar"
-                    v-bind="menuAttrs"
-                    readonly
-                    v-on="on"
-                  />
+                  <v-text-field v-model="field.value" persistent-hint :prepend-icon="$globals.icons.calendar"
+                    v-bind="menuAttrs" readonly v-on="on" />
                 </template>
-                <v-date-picker
-                  v-model="field.value"
-                  no-title
-                  :first-day-of-week="firstDayOfWeek"
-                  :local="$i18n.locale"
-                  @input="setFieldValue(field, index, $event)"
-                />
+                <v-date-picker v-model="field.value" no-title :first-day-of-week="firstDayOfWeek" :local="$i18n.locale"
+                  @input="setFieldValue(field, index, $event)" />
               </v-menu>
-              <RecipeOrganizerSelector
-                v-else-if="field.type === Organizer.Category"
-                v-model="field.organizers"
-                :selector-type="Organizer.Category"
-                :show-add="false"
-                :show-label="false"
-                :show-icon="false"
-                @input="setOrganizerValues(field, index, $event)"
-              />
-              <RecipeOrganizerSelector
-                v-else-if="field.type === Organizer.Tag"
-                v-model="field.organizers"
-                :selector-type="Organizer.Tag"
-                :show-add="false"
-                :show-label="false"
-                :show-icon="false"
-                @input="setOrganizerValues(field, index, $event)"
-              />
-              <RecipeOrganizerSelector
-                v-else-if="field.type === Organizer.Tool"
-                v-model="field.organizers"
-                :selector-type="Organizer.Tool"
-                :show-add="false"
-                :show-label="false"
-                :show-icon="false"
-                @input="setOrganizerValues(field, index, $event)"
-              />
-              <RecipeOrganizerSelector
-                v-else-if="field.type === Organizer.Food"
-                v-model="field.organizers"
-                :selector-type="Organizer.Food"
-                :show-add="false"
-                :show-label="false"
-                :show-icon="false"
-                @input="setOrganizerValues(field, index, $event)"
-              />
-              <RecipeOrganizerSelector
-                v-else-if="field.type === Organizer.Household"
-                v-model="field.organizers"
-                :selector-type="Organizer.Household"
-                :show-add="false"
-                :show-label="false"
-                :show-icon="false"
-                @input="setOrganizerValues(field, index, $event)"
-              />
+              <RecipeOrganizerSelector v-else-if="field.type === Organizer.Category" v-model="field.organizers"
+                :selector-type="Organizer.Category" :show-add="false" :show-label="false" :show-icon="false"
+                @input="setOrganizerValues(field, index, $event)" />
+              <RecipeOrganizerSelector v-else-if="field.type === Organizer.Tag" v-model="field.organizers"
+                :selector-type="Organizer.Tag" :show-add="false" :show-label="false" :show-icon="false"
+                @input="setOrganizerValues(field, index, $event)" />
+              <RecipeOrganizerSelector v-else-if="field.type === Organizer.Tool" v-model="field.organizers"
+                :selector-type="Organizer.Tool" :show-add="false" :show-label="false" :show-icon="false"
+                @input="setOrganizerValues(field, index, $event)" />
+              <RecipeOrganizerSelector v-else-if="field.type === Organizer.Food" v-model="field.organizers"
+                :selector-type="Organizer.Food" :show-add="false" :show-label="false" :show-icon="false"
+                @input="setOrganizerValues(field, index, $event)" />
+              <RecipeOrganizerSelector v-else-if="field.type === Organizer.Household" v-model="field.organizers"
+                :selector-type="Organizer.Household" :show-add="false" :show-label="false" :show-icon="false"
+                @input="setOrganizerValues(field, index, $event)" />
             </v-col>
-            <v-col
-              v-if="showAdvanced"
-              :cols="attrs.fields.rightParens.cols"
-              :class="attrs.col.class"
-              :style="attrs.fields.rightParens.style"
-            >
-              <v-select
-                v-model="field.rightParenthesis"
-                :items="['', ')', '))', ')))']"
-                @input="setRightParenthesisValue(field, index, $event)"
-              >
+            <v-col v-if="showAdvanced" :cols="attrs.fields.rightParens.cols" :class="attrs.col.class"
+              :style="attrs.fields.rightParens.style">
+              <v-select v-model="field.rightParenthesis" :items="['', ')', '))', ')))']"
+                @input="setRightParenthesisValue(field, index, $event)">
                 <template #selection="{ item }">
                   <span :class="attrs.select.textClass" style="width: 100%;">
                     {{ item }}
@@ -230,23 +101,16 @@
                 </template>
               </v-select>
             </v-col>
-            <v-col
-              :cols="attrs.fields.fieldActions.cols"
-              :class="attrs.col.class"
-              :style="attrs.fields.fieldActions.style"
-            >
-              <BaseButtonGroup
-                :buttons="[
-                  {
-                    icon: $globals.icons.delete,
-                    text: $tc('general.delete'),
-                    event: 'delete',
-                    disabled: fields.length === 1,
-                  }
-                ]"
-                class="my-auto"
-                @delete="removeField(index)"
-              />
+            <v-col :cols="attrs.fields.fieldActions.cols" :class="attrs.col.class"
+              :style="attrs.fields.fieldActions.style">
+              <BaseButtonGroup :buttons="[
+                {
+                  icon: $globals.icons.delete,
+                  text: $tc('general.delete'),
+                  event: 'delete',
+                  disabled: fields.length === 1,
+                }
+              ]" class="my-auto" @delete="removeField(index)" />
             </v-col>
           </v-row>
         </draggable>
@@ -254,12 +118,7 @@
     </v-card-text>
     <v-card-actions>
       <v-container fluid class="d-flex justify-end pa-0 mx-2">
-        <v-checkbox
-          v-model="showAdvanced"
-          hide-details
-          :label="$tc('general.show-advanced')"
-          class="my-auto mr-4"
-        />
+        <v-checkbox v-model="showAdvanced" hide-details :label="$tc('general.show-advanced')" class="my-auto mr-4" />
         <BaseButton create :text="$tc('general.add-field')" @click="addField(fieldDefs[0])" />
       </v-container>
     </v-card-actions>
@@ -268,15 +127,14 @@
 
 <script lang="ts">
 import draggable from "vuedraggable";
-import { computed, defineComponent, reactive, ref, toRefs, watch } from "@nuxtjs/composition-api";
 import { useHouseholdSelf } from "~/composables/use-households";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { Organizer } from "~/lib/api/types/non-generated";
-import { LogicalOperator, QueryFilterJSON, QueryFilterJSONPart, RelationalKeyword, RelationalOperator } from "~/lib/api/types/response";
+import type { LogicalOperator, QueryFilterJSON, QueryFilterJSONPart, RelationalKeyword, RelationalOperator } from "~/lib/api/types/response";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
-import { Field, FieldDefinition, FieldValue, OrganizerBase, useQueryFilterBuilder } from "~/composables/use-query-filter-builder";
+import { type Field, type FieldDefinition, type FieldValue, type OrganizerBase, useQueryFilterBuilder } from "~/composables/use-query-filter-builder";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     draggable,
     RecipeOrganizerSelector,
@@ -341,7 +199,7 @@ export default defineComponent({
       }
 
       const resetValue = (fieldDef.type !== fields.value[index].type) || (fieldDef.fieldOptions !== fields.value[index].fieldOptions);
-      const updatedField = {...fields.value[index], ...fieldDef};
+      const updatedField = { ...fields.value[index], ...fieldDef };
 
       // we have to set this explicitly since it might be undefined
       updatedField.fieldOptions = fieldDef.fieldOptions;
@@ -451,7 +309,7 @@ export default defineComponent({
       }
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      const organizers = field.values.map((value) => store.value.find((organizer) => organizer.id === value));
+      const organizers = field.values.map((value) => store.value.find((organizer: OrganizerBase) => organizer.id === value));
       field.organizers = organizers.filter((organizer) => organizer !== undefined) as OrganizerBase[];
       setOrganizerValues(field, index, field.organizers);
     }

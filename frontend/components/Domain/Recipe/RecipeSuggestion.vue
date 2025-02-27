@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, useContext } from "@nuxtjs/composition-api";
+
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { IngredientFood, RecipeSummary, RecipeTool } from "~/lib/api/types/recipe";
 
@@ -52,7 +52,7 @@ interface Organizer {
   selected: boolean;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { RecipeCardMobile },
   props: {
     recipe: {
@@ -73,7 +73,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const { $globals } = useContext();
+    const { $globals } = useNuxtApp();
     const missingOrganizers = computed(() => [
       {
         type: "food",

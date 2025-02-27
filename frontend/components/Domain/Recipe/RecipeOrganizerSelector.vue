@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext, computed, onMounted } from "@nuxtjs/composition-api";
+
 import RecipeOrganizerDialog from "./RecipeOrganizerDialog.vue";
 import { IngredientFood, RecipeCategory, RecipeTag } from "~/lib/api/types/recipe";
 import { RecipeTool } from "~/lib/api/types/admin";
@@ -51,7 +51,7 @@ import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useTool
 import { Organizer, RecipeOrganizer } from "~/lib/api/types/non-generated";
 import { HouseholdSummary } from "~/lib/api/types/household";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     RecipeOrganizerDialog,
   },
@@ -110,7 +110,7 @@ export default defineComponent({
       }
     });
 
-    const { $globals, i18n } = useContext();
+    const { $globals, i18n } = useNuxtApp();
 
     const label = computed(() => {
       if (!props.showLabel) {

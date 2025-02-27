@@ -11,9 +11,9 @@
 <script lang="ts">
 // @ts-ignore v-jsoneditor has no types
 import VJsoneditor from "v-jsoneditor";
-import { defineComponent } from "@nuxtjs/composition-api";
 
-export default defineComponent({
+
+export default defineNuxtComponent({
   components: { VJsoneditor },
   props: {
     value: {

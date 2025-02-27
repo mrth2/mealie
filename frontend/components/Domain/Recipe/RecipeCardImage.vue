@@ -20,10 +20,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from "@nuxtjs/composition-api";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     tiny: {
       type: Boolean,

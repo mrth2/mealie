@@ -41,9 +41,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 
-export default defineComponent({
+
+export default defineNuxtComponent({
   name: "MaterialCard",
 
   props: {
@@ -73,7 +73,7 @@ export default defineComponent({
     },
   },
   setup() {
-    const { $vuetify } = useContext();
+    const { $vuetify } = useNuxtApp();
 
     const hasHeading = computed(() => false);
     const hasAltHeading = computed(() => false);

@@ -1,51 +1,26 @@
 <template>
   <div class="text-center">
-    <BaseDialog
-      v-model="recipeEventEditDialog"
-      :title="$tc('recipe.edit-timeline-event')"
-      :icon="$globals.icons.edit"
-      :submit-text="$tc('general.save')"
-      @submit="$emit('update')"
-    >
-    <v-card-text>
-      <v-form ref="domMadeThisForm">
-        <v-text-field
-          v-model="event.subject"
-          :label="$tc('general.subject')"
-        />
-        <v-textarea
-          v-model="event.eventMessage"
-          :label="$tc('general.message')"
-          rows="4"
-        />
-      </v-form>
-    </v-card-text>
+    <BaseDialog v-model="recipeEventEditDialog" :title="$tc('recipe.edit-timeline-event')" :icon="$globals.icons.edit"
+      :submit-text="$tc('general.save')" @submit="$emit('update')">
+      <v-card-text>
+        <v-form ref="domMadeThisForm">
+          <v-text-field v-model="event.subject" :label="$tc('general.subject')" />
+          <v-textarea v-model="event.eventMessage" :label="$tc('general.message')" rows="4" />
+        </v-form>
+      </v-card-text>
     </BaseDialog>
-    <BaseDialog
-      v-model="recipeEventDeleteDialog"
-      :title="$tc('events.delete-event')"
-      color="error"
-      :icon="$globals.icons.alertCircle"
-      @confirm="$emit('delete')"
-    >
+    <BaseDialog v-model="recipeEventDeleteDialog" :title="$tc('events.delete-event')" color="error"
+      :icon="$globals.icons.alertCircle" @confirm="$emit('delete')">
       <v-card-text>
         {{ $t("events.event-delete-confirmation") }}
       </v-card-text>
     </BaseDialog>
-    <v-menu
-      offset-y
-      left
-      :bottom="!menuTop"
-      :nudge-bottom="!menuTop ? '5' : '0'"
-      :top="menuTop"
-      :nudge-top="menuTop ? '5' : '0'"
-      allow-overflow
-      close-delay="125"
-      :open-on-hover="!useMobileFormat"
-      content-class="d-print-none"
-    >
+    <v-menu offset-y left :bottom="!menuTop" :nudge-bottom="!menuTop ? '5' : '0'" :top="menuTop"
+      :nudge-top="menuTop ? '5' : '0'" allow-overflow close-delay="125" :open-on-hover="!useMobileFormat"
+      content-class="d-print-none">
       <template #activator="{ on, attrs }">
-        <v-btn :fab="fab" :x-small="fab" :elevation="elevation" :color="color" :icon="!fab" v-bind="attrs" v-on="on" @click.prevent>
+        <v-btn :fab="fab" :x-small="fab" :elevation="elevation" :color="color" :icon="!fab" v-bind="attrs" v-on="on"
+          @click.prevent>
           <v-icon>{{ icon }}</v-icon>
         </v-btn>
       </template>
@@ -62,9 +37,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
-import { VForm } from "~/types/vuetify";
-import { RecipeTimelineEventOut } from "~/lib/api/types/recipe";
+import type { VForm } from "~/types/vuetify";
+import type { RecipeTimelineEventOut } from "~/lib/api/types/recipe";
 
 export interface TimelineContextMenuIncludes {
   edit: boolean;
@@ -78,7 +52,7 @@ export interface ContextMenuItem {
   event: string;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     useItems: {
       type: Object as () => TimelineContextMenuIncludes,
@@ -135,20 +109,21 @@ export default defineComponent({
       menuItems: [] as ContextMenuItem[],
     });
 
-    const { i18n, $globals } = useContext();
+    const i18n = useI18n();
+    const { $globals } = useNuxtApp();
 
     // ===========================================================================
     // Context Menu Setup
 
     const defaultItems: { [key: string]: ContextMenuItem } = {
       edit: {
-        title: i18n.tc("general.edit"),
+        title: i18n.t("general.edit"),
         icon: $globals.icons.edit,
         color: undefined,
         event: "edit",
       },
       delete: {
-        title: i18n.tc("general.delete"),
+        title: i18n.t("general.delete"),
         icon: $globals.icons.delete,
         color: "error",
         event: "delete",

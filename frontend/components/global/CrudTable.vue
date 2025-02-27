@@ -86,7 +86,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "@nuxtjs/composition-api";
+
 import { downloadAsJson } from "~/composables/use-utils";
 
 export interface TableConfig {
@@ -109,7 +109,7 @@ export interface BulkAction {
   event: string;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     tableConfig: {
       type: Object as () => TableConfig,

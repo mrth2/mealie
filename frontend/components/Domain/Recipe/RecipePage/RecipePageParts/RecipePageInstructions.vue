@@ -16,13 +16,8 @@
             {{ activeText }}
           </p>
           <v-divider class="mb-4"></v-divider>
-          <v-checkbox
-            v-for="ing in unusedIngredients"
-            :key="ing.referenceId"
-            v-model="activeRefs"
-            :value="ing.referenceId"
-            class="mb-n2 mt-n2"
-          >
+          <v-checkbox v-for="ing in unusedIngredients" :key="ing.referenceId" v-model="activeRefs"
+            :value="ing.referenceId" class="mb-n2 mt-n2">
             <template #label>
               <RecipeIngredientHtml :markup="parseIngredientText(ing, recipe.settings.disableAmount)" />
             </template>
@@ -30,13 +25,8 @@
 
           <template v-if="usedIngredients.length > 0">
             <h4 class="py-3 ml-1">{{ $t("recipe.linked-to-other-step") }}</h4>
-            <v-checkbox
-              v-for="ing in usedIngredients"
-              :key="ing.referenceId"
-              v-model="activeRefs"
-              :value="ing.referenceId"
-              class="mb-n2 mt-n2"
-            >
+            <v-checkbox v-for="ing in usedIngredients" :key="ing.referenceId" v-model="activeRefs"
+              :value="ing.referenceId" class="mb-n2 mt-n2">
               <template #label>
                 <RecipeIngredientHtml :markup="parseIngredientText(ing, recipe.settings.disableAmount)" />
               </template>
@@ -73,66 +63,28 @@
         {{ $t("recipe.cook-mode") }}
       </BaseButton>
     </div>
-    <draggable
-      :disabled="!isEditForm"
-      :value="value"
-      handle=".handle"
-      delay="250"
-      :delay-on-touch-only="true"
-      v-bind="{
-        animation: 200,
-        group: 'recipe-instructions',
-        ghostClass: 'ghost',
-      }"
-      @input="updateIndex"
-      @start="drag = true"
-      @end="drag = false"
-    >
+    <draggable :disabled="!isEditForm" :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" v-bind="{
+      animation: 200,
+      group: 'recipe-instructions',
+      ghostClass: 'ghost',
+    }" @input="updateIndex" @start="drag = true" @end="drag = false">
       <TransitionGroup type="transition" :name="!drag ? 'flip-list' : ''">
         <div v-for="(step, index) in value" :key="step.id" class="list-group-item">
-          <v-app-bar
-            v-if="step.id && showTitleEditor[step.id]"
-            class="primary mt-6"
-            style="cursor: pointer"
-            dark
-            dense
-            rounded
-            @click="toggleCollapseSection(index)"
-          >
+          <v-app-bar v-if="step.id && showTitleEditor[step.id]" class="primary mt-6" style="cursor: pointer" dark dense
+            rounded @click="toggleCollapseSection(index)">
             <v-toolbar-title v-if="!isEditForm" class="headline">
               <v-app-bar-title> {{ step.title }} </v-app-bar-title>
             </v-toolbar-title>
-            <v-text-field
-              v-if="isEditForm"
-              v-model="step.title"
-              class="headline pa-0 mt-5"
-              dense
-              solo
-              flat
-              :placeholder="$t('recipe.section-title')"
-              background-color="primary"
-            >
+            <v-text-field v-if="isEditForm" v-model="step.title" class="headline pa-0 mt-5" dense solo flat
+              :placeholder="$t('recipe.section-title')" background-color="primary">
             </v-text-field>
           </v-app-bar>
           <v-hover v-slot="{ hover }">
-            <v-card
-              class="my-3"
-              :class="[{ 'on-hover': hover }, isChecked(index)]"
-              :elevation="hover ? 12 : 2"
-              :ripple="false"
-              @click="toggleDisabled(index)"
-            >
+            <v-card class="my-3" :class="[{ 'on-hover': hover }, isChecked(index)]" :elevation="hover ? 12 : 2"
+              :ripple="false" @click="toggleDisabled(index)">
               <v-card-title :class="{ 'pb-0': !isChecked(index) }">
-                <v-text-field
-                  v-if="isEditForm"
-                  v-model="step.summary"
-                  class="headline handle"
-                  hide-details
-                  dense
-                  solo
-                  flat
-                  :placeholder="$t('recipe.step-index', { step: index + 1 })"
-                >
+                <v-text-field v-if="isEditForm" v-model="step.summary" class="headline handle" hide-details dense solo
+                  flat :placeholder="$t('recipe.step-index', { step: index + 1 })">
                   <template #prepend>
                     <v-icon size="26">{{ $globals.icons.arrowUpDown }}</v-icon>
                   </template>
@@ -142,71 +94,63 @@
                 </span>
                 <template v-if="isEditForm">
                   <div class="ml-auto">
-                    <BaseButtonGroup
-                      :large="false"
-                      :buttons="[
-                        {
-                          icon: $globals.icons.delete,
-                          text: $tc('general.delete'),
-                          event: 'delete',
-                        },
-                        {
-                          icon: $globals.icons.dotsVertical,
-                          text: '',
-                          event: 'open',
-                          children: [
-                            {
-                              text: $tc('recipe.toggle-section'),
-                              event: 'toggle-section',
-                            },
-                            {
-                              text: $tc('recipe.link-ingredients'),
-                              event: 'link-ingredients',
-                            },
-                            {
-                              text: $tc('recipe.upload-image'),
-                              event: 'upload-image'
-                            },
-                            {
-                              icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
-                              text: previewStates[index] ? $tc('recipe.edit-markdown') : $tc('markdown-editor.preview-markdown-button-label'),
-                              event: 'preview-step',
-                              divider: true,
-                            },
-                            {
-                              text: $tc('recipe.merge-above'),
-                              event: 'merge-above',
-                            },
-                            {
-                              text: $tc('recipe.move-to-top'),
-                              event: 'move-to-top',
-                            },
-                            {
-                              text: $tc('recipe.move-to-bottom'),
-                              event: 'move-to-bottom',
-                            },
-                            {
-                              text: $tc('recipe.insert-above'),
-                              event: 'insert-above'
-                            },
-                            {
-                              text: $tc('recipe.insert-below'),
-                              event: 'insert-below'
-                            },
-                          ],
-                        },
-                      ]"
-                      @merge-above="mergeAbove(index - 1, index)"
-                      @move-to-top="moveTo('top', index)"
-                      @move-to-bottom="moveTo('bottom', index)"
-                      @insert-above="insert(index)"
-                      @insert-below="insert(index+1)"
-                      @toggle-section="toggleShowTitle(step.id)"
+                    <BaseButtonGroup :large="false" :buttons="[
+                      {
+                        icon: $globals.icons.delete,
+                        text: $tc('general.delete'),
+                        event: 'delete',
+                      },
+                      {
+                        icon: $globals.icons.dotsVertical,
+                        text: '',
+                        event: 'open',
+                        children: [
+                          {
+                            text: $tc('recipe.toggle-section'),
+                            event: 'toggle-section',
+                          },
+                          {
+                            text: $tc('recipe.link-ingredients'),
+                            event: 'link-ingredients',
+                          },
+                          {
+                            text: $tc('recipe.upload-image'),
+                            event: 'upload-image'
+                          },
+                          {
+                            icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
+                            text: previewStates[index] ? $tc('recipe.edit-markdown') : $tc('markdown-editor.preview-markdown-button-label'),
+                            event: 'preview-step',
+                            divider: true,
+                          },
+                          {
+                            text: $tc('recipe.merge-above'),
+                            event: 'merge-above',
+                          },
+                          {
+                            text: $tc('recipe.move-to-top'),
+                            event: 'move-to-top',
+                          },
+                          {
+                            text: $tc('recipe.move-to-bottom'),
+                            event: 'move-to-bottom',
+                          },
+                          {
+                            text: $tc('recipe.insert-above'),
+                            event: 'insert-above'
+                          },
+                          {
+                            text: $tc('recipe.insert-below'),
+                            event: 'insert-below'
+                          },
+                        ],
+                      },
+                    ]" @merge-above="mergeAbove(index - 1, index)" @move-to-top="moveTo('top', index)"
+                      @move-to-bottom="moveTo('bottom', index)" @insert-above="insert(index)"
+                      @insert-below="insert(index + 1)" @toggle-section="toggleShowTitle(step.id)"
                       @link-ingredients="openDialog(index, step.text, step.ingredientReferences)"
-                      @preview-step="togglePreviewState(index)"
-                      @upload-image="openImageUpload(index)"
-                      @delete="value.splice(index, 1)"
-                    />
+                      @preview-step="togglePreviewState(index)" @upload-image="openImageUpload(index)"
+                      @delete="value.splice(index, 1)" />
                   </div>
                 </template>
                 <v-fade-transition>
@@ -220,25 +164,14 @@
 
               <!-- Content -->
               <DropZone @drop="(f) => handleImageDrop(index, f)">
-                <v-card-text
-                v-if="isEditForm"
-                @click="$emit('click-instruction-field', `${index}.text`)"
-                >
-                  <MarkdownEditor
-                    v-model="value[index]['text']"
-                    class="mb-2"
-                    :preview.sync="previewStates[index]"
-                    :display-preview="false"
-                    :textarea="{
+                <v-card-text v-if="isEditForm" @click="$emit('click-instruction-field', `${index}.text`)">
+                  <MarkdownEditor v-model="value[index]['text']" class="mb-2" :preview.sync="previewStates[index]"
+                    :display-preview="false" :textarea="{
                       hint: $t('recipe.attach-images-hint'),
                       persistentHint: true,
-                    }"
-                  />
-                  <RecipeIngredientHtml
-                    v-for="ing in step.ingredientReferences"
-                    :key="ing.referenceId"
-                    :markup="getIngredientByRefId(ing.referenceId)"
-                  />
+                    }" />
+                  <RecipeIngredientHtml v-for="ing in step.ingredientReferences" :key="ing.referenceId"
+                    :markup="getIngredientByRefId(ing.referenceId)" />
                 </v-card-text>
               </DropZone>
               <v-expand-transition>
@@ -246,24 +179,19 @@
 
                   <v-card-text class="markdown">
                     <v-row>
-                      <v-col
-                        v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0"
-                        cols="12"
-                        sm="5"
-                      >
+                      <v-col v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0"
+                        cols="12" sm="5">
                         <div class="ml-n4">
-                          <RecipeIngredients
-                            :value="recipe.recipeIngredient.filter((ing) => {
-                              if(!step.ingredientReferences) return false
-                              return step.ingredientReferences.map((ref) => ref.referenceId).includes(ing.referenceId || '')
-                            })"
-                            :scale="scale"
-                            :disable-amount="recipe.settings.disableAmount"
-                            :is-cook-mode="isCookMode"
-                          />
+                          <RecipeIngredients :value="recipe.recipeIngredient.filter((ing) => {
+                            if (!step.ingredientReferences) return false
+                            return step.ingredientReferences.map((ref) => ref.referenceId).includes(ing.referenceId || '')
+                          })" :scale="scale" :disable-amount="recipe.settings.disableAmount"
+                            :is-cook-mode="isCookMode" />
                         </div>
                       </v-col>
-                      <v-divider v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0 && $vuetify.breakpoint.smAndUp" vertical ></v-divider>
+                      <v-divider
+                        v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0 && $vuetify.breakpoint.smAndUp"
+                        vertical></v-divider>
                       <v-col>
                         <SafeMarkdown class="markdown" :source="step.text" />
                       </v-col>
@@ -276,31 +204,20 @@
         </div>
       </TransitionGroup>
     </draggable>
-    <v-divider v-if="!isCookMode" class="mt-10 d-flex d-md-none"/>
+    <v-divider v-if="!isCookMode" class="mt-10 d-flex d-md-none" />
   </section>
 </template>
 
 <script lang="ts">
 import draggable from "vuedraggable";
-import {
-  ref,
-  toRefs,
-  reactive,
-  defineComponent,
-  watch,
-  onMounted,
-  useContext,
-  computed,
-  nextTick,
-} from "@nuxtjs/composition-api";
 import RecipeIngredientHtml from "../../RecipeIngredientHtml.vue";
-import { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
+import type { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
 import { uuid4, detectServerBaseUrl } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 interface MergerHistory {
@@ -310,7 +227,7 @@ interface MergerHistory {
   sourceText: string;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     draggable,
     RecipeIngredientHtml,
@@ -338,7 +255,8 @@ export default defineComponent({
   },
 
   setup(props, context) {
-    const { i18n, req } = useContext();
+    const i18n = useI18n();
+    const { req } = useNuxtApp();
     const BASE_URL = detectServerBaseUrl(req);
 
     const { isCookMode, toggleCookMode, isEditForm } = usePageState(props.recipe.slug);
@@ -479,7 +397,7 @@ export default defineComponent({
     function saveAndOpenNextLinkIngredients() {
       const currentStepIndex = activeIndex.value;
 
-      if(!availableNextStep.value) {
+      if (!availableNextStep.value) {
         return; // no next step, the button calling this function should not be shown
       }
 
@@ -738,28 +656,32 @@ export default defineComponent({
 }
 
 /** Select all li under .markdown class */
-.markdown >>> ul > li {
+.markdown>>>ul>li {
   display: list-item;
   list-style-type: disc !important;
 }
 
 /** Select all li under .markdown class */
-.markdown >>> ol > li {
+.markdown>>>ol>li {
   display: list-item;
 }
 
 .flip-list-move {
   transition: transform 0.5s;
 }
+
 .no-move {
   transition: transform 0s;
 }
+
 .ghost {
   opacity: 0.5;
 }
+
 .list-group {
   min-height: 38px;
 }
+
 .list-group-item i {
   cursor: pointer;
 }

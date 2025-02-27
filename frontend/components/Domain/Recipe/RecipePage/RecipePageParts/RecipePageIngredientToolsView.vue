@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { useToolStore } from "~/composables/store";
@@ -38,7 +38,7 @@ interface RecipeToolWithOnHand extends RecipeTool {
   onHand: boolean;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     RecipeIngredients,
   },

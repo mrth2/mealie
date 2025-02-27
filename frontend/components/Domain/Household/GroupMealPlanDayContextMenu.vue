@@ -1,23 +1,10 @@
 <template>
   <div class="text-center">
-    <RecipeDialogAddToShoppingList
-      v-if="shoppingLists"
-      v-model="shoppingListDialog"
-      :recipes="recipesWithScales"
-      :shopping-lists="shoppingLists"
-    />
-    <v-menu
-      offset-y
-      left
-      :bottom="!menuTop"
-      :nudge-bottom="!menuTop ? '5' : '0'"
-      :top="menuTop"
-      :nudge-top="menuTop ? '5' : '0'"
-      allow-overflow
-      close-delay="125"
-      :open-on-hover="$vuetify.breakpoint.mdAndUp"
-      content-class="d-print-none"
-    >
+    <RecipeDialogAddToShoppingList v-if="shoppingLists" v-model="shoppingListDialog" :recipes="recipesWithScales"
+      :shopping-lists="shoppingLists" />
+    <v-menu offset-y left :bottom="!menuTop" :nudge-bottom="!menuTop ? '5' : '0'" :top="menuTop"
+      :nudge-top="menuTop ? '5' : '0'" allow-overflow close-delay="125" :open-on-hover="$vuetify.breakpoint.mdAndUp"
+      content-class="d-print-none">
       <template #activator="{ on, attrs }">
         <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="attrs" v-on="on" @click.prevent>
           <v-icon>{{ icon }}</v-icon>
@@ -36,10 +23,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { Recipe } from "~/lib/api/types/recipe";
 import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
-import { ShoppingListSummary } from "~/lib/api/types/household";
+import type { ShoppingListSummary } from "~/lib/api/types/household";
 import { useUserApi } from "~/composables/api";
 
 export interface ContextMenuItem {
@@ -50,7 +36,7 @@ export interface ContextMenuItem {
   isPublic: boolean;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     RecipeDialogAddToShoppingList,
   },
@@ -77,7 +63,8 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const { $globals, i18n } = useContext();
+    const i18n = useI18n();
+    const { $globals } = useNuxtApp();
     const api = useUserApi();
 
     const state = reactive({
@@ -85,7 +72,7 @@ export default defineComponent({
       shoppingListDialog: false,
       menuItems: [
         {
-          title: i18n.tc("recipe.add-to-list"),
+          title: i18n.t("recipe.add-to-list"),
           icon: $globals.icons.cartCheck,
           color: undefined,
           event: "shoppingList",

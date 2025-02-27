@@ -22,13 +22,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, useContext } from "@nuxtjs/composition-api";
 import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
-import { FieldDefinition } from "~/composables/use-query-filter-builder";
+import type { FieldDefinition } from "~/composables/use-query-filter-builder";
 import { Organizer } from "~/lib/api/types/non-generated";
-import { QueryFilterJSON } from "~/lib/api/types/response";
+import type { QueryFilterJSON } from "~/lib/api/types/response";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     QueryFilterBuilder,
   },
@@ -55,7 +54,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const { i18n } = useContext();
+    const i18n = useI18n();
 
     const MEAL_TYPE_OPTIONS = [
       { text: i18n.t("meal-plan.breakfast"), value: "breakfast" },
@@ -110,42 +109,42 @@ export default defineComponent({
     const fieldDefs: FieldDefinition[] = [
       {
         name: "recipe_category.id",
-        label: i18n.tc("category.categories"),
+        label: i18n.t("category.categories"),
         type: Organizer.Category,
       },
       {
         name: "tags.id",
-        label: i18n.tc("tag.tags"),
+        label: i18n.t("tag.tags"),
         type: Organizer.Tag,
       },
       {
         name: "recipe_ingredient.food.id",
-        label: i18n.tc("recipe.ingredients"),
+        label: i18n.t("recipe.ingredients"),
         type: Organizer.Food,
       },
       {
         name: "tools.id",
-        label: i18n.tc("tool.tools"),
+        label: i18n.t("tool.tools"),
         type: Organizer.Tool,
       },
       {
         name: "household_id",
-        label: i18n.tc("household.households"),
+        label: i18n.t("household.households"),
         type: Organizer.Household,
       },
       {
         name: "last_made",
-        label: i18n.tc("general.last-made"),
+        label: i18n.t("general.last-made"),
         type: "date",
       },
       {
         name: "created_at",
-        label: i18n.tc("general.date-created"),
+        label: i18n.t("general.date-created"),
         type: "date",
       },
       {
         name: "updated_at",
-        label: i18n.tc("general.date-updated"),
+        label: i18n.t("general.date-updated"),
         type: "date",
       },
     ];

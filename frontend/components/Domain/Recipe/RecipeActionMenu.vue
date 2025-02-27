@@ -1,19 +1,8 @@
 <template>
-  <v-toolbar
-    rounded
-    height="0"
-    class="fixed-bar mt-0"
-    color="rgb(255, 0, 0, 0.0)"
-    flat
-    style="z-index: 2; position: sticky"
-  >
-    <BaseDialog
-      v-model="deleteDialog"
-      :title="$tc('recipe.delete-recipe')"
-      color="error"
-      :icon="$globals.icons.alertCircle"
-      @confirm="emitDelete()"
-    >
+  <v-toolbar rounded height="0" class="fixed-bar mt-0" color="rgb(255, 0, 0, 0.0)" flat
+    style="z-index: 2; position: sticky">
+    <BaseDialog v-model="deleteDialog" :title="$tc('recipe.delete-recipe')" color="error"
+      :icon="$globals.icons.alertCircle" @confirm="emitDelete()">
       <v-card-text>
         {{ $t("recipe.delete-confirmation") }}
       </v-card-text>
@@ -34,19 +23,9 @@
         </v-tooltip>
       </div>
 
-      <RecipeContextMenu
-        show-print
-        :menu-top="false"
-        :name="recipe.name"
-        :slug="recipe.slug"
-        :menu-icon="$globals.icons.dotsVertical"
-        fab
-        color="info"
-        :card-menu="false"
-        :recipe="recipe"
-        :recipe-id="recipe.id"
-        :recipe-scale="recipeScale"
-        :use-items="{
+      <RecipeContextMenu show-print :menu-top="false" :name="recipe.name" :slug="recipe.slug"
+        :menu-icon="$globals.icons.dotsVertical" fab color="info" :card-menu="false" :recipe="recipe"
+        :recipe-id="recipe.id" :recipe-scale="recipeScale" :use-items="{
           edit: false,
           download: loggedIn,
           duplicate: loggedIn,
@@ -57,20 +36,11 @@
           share: loggedIn,
           recipeActions: true,
           delete: loggedIn,
-        }"
-        class="ml-1"
-        @print="$emit('print')"
-      />
+        }" class="ml-1" @print="$emit('print')" />
     </div>
     <div v-if="open" class="custom-btn-group gapped">
-      <v-btn
-        v-for="(btn, index) in editorButtons"
-        :key="index"
-        :fab="$vuetify.breakpoint.xs"
-        :small="$vuetify.breakpoint.xs"
-        :color="btn.color"
-        @click="emitHandler(btn.event)"
-      >
+      <v-btn v-for="(btn, index) in editorButtons" :key="index" :fab="$vuetify.breakpoint.xs"
+        :small="$vuetify.breakpoint.xs" :color="btn.color" @click="emitHandler(btn.event)">
         <v-icon :left="!$vuetify.breakpoint.xs">{{ btn.icon }}</v-icon>
         {{ $vuetify.breakpoint.xs ? "" : btn.text }}
       </v-btn>
@@ -79,18 +49,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeTimelineBadge from "./RecipeTimelineBadge.vue";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { Recipe } from "~/lib/api/types/recipe";
 
 const SAVE_EVENT = "save";
 const DELETE_EVENT = "delete";
 const CLOSE_EVENT = "close";
 const JSON_EVENT = "json";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { RecipeContextMenu, RecipeFavoriteBadge, RecipeTimelineBadge },
   props: {
     recipe: {
@@ -129,7 +98,8 @@ export default defineComponent({
   setup(_, context) {
     const deleteDialog = ref(false);
 
-    const { i18n, $globals } = useContext();
+    const i18n = useI18n();
+    const { $globals } = useNuxtApp();
     const editorButtons = [
       {
         text: i18n.t("general.delete"),
@@ -209,7 +179,8 @@ export default defineComponent({
 
 .fixed-bar {
   position: sticky;
-  position: -webkit-sticky; /* for Safari */
+  position: -webkit-sticky;
+  /* for Safari */
   top: 4.5em;
   z-index: 2;
 }

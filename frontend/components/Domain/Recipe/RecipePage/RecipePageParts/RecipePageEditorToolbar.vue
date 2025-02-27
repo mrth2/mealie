@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
@@ -43,7 +43,7 @@ import { useUserStore } from "~/composables/store/use-user-store";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import { useHouseholdStore } from "~/composables/store";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     RecipeImageUploadBtn,
     RecipeSettingsMenu,

@@ -34,11 +34,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from "@nuxtjs/composition-api";
-import { ReadWebhook } from "~/lib/api/types/household";
+import type { ReadWebhook } from "~/lib/api/types/household";
 import { timeLocalToUTC, timeUTCToLocal } from "~/composables/use-group-webhooks";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     webhook: {
       type: Object as () => ReadWebhook,

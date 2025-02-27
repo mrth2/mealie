@@ -1,17 +1,6 @@
 <template>
-  <v-data-table
-    v-model="selected"
-    item-key="id"
-    show-select
-    sort-by="dateAdded"
-    sort-desc
-    :headers="headers"
-    :items="recipes"
-    :items-per-page="15"
-    class="elevation-0"
-    :loading="loading"
-    @input="setValue(selected)"
-  >
+  <v-data-table v-model="selected" item-key="id" show-select sort-by="dateAdded" sort-desc :headers="headers"
+    :items="recipes" :items-per-page="15" class="elevation-0" :loading="loading" @input="setValue(selected)">
     <template #body.preappend>
       <tr>
         <td></td>
@@ -20,7 +9,8 @@
       </tr>
     </template>
     <template #item.name="{ item }">
-      <a :href="`/g/${groupSlug}/r/${item.slug}`" style="color: inherit; text-decoration: inherit; " @click="$emit('click')">{{ item.name }}</a>
+      <a :href="`/g/${groupSlug}/r/${item.slug}`" style="color: inherit; text-decoration: inherit; "
+        @click="$emit('click')">{{ item.name }}</a>
     </template>
     <template #item.tags="{ item }">
       <RecipeChip small :items="item.tags" :is-category="false" url-prefix="tags" @item-selected="filterItems" />
@@ -48,13 +38,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, useContext, useRouter } from "@nuxtjs/composition-api";
 import UserAvatar from "../User/UserAvatar.vue";
 import RecipeChip from "./RecipeChips.vue";
-import { Recipe, RecipeCategory, RecipeTool } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeCategory, RecipeTool } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
-import { UserSummary } from "~/lib/api/types/user";
-import { RecipeTag } from "~/lib/api/types/household";
+import type { UserSummary } from "~/lib/api/types/user";
+import type { RecipeTag } from "~/lib/api/types/household";
 
 const INPUT_EVENT = "input";
 
@@ -70,7 +59,7 @@ interface ShowHeaders {
   dateAdded: boolean;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { RecipeChip, UserAvatar },
   props: {
     value: {
@@ -105,7 +94,8 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const { $auth, i18n } = useContext();
+    const i18n = useI18n();
+    const { $auth } = useNuxtApp();
     const groupSlug = $auth.user?.groupSlug;
     const router = useRouter();
     function setValue(value: Recipe[]) {
@@ -113,7 +103,7 @@ export default defineComponent({
     }
 
     const headers = computed(() => {
-      const hdrs = [];
+      const hdrs: Array<{ text: string, value: string, align?: string }> = [];
 
       if (props.showHeaders.id) {
         hdrs.push({ text: i18n.t("general.id"), value: "id" });

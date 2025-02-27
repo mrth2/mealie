@@ -28,13 +28,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
+
 import DOMPurify from "dompurify";
 import { useFraction } from "~/composables/recipes/use-fraction";
 import { ShoppingListItemOut } from "~/lib/api/types/household";
 import { RecipeSummary } from "~/lib/api/types/recipe";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     recipes: {
       type: Array as () => RecipeSummary[],
@@ -62,10 +62,10 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const { $auth } = useContext();
+    const { $auth } = useNuxtApp();
     const { frac } = useFraction();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
 
     const attrs = computed(() => {
       return props.small ? {

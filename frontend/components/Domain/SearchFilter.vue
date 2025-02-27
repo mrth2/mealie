@@ -59,14 +59,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed } from "@nuxtjs/composition-api";
-
 export interface SelectableItem {
   id: string;
   name: string;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     items: {
       type: Array as () => SelectableItem[],

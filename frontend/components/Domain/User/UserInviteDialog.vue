@@ -60,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext, ref, toRefs, reactive } from "@nuxtjs/composition-api";
+
 import { watchEffect } from "vue";
 import { useUserApi } from "@/composables/api";
 import BaseDialog from "~/components/global/BaseDialog.vue";
@@ -73,7 +73,7 @@ import { HouseholdInDB } from "~/lib/api/types/household";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
 
-export default defineComponent({
+export default defineNuxtComponent({
   name: "UserInviteDialog",
   components: {
     BaseDialog,
@@ -87,7 +87,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const { $auth, i18n } = useContext();
+    const { $auth, i18n } = useNuxtApp();
 
     const isAdmin = computed(() => $auth.user?.admin);
     const token = ref("");
@@ -156,9 +156,9 @@ export default defineComponent({
       });
 
       if (data && data.success) {
-        alert.success(i18n.tc("profile.email-sent"));
+        alert.success(i18n.t("profile.email-sent"));
       } else {
-        alert.error(i18n.tc("profile.error-sending-email"));
+        alert.error(i18n.t("profile.error-sending-email"));
       }
       state.loading = false;
       inviteDialog.value = false;

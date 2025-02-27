@@ -55,7 +55,7 @@
                     url="none"
                     file-name="image"
                     accept="image/*"
-                    :text="$i18n.tc('recipe.upload-image')"
+                    :text="$t('recipe.upload-image')"
                     :text-btn="false"
                     :post="false"
                     @uploaded="uploadImage"
@@ -66,7 +66,7 @@
                     @click="clearImage"
                   >
                     <v-icon left>{{ $globals.icons.close }}</v-icon>
-                    {{ $i18n.tc('recipe.remove-image') }}
+                    {{ $t('recipe.remove-image') }}
                   </v-btn>
                 </v-col>
               </v-row>
@@ -115,14 +115,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
+
 import { whenever } from "@vueuse/core";
 import { VForm } from "~/types/vuetify";
 import { useUserApi } from "~/composables/api";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { Recipe, RecipeTimelineEventIn } from "~/lib/api/types/recipe";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     recipe: {
       type: Object as () => Recipe,
@@ -133,7 +133,7 @@ export default defineComponent({
     const madeThisDialog = ref(false);
     const userApi = useUserApi();
     const { household } = useHouseholdSelf();
-    const { $auth, i18n } = useContext();
+    const { $auth, i18n } = useNuxtApp();
     const domMadeThisForm = ref<VForm>();
     const newTimelineEvent = ref<RecipeTimelineEventIn>({
       subject: "",

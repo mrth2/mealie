@@ -3,26 +3,14 @@
     <div class="search-container py-8">
       <form class="search-box pa-2" @submit.prevent="search">
         <div class="d-flex justify-center my-2">
-          <v-text-field
-            ref="input"
-            v-model="state.search"
-            outlined
-            hide-details
-            clearable
-            color="primary"
-            :placeholder="$tc('search.search-placeholder')"
-            :prepend-inner-icon="$globals.icons.search"
-            @keyup.enter="hideKeyboard"
-          />
+          <v-text-field ref="input" v-model="state.search" outlined hide-details clearable color="primary"
+            :placeholder="$tc('search.search-placeholder')" :prepend-inner-icon="$globals.icons.search"
+            @keyup.enter="hideKeyboard" />
         </div>
         <div class="search-row">
           <!-- Category Filter -->
-          <SearchFilter
-            v-if="categories"
-            v-model="selectedCategories"
-            :require-all.sync="state.requireAllCategories"
-            :items="categories"
-          >
+          <SearchFilter v-if="categories" v-model="selectedCategories" :require-all.sync="state.requireAllCategories"
+            :items="categories">
             <v-icon left>
               {{ $globals.icons.categories }}
             </v-icon>
@@ -77,20 +65,17 @@
                   <v-icon left>
                     {{
                       state.orderDirection === "asc" ?
-                      $globals.icons.sortDescending : $globals.icons.sortAscending
+                        $globals.icons.sortDescending : $globals.icons.sortAscending
                     }}
                   </v-icon>
                   <v-list-item-title>
-                    {{ state.orderDirection === "asc" ? $tc("general.sort-descending") : $tc("general.sort-ascending") }}
+                    {{ state.orderDirection === "asc" ? $tc("general.sort-descending") : $tc("general.sort-ascending")
+                    }}
                   </v-list-item-title>
                 </v-list-item>
                 <v-divider />
-                <v-list-item
-                  v-for="v in sortable"
-                  :key="v.name"
-                  :input-value="state.orderBy === v.value"
-                  @click="state.orderBy = v.value"
-                >
+                <v-list-item v-for="v in sortable" :key="v.name" :input-value="state.orderBy === v.value"
+                  @click="state.orderBy = v.value">
                   <v-icon left>
                     {{ v.icon }}
                   </v-icon>
@@ -131,23 +116,14 @@
     </div>
     <v-divider></v-divider>
     <v-container class="mt-6 px-md-6">
-      <RecipeCardSection
-        v-if="state.ready"
-        class="mt-n5"
-        :icon="$globals.icons.silverwareForkKnife"
-        :title="$tc('general.recipes')"
-        :recipes="recipes"
-        :query="passedQueryWithSeed"
-        @item-selected="filterItems"
-        @replaceRecipes="replaceRecipes"
-        @appendRecipes="appendRecipes"
-      />
+      <RecipeCardSection v-if="state.ready" class="mt-n5" :icon="$globals.icons.silverwareForkKnife"
+        :title="$tc('general.recipes')" :recipes="recipes" :query="passedQueryWithSeed" @item-selected="filterItems"
+        @replaceRecipes="replaceRecipes" @appendRecipes="appendRecipes" />
     </v-container>
   </v-container>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, useRouter, onMounted, useContext, computed, Ref, useRoute, watch } from "@nuxtjs/composition-api";
 import { watchDebounced } from "@vueuse/shared";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
@@ -165,17 +141,18 @@ import {
 } from "~/composables/store";
 import { useUserSearchQuerySession } from "~/composables/use-users/preferences";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
-import { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useLazyRecipes } from "~/composables/recipes";
-import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
-import { HouseholdSummary } from "~/lib/api/types/household";
+import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
+import type { HouseholdSummary } from "~/lib/api/types/household";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { SearchFilter, RecipeCardSection },
   setup() {
     const router = useRouter();
-    const { $auth, $globals, i18n } = useContext();
+    const i18n = useI18n();
+    const { $auth, $globals } = useNuxtApp();
 
     const { isOwnGroup } = useLoggedInState();
     const state = ref({
@@ -193,7 +170,7 @@ export default defineComponent({
     });
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
     const searchQuerySession = useUserSearchQuerySession();
 
     const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
@@ -349,40 +326,40 @@ export default defineComponent({
     const sortable = [
       {
         icon: $globals.icons.orderAlphabeticalAscending,
-        name: i18n.tc("general.sort-alphabetically"),
+        name: i18n.t("general.sort-alphabetically"),
         value: "name",
       },
       {
         icon: $globals.icons.newBox,
-        name: i18n.tc("general.created"),
+        name: i18n.t("general.created"),
         value: "created_at",
       },
       {
         icon: $globals.icons.chefHat,
-        name: i18n.tc("general.last-made"),
+        name: i18n.t("general.last-made"),
         value: "last_made",
       },
       {
         icon: $globals.icons.star,
-        name: i18n.tc("general.rating"),
+        name: i18n.t("general.rating"),
         value: "rating",
       },
       {
         icon: $globals.icons.update,
-        name: i18n.tc("general.updated"),
+        name: i18n.t("general.updated"),
         value: "updated_at",
       },
       {
         icon: $globals.icons.diceMultiple,
-        name: i18n.tc("general.random"),
+        name: i18n.t("general.random"),
         value: "random",
       },
     ];
 
     watch(
-      () => route.value.query,
+      () => route.query,
       () => {
-        if (!Object.keys(route.value.query).length) {
+        if (!Object.keys(route.query).length) {
           reset();
         }
       }
@@ -396,7 +373,7 @@ export default defineComponent({
         const result = tags.store.value.filter((tag) => (tag.id as string).includes(item.id as string));
         selectedTags.value = result as NoUndefinedField<RecipeTag>[];
       } else if (urlPrefix === "tools") {
-        const result = tools.store.value.filter((tool) => (tool.id ).includes(item.id || "" ));
+        const result = tools.store.value.filter((tool) => (tool.id).includes(item.id || ""));
         selectedTags.value = result as NoUndefinedField<RecipeTag>[];
       }
     }
@@ -539,7 +516,7 @@ export default defineComponent({
 
     onMounted(async () => {
       // restore the user's last search query
-      if (searchQuerySession.value.recipe && !(Object.keys(route.value.query).length > 0)) {
+      if (searchQuerySession.value.recipe && !(Object.keys(route.query).length > 0)) {
         try {
           const query = JSON.parse(searchQuerySession.value.recipe);
           await router.replace({ query });
@@ -610,7 +587,6 @@ export default defineComponent({
       filterItems,
     };
   },
-  head: {},
 });
 </script>
 

@@ -6,7 +6,7 @@
           <v-icon large left class="mt-1">
             {{ itemType === Organizer.Tool ? $globals.icons.potSteam :
               itemType === Organizer.Category ? $globals.icons.categories :
-              $globals.icons.tags }}
+                $globals.icons.tags }}
           </v-icon>
 
           <v-toolbar-title class="headline">
@@ -18,13 +18,8 @@
         <v-card-title> </v-card-title>
         <v-form @submit.prevent="select">
           <v-card-text>
-            <v-text-field
-              v-model="name"
-              dense
-              :label="properties.label"
-              :rules="[rules.required]"
-              autofocus
-            ></v-text-field>
+            <v-text-field v-model="name" dense :label="properties.label" :rules="[rules.required]"
+              autofocus></v-text-field>
             <v-checkbox v-if="itemType === Organizer.Tool" v-model="onHand" :label="$t('tool.on-hand')"></v-checkbox>
           </v-card-text>
           <v-card-actions>
@@ -39,14 +34,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, useContext, watch } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { useCategoryStore, useTagStore, useToolStore } from "~/composables/store";
-import { RecipeOrganizer, Organizer } from "~/lib/api/types/non-generated";
+import { type RecipeOrganizer, Organizer } from "~/lib/api/types/non-generated";
 
 const CREATED_ITEM_EVENT = "created-item";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     value: {
       type: Boolean,
@@ -66,7 +60,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const { i18n } = useContext();
+    const i18n = useI18n();
 
     const state = reactive({
       name: "",

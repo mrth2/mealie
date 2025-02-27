@@ -53,11 +53,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
+
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     recipe: {
       type: Object as () => NoUndefinedField<Recipe>,

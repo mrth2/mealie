@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+
 
 export interface ButtonOption {
   icon?: string;
@@ -61,7 +61,7 @@ export interface ButtonOption {
   divider?: boolean;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     buttons: {
       type: Array as () => ButtonOption[],

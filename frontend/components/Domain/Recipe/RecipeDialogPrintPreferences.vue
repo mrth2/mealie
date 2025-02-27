@@ -1,11 +1,6 @@
 <template>
-  <BaseDialog
-    v-model="dialog"
-    :icon="$globals.icons.printerSettings"
-    :title="$tc('general.print-preferences')"
-    width="70%"
-    max-width="816px"
-  >
+  <BaseDialog v-model="dialog" :icon="$globals.icons.printerSettings" :title="$tc('general.print-preferences')"
+    width="70%" max-width="816px">
     <div class="pa-6">
       <v-container class="print-config mb-3 pa-0">
         <v-row>
@@ -40,26 +35,20 @@
           </v-col>
         </v-row>
       </v-container>
-      <v-card
-        height="fit-content"
-        max-height="40vh"
-        width="100%"
-        class="print-preview"
-        style="overflow-y: auto;"
-      >
-        <RecipePrintView :recipe="recipe"/>
+      <v-card height="fit-content" max-height="40vh" width="100%" class="print-preview" style="overflow-y: auto;">
+        <RecipePrintView :recipe="recipe" />
       </v-card>
     </div>
   </BaseDialog>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { Recipe } from "~/lib/api/types/recipe";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     RecipePrintView,
   },
@@ -69,7 +58,7 @@ export default defineComponent({
       default: false,
     },
     recipe: {
-      type: Object as () => Recipe,
+      type: Object as () => NoUndefinedField<Recipe>,
       default: undefined,
     },
   },

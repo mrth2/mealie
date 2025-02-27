@@ -24,9 +24,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+
 import RecipeTimeline from "./RecipeTimeline.vue";
-export default defineComponent({
+export default defineNuxtComponent({
   components: { RecipeTimeline },
 
   props: {
@@ -45,14 +45,14 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { $vuetify, i18n } = useContext();
+    const { $vuetify, i18n } = useNuxtApp();
     const showTimeline = ref(false);
     function toggleTimeline() {
       showTimeline.value = !showTimeline.value;
     }
 
     const timelineAttrs = computed(() => {
-      let title = i18n.tc("recipe.timeline")
+      let title = i18n.t("recipe.timeline")
       if ($vuetify.breakpoint.smAndDown) {
         title += ` – ${props.recipeName}`
       }

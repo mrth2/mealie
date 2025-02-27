@@ -25,10 +25,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+
 import RecipeSettingsSwitches from "./RecipeSettingsSwitches.vue";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { RecipeSettingsSwitches },
   props: {
     value: {

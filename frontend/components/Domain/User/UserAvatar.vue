@@ -19,11 +19,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive, useContext, computed } from "@nuxtjs/composition-api";
+
 import { useUserStore } from "~/composables/store/use-user-store";
 import { UserOut } from "~/lib/api/types/user";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     userId: {
       type: String,
@@ -47,7 +47,7 @@ export default defineComponent({
       error: false,
     });
 
-    const { $auth } = useContext();
+    const { $auth } = useNuxtApp();
     const { store: users } = useUserStore();
     const user = computed(() => {
       return users.value.find((user) => user.id === props.userId);

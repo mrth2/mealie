@@ -155,7 +155,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+
 import { validators } from "@/composables/use-validators";
 import { fieldTypes } from "@/composables/forms";
 import { AutoFormItems } from "~/types/auto-forms";
@@ -164,7 +164,7 @@ const BLUR_EVENT = "blur";
 
 type ValidatorKey = keyof typeof validators;
 
-export default defineComponent({
+export default defineNuxtComponent({
   name: "AutoForm",
   props: {
     value: {

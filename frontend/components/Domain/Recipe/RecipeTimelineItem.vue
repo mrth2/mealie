@@ -95,7 +95,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext, useRoute } from "@nuxtjs/composition-api";
+
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import RecipeTimelineContextMenu from "./RecipeTimelineContextMenu.vue";
 import { useStaticRoutes } from "~/composables/api";
@@ -104,7 +104,7 @@ import { Recipe, RecipeTimelineEventOut } from "~/lib/api/types/recipe"
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import SafeMarkdown from "~/components/global/SafeMarkdown.vue";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { RecipeCardMobile, RecipeTimelineContextMenu, UserAvatar, SafeMarkdown },
 
   props: {
@@ -123,13 +123,13 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { $auth, $globals, $vuetify } = useContext();
+    const { $auth, $globals, $vuetify } = useNuxtApp();
     const { recipeTimelineEventImage } = useStaticRoutes();
     const { eventTypeOptions } = useTimelineEventTypes();
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
 
     const useMobileFormat = computed(() => {
       return $vuetify.breakpoint.smAndDown;

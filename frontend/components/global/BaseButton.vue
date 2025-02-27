@@ -29,10 +29,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 
-export default defineComponent({
+export default defineNuxtComponent({
   name: "BaseButton",
   props: {
     // Types
@@ -117,7 +116,8 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { $globals, i18n } = useContext();
+    const i18n = useI18n();
+    const { $globals } = useNuxtApp();
     const buttonOptions = {
       create: {
         text: i18n.t("general.create"),

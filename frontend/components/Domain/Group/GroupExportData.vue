@@ -1,12 +1,6 @@
 <template>
-  <v-data-table
-    item-key="id"
-    :headers="headers"
-    :items="exports"
-    :items-per-page="15"
-    class="elevation-0"
-    @click:row="downloadData"
-  >
+  <v-data-table item-key="id" :headers="headers" :items="exports" :items-per-page="15" class="elevation-0"
+    @click:row="downloadData">
     <template #item.expires="{ item }">
       {{ getTimeToExpire(item.expires) }}
     </template>
@@ -18,10 +12,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext } from "@nuxtjs/composition-api";
 import { parseISO, formatDistanceToNow } from "date-fns";
-import { GroupDataExport } from "~/lib/api/types/group";
-export default defineComponent({
+import type { GroupDataExport } from "~/lib/api/types/group";
+export default defineNuxtComponent({
   props: {
     exports: {
       type: Array as () => GroupDataExport[],
@@ -29,7 +22,7 @@ export default defineComponent({
     },
   },
   setup() {
-    const { i18n } = useContext();
+    const i18n = useI18n();
 
     const headers = [
       { text: i18n.t("export.export"), value: "name" },

@@ -134,16 +134,6 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  useContext,
-  useRouter,
-  computed,
-  ref,
-  onMounted,
-  onUnmounted,
-useRoute,
-} from "@nuxtjs/composition-api";
 import { invoke, until } from "@vueuse/core";
 import RecipeIngredients from "../RecipeIngredients.vue";
 import RecipePageEditorToolbar from "./RecipePageParts/RecipePageEditorToolbar.vue";
@@ -165,8 +155,8 @@ import {
   usePageState,
   usePageUser,
 } from "~/composables/recipe-page/shared-state";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
-import { Recipe, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { Recipe, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
@@ -180,7 +170,7 @@ const EDITOR_OPTIONS = {
   mainMenuBar: false,
 };
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     RecipePageHeader,
     RecipePrintContainer,
@@ -204,9 +194,9 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { $auth } = useContext();
+    const { $auth } = useNuxtApp();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
     const { isOwnGroup } = useLoggedInState();
 
     const router = useRouter();
@@ -236,7 +226,7 @@ export default defineComponent({
       const isSame = JSON.stringify(props.recipe) === JSON.stringify(originalRecipe.value);
       if (isEditMode.value && !isSame && props.recipe?.slug !== undefined) {
         const save = window.confirm(
-          i18n.tc("general.unsaved-changes"),
+          i18n.t("general.unsaved-changes"),
           );
 
         if (save) {
@@ -288,7 +278,8 @@ export default defineComponent({
     /** =============================================================
      * View Preferences
      */
-    const { $vuetify, i18n } = useContext();
+    const i18n = useI18n();
+    const { $vuetify } = useNuxtApp();
 
     const landscape = computed(() => {
       const preferLandscape = props.recipe.settings.landscapeView;
@@ -365,7 +356,6 @@ export default defineComponent({
       chipClicked,
     };
   },
-  head: {},
 });
 </script>
 

@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
+
 
 const INPUT_EVENT = "input";
 
@@ -83,7 +83,7 @@ export interface MenuItem {
   hide?: boolean;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     mode: {
       type: String as () => modes,

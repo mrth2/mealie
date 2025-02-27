@@ -3,94 +3,40 @@
     <!-- Recipe Share Dialog -->
     <RecipeDialogShare v-model="shareDialog" :recipe-id="recipeId" :name="name" />
     <RecipeDialogPrintPreferences v-model="printPreferencesDialog" :recipe="recipeRef" />
-    <BaseDialog
-      v-model="recipeDeleteDialog"
-      :title="$t('recipe.delete-recipe')"
-      color="error"
-      :icon="$globals.icons.alertCircle"
-      @confirm="deleteRecipe()"
-    >
+    <BaseDialog v-model="recipeDeleteDialog" :title="$t('recipe.delete-recipe')" color="error"
+      :icon="$globals.icons.alertCircle" @confirm="deleteRecipe()">
       <v-card-text>
         {{ $t("recipe.delete-confirmation") }}
       </v-card-text>
     </BaseDialog>
-    <BaseDialog
-      v-model="recipeDuplicateDialog"
-      :title="$t('recipe.duplicate')"
-      color="primary"
-      :icon="$globals.icons.duplicate"
-      @confirm="duplicateRecipe()"
-    >
+    <BaseDialog v-model="recipeDuplicateDialog" :title="$t('recipe.duplicate')" color="primary"
+      :icon="$globals.icons.duplicate" @confirm="duplicateRecipe()">
       <v-card-text>
-        <v-text-field
-          v-model="recipeName"
-          dense
-          :label="$t('recipe.recipe-name')"
-          autofocus
-          @keyup.enter="duplicateRecipe()"
-        ></v-text-field>
+        <v-text-field v-model="recipeName" dense :label="$t('recipe.recipe-name')" autofocus
+          @keyup.enter="duplicateRecipe()"></v-text-field>
       </v-card-text>
     </BaseDialog>
-    <BaseDialog
-      v-model="mealplannerDialog"
-      :title="$t('recipe.add-recipe-to-mealplan')"
-      color="primary"
-      :icon="$globals.icons.calendar"
-      @confirm="addRecipeToPlan()"
-    >
+    <BaseDialog v-model="mealplannerDialog" :title="$t('recipe.add-recipe-to-mealplan')" color="primary"
+      :icon="$globals.icons.calendar" @confirm="addRecipeToPlan()">
       <v-card-text>
-        <v-menu
-          v-model="pickerMenu"
-          :close-on-content-click="false"
-          transition="scale-transition"
-          offset-y
-          max-width="290px"
-          min-width="auto"
-        >
+        <v-menu v-model="pickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y
+          max-width="290px" min-width="auto">
           <template #activator="{ on, attrs }">
-            <v-text-field
-              v-model="newMealdate"
-              :label="$t('general.date')"
-              :prepend-icon="$globals.icons.calendar"
-              v-bind="attrs"
-              readonly
-              v-on="on"
-            ></v-text-field>
+            <v-text-field v-model="newMealdate" :label="$t('general.date')" :prepend-icon="$globals.icons.calendar"
+              v-bind="attrs" readonly v-on="on"></v-text-field>
           </template>
-          <v-date-picker
-            v-model="newMealdate"
-            no-title
-            :first-day-of-week="firstDayOfWeek"
-            :local="$i18n.locale"
-            @input="pickerMenu = false"
-          />
+          <v-date-picker v-model="newMealdate" no-title :first-day-of-week="firstDayOfWeek" :local="$i18n.locale"
+            @input="pickerMenu = false" />
         </v-menu>
-        <v-select
-          v-model="newMealType"
-          :return-object="false"
-          :items="planTypeOptions"
-          :label="$t('recipe.entry-type')"
-        ></v-select>
+        <v-select v-model="newMealType" :return-object="false" :items="planTypeOptions"
+          :label="$t('recipe.entry-type')"></v-select>
       </v-card-text>
     </BaseDialog>
-    <RecipeDialogAddToShoppingList
-      v-if="shoppingLists && recipeRefWithScale"
-      v-model="shoppingListDialog"
-      :recipes="[recipeRefWithScale]"
-      :shopping-lists="shoppingLists"
-    />
-    <v-menu
-      offset-y
-      left
-      :bottom="!menuTop"
-      :nudge-bottom="!menuTop ? '5' : '0'"
-      :top="menuTop"
-      :nudge-top="menuTop ? '5' : '0'"
-      allow-overflow
-      close-delay="125"
-      :open-on-hover="$vuetify.breakpoint.mdAndUp"
-      content-class="d-print-none"
-    >
+    <RecipeDialogAddToShoppingList v-if="shoppingLists && recipeRefWithScale" v-model="shoppingListDialog"
+      :recipes="[recipeRefWithScale]" :shopping-lists="shoppingLists" />
+    <v-menu offset-y left :bottom="!menuTop" :nudge-bottom="!menuTop ? '5' : '0'" :top="menuTop"
+      :nudge-top="menuTop ? '5' : '0'" allow-overflow close-delay="125" :open-on-hover="$vuetify.breakpoint.mdAndUp"
+      content-class="d-print-none">
       <template #activator="{ on, attrs }">
         <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="attrs" v-on="on" @click.prevent>
           <v-icon>{{ icon }}</v-icon>
@@ -110,12 +56,8 @@
               <v-list-item-title>{{ $tc("recipe.recipe-actions") }}</v-list-item-title>
             </template>
             <v-list dense class="ma-0 pa-0">
-              <v-list-item
-                v-for="(action, index) in recipeActions"
-                :key="index"
-                class="pl-6"
-                @click="executeRecipeAction(action)"
-              >
+              <v-list-item v-for="(action, index) in recipeActions" :key="index" class="pl-6"
+                @click="executeRecipeAction(action)">
                 <v-list-item-title>
                   {{ action.title }}
                 </v-list-item-title>
@@ -129,7 +71,6 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, useContext, useRoute, useRouter, ref } from "@nuxtjs/composition-api";
 import RecipeDialogAddToShoppingList from "./RecipeDialogAddToShoppingList.vue";
 import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
@@ -139,9 +80,9 @@ import { useGroupRecipeActions } from "~/composables/use-group-recipe-actions";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { alert } from "~/composables/use-toast";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
-import { Recipe } from "~/lib/api/types/recipe";
-import { GroupRecipeActionOut, ShoppingListSummary } from "~/lib/api/types/household";
-import { PlanEntryType } from "~/lib/api/types/meal-plan";
+import type { Recipe } from "~/lib/api/types/recipe";
+import type { GroupRecipeActionOut, ShoppingListSummary } from "~/lib/api/types/household";
+import type { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useAxiosDownloader } from "~/composables/api/use-axios-download";
 
 export interface ContextMenuIncludes {
@@ -164,12 +105,12 @@ export interface ContextMenuItem {
   isPublic: boolean;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     RecipeDialogAddToShoppingList,
     RecipeDialogPrintPreferences,
     RecipeDialogShare,
-},
+  },
   props: {
     useItems: {
       type: Object as () => ContextMenuIncludes,
@@ -251,12 +192,13 @@ export default defineComponent({
       pickerMenu: false,
     });
 
-    const { i18n, $auth, $globals } = useContext();
+    const i18n = useI18n();
+    const { $auth, $globals } = useNuxtApp();
     const { household } = useHouseholdSelf();
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
 
     const firstDayOfWeek = computed(() => {
       return household.value?.preferences?.firstDayOfWeek || 0;
@@ -267,63 +209,63 @@ export default defineComponent({
 
     const defaultItems: { [key: string]: ContextMenuItem } = {
       edit: {
-        title: i18n.tc("general.edit"),
+        title: i18n.t("general.edit"),
         icon: $globals.icons.edit,
         color: undefined,
         event: "edit",
         isPublic: false,
       },
       delete: {
-        title: i18n.tc("general.delete"),
+        title: i18n.t("general.delete"),
         icon: $globals.icons.delete,
         color: undefined,
         event: "delete",
         isPublic: false,
       },
       download: {
-        title: i18n.tc("general.download"),
+        title: i18n.t("general.download"),
         icon: $globals.icons.download,
         color: undefined,
         event: "download",
         isPublic: false,
       },
       duplicate: {
-        title: i18n.tc("general.duplicate"),
+        title: i18n.t("general.duplicate"),
         icon: $globals.icons.duplicate,
         color: undefined,
         event: "duplicate",
         isPublic: false,
       },
       mealplanner: {
-        title: i18n.tc("recipe.add-to-plan"),
+        title: i18n.t("recipe.add-to-plan"),
         icon: $globals.icons.calendar,
         color: undefined,
         event: "mealplanner",
         isPublic: false,
       },
       shoppingList: {
-        title: i18n.tc("recipe.add-to-list"),
+        title: i18n.t("recipe.add-to-list"),
         icon: $globals.icons.cartCheck,
         color: undefined,
         event: "shoppingList",
         isPublic: false,
       },
       print: {
-        title: i18n.tc("general.print"),
+        title: i18n.t("general.print"),
         icon: $globals.icons.printer,
         color: undefined,
         event: "print",
         isPublic: true,
       },
       printPreferences: {
-        title: i18n.tc("general.print-preferences"),
+        title: i18n.t("general.print-preferences"),
         icon: $globals.icons.printerSettings,
         color: undefined,
         event: "printPreferences",
         isPublic: true,
       },
       share: {
-        title: i18n.tc("general.share"),
+        title: i18n.t("general.share"),
         icon: $globals.icons.shareVariant,
         color: undefined,
         event: "share",
@@ -375,9 +317,9 @@ export default defineComponent({
 
       if (action.actionType === "post") {
         if (!response?.error) {
-          alert.success(i18n.tc("events.message-sent"));
+          alert.success(i18n.t("events.message-sent"));
         } else {
-          alert.error(i18n.tc("events.something-went-wrong"));
+          alert.error(i18n.t("events.something-went-wrong"));
         }
       }
     }

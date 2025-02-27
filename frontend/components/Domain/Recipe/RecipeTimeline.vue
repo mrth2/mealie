@@ -85,7 +85,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, useAsync, useContext } from "@nuxtjs/composition-api";
+
 import { useThrottleFn, whenever } from "@vueuse/core";
 import RecipeTimelineItem from "./RecipeTimelineItem.vue"
 import { useTimelinePreferences } from "~/composables/use-users/preferences";
@@ -95,7 +95,7 @@ import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
 import { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate, TimelineEventType } from "~/lib/api/types/recipe";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { RecipeTimelineItem },
 
   props: {
@@ -119,7 +119,7 @@ export default defineComponent({
 
   setup(props) {
     const api = useUserApi();
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
     const preferences = useTimelinePreferences();
     const { eventTypeOptions } = useTimelineEventTypes();
     const loading = ref(true);

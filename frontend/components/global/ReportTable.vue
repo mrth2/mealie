@@ -25,10 +25,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useRouter } from "@nuxtjs/composition-api";
+
 import { ReportSummary } from "~/lib/api/types/reports";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     items: {
       required: true,
@@ -37,7 +37,7 @@ export default defineComponent({
   },
 
   setup(_, context) {
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
     const router = useRouter();
 
     const headers = [

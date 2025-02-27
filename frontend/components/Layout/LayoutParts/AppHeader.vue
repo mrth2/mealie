@@ -17,19 +17,9 @@
     <!-- Navigation Menu -->
     <template v-if="menu">
       <div v-if="!$vuetify.breakpoint.xs" style="max-width: 500px" @click="activateSearch">
-        <v-text-field
-          readonly
-          class="mt-6 rounded-xl"
-          rounded
-          dark
-          solo
-          dense
-          flat
-          :prepend-inner-icon="$globals.icons.search"
-          background-color="primary darken-1"
-          color="white"
-          :placeholder="$t('search.search-hint')"
-        >
+        <v-text-field readonly class="mt-6 rounded-xl" rounded dark solo dense flat
+          :prepend-inner-icon="$globals.icons.search" background-color="primary darken-1" color="white"
+          :placeholder="$t('search.search-hint')">
         </v-text-field>
       </div>
       <v-btn v-else icon @click="activateSearch">
@@ -48,11 +38,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, ref, useContext, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeDialogSearch from "~/components/Domain/Recipe/RecipeDialogSearch.vue";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { RecipeDialogSearch },
   props: {
     menu: {
@@ -61,11 +50,11 @@ export default defineComponent({
     },
   },
   setup() {
-    const { $auth } = useContext();
+    const { $auth } = useNuxtApp();
     const { loggedIn } = useLoggedInState();
     const route = useRoute();
     const router = useRouter();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
 
     const routerLink = computed(() => groupSlug.value ? `/g/${groupSlug.value}` : "/");
     const domSearchDialog = ref<InstanceType<typeof RecipeDialogSearch> | null>(null);
@@ -91,7 +80,7 @@ export default defineComponent({
     });
 
     async function logout() {
-        await $auth.logout().then(() => router.push("/login?direct=1"))
+      await $auth.logout().then(() => router.push("/login?direct=1"))
     }
 
     return {

@@ -65,10 +65,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext, watch } from "@nuxtjs/composition-api";
+
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     value: {
       type: Number,
@@ -84,7 +84,7 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const { i18n } = useContext();
+    const { i18n } = useNuxtApp();
     const menu = ref<boolean>(false);
     const canEditScale = computed(() => props.editScale && props.recipeServings > 0);
 

@@ -28,15 +28,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
-
 interface LinkProp {
   text: string;
   url?: string;
   to: string;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     link: {
       type: Object as () => LinkProp,

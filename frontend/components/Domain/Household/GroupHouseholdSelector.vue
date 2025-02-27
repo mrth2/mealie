@@ -1,27 +1,9 @@
 <template>
-  <v-select
-    v-model="selected"
-    :items="households"
-    :label="label"
-    :hint="description"
-    :persistent-hint="!!description"
-    item-text="name"
-    :multiple="multiselect"
-    :prepend-inner-icon="$globals.icons.household"
-    return-object
-  >
+  <v-select v-model="selected" :items="households" :label="label" :hint="description" :persistent-hint="!!description"
+    item-text="name" :multiple="multiselect" :prepend-inner-icon="$globals.icons.household" return-object>
     <template #selection="data">
-      <v-chip
-        :key="data.index"
-        class="ma-1"
-        :input-value="data.selected"
-        small
-        close
-        label
-        color="accent"
-        dark
-        @click:close="removeByIndex(data.index)"
-      >
+      <v-chip :key="data.index" class="ma-1" :input-value="data.selected" small close label color="accent" dark
+        @click:close="removeByIndex(data.index)">
         {{ data.item.name || data.item }}
       </v-chip>
     </template>
@@ -29,7 +11,6 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, useContext } from "@nuxtjs/composition-api";
 import { useHouseholdStore } from "~/composables/store/use-household-store";
 
 interface HouseholdLike {
@@ -37,7 +18,7 @@ interface HouseholdLike {
   name: string;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     value: {
       type: Array as () => HouseholdLike[],
@@ -66,9 +47,9 @@ export default defineComponent({
       }
     });
 
-    const { i18n } = useContext();
+    const i18n = useI18n();
     const label = computed(
-      () => props.multiselect ? i18n.tc("household.households") : i18n.tc("household.household")
+      () => props.multiselect ? i18n.t("household.households") : i18n.t("household.household")
     );
 
     const { store: households } = useHouseholdStore();

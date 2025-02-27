@@ -5,10 +5,10 @@
 <script lang="ts">
 // @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
-import { defineComponent } from "@nuxtjs/composition-api";
+
 import DOMPurify from "isomorphic-dompurify";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     VueMarkdown,
   },

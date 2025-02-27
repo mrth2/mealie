@@ -7,12 +7,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+
 import { getTextColor } from "~/composables/use-text-color";
 import { MultiPurposeLabelSummary } from "~/lib/api/types/recipe";
 
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     label: {
       type: Object as () => MultiPurposeLabelSummary,

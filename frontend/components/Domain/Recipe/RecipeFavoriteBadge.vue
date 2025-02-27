@@ -21,11 +21,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { useUserSelfRatings } from "~/composables/use-users";
 import { useUserApi } from "~/composables/api";
-import { UserOut } from "~/lib/api/types/user";
-export default defineComponent({
+import type { UserOut } from "~/lib/api/types/user";
+export default defineNuxtComponent({
   props: {
     recipeId: {
       type: String,
@@ -42,7 +41,7 @@ export default defineComponent({
   },
   setup(props) {
     const api = useUserApi();
-    const { $auth } = useContext();
+    const { $auth } = useNuxtApp();
     const { userRatings, refreshUserRatings } = useUserSelfRatings();
 
     // TODO Setup the correct type for $auth.user

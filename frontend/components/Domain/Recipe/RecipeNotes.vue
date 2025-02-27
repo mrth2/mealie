@@ -30,10 +30,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+
 import { RecipeNote } from "~/lib/api/types/recipe";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     value: {
       type: Array as () => RecipeNote[],

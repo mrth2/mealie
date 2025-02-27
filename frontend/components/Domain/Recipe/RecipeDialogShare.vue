@@ -2,33 +2,15 @@
   <div>
     <BaseDialog v-model="dialog" :title="$t('recipe-share.share-recipe')" :icon="$globals.icons.link">
       <v-card-text>
-        <v-menu
-          v-model="datePickerMenu"
-          :close-on-content-click="false"
-          transition="scale-transition"
-          offset-y
-          max-width="290px"
-          min-width="auto"
-        >
+        <v-menu v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y
+          max-width="290px" min-width="auto">
           <template #activator="{ on, attrs }">
-            <v-text-field
-              v-model="expirationDate"
-              :label="$t('recipe-share.expiration-date')"
-              :hint="$t('recipe-share.default-30-days')"
-              persistent-hint
-              :prepend-icon="$globals.icons.calendar"
-              v-bind="attrs"
-              readonly
-              v-on="on"
-            ></v-text-field>
+            <v-text-field v-model="expirationDate" :label="$t('recipe-share.expiration-date')"
+              :hint="$t('recipe-share.default-30-days')" persistent-hint :prepend-icon="$globals.icons.calendar"
+              v-bind="attrs" readonly v-on="on"></v-text-field>
           </template>
-          <v-date-picker
-            v-model="expirationDate"
-            no-title
-            :first-day-of-week="firstDayOfWeek"
-            :local="$i18n.locale"
-            @input="datePickerMenu = false"
-          />
+          <v-date-picker v-model="expirationDate" no-title :first-day-of-week="firstDayOfWeek" :local="$i18n.locale"
+            @input="datePickerMenu = false" />
         </v-menu>
       </v-card-text>
       <v-card-actions class="justify-end">
@@ -62,14 +44,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, toRefs, reactive, useContext, useRoute } from "@nuxtjs/composition-api";
 import { useClipboard, useShare, whenever } from "@vueuse/core";
-import { RecipeShareToken } from "~/lib/api/types/recipe";
+import type { RecipeShareToken } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { alert } from "~/composables/use-toast";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     value: {
       type: Boolean,
@@ -112,10 +93,11 @@ export default defineComponent({
       }
     );
 
-    const { $auth, i18n } = useContext();
+    const i18n = useI18n();
+    const { $auth } = useNuxtApp();
     const { household } = useHouseholdSelf();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
 
     const firstDayOfWeek = computed(() => {
       return household.value?.preferences?.firstDayOfWeek || 0;

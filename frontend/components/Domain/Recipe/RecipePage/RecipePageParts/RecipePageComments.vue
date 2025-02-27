@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive } from "@nuxtjs/composition-api";
+
 import { useUserApi } from "~/composables/api";
 import { Recipe } from "~/lib/api/types/recipe";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
@@ -62,7 +62,7 @@ import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { usePageUser } from "~/composables/recipe-page/shared-state";
 import SafeMarkdown from "~/components/global/SafeMarkdown.vue";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     UserAvatar,
     SafeMarkdown

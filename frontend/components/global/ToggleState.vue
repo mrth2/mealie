@@ -6,9 +6,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from "@nuxtjs/composition-api";
 
-export default defineComponent({
+
+export default defineNuxtComponent({
   props: {
     value: {
       type: Boolean,

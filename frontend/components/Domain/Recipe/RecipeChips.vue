@@ -18,12 +18,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
+
 import { RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 
 export type UrlPrefixParam = "tags" | "categories" | "tools";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     truncate: {
       type: Boolean,
@@ -55,10 +55,10 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { $auth } = useContext();
+    const { $auth } = useNuxtApp();
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "")
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "")
     const baseRecipeRoute = computed<string>(() => {
       return `/g/${groupSlug.value}`
     });

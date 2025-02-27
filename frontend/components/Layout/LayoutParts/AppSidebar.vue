@@ -135,12 +135,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, useContext, watch } from "@nuxtjs/composition-api";
+
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { SidebarLinks } from "~/types/application-types";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     UserAvatar,
   },
@@ -185,7 +185,7 @@ export default defineComponent({
       },
     });
 
-    const { $auth } = useContext();
+    const { $auth } = useNuxtApp();
     const { loggedIn, isOwnGroup } = useLoggedInState();
 
     const userFavoritesLink = computed(() => $auth.user ? `/user/${$auth.user.id}/favorites` : undefined);

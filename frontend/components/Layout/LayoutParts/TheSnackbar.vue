@@ -33,10 +33,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+
 import { toastAlert, toastLoading } from "~/composables/use-toast";
 
-export default defineComponent({
+export default defineNuxtComponent({
   setup() {
     const icon = computed(() => {
       switch (toastAlert.color) {
