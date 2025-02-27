@@ -1,4 +1,6 @@
-export default {
+import { defineNuxtConfig } from "nuxt/config";
+
+export default defineNuxtConfig({
   // Global page headers: https://go.nuxtjs.dev/config-head
   target: "static",
   head: {
@@ -56,32 +58,6 @@ export default {
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    // https://go.nuxtjs.dev/typescript
-    [
-      "@nuxt/typescript-build",
-      // Fix slow builds
-      // https://github.com/nuxt/nuxt.js/issues/8310#issuecomment-734984360
-      {
-        typeCheck: {
-          typescript: {
-            enabled: true,
-            mode: "write-tsbuildinfo",
-          },
-        },
-      },
-    ],
-    // https://go.nuxtjs.dev/vuetify
-    "@nuxtjs/vuetify",
-    // https://composition-api.nuxtjs.org/getting-started/setup
-    "@nuxtjs/composition-api/module",
-    // https://vite.nuxtjs.org/getting-started/installation
-    "nuxt-vite",
-    // https://google-fonts.nuxtjs.org/setup
-    "@nuxtjs/google-fonts",
-  ],
-
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
@@ -110,6 +86,11 @@ export default {
         logLevel: "debug",
       },
     ],
+
+    // https://go.nuxtjs.dev/vuetify
+    "@nuxtjs/vuetify",
+    // https://google-fonts.nuxtjs.org/setup
+    "@nuxtjs/google-fonts",
   ],
 
   googleFonts: {
@@ -530,9 +511,8 @@ export default {
     babel: {
       plugins: [
         ["@babel/plugin-proposal-private-property-in-object", { loose: true }],
-        // ["@nuxtjs/composition-api/dist/babel-plugin"],
       ],
     },
     transpile: process.env.NODE_ENV !== "production" ? [/@vue[\\/]composition-api/] : null,
   },
-};
+});
