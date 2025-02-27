@@ -28,9 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
-
-export default defineComponent({
+export default defineNuxtComponent({
   layout: "basic",
   props: {
     error: {
@@ -39,7 +37,8 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { $auth, $globals, i18n } = useContext();
+    const i18n = useI18n();
+    const { $auth, $globals } = useNuxtApp();
     const ready = ref(false);
 
     const route = useRoute();
@@ -52,7 +51,7 @@ export default defineComponent({
       }
 
       let replaceRoute = false;
-      let routeVal = route.value.fullPath || "/";
+      let routeVal = route.fullPath || "/";
       if (routeVal[0] !== "/") {
         routeVal = `/${routeVal}`;
       }
@@ -76,7 +75,7 @@ export default defineComponent({
     }
 
     async function handle404() {
-      const normalizedRoute = route.value.fullPath.replace(/\/$/, "");
+      const normalizedRoute = route.fullPath.replace(/\/$/, "");
       const newRoute = normalizedRoute.replace(/^\/group\/(mealplan|members|notifiers|webhooks)(\/.*)?$/, "/household/$1$2");
 
       if (newRoute !== normalizedRoute) {
@@ -94,7 +93,7 @@ export default defineComponent({
       ready.value = true;
     }
 
-    useMeta({
+    useSeoMeta({
       title:
         props.error.statusCode === 404
           ? (i18n.t("page.404-not-found") as string)
@@ -110,8 +109,6 @@ export default defineComponent({
       ready,
     };
   },
-  // Needed for useMeta
-  head: {},
 });
 </script>
 
@@ -119,6 +116,7 @@ export default defineComponent({
 h1 {
   font-size: 20px;
 }
+
 p {
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;

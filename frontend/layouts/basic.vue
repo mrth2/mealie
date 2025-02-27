@@ -13,10 +13,9 @@
 
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
 import TheSnackbar from "~/components/Layout/LayoutParts/TheSnackbar.vue";
 import AppHeader from "@/components/Layout/LayoutParts/AppHeader.vue";
-export default defineComponent({
+export default defineNuxtComponent({
   components: { TheSnackbar, AppHeader },
 });
 </script>

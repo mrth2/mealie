@@ -1,14 +1,7 @@
 <template>
   <v-app dark>
-    <AppSidebar
-      v-model="sidebar"
-      absolute
-      :top-link="topLinks"
-      :bottom-links="bottomLinks"
-      :user="{ data: true }"
-      :secondary-header="$t('sidebar.developer')"
-      :secondary-links="developerLinks"
-    />
+    <AppSidebar v-model="sidebar" absolute :top-link="topLinks" :bottom-links="bottomLinks" :user="{ data: true }"
+      :secondary-header="$t('sidebar.developer')" :secondary-links="developerLinks" />
 
     <TheSnackbar />
 
@@ -26,18 +19,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext, onMounted } from "@nuxtjs/composition-api";
 import AppHeader from "@/components/Layout/LayoutParts/AppHeader.vue";
 import AppSidebar from "@/components/Layout/LayoutParts/AppSidebar.vue";
 import TheSnackbar from "~/components/Layout/LayoutParts/TheSnackbar.vue";
-import { SidebarLinks } from "~/types/application-types";
+import type { SidebarLinks } from "~/types/application-types";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { AppHeader, AppSidebar, TheSnackbar },
   middleware: ["auth", "admin-only"],
   auth: true,
   setup() {
-    const { $globals, i18n, $vuetify } = useContext();
+    const i18n = useI18n();
+    const { $globals, $vuetify } = useNuxtApp();
 
     const sidebar = ref<boolean | null>(null);
     onMounted(() => {
@@ -48,7 +41,7 @@ export default defineComponent({
       {
         icon: $globals.icons.cog,
         to: "/admin/site-settings",
-        title: i18n.tc("sidebar.site-settings"),
+        title: i18n.t("sidebar.site-settings"),
         restricted: true,
       },
 
@@ -61,25 +54,25 @@ export default defineComponent({
       {
         icon: $globals.icons.user,
         to: "/admin/manage/users",
-        title: i18n.tc("user.users"),
+        title: i18n.t("user.users"),
         restricted: true,
       },
       {
         icon: $globals.icons.household,
         to: "/admin/manage/households",
-        title: i18n.tc("household.households"),
+        title: i18n.t("household.households"),
         restricted: true,
       },
       {
         icon: $globals.icons.group,
         to: "/admin/manage/groups",
-        title: i18n.tc("group.groups"),
+        title: i18n.t("group.groups"),
         restricted: true,
       },
       {
         icon: $globals.icons.database,
         to: "/admin/backups",
-        title: i18n.tc("sidebar.backups"),
+        title: i18n.t("sidebar.backups"),
         restricted: true,
       },
     ];
@@ -88,24 +81,24 @@ export default defineComponent({
       {
         icon: $globals.icons.wrench,
         to: "/admin/maintenance",
-        title: i18n.tc("sidebar.maintenance"),
+        title: i18n.t("sidebar.maintenance"),
         restricted: true,
       },
       {
         icon: $globals.icons.robot,
-        title: i18n.tc("recipe.debug"),
+        title: i18n.t("recipe.debug"),
         restricted: true,
         children: [
           {
             icon: $globals.icons.robot,
             to: "/admin/debug/openai",
-            title: i18n.tc("admin.openai"),
+            title: i18n.t("admin.openai"),
             restricted: true,
           },
           {
             icon: $globals.icons.slotMachine,
             to: "/admin/debug/parser",
-            title: i18n.tc("sidebar.parser"),
+            title: i18n.t("sidebar.parser"),
             restricted: true,
           },
         ]
@@ -115,7 +108,7 @@ export default defineComponent({
     const bottomLinks: SidebarLinks = [
       {
         icon: $globals.icons.heart,
-        title: i18n.tc("about.support"),
+        title: i18n.t("about.support"),
         href: "https://github.com/sponsors/hay-kot",
         restricted: true,
       },
