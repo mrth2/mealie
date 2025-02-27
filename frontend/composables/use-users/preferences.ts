@@ -1,4 +1,4 @@
-import { Ref, useContext } from "@nuxtjs/composition-api";
+
 import { useLocalStorage, useSessionStorage } from "@vueuse/core";
 import { RegisteredParser, TimelineEventType } from "~/lib/api/types/recipe";
 import { QueryFilterJSON } from "~/lib/api/types/response";
@@ -92,7 +92,7 @@ export function useUserPrintPreferences(): Ref<UserPrintPreferences> {
 }
 
 export function useUserSortPreferences(): Ref<UserRecipePreferences> {
-  const { $globals } = useContext();
+  const { $globals } = useNuxtApp();
 
   const fromStorage = useLocalStorage(
     "recipe-section-preferences",

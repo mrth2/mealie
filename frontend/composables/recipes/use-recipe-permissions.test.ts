@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { ref, Ref } from "@nuxtjs/composition-api";
+
 import { useRecipePermissions } from "./use-recipe-permissions";
 import { HouseholdSummary } from "~/lib/api/types/household";
 import { Recipe } from "~/lib/api/types/recipe";
@@ -86,7 +86,7 @@ describe("test use recipe permissions", () => {
     const result = useRecipePermissions(
       createRecipe({}),
       createRecipeHousehold({}),
-      createUser({ id: "other-user-id", groupId: "other-group-id"}),
+      createUser({ id: "other-user-id", groupId: "other-group-id" }),
     );
     expect(result.canEditRecipe.value).toBe(false);
   });
@@ -113,7 +113,7 @@ describe("test use recipe permissions", () => {
     const result = useRecipePermissions(
       createRecipe({}, true),
       createRecipeHousehold({}),
-      createUser({ id: "other-user-id"}),
+      createUser({ id: "other-user-id" }),
     );
     expect(result.canEditRecipe.value).toBe(false);
   });

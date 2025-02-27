@@ -1,4 +1,4 @@
-import { useAsync, ref, Ref, useContext } from "@nuxtjs/composition-api";
+
 import { useAsyncKey } from "./use-utils";
 import { usePublicExploreApi } from "./api/api-client";
 import { useHouseholdSelf } from "./use-households";
@@ -71,7 +71,7 @@ export const useCookbooks = function () {
   const { household } = useHouseholdSelf();
   const loading = ref(false);
 
-  const { i18n } = useContext();
+  const { i18n } = useNuxtApp();
 
   const actions = {
     getAll() {

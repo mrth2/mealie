@@ -1,10 +1,10 @@
-import { computed, Ref, ref, useContext } from "@nuxtjs/composition-api";
+
 import VueI18n from "vue-i18n";
 import { scorePassword } from "~/lib/validators";
 
 export function usePasswordField() {
   const show = ref(false);
-  const { $globals } = useContext();
+  const { $globals } = useNuxtApp();
 
   const passwordIcon = computed(() => {
     return show.value ? $globals.icons.eyeOff : $globals.icons.eye;
@@ -26,13 +26,13 @@ export const usePasswordStrength = (password: Ref<string>, i18n: VueI18n) => {
   const score = computed(() => scorePassword(password.value));
   const strength = computed(() => {
     if (score.value < 50) {
-      return i18n.tc("user.password-strength-values.weak");
+      return i18n.t("user.password-strength-values.weak");
     } else if (score.value < 80) {
-      return i18n.tc("user.password-strength-values.good");
+      return i18n.t("user.password-strength-values.good");
     } else if (score.value < 100) {
-      return i18n.tc("user.password-strength-values.strong");
+      return i18n.t("user.password-strength-values.strong");
     } else {
-      return i18n.tc("user.password-strength-values.very-strong");
+      return i18n.t("user.password-strength-values.very-strong");
     }
   });
 

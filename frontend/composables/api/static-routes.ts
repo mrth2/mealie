@@ -1,4 +1,4 @@
-import { useContext } from "@nuxtjs/composition-api";
+
 import { detectServerBaseUrl } from "../use-utils";
 
 function UnknownToString(ukn: string | unknown) {
@@ -6,7 +6,7 @@ function UnknownToString(ukn: string | unknown) {
 }
 
 export const useStaticRoutes = () => {
-  const { $config, req } = useContext();
+  const { $config, req } = useNuxtApp();
   const serverBase = detectServerBaseUrl(req);
 
   const prefix = `${$config.SUB_PATH as string}/api`.replace("//", "/");

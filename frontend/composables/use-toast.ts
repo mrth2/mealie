@@ -1,4 +1,4 @@
-import { reactive } from "@nuxtjs/composition-api";
+
 
 interface Toast {
   open: boolean;

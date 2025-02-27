@@ -1,4 +1,4 @@
-import { ref, Ref } from "@nuxtjs/composition-api";
+
 import { useReadOnlyStore } from "../partials/use-store-factory";
 import { useRequests } from "../api/api-client";
 import { UserSummary } from "~/lib/api/types/user";
@@ -16,5 +16,5 @@ export const useUserStore = function () {
   const requests = useRequests();
   const api = new GroupUserAPIReadOnly(requests);
 
-  return useReadOnlyStore<UserSummary>(store, loading, api, {orderBy: "full_name"});
+  return useReadOnlyStore<UserSummary>(store, loading, api, { orderBy: "full_name" });
 }

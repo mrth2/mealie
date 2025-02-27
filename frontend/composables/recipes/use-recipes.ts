@@ -1,4 +1,4 @@
-import { useAsync, useRouter, ref } from "@nuxtjs/composition-api";
+
 import { useAsyncKey } from "../use-utils";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useUserApi } from "~/composables/api";

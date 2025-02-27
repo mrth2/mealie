@@ -1,8 +1,8 @@
-import { computed, useContext } from "@nuxtjs/composition-api";
+
 import { LOCALES } from "./available-locales";
 
 export const useLocales = () => {
-  const { i18n, $vuetify } = useContext();
+  const { i18n, $vuetify } = useNuxtApp();
 
   function getLocale(value: string) {
     const currentLocale = LOCALES.filter((locale) => locale.value === value);

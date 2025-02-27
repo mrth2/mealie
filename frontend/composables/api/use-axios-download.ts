@@ -1,7 +1,7 @@
-import { useContext } from "@nuxtjs/composition-api";
+
 
 export function useAxiosDownloader() {
-  const { $axios } = useContext();
+  const { $axios } = useNuxtApp();
 
   function download(url: string, filename: string) {
     $axios({

@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { useContext } from "@nuxtjs/composition-api";
+
 import type { NuxtAxiosInstance } from "@nuxtjs/axios";
 import { ApiRequestInstance, RequestResponse } from "~/lib/api/types/non-generated";
 import { AdminAPI, PublicApi, UserApi } from "~/lib/api";
@@ -58,7 +58,7 @@ function getRequests(axiosInstance: NuxtAxiosInstance): ApiRequestInstance {
 }
 
 export const useRequests = function (): ApiRequestInstance {
-  const { $axios, i18n } = useContext();
+  const { $axios, i18n } = useNuxtApp();
 
   $axios.setHeader("Accept-Language", i18n.locale);
 

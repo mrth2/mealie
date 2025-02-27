@@ -1,4 +1,4 @@
-import { useAsync, ref } from "@nuxtjs/composition-api";
+
 import { useUserApi } from "~/composables/api";
 import { UserIn, UserOut } from "~/lib/api/types/user";
 
