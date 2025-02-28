@@ -1,49 +1,22 @@
 <template>
   <div>
-    <v-text-field
-      v-if="value.title || showTitle"
-      v-model="value.title"
-      dense
-      hide-details
-      class="mx-1 mt-3 mb-4"
-      :placeholder="$t('recipe.section-title')"
-      style="max-width: 500px"
-      @click="$emit('clickIngredientField', 'title')"
-    >
+    <v-text-field v-if="value.title || showTitle" v-model="value.title" dense hide-details class="mx-1 mt-3 mb-4"
+      :placeholder="$t('recipe.section-title')" style="max-width: 500px"
+      @click="$emit('clickIngredientField', 'title')">
     </v-text-field>
-    <v-row :no-gutters="$vuetify.breakpoint.mdAndUp" dense class="d-flex flex-wrap my-1">
+    <v-row :no-gutters="mdAndUp" dense class="d-flex flex-wrap my-1">
       <v-col v-if="!disableAmount" sm="12" md="2" cols="12" class="flex-grow-0 flex-shrink-0">
-        <v-text-field
-          v-model="value.quantity"
-          solo
-          hide-details
-          dense
-          type="number"
-          :placeholder="$t('recipe.quantity')"
-          @keypress="quantityFilter"
-        >
+        <v-text-field v-model="value.quantity" solo hide-details dense type="number"
+          :placeholder="$t('recipe.quantity')" @keypress="quantityFilter">
           <v-icon v-if="$listeners && $listeners.delete" slot="prepend" class="mr-n1 handle">
             {{ $globals.icons.arrowUpDown }}
           </v-icon>
         </v-text-field>
       </v-col>
       <v-col v-if="!disableAmount" sm="12" md="3" cols="12">
-        <v-autocomplete
-          ref="unitAutocomplete"
-          v-model="value.unit"
-          :search-input.sync="unitSearch"
-          auto-select-first
-          hide-details
-          dense
-          solo
-          return-object
-          :items="units || []"
-          item-text="name"
-          class="mx-1"
-          :placeholder="$t('recipe.choose-unit')"
-          clearable
-          @keyup.enter="handleUnitEnter"
-        >
+        <v-autocomplete ref="unitAutocomplete" v-model="value.unit" :search-input.sync="unitSearch" auto-select-first
+          hide-details dense solo return-object :items="units || []" item-text="name" class="mx-1"
+          :placeholder="$t('recipe.choose-unit')" clearable @keyup.enter="handleUnitEnter">
           <template #no-data>
             <div class="caption text-center pb-2">{{ $t("recipe.press-enter-to-create") }}</div>
           </template>
@@ -57,22 +30,9 @@
 
       <!-- Foods Input -->
       <v-col v-if="!disableAmount" m="12" md="3" cols="12" class="">
-        <v-autocomplete
-          ref="foodAutocomplete"
-          v-model="value.food"
-          :search-input.sync="foodSearch"
-          auto-select-first
-          hide-details
-          dense
-          solo
-          return-object
-          :items="foods || []"
-          item-text="name"
-          class="mx-1 py-0"
-          :placeholder="$t('recipe.choose-food')"
-          clearable
-          @keyup.enter="handleFoodEnter"
-        >
+        <v-autocomplete ref="foodAutocomplete" v-model="value.food" :search-input.sync="foodSearch" auto-select-first
+          hide-details dense solo return-object :items="foods || []" item-text="name" class="mx-1 py-0"
+          :placeholder="$t('recipe.choose-food')" clearable @keyup.enter="handleFoodEnter">
           <template #no-data>
             <div class="caption text-center pb-2">{{ $t("recipe.press-enter-to-create") }}</div>
           </template>
@@ -85,30 +45,16 @@
       </v-col>
       <v-col sm="12" md="" cols="12">
         <div class="d-flex">
-          <v-text-field
-            v-model="value.note"
-            hide-details
-            dense
-            solo
-            :placeholder="$t('recipe.notes')"
-            @click="$emit('clickIngredientField', 'note')"
-          >
+          <v-text-field v-model="value.note" hide-details dense solo :placeholder="$t('recipe.notes')"
+            @click="$emit('clickIngredientField', 'note')">
             <v-icon v-if="disableAmount && $listeners && $listeners.delete" slot="prepend" class="mr-n1 handle">
               {{ $globals.icons.arrowUpDown }}
             </v-icon>
           </v-text-field>
-          <BaseButtonGroup
-            hover
-            :large="false"
-            class="my-auto d-flex"
-            :buttons="btns"
-            @toggle-section="toggleTitle"
-            @toggle-original="toggleOriginalText"
-            @insert-above="$emit('insert-above')"
-            @insert-below="$emit('insert-below')"
-            @insert-ingredient="$emit('insert-ingredient')"
-            @delete="$emit('delete')"
-          />
+          <BaseButtonGroup hover :large="false" class="my-auto d-flex" :buttons="btns" @toggle-section="toggleTitle"
+            @toggle-original="toggleOriginalText" @insert-above="$emit('insert-above')"
+            @insert-below="$emit('insert-below')" @insert-ingredient="$emit('insert-ingredient')"
+            @delete="$emit('delete')" />
         </div>
       </v-col>
     </v-row>
@@ -116,15 +62,14 @@
       {{ $t("recipe.original-text-with-value", { originalText: value.originalText }) }}
     </p>
 
-    <v-divider v-if="!$vuetify.breakpoint.mdAndUp" class="my-4"></v-divider>
+    <v-divider v-if="!mdAndUp" class="my-4"></v-divider>
   </div>
 </template>
 
 <script lang="ts">
-
 import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
 import { validators } from "~/composables/use-validators";
-import { RecipeIngredient } from "~/lib/api/types/recipe";
+import type { RecipeIngredient } from "~/lib/api/types/recipe";
 
 export default defineNuxtComponent({
   props: {
@@ -141,8 +86,10 @@ export default defineNuxtComponent({
       default: false,
     }
   },
-  setup(props, { listeners }) {
-    const { i18n, $globals } = useNuxtApp();
+  setup(props, { attrs: listeners }) {
+    const { mdAndUp } = useDisplay();
+    const i18n = useI18n();
+    const { $globals } = useNuxtApp();
 
     const contextMenuOptions = computed(() => {
       const options = [
@@ -162,7 +109,7 @@ export default defineNuxtComponent({
 
       if (props.allowInsertIngredient) {
         options.push({
-          text: i18n.t("recipe.insert-ingredient") ,
+          text: i18n.t("recipe.insert-ingredient"),
           event: "insert-ingredient",
         })
       }
@@ -298,6 +245,7 @@ export default defineNuxtComponent({
       validators,
       workingUnitData: unitsData.data,
       btns,
+      mdAndUp,
     };
   },
 });

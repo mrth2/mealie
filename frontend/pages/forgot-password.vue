@@ -47,7 +47,7 @@ export default defineNuxtComponent({
       error: false,
     });
 
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
     const api = useUserApi();
 
     async function requestLink() {

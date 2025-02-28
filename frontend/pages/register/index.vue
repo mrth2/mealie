@@ -204,8 +204,8 @@ import { useRouteQuery } from "~/composables/use-router";
 import { validators, useAsyncValidator } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-import { CreateUserRegistration } from "~/lib/api/types/user";
-import { VForm } from "~/types/vuetify";
+import type { CreateUserRegistration } from "~/lib/api/types/user";
+import type { VForm } from "~/types/vuetify";
 import { usePasswordField } from "~/composables/use-passwords";
 import { usePublicApi } from "~/composables/api/api-client";
 import { useLocales } from "~/composables/use-locales";
@@ -222,7 +222,7 @@ export default defineNuxtComponent({
   components: { UserRegistrationForm },
   layout: "blank",
   setup() {
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
     const isDark = useDark();
     function safeValidate(form: Ref<VForm | null>) {
       if (form.value && form.value.validate) {

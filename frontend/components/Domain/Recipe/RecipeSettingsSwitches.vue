@@ -15,8 +15,7 @@
 </template>
 
 <script lang="ts">
-
-import { RecipeSettings } from "~/lib/api/types/recipe";
+import type { RecipeSettings } from "~/lib/api/types/recipe";
 
 export default defineNuxtComponent({
   props: {
@@ -30,7 +29,7 @@ export default defineNuxtComponent({
     },
   },
   setup() {
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
     const labels: Record<keyof RecipeSettings, string> = {
       public: i18n.t("recipe.public-recipe"),
       showNutrition: i18n.t("recipe.show-nutrition-values"),

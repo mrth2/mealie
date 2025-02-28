@@ -4,7 +4,7 @@ import { alert } from "./use-toast";
 
 export function useCopy() {
   const { copy, copied, isSupported } = useClipboard();
-  const { i18n } = useNuxtApp();
+  const i18n = useI18n();
 
   function copyText(text: string) {
     if (!isSupported.value) {
@@ -27,7 +27,7 @@ export function useCopy() {
 
 export function useCopyList() {
   const { copy, isSupported, copied } = useClipboard();
-  const { i18n } = useNuxtApp();
+  const i18n = useI18n();
 
   function checkClipboard() {
     if (!isSupported.value) {

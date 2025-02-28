@@ -23,9 +23,9 @@
 <script lang="ts">
 
 import HouseholdPreferencesEditor from "~/components/Domain/Household/HouseholdPreferencesEditor.vue";
-import { VForm } from "~/types/vuetify";
+import type { VForm } from "~/types/vuetify";
 import { useHouseholdSelf } from "~/composables/use-households";
-import { ReadHouseholdPreferences } from "~/lib/api/types/household";
+import type { ReadHouseholdPreferences } from "~/lib/api/types/household";
 import { alert } from "~/composables/use-toast";
 
 export default defineNuxtComponent({
@@ -35,7 +35,7 @@ export default defineNuxtComponent({
   middleware: ["auth", "can-manage-household-only"],
   setup() {
     const { household, actions: householdActions } = useHouseholdSelf();
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
 
     const refHouseholdEditForm = ref<VForm | null>(null);
 

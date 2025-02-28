@@ -115,12 +115,11 @@
 </template>
 
 <script lang="ts">
-
 import { whenever } from "@vueuse/core";
-import { VForm } from "~/types/vuetify";
+import type { VForm } from "~/types/vuetify";
 import { useUserApi } from "~/composables/api";
 import { useHouseholdSelf } from "~/composables/use-households";
-import { Recipe, RecipeTimelineEventIn } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeTimelineEventIn } from "~/lib/api/types/recipe";
 
 export default defineNuxtComponent({
   props: {
@@ -133,7 +132,8 @@ export default defineNuxtComponent({
     const madeThisDialog = ref(false);
     const userApi = useUserApi();
     const { household } = useHouseholdSelf();
-    const { $auth, i18n } = useNuxtApp();
+    const i18n = useI18n();
+    const { $auth } = useNuxtApp();
     const domMadeThisForm = ref<VForm>();
     const newTimelineEvent = ref<RecipeTimelineEventIn>({
       subject: "",

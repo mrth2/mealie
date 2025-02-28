@@ -1,12 +1,7 @@
 <template>
   <v-container class="narrow-container">
-    <BaseDialog
-      v-model="deleteDialog"
-      color="error"
-      :title="$tc('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      @confirm="deleteNotifier(deleteTargetId)"
-    >
+    <BaseDialog v-model="deleteDialog" color="error" :title="$tc('general.confirm')" :icon="$globals.icons.alertCircle"
+      @confirm="deleteNotifier(deleteTargetId)">
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
       </v-card-text>
@@ -29,7 +24,9 @@
         <a href="https://github.com/caronc/apprise/wiki" target="_blanks" class="mx-2"> Apprise </a>
         <a href="https://github.com/caronc/apprise/wiki/Notify_gotify" target="_blanks" class="mx-2"> Gotify </a>
         <a href="https://github.com/caronc/apprise/wiki/Notify_discord" target="_blanks" class="mx-2"> Discord </a>
-        <a href="https://github.com/caronc/apprise/wiki/Notify_homeassistant" target="_blanks" class="mx-2"> Home Assistant </a>
+        <a href="https://github.com/caronc/apprise/wiki/Notify_homeassistant" target="_blanks" class="mx-2"> Home
+          Assistant
+        </a>
         <a href="https://github.com/caronc/apprise/wiki/Notify_matrix" target="_blanks" class="mx-2"> Matrix </a>
         <a href="https://github.com/caronc/apprise/wiki/Notify_pushover" target="_blanks" class="mx-2"> Pushover </a>
       </div>
@@ -52,10 +49,8 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-text-field v-model="notifiers[index].name" :label="$t('general.name')"></v-text-field>
-          <v-text-field
-            v-model="notifiers[index].appriseUrl"
-            :label="$t('events.apprise-url-skipped-if-blank')"
-          ></v-text-field>
+          <v-text-field v-model="notifiers[index].appriseUrl"
+            :label="$t('events.apprise-url-skipped-if-blank')"></v-text-field>
           <v-checkbox v-model="notifiers[index].enabled" :label="$t('events.enable-notifier')" dense></v-checkbox>
 
           <v-divider></v-divider>
@@ -65,40 +60,29 @@
               <h4>
                 {{ sec.text }}
               </h4>
-              <v-checkbox
-                v-for="opt in sec.options"
-                :key="opt.key"
-                v-model="notifiers[index].options[opt.key]"
-                hide-details
-                dense
-                :label="opt.text"
-              />
+              <v-checkbox v-for="opt in sec.options" :key="opt.key" v-model="notifiers[index].options[opt.key]"
+                hide-details dense :label="opt.text" />
             </section>
           </div>
           <v-card-actions class="py-0">
             <v-spacer></v-spacer>
-            <BaseButtonGroup
-              :buttons="[
-                {
-                  icon: $globals.icons.delete,
-                  text: $tc('general.delete'),
-                  event: 'delete',
-                },
-                {
-                  icon: $globals.icons.testTube,
-                  text: $tc('general.test'),
-                  event: 'test',
-                },
-                {
-                  icon: $globals.icons.save,
-                  text: $tc('general.save'),
-                  event: 'save',
-                },
-              ]"
-              @delete="openDelete(notifier)"
-              @save="saveNotifier(notifier)"
-              @test="testNotifier(notifier)"
-            />
+            <BaseButtonGroup :buttons="[
+              {
+                icon: $globals.icons.delete,
+                text: $tc('general.delete'),
+                event: 'delete',
+              },
+              {
+                icon: $globals.icons.testTube,
+                text: $tc('general.test'),
+                event: 'test',
+              },
+              {
+                icon: $globals.icons.save,
+                text: $tc('general.save'),
+                event: 'save',
+              },
+            ]" @delete="openDelete(notifier)" @save="saveNotifier(notifier)" @test="testNotifier(notifier)" />
           </v-card-actions>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -106,10 +90,9 @@
   </v-container>
 </template>
 <script lang="ts">
-
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
-import { GroupEventNotifierCreate, GroupEventNotifierOut } from "~/lib/api/types/household";
+import type { GroupEventNotifierCreate, GroupEventNotifierOut } from "~/lib/api/types/household";
 
 interface OptionKey {
   text: string;
@@ -134,10 +117,10 @@ export default defineNuxtComponent({
       deleteTargetId: "",
     });
 
-    const notifiers = useAsync(async () => {
+    const { data: notifiers } = useAsyncData(useAsyncKey(), async () => {
       const { data } = await api.groupEventNotifier.getAll();
       return data?.items;
-    }, useAsyncKey());
+    });
 
     async function refreshNotifiers() {
       const { data } = await api.groupEventNotifier.getAll();
@@ -177,7 +160,7 @@ export default defineNuxtComponent({
 
     // ===============================================================
     // Options Definitions
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
 
     const optionsSections: OptionSection[] = [
       {

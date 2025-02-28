@@ -1,113 +1,77 @@
 <template>
   <div>
     <!-- Merge Dialog -->
-    <BaseDialog v-model="mergeDialog" :icon="$globals.icons.units" :title="$t('data-pages.units.combine-unit')" @confirm="mergeUnits">
+    <BaseDialog v-model="mergeDialog" :icon="$globals.icons.units" :title="$t('data-pages.units.combine-unit')"
+      @confirm="mergeUnits">
       <v-card-text>
-      <i18n path="data-pages.units.combine-unit-description">
-        <template #source-unit-will-be-deleted>
-          <strong> {{ $t('data-pages.recipes.source-unit-will-be-deleted') }} </strong>
-        </template>
-      </i18n>
+        <i18n path="data-pages.units.combine-unit-description">
+          <template #source-unit-will-be-deleted>
+            <strong> {{ $t('data-pages.recipes.source-unit-will-be-deleted') }} </strong>
+          </template>
+        </i18n>
 
-        <v-autocomplete v-model="fromUnit" return-object :items="store" item-text="id" :label="$t('data-pages.units.source-unit')">
+        <v-autocomplete v-model="fromUnit" return-object :items="store" item-text="id"
+          :label="$t('data-pages.units.source-unit')">
           <template #selection="{ item }"> {{ item.name }}</template>
           <template #item="{ item }"> {{ item.name }} </template>
         </v-autocomplete>
-        <v-autocomplete v-model="toUnit" return-object :items="store" item-text="id" :label="$t('data-pages.units.target-unit')">
+        <v-autocomplete v-model="toUnit" return-object :items="store" item-text="id"
+          :label="$t('data-pages.units.target-unit')">
           <template #selection="{ item }"> {{ item.name }}</template>
           <template #item="{ item }"> {{ item.name }} </template>
         </v-autocomplete>
 
         <template v-if="canMerge && fromUnit && toUnit">
-          <div class="text-center">{{ $t('data-pages.units.merging-unit-into-unit', [fromUnit.name, toUnit.name]) }}</div>
+          <div class="text-center">{{ $t('data-pages.units.merging-unit-into-unit', [fromUnit.name, toUnit.name]) }}
+          </div>
         </template>
       </v-card-text>
     </BaseDialog>
 
     <!-- Create Dialog -->
-    <BaseDialog
-      v-model="createDialog"
-      :icon="$globals.icons.units"
-      :title="$t('data-pages.units.create-unit')"
-      :submit-icon="$globals.icons.save"
-      :submit-text="$tc('general.save')"
-      @submit="createUnit"
-    >
+    <BaseDialog v-model="createDialog" :icon="$globals.icons.units" :title="$t('data-pages.units.create-unit')"
+      :submit-icon="$globals.icons.save" :submit-text="$tc('general.save')" @submit="createUnit">
       <v-card-text>
         <v-form ref="domNewUnitForm">
-          <v-text-field
-            v-model="createTarget.name"
-            autofocus
-            :label="$t('general.name')"
-            :hint="$t('data-pages.units.example-unit-singular')"
-            :rules="[validators.required]"
-          ></v-text-field>
-          <v-text-field
-            v-model="createTarget.pluralName"
-            :label="$t('general.plural-name')"
-            :hint="$t('data-pages.units.example-unit-plural')"
-          ></v-text-field>
-          <v-text-field
-            v-model="createTarget.abbreviation"
-            :label="$t('data-pages.units.abbreviation')"
-            :hint="$t('data-pages.units.example-unit-abbreviation-singular')"
-          ></v-text-field>
-          <v-text-field
-            v-model="createTarget.pluralAbbreviation"
-            :label="$t('data-pages.units.plural-abbreviation')"
-            :hint="$t('data-pages.units.example-unit-abbreviation-plural')"
-          ></v-text-field>
+          <v-text-field v-model="createTarget.name" autofocus :label="$t('general.name')"
+            :hint="$t('data-pages.units.example-unit-singular')" :rules="[validators.required]"></v-text-field>
+          <v-text-field v-model="createTarget.pluralName" :label="$t('general.plural-name')"
+            :hint="$t('data-pages.units.example-unit-plural')"></v-text-field>
+          <v-text-field v-model="createTarget.abbreviation" :label="$t('data-pages.units.abbreviation')"
+            :hint="$t('data-pages.units.example-unit-abbreviation-singular')"></v-text-field>
+          <v-text-field v-model="createTarget.pluralAbbreviation" :label="$t('data-pages.units.plural-abbreviation')"
+            :hint="$t('data-pages.units.example-unit-abbreviation-plural')"></v-text-field>
           <v-text-field v-model="createTarget.description" :label="$t('data-pages.units.description')"></v-text-field>
-          <v-checkbox v-model="createTarget.fraction" hide-details :label="$t('data-pages.units.display-as-fraction')"></v-checkbox>
-          <v-checkbox v-model="createTarget.useAbbreviation" hide-details :label="$t('data-pages.units.use-abbreviation')"></v-checkbox>
+          <v-checkbox v-model="createTarget.fraction" hide-details
+            :label="$t('data-pages.units.display-as-fraction')"></v-checkbox>
+          <v-checkbox v-model="createTarget.useAbbreviation" hide-details
+            :label="$t('data-pages.units.use-abbreviation')"></v-checkbox>
         </v-form>
       </v-card-text>
     </BaseDialog>
 
     <!-- Alias Sub-Dialog -->
-    <RecipeDataAliasManagerDialog
-      v-if="editTarget"
-      :value="aliasManagerDialog"
-      :data="editTarget"
-      @submit="updateUnitAlias"
-      @cancel="aliasManagerDialog = false"
-    />
+    <RecipeDataAliasManagerDialog v-if="editTarget" :value="aliasManagerDialog" :data="editTarget"
+      @submit="updateUnitAlias" @cancel="aliasManagerDialog = false" />
 
     <!-- Edit Dialog -->
-    <BaseDialog
-      v-model="editDialog"
-      :icon="$globals.icons.units"
-      :title="$t('data-pages.units.edit-unit')"
-      :submit-icon="$globals.icons.save"
-      :submit-text="$tc('general.save')"
-      @submit="editSaveUnit"
-    >
+    <BaseDialog v-model="editDialog" :icon="$globals.icons.units" :title="$t('data-pages.units.edit-unit')"
+      :submit-icon="$globals.icons.save" :submit-text="$tc('general.save')" @submit="editSaveUnit">
       <v-card-text v-if="editTarget">
         <v-form ref="domEditUnitForm">
-          <v-text-field
-            v-model="editTarget.name"
-            :label="$t('general.name')"
-            :hint="$t('data-pages.units.example-unit-singular')"
-            :rules="[validators.required]"
-          ></v-text-field>
-          <v-text-field
-            v-model="editTarget.pluralName"
-            :label="$t('general.plural-name')"
-            :hint="$t('data-pages.units.example-unit-plural')"
-          ></v-text-field>
-          <v-text-field
-            v-model="editTarget.abbreviation"
-            :label="$t('data-pages.units.abbreviation')"
-            :hint="$t('data-pages.units.example-unit-abbreviation-singular')"
-          ></v-text-field>
-          <v-text-field
-            v-model="editTarget.pluralAbbreviation"
-            :label="$t('data-pages.units.plural-abbreviation')"
-            :hint="$t('data-pages.units.example-unit-abbreviation-plural')"
-          ></v-text-field>
+          <v-text-field v-model="editTarget.name" :label="$t('general.name')"
+            :hint="$t('data-pages.units.example-unit-singular')" :rules="[validators.required]"></v-text-field>
+          <v-text-field v-model="editTarget.pluralName" :label="$t('general.plural-name')"
+            :hint="$t('data-pages.units.example-unit-plural')"></v-text-field>
+          <v-text-field v-model="editTarget.abbreviation" :label="$t('data-pages.units.abbreviation')"
+            :hint="$t('data-pages.units.example-unit-abbreviation-singular')"></v-text-field>
+          <v-text-field v-model="editTarget.pluralAbbreviation" :label="$t('data-pages.units.plural-abbreviation')"
+            :hint="$t('data-pages.units.example-unit-abbreviation-plural')"></v-text-field>
           <v-text-field v-model="editTarget.description" :label="$t('data-pages.units.description')"></v-text-field>
-          <v-checkbox v-model="editTarget.fraction" hide-details :label="$t('data-pages.units.display-as-fraction')"></v-checkbox>
-          <v-checkbox v-model="editTarget.useAbbreviation" hide-details :label="$t('data-pages.units.use-abbreviation')"></v-checkbox>
+          <v-checkbox v-model="editTarget.fraction" hide-details
+            :label="$t('data-pages.units.display-as-fraction')"></v-checkbox>
+          <v-checkbox v-model="editTarget.useAbbreviation" hide-details
+            :label="$t('data-pages.units.use-abbreviation')"></v-checkbox>
         </v-form>
       </v-card-text>
       <template #custom-card-action>
@@ -116,13 +80,8 @@
     </BaseDialog>
 
     <!-- Delete Dialog -->
-    <BaseDialog
-      v-model="deleteDialog"
-      :title="$tc('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      @confirm="deleteUnit"
-    >
+    <BaseDialog v-model="deleteDialog" :title="$tc('general.confirm')" :icon="$globals.icons.alertCircle" color="error"
+      @confirm="deleteUnit">
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
         <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.name }}</p>
@@ -130,14 +89,8 @@
     </BaseDialog>
 
     <!-- Bulk Delete Dialog -->
-    <BaseDialog
-      v-model="bulkDeleteDialog"
-      width="650px"
-      :title="$tc('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      @confirm="deleteSelected"
-    >
+    <BaseDialog v-model="bulkDeleteDialog" width="650px" :title="$tc('general.confirm')"
+      :icon="$globals.icons.alertCircle" color="error" @confirm="deleteSelected">
       <v-card-text>
         <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
         <v-card outlined>
@@ -155,26 +108,14 @@
     </BaseDialog>
 
     <!-- Seed Dialog-->
-    <BaseDialog
-      v-model="seedDialog"
-      :icon="$globals.icons.foods"
-      :title="$tc('data-pages.seed-data')"
-      @confirm="seedDatabase"
-    >
+    <BaseDialog v-model="seedDialog" :icon="$globals.icons.foods" :title="$tc('data-pages.seed-data')"
+      @confirm="seedDatabase">
       <v-card-text>
         <div class="pb-2">
           {{ $t("data-pages.units.seed-dialog-text") }}
         </div>
-        <v-autocomplete
-          v-model="locale"
-          :items="locales"
-          item-text="name"
-          :label="$t('data-pages.select-language')"
-          class="my-3"
-          hide-details
-          outlined
-          offset
-        >
+        <v-autocomplete v-model="locale" :items="locales" item-text="name" :label="$t('data-pages.select-language')"
+          class="my-3" hide-details outlined offset>
           <template #item="{ item }">
             <v-list-item-content>
               <v-list-item-title> {{ item.name }} </v-list-item-title>
@@ -192,19 +133,12 @@
     </BaseDialog>
 
     <!-- Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.units" section :title="$tc('data-pages.units.unit-data')"> </BaseCardSectionTitle>
-    <CrudTable
-      :table-config="tableConfig"
-      :headers.sync="tableHeaders"
-      :data="store"
-      :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
-      initial-sort="createdAt"
-      initial-sort-desc
-      @delete-one="deleteEventHandler"
-      @edit-one="editEventHandler"
-      @create-one="createEventHandler"
-      @delete-selected="bulkDeleteEventHandler"
-    >
+    <BaseCardSectionTitle :icon="$globals.icons.units" section :title="$tc('data-pages.units.unit-data')">
+    </BaseCardSectionTitle>
+    <CrudTable :table-config="tableConfig" :headers.sync="tableHeaders" :data="store"
+      :bulk-actions="[{ icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected' }]"
+      initial-sort="createdAt" initial-sort-desc @delete-one="deleteEventHandler" @edit-one="editEventHandler"
+      @create-one="createEventHandler" @delete-selected="bulkDeleteEventHandler">
       <template #button-row>
         <BaseButton create @click="createDialog = true" />
 
@@ -242,16 +176,17 @@ import type { LocaleObject } from "@nuxtjs/i18n";
 import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import { CreateIngredientUnit, IngredientUnit, IngredientUnitAlias } from "~/lib/api/types/recipe";
+import type { CreateIngredientUnit, IngredientUnit, IngredientUnitAlias } from "~/lib/api/types/recipe";
 import { useLocales } from "~/composables/use-locales";
 import { useUnitStore } from "~/composables/store";
-import { VForm } from "~/types/vuetify";
+import type { VForm } from "~/types/vuetify";
 
 export default defineNuxtComponent({
   components: { RecipeDataAliasManagerDialog },
   setup() {
     const userApi = useUserApi();
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
+
     const tableConfig = {
       hideColumns: true,
       canExport: true,

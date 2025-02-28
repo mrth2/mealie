@@ -2,14 +2,14 @@
 import { format } from "date-fns";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
-import { CreatePlanEntry, PlanEntryType, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
+import type { CreatePlanEntry, PlanEntryType, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
 
 type PlanOption = {
   text: string;
   value: PlanEntryType;
 };
 export function usePlanTypeOptions() {
-  const { i18n } = useNuxtApp();
+  const i18n = useI18n();
 
   return [
     { text: i18n.t("meal-plan.breakfast"), value: "breakfast" },
@@ -20,7 +20,7 @@ export function usePlanTypeOptions() {
 }
 
 export function getEntryTypeText(value: PlanEntryType) {
-  const { i18n } = useNuxtApp();
+  const i18n = useI18n();
   return i18n.t("meal-plan." + value);
 }
 export interface DateRange {

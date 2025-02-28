@@ -84,7 +84,7 @@ export default defineNuxtComponent({
     },
   },
   setup(props, { emit }) {
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
     const menu = ref<boolean>(false);
     const canEditScale = computed(() => props.editScale && props.recipeServings > 0);
 

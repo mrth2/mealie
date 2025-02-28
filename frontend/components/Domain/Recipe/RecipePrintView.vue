@@ -167,7 +167,7 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
     const preferences = useUserPrintPreferences();
     const { recipeImage } = useStaticRoutes();
     const { imageKey } = usePageState(props.recipe.slug);

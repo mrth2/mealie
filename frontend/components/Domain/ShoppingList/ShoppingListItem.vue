@@ -138,7 +138,7 @@ export default defineNuxtComponent({
     },
   },
   setup(props, context) {
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
     const displayRecipeRefs = ref(false);
     const itemLabelCols = ref<string>(props.value.checked ? "auto" : props.showLabel ? "4" : "6");
 

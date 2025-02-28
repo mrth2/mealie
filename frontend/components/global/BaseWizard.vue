@@ -160,7 +160,8 @@ export default defineNuxtComponent({
     }
   },
   setup(props, context) {
-    const { $globals, i18n } = useNuxtApp();
+    const i18n = useI18n();
+    const { $globals } = useNuxtApp();
     const ready = ref(false);
     const langDialog = ref(false);
 

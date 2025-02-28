@@ -45,7 +45,8 @@ export default defineNuxtComponent({
   },
 
   setup(props) {
-    const { $vuetify, i18n } = useNuxtApp();
+    const i18n = useI18n();
+    const { smAndDown } = useDisplay();
     const showTimeline = ref(false);
     function toggleTimeline() {
       showTimeline.value = !showTimeline.value;
@@ -53,7 +54,7 @@ export default defineNuxtComponent({
 
     const timelineAttrs = computed(() => {
       let title = i18n.t("recipe.timeline")
-      if ($vuetify.breakpoint.smAndDown) {
+      if (smAndDown.value) {
         title += ` – ${props.recipeName}`
       }
 

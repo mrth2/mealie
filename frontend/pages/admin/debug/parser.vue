@@ -66,8 +66,8 @@
 
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
-import { IngredientConfidence } from "~/lib/api/types/recipe";
-import { Parser } from "~/lib/api/user/recipes/recipe";
+import type { IngredientConfidence } from "~/lib/api/types/recipe";
+import type { Parser } from "~/lib/api/user/recipes/recipe";
 
 type ConfidenceAttribute = "average" | "comment" | "name" | "unit" | "quantity" | "food";
 
@@ -83,7 +83,7 @@ export default defineNuxtComponent({
       parser: "nlp" as Parser,
     });
 
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
 
     const confidence = ref<IngredientConfidence>({});
 

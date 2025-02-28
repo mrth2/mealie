@@ -76,15 +76,14 @@
 </template>
 
 <script lang="ts">
-
 import { fieldTypes } from "~/composables/forms";
 import { useGroups } from "~/composables/use-groups";
-import { GroupInDB } from "~/lib/api/types/user";
+import type { GroupInDB } from "~/lib/api/types/user";
 
 export default defineNuxtComponent({
   layout: "admin",
   setup() {
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
     const { groups, refreshAllGroups, deleteGroup, createGroup } = useGroups();
 
     const state = reactive({

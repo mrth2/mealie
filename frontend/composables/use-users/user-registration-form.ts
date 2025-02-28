@@ -1,6 +1,6 @@
 
 import { useAsyncValidator } from "~/composables/use-validators";
-import { VForm } from "~/types/vuetify";
+import type { VForm } from "~/types/vuetify";
 import { usePublicApi } from "~/composables/api/api-client";
 
 const domAccountForm = ref<VForm | null>(null);
@@ -12,7 +12,8 @@ const password2 = ref("");
 const advancedOptions = ref(false);
 
 export const useUserRegistrationForm = () => {
-  const { i18n } = useNuxtApp();
+  const i18n = useI18n();
+
   function safeValidate(form: Ref<VForm | null>) {
     if (form.value && form.value.validate) {
       return form.value.validate();

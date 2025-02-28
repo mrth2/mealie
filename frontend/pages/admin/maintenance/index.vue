@@ -1,13 +1,10 @@
 <template>
   <v-container fluid class="narrow-container">
-    <BaseDialog
-      v-model="state.storageDetails"
-      :title="$t('admin.maintenance.storage-details')"
-      :icon="$globals.icons.folderOutline"
-    >
+    <BaseDialog v-model="state.storageDetails" :title="$t('admin.maintenance.storage-details')"
+      :icon="$globals.icons.folderOutline">
       <div class="py-2">
-        <template v-for="(value, key, idx) in storageDetails">
-          <v-list-item :key="`item-${key}`">
+        <template v-for="(value, key, idx) in storageDetails" :key="`item-${key}`">
+          <v-list-item>
             <v-list-item-title>
               <div>{{ storageDetailsText(key) }}</div>
             </v-list-item-title>
@@ -36,23 +33,22 @@
         </BaseButton>
       </div>
       <v-card class="ma-2" :loading="state.fetchingInfo">
-        <template v-for="(value, idx) in info">
-          <v-list-item :key="`item-${idx}`">
-            <v-list-item-title class="py-2">
-              <div>{{ value.name }}</div>
-              <v-list-item-subtitle class="text-end"> {{ value.value }} </v-list-item-subtitle>
-            </v-list-item-title>
-          </v-list-item>
-          <v-divider :key="`divider-${idx}`" class="mx-2"></v-divider>
+        <template v-for="(value, idx) in info" :key="`item-${idx}`">
+          <template>
+            <v-list-item>
+              <v-list-item-title class="py-2">
+                <div>{{ value.name }}</div>
+                <v-list-item-subtitle class="text-end"> {{ value.value }} </v-list-item-subtitle>
+              </v-list-item-title>
+            </v-list-item>
+            <v-divider :key="`divider-${idx}`" class="mx-2"></v-divider>
+          </template>
         </template>
       </v-card>
     </section>
     <section>
-      <BaseCardSectionTitle
-        class="pb-0 mt-8"
-        :icon="$globals.icons.wrench"
-        :title="$tc('admin.mainentance.actions-title')"
-      >
+      <BaseCardSectionTitle class="pb-0 mt-8" :icon="$globals.icons.wrench"
+        :title="$tc('admin.mainentance.actions-title')">
         <i18n path="admin.maintenance.actions-description">
           <template #destructive_in_bold>
             <b>{{ $t("admin.maintenance.actions-description-destructive") }}</b>
@@ -63,20 +59,22 @@
         </i18n>
       </BaseCardSectionTitle>
       <v-card class="ma-2" :loading="state.actionLoading">
-        <template v-for="(action, idx) in actions">
-          <v-list-item :key="`item-${idx}`" class="py-1">
-            <v-list-item-title>
-              <div>{{ action.name }}</div>
-              <v-list-item-subtitle class="wrap-word">
-                {{ action.subtitle }}
-              </v-list-item-subtitle>
-            </v-list-item-title>
-            <BaseButton color="info" @click="action.handler">
-              <template #icon> {{ $globals.icons.robot }}</template>
-              {{ $t("general.run") }}
-            </BaseButton>
-          </v-list-item>
-          <v-divider :key="`divider-${idx}`" class="mx-2"></v-divider>
+        <template v-for="(action, idx) in actions" :key="`item-${idx}`">
+          <template>
+            <v-list-item class="py-1">
+              <v-list-item-title>
+                <div>{{ action.name }}</div>
+                <v-list-item-subtitle class="wrap-word">
+                  {{ action.subtitle }}
+                </v-list-item-subtitle>
+              </v-list-item-title>
+              <BaseButton color="info" @click="action.handler">
+                <template #icon> {{ $globals.icons.robot }}</template>
+                {{ $t("general.run") }}
+              </BaseButton>
+            </v-list-item>
+            <v-divider :key="`divider-${idx}`" class="mx-2"></v-divider>
+          </template>
         </template>
       </v-card>
     </section>
@@ -84,9 +82,8 @@
 </template>
 
 <script lang="ts">
-
 import { useAdminApi } from "~/composables/api";
-import { MaintenanceStorageDetails, MaintenanceSummary } from "~/lib/api/types/admin";
+import type { MaintenanceStorageDetails, MaintenanceSummary } from "~/lib/api/types/admin";
 
 export default defineNuxtComponent({
   layout: "admin",
@@ -99,7 +96,7 @@ export default defineNuxtComponent({
     });
 
     const adminApi = useAdminApi();
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
 
     // ==========================================================================
     // General Info

@@ -61,7 +61,8 @@ export default defineNuxtComponent({
   setup(props) {
     const { user } = usePageUser();
     const { imageKey } = usePageState(props.recipe.slug);
-    const { $auth, i18n } = useNuxtApp();
+    const i18n = useI18n();
+    const { $auth } = useNuxtApp();
 
     const drag = ref(false);
 

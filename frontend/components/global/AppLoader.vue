@@ -81,7 +81,7 @@ export default defineNuxtComponent({
       };
     });
 
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
     const waitingTextCalculated = props.waitingText == null ? i18n.t("general.loading-recipes") : props.waitingText;
 
     return {

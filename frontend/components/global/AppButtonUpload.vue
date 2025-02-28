@@ -64,7 +64,8 @@ export default defineNuxtComponent({
     const uploader = ref<HTMLInputElement | null>(null);
     const isSelecting = ref(false);
 
-    const { i18n, $globals } = useNuxtApp();
+    const i18n = useI18n();
+    const { $globals } = useNuxtApp();
     const effIcon = props.icon ? props.icon : $globals.icons.upload;
 
     const defaultText = i18n.t("general.upload");

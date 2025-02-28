@@ -2,32 +2,33 @@
 import { LOCALES } from "./available-locales";
 
 export const useLocales = () => {
-  const { i18n, $vuetify } = useNuxtApp();
+  const i18n = useI18n();
 
   function getLocale(value: string) {
     const currentLocale = LOCALES.filter((locale) => locale.value === value);
     return currentLocale.length ? currentLocale[0] : null;
   }
+  const { isRtl } = useRtl();
+  const { current } = useLocale();
 
   const locale = computed<string>({
     get() {
       // dirty hack
-      $vuetify.lang.current = i18n.locale;
-      const currentLocale = getLocale(i18n.locale);
+      const currentLocale = getLocale(current.value);
       if (currentLocale) {
-        $vuetify.rtl = currentLocale.dir === "rtl";
+        isRtl.value = currentLocale.dir === "rtl";
       }
 
-      return i18n.locale;
+      return i18n.locale.value;
     },
     set(value) {
       i18n.setLocale(value);
 
       // this does not persist after window reload :-(
-      $vuetify.lang.current = value;
+      current.value = value;
       const currentLocale = getLocale(value);
       if (currentLocale) {
-        $vuetify.rtl = currentLocale.dir === "rtl";
+        isRtl.value = currentLocale.dir === "rtl";
       }
 
       // Reload the page to update the language - not all strings are reactive

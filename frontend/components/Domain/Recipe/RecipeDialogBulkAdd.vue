@@ -108,7 +108,7 @@ export default defineNuxtComponent({
       state.dialog = false;
     }
 
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
 
     const utilities = [
       {

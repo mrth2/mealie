@@ -1,12 +1,6 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="items"
-    item-key="id"
-    class="elevation-0"
-    :items-per-page="50"
-    @click:row="handleRowClick"
-  >
+  <v-data-table :headers="headers" :items="items" item-key="id" class="elevation-0" :items-per-page="50"
+    @click:row="handleRowClick">
     <template #item.category="{ item }">
       {{ capitalize(item.category) }}
     </template>
@@ -25,8 +19,7 @@
 </template>
 
 <script lang="ts">
-
-import { ReportSummary } from "~/lib/api/types/reports";
+import type { ReportSummary } from "~/lib/api/types/reports";
 
 export default defineNuxtComponent({
   props: {
@@ -37,7 +30,7 @@ export default defineNuxtComponent({
   },
 
   setup(_, context) {
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
     const router = useRouter();
 
     const headers = [

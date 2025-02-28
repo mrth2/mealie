@@ -114,14 +114,14 @@
 </template>
 
 <script lang="ts">
-
 import { validators } from "~/composables/use-validators";
 import { useGroupRecipeActions, useGroupRecipeActionData } from "~/composables/use-group-recipe-actions";
-import { GroupRecipeActionOut } from "~/lib/api/types/household";
+import type { GroupRecipeActionOut } from "~/lib/api/types/household";
 
 export default defineNuxtComponent({
   setup() {
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
+
     const tableConfig = {
       hideColumns: true,
       canExport: true,

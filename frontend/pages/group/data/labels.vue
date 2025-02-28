@@ -139,12 +139,11 @@
 </template>
 
 <script lang="ts">
-
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
-import { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
+import type { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import { useLocales } from "~/composables/use-locales";
 import { useLabelData, useLabelStore } from "~/composables/store";
 
@@ -152,7 +151,8 @@ export default defineNuxtComponent({
   components: { MultiPurposeLabel },
   setup() {
     const userApi = useUserApi();
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
+
     const tableConfig = {
       hideColumns: true,
       canExport: true,

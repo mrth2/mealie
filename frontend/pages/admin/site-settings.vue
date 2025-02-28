@@ -39,23 +39,25 @@
       <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" :title="$tc('settings.configuration')">
       </BaseCardSectionTitle>
       <v-card class="mb-4">
-        <template v-for="(check, idx) in simpleChecks">
-          <v-list-item :key="`list-item-${idx}`">
-            <v-list-item-icon>
-              <v-icon :color="check.color">
-                {{ check.icon }}
-              </v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>
-                {{ check.text }}
-              </v-list-item-title>
-              <v-list-item-subtitle class="wrap-word">
-                {{ check.status ? check.successText : check.errorText }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-          <v-divider :key="`divider-${idx}`"></v-divider>
+        <template v-for="(check, idx) in simpleChecks" :key="`list-item-${idx}`">
+          <template>
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon :color="check.color">
+                  {{ check.icon }}
+                </v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ check.text }}
+                </v-list-item-title>
+                <v-list-item-subtitle class="wrap-word">
+                  {{ check.status ? check.successText : check.errorText }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+            <v-divider :key="`divider-${idx}`"></v-divider>
+          </template>
         </template>
       </v-card>
     </section>

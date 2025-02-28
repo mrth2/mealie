@@ -5,26 +5,21 @@
         <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-members.svg')"></v-img>
       </template>
       <template #title> {{ $t('group.manage-members') }} </template>
-        <i18n path="group.manage-members-description">
-          <template #manage>
-            <b>{{ $t('group.manage') }}</b>
-          </template>
-          <template #invite>
-            <b>{{ $t('group.invite') }}</b>
-          </template>
-        </i18n>
-        <v-container class="mt-1 px-0">
-        <nuxt-link class="text-center" :to="`/user/profile/edit`"> {{ $t('group.looking-to-update-your-profile') }} </nuxt-link>
+      <i18n path="group.manage-members-description">
+        <template #manage>
+          <b>{{ $t('group.manage') }}</b>
+        </template>
+        <template #invite>
+          <b>{{ $t('group.invite') }}</b>
+        </template>
+      </i18n>
+      <v-container class="mt-1 px-0">
+        <nuxt-link class="text-center" :to="`/user/profile/edit`"> {{ $t('group.looking-to-update-your-profile') }}
+        </nuxt-link>
       </v-container>
-      </BasePageTitle>
-    <v-data-table
-      :headers="headers"
-      :items="members || []"
-      item-key="id"
-      class="elevation-0"
-      hide-default-footer
-      disable-pagination
-    >
+    </BasePageTitle>
+    <v-data-table :headers="headers" :items="members || []" item-key="id" class="elevation-0" hide-default-footer
+      disable-pagination>
       <template #item.avatar="{ item }">
         <UserAvatar :tooltip="false" :user-id="item.id" />
       </template>
@@ -33,46 +28,26 @@
       </template>
       <template #item.manageHousehold="{ item }">
         <div class="d-flex justify-center">
-          <v-checkbox
-            v-model="item.canManageHousehold"
-            :disabled="item.id === $auth.user.id || item.admin"
-            class=""
-            style="max-width: 30px"
-            @change="setPermissions(item)"
-          ></v-checkbox>
+          <v-checkbox v-model="item.canManageHousehold" :disabled="item.id === $auth.user.id || item.admin" class=""
+            style="max-width: 30px" @change="setPermissions(item)"></v-checkbox>
         </div>
       </template>
       <template #item.manage="{ item }">
         <div class="d-flex justify-center">
-          <v-checkbox
-            v-model="item.canManage"
-            :disabled="item.id === $auth.user.id || item.admin"
-            class=""
-            style="max-width: 30px"
-            @change="setPermissions(item)"
-          ></v-checkbox>
+          <v-checkbox v-model="item.canManage" :disabled="item.id === $auth.user.id || item.admin" class=""
+            style="max-width: 30px" @change="setPermissions(item)"></v-checkbox>
         </div>
       </template>
       <template #item.organize="{ item }">
         <div class="d-flex justify-center">
-          <v-checkbox
-            v-model="item.canOrganize"
-            :disabled="item.id === $auth.user.id || item.admin"
-            class=""
-            style="max-width: 30px"
-            @change="setPermissions(item)"
-          ></v-checkbox>
+          <v-checkbox v-model="item.canOrganize" :disabled="item.id === $auth.user.id || item.admin" class=""
+            style="max-width: 30px" @change="setPermissions(item)"></v-checkbox>
         </div>
       </template>
       <template #item.invite="{ item }">
         <div class="d-flex justify-center">
-          <v-checkbox
-            v-model="item.canInvite"
-            :disabled="item.id === $auth.user.id || item.admin"
-            class=""
-            style="max-width: 30px"
-            @change="setPermissions(item)"
-          ></v-checkbox>
+          <v-checkbox v-model="item.canInvite" :disabled="item.id === $auth.user.id || item.admin" class=""
+            style="max-width: 30px" @change="setPermissions(item)"></v-checkbox>
         </div>
       </template>
     </v-data-table>
@@ -80,9 +55,8 @@
 </template>
 
 <script lang="ts">
-
 import { useUserApi } from "~/composables/api";
-import { UserOut } from "~/lib/api/types/user";
+import type { UserOut } from "~/lib/api/types/user";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
 export default defineNuxtComponent({
@@ -93,7 +67,7 @@ export default defineNuxtComponent({
   setup() {
     const api = useUserApi();
 
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
 
     const members = ref<UserOut[] | null[]>([]);
 

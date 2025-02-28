@@ -39,7 +39,7 @@ export default defineNuxtComponent({
     },
   },
   setup(props) {
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
 
     function sanitizeHTML(rawHtml: string) {
       return DOMPurify.sanitize(rawHtml, {

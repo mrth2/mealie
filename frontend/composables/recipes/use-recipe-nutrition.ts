@@ -11,7 +11,7 @@ export interface NutritionLabelType {
 
 
 export function useNutritionLabels() {
-  const { i18n } = useNuxtApp();
+  const i18n = useI18n();
   const labels = <NutritionLabelType>{
     calories: {
       label: i18n.t("recipe.calories"),

@@ -1,9 +1,9 @@
 
 import { fieldTypes } from "../forms";
-import { AutoFormItems } from "~/types/auto-forms";
+import type { AutoFormItems } from "~/types/auto-forms";
 
 export const useUserForm = () => {
-  const { i18n } = useNuxtApp();
+  const i18n = useI18n();
 
   const userForm: AutoFormItems = [
     {

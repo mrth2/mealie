@@ -101,13 +101,13 @@ import { fieldTypes } from "~/composables/forms";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
 import { validators } from "~/composables/use-validators";
-import { HouseholdInDB } from "~/lib/api/types/household";
-import { VForm } from "~/types/vuetify";
+import type { HouseholdInDB } from "~/lib/api/types/household";
+import type { VForm } from "~/types/vuetify";
 
 export default defineNuxtComponent({
   layout: "admin",
   setup() {
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
     const { groups } = useGroups();
     const { households, refreshAllHouseholds, deleteHousehold, createHousehold } = useAdminHouseholds();
     const refNewHouseholdForm = ref<VForm | null>(null);

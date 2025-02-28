@@ -93,7 +93,7 @@ import { useTimelineEventTypes } from "~/composables/recipes/use-recipe-timeline
 import { useAsyncKey } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
-import { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate, TimelineEventType } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate, TimelineEventType } from "~/lib/api/types/recipe";
 
 export default defineNuxtComponent({
   components: { RecipeTimelineItem },
@@ -119,7 +119,7 @@ export default defineNuxtComponent({
 
   setup(props) {
     const api = useUserApi();
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
     const preferences = useTimelinePreferences();
     const { eventTypeOptions } = useTimelineEventTypes();
     const loading = ref(true);

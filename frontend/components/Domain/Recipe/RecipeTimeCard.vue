@@ -70,7 +70,7 @@ export default defineNuxtComponent({
     },
   },
   setup(props) {
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
 
     function isEmpty(str: string | null) {
       return !str || str.length === 0;

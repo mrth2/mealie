@@ -3,7 +3,7 @@
     <RecipeDialogAddToShoppingList v-if="shoppingLists" v-model="shoppingListDialog" :recipes="recipesWithScales"
       :shopping-lists="shoppingLists" />
     <v-menu offset-y left :bottom="!menuTop" :nudge-bottom="!menuTop ? '5' : '0'" :top="menuTop"
-      :nudge-top="menuTop ? '5' : '0'" allow-overflow close-delay="125" :open-on-hover="$vuetify.breakpoint.mdAndUp"
+      :nudge-top="menuTop ? '5' : '0'" allow-overflow close-delay="125" :open-on-hover="mdAndUp"
       content-class="d-print-none">
       <template #activator="{ on, attrs }">
         <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="attrs" v-on="on" @click.prevent>
@@ -63,6 +63,8 @@ export default defineNuxtComponent({
     },
   },
   setup(props, context) {
+    const { mdAndUp } = useDisplay();
+
     const i18n = useI18n();
     const { $globals } = useNuxtApp();
     const api = useUserApi();
@@ -126,6 +128,7 @@ export default defineNuxtComponent({
       icon,
       recipesWithScales,
       shoppingLists,
+      mdAndUp,
     }
   },
 })

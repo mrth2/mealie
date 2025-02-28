@@ -25,7 +25,7 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const asRef = toRef(props, "value");
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
 
     const pwStrength = usePasswordStrength(asRef, i18n);
 

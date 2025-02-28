@@ -110,7 +110,8 @@ export default defineNuxtComponent({
       }
     });
 
-    const { $globals, i18n } = useNuxtApp();
+    const i18n = useI18n();
+    const { $globals } = useNuxtApp();
 
     const label = computed(() => {
       if (!props.showLabel) {

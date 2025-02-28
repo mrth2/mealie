@@ -84,7 +84,7 @@ export default defineNuxtComponent({
       error: false,
     });
 
-    const { i18n } = useNuxtApp();
+    const i18n = useI18n();
     const passwordMatch = () => state.password === state.passwordConfirm || i18n.t("user.password-must-match");
 
     // ===================
