@@ -12,11 +12,11 @@
 
 <script lang="ts">
 
-import { useStaticRoutes, useUserApi  } from "~/composables/api";
-import { HouseholdSummary } from "~/lib/api/types/household";
+import { useStaticRoutes, useUserApi } from "~/composables/api";
+import type { HouseholdSummary } from "~/lib/api/types/household";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
-import { Recipe } from "~/lib/api/types/recipe";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { Recipe } from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 export default defineNuxtComponent({
   props: {
     recipe: {
@@ -42,9 +42,11 @@ export default defineNuxtComponent({
       });
     }
 
+    const breakpoint = useDisplay();
+
     const hideImage = ref(false);
     const imageHeight = computed(() => {
-      return $vuetify.breakpoint.xs ? "200" : "400";
+      return breakpoint.xs.value ? "200" : "400";
     });
 
     const recipeImageUrl = computed(() => {
@@ -63,6 +65,7 @@ export default defineNuxtComponent({
       imageKey,
       hideImage,
       imageHeight,
+      breakpoint,
     };
   }
 });

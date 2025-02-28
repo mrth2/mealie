@@ -79,11 +79,11 @@
 
 <script lang="ts">
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import AppHeader from "@/components/Layout/LayoutParts/AppHeader.vue";
-import AppSidebar from "@/components/Layout/LayoutParts/AppSidebar.vue";
+import AppHeader from "@/components/layout/LayoutParts/AppHeader.vue";
+import AppSidebar from "@/components/layout/LayoutParts/AppSidebar.vue";
 import type { SideBarLink } from "~/types/application-types";
 import LanguageDialog from "~/components/global/LanguageDialog.vue";
-import TheSnackbar from "@/components/Layout/LayoutParts/TheSnackbar.vue";
+import TheSnackbar from "@/components/layout/LayoutParts/TheSnackbar.vue";
 import { useAppInfo } from "~/composables/api";
 import { useCookbooks, usePublicCookbooks } from "~/composables/use-group-cookbooks";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
@@ -96,7 +96,7 @@ import type { HouseholdSummary } from "~/lib/api/types/household";
 export default defineNuxtComponent({
   components: { AppHeader, AppSidebar, LanguageDialog, TheSnackbar },
   setup() {
-    const { $globals, $auth, $vuetify, i18n } = useNuxtApp();
+    const { $globals, $auth, i18n } = useNuxtApp();
     const { isOwnGroup } = useLoggedInState();
 
     const isAdmin = computed(() => $auth.user?.admin);
@@ -120,10 +120,12 @@ export default defineNuxtComponent({
 
     const languageDialog = ref<boolean>(false);
 
+    const breakpoint = useDisplay();
+
     const sidebar = ref<boolean | null>(null);
 
     onMounted(() => {
-      sidebar.value = !$vuetify.breakpoint.md;
+      sidebar.value = !breakpoint.md.value;
     });
 
     function cookbookAsLink(cookbook: ReadCookBook): SideBarLink {
@@ -290,6 +292,7 @@ export default defineNuxtComponent({
       languageDialog,
       toggleDark,
       sidebar,
+      breakpoint,
     };
   },
 });

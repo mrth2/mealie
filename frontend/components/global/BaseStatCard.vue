@@ -73,14 +73,14 @@ export default defineNuxtComponent({
     },
   },
   setup() {
-    const { $vuetify } = useNuxtApp();
+    const breakpoint = useDisplay();
 
     const hasHeading = computed(() => false);
     const hasAltHeading = computed(() => false);
     const classes = computed(() => {
       return {
         "v-card--material--has-heading": hasHeading,
-        "mt-3": $vuetify.breakpoint.name === "xs" || $vuetify.breakpoint.name === "sm",
+        "mt-3": breakpoint.name === "xs" || breakpoint.name === "sm",
       };
     });
 
@@ -88,6 +88,7 @@ export default defineNuxtComponent({
       hasHeading,
       hasAltHeading,
       classes,
+      breakpoint,
     };
   },
 });

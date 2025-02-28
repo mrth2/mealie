@@ -89,7 +89,7 @@
       <div class="d-flex justify-center flex-wrap">
         <v-chip
           label
-          :small="$vuetify.breakpoint.smAndDown"
+          :small="breakpoint.smAndDown"
           color="accent custom-transparent"
           class="ma-1 pa-3"
         >
@@ -105,7 +105,7 @@
         </v-chip>
       </div>
       <div class="d-flex justify-center flex-wrap mt-1">
-        <BaseButton :small="$vuetify.breakpoint.smAndDown" @click="madeThisDialog = true">
+        <BaseButton :small="breakpoint.smAndDown" @click="madeThisDialog = true">
           <template #icon> {{ $globals.icons.chefHat }} </template>
           {{ $t('recipe.made-this') }}
         </BaseButton>
@@ -193,6 +193,7 @@ export default defineNuxtComponent({
     }
 
     const state = reactive({datePickerMenu: false});
+    const breakpoint = useDisplay();
     async function createTimelineEvent() {
       if (!(newTimelineEventTimestamp.value && props.recipe?.id && props.recipe?.slug)) {
         return;
@@ -253,6 +254,7 @@ export default defineNuxtComponent({
       clearImage,
       uploadImage,
       updateUploadedImage,
+      breakpoint,
     };
   },
 });

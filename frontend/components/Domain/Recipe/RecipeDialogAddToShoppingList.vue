@@ -54,8 +54,8 @@
               <v-card-title v-if="ingredientSection.sectionName" class="ingredient-title mt-2 pb-0 text-h6">
                 {{ ingredientSection.sectionName }}
               </v-card-title>
-              <div :class="$vuetify.breakpoint.smAndDown ? '' : 'ingredient-grid'"
-                :style="$vuetify.breakpoint.smAndDown ? '' : { gridTemplateRows: `repeat(${Math.ceil(ingredientSection.ingredients.length / 2)}, min-content)` }">
+              <div :class="breakpoint.smAndDown ? '' : 'ingredient-grid'"
+                :style="breakpoint.smAndDown ? '' : { gridTemplateRows: `repeat(${Math.ceil(ingredientSection.ingredients.length / 2)}, min-content)` }">
                 <v-list-item v-for="(ingredientData, i) in ingredientSection.ingredients"
                   :key="recipeSection.recipeId + recipeSectionIndex + ingredientSectionIndex + i" dense @click="recipeIngredientSections[recipeSectionIndex]
                     .ingredientSections[ingredientSectionIndex]
@@ -147,6 +147,7 @@ export default defineNuxtComponent({
     const { $auth } = useNuxtApp();
     const api = useUserApi();
     const preferences = useShoppingListPreferences();
+    const breakpoint = useDisplay();
     const ready = ref(false);
 
     // v-model support
@@ -352,6 +353,7 @@ export default defineNuxtComponent({
       preferences,
       ready,
       shoppingListChoices,
+      breakpoint,
       ...toRefs(state),
       addRecipesToList,
       bulkCheckIngredients,

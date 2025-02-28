@@ -100,7 +100,7 @@ import RecipeCardMobile from "./RecipeCardMobile.vue";
 import RecipeTimelineContextMenu from "./RecipeTimelineContextMenu.vue";
 import { useStaticRoutes } from "~/composables/api";
 import { useTimelineEventTypes } from "~/composables/recipes/use-recipe-timeline-events";
-import { Recipe, RecipeTimelineEventOut } from "~/lib/api/types/recipe"
+import type { Recipe, RecipeTimelineEventOut } from "~/lib/api/types/recipe"
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import SafeMarkdown from "~/components/global/SafeMarkdown.vue";
 
@@ -123,7 +123,7 @@ export default defineNuxtComponent({
   },
 
   setup(props) {
-    const { $auth, $globals, $vuetify } = useNuxtApp();
+    const { $auth, $globals } = useNuxtApp();
     const { recipeTimelineEventImage } = useStaticRoutes();
     const { eventTypeOptions } = useTimelineEventTypes();
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);
@@ -131,8 +131,10 @@ export default defineNuxtComponent({
     const route = useRoute();
     const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
 
+    const breakpoint = useDisplay();
+
     const useMobileFormat = computed(() => {
-      return $vuetify.breakpoint.smAndDown;
+      return breakpoint.smAndDown.value;
     });
 
     const attrs = computed(() => {
@@ -188,6 +190,7 @@ export default defineNuxtComponent({
       hideImage,
       timelineEvents,
       useMobileFormat,
+      breakpoint,
     };
   },
 });

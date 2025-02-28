@@ -29,9 +29,9 @@ import { useRecipePermissions } from "~/composables/recipes";
 import RecipePageInfoCard from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInfoCard.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
 import { useStaticRoutes, useUserApi  } from "~/composables/api";
-import { HouseholdSummary } from "~/lib/api/types/household";
-import { Recipe } from "~/lib/api/types/recipe";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { HouseholdSummary } from "~/lib/api/types/household";
+import type { Recipe } from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { usePageState, usePageUser, PageMode, EditorMode } from "~/composables/recipe-page/shared-state";
 export default defineNuxtComponent({
   components: {
@@ -58,6 +58,7 @@ export default defineNuxtComponent({
     const { imageKey, pageMode, editMode, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
     const { user } = usePageUser();
     const { isOwnGroup } = useLoggedInState();
+    const breakpoint = useDisplay();
 
     const recipeHousehold = ref<HouseholdSummary>();
     if (user) {
@@ -74,7 +75,7 @@ export default defineNuxtComponent({
 
     const hideImage = ref(false);
     const imageHeight = computed(() => {
-      return $vuetify.breakpoint.xs ? "200" : "400";
+      return breakpoint.xs.value ? "200" : "400";
     });
 
     const recipeImageUrl = computed(() => {
@@ -105,6 +106,7 @@ export default defineNuxtComponent({
       hideImage,
       isEditMode,
       recipeImageUrl,
+      breakpoint,
     };
   },
 });

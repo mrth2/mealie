@@ -4,7 +4,7 @@
       <v-row v-for="(time, index) in allTimes" :key="`${index}-stacked`" no-gutters>
         <v-col cols="12" :class="containerClass">
           <v-chip
-            :small="$vuetify.breakpoint.smAndDown"
+            :small="breakpoint.smAndDown"
             label
             :color="color"
             class="ma-1"
@@ -24,7 +24,7 @@
       <v-chip
         v-for="(time, index) in allTimes"
         :key="index"
-        :small="$vuetify.breakpoint.smAndDown"
+        :small="breakpoint.smAndDown"
         label
         :color="color"
         class="ma-1"
@@ -40,8 +40,6 @@
 </template>
 
 <script lang="ts">
-
-
 export default defineNuxtComponent({
   props: {
     stacked: {
@@ -71,6 +69,7 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const i18n = useI18n();
+    const breakpoint = useDisplay();
 
     function isEmpty(str: string | null) {
       return !str || str.length === 0;
@@ -99,6 +98,7 @@ export default defineNuxtComponent({
     return {
       showCards,
       allTimes,
+      breakpoint,
     };
   },
 });

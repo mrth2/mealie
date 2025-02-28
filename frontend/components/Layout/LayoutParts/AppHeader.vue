@@ -16,7 +16,7 @@
 
     <!-- Navigation Menu -->
     <template v-if="menu">
-      <div v-if="!$vuetify.breakpoint.xs" style="max-width: 500px" @click="activateSearch">
+      <div v-if="!breakpoint.xs" style="max-width: 500px" @click="activateSearch">
         <v-text-field readonly class="mt-6 rounded-xl" rounded dark solo dense flat
           :prepend-inner-icon="$globals.icons.search" background-color="primary darken-1" color="white"
           :placeholder="$t('search.search-hint')">
@@ -25,9 +25,9 @@
       <v-btn v-else icon @click="activateSearch">
         <v-icon> {{ $globals.icons.search }}</v-icon>
       </v-btn>
-      <v-btn v-if="loggedIn" :text="$vuetify.breakpoint.smAndUp" :icon="$vuetify.breakpoint.xs" @click="logout()">
-        <v-icon :left="$vuetify.breakpoint.smAndUp">{{ $globals.icons.logout }}</v-icon>
-        {{ $vuetify.breakpoint.smAndUp ? $t("user.logout") : "" }}
+      <v-btn v-if="loggedIn" :text="breakpoint.smAndUp" :icon="breakpoint.xs" @click="logout()">
+        <v-icon :left="breakpoint.smAndUp">{{ $globals.icons.logout }}</v-icon>
+        {{ breakpoint.smAndUp ? $t("user.logout") : "" }}
       </v-btn>
       <v-btn v-else text nuxt to="/login">
         <v-icon left>{{ $globals.icons.user }}</v-icon>
@@ -55,6 +55,7 @@ export default defineNuxtComponent({
     const route = useRoute();
     const router = useRouter();
     const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const breakpoint = useDisplay();
 
     const routerLink = computed(() => groupSlug.value ? `/g/${groupSlug.value}` : "/");
     const domSearchDialog = ref<InstanceType<typeof RecipeDialogSearch> | null>(null);
@@ -89,6 +90,7 @@ export default defineNuxtComponent({
       routerLink,
       loggedIn,
       logout,
+      breakpoint,
     };
   },
 });

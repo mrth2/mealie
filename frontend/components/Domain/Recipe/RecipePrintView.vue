@@ -20,7 +20,7 @@
             </v-card-title>
             <div v-if="recipeYield" class="d-flex justify-space-between align-center px-4 pb-2">
               <v-chip
-                :small="$vuetify.breakpoint.smAndDown"
+                :small="breakpoint.smAndDown"
                 label
               >
                 <v-icon left>
@@ -125,17 +125,15 @@
 </template>
 
 <script lang="ts">
-
 import DOMPurify from "dompurify";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { useStaticRoutes } from "~/composables/api";
-import { Recipe, RecipeIngredient, RecipeStep} from "~/lib/api/types/recipe";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { Recipe, RecipeIngredient, RecipeStep} from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
 import { parseIngredientText, useNutritionLabels } from "~/composables/recipes";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
-
 
 type IngredientSection = {
   sectionName: string;
@@ -167,6 +165,7 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
+    const breakpoint = useDisplay();
     const i18n = useI18n();
     const preferences = useUserPrintPreferences();
     const { recipeImage } = useStaticRoutes();
@@ -303,6 +302,7 @@ export default defineNuxtComponent({
       recipeYield,
       ingredientSections,
       instructionSections,
+      breakpoint,
     };
   },
 });

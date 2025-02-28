@@ -33,7 +33,6 @@
 </template>
 
 <script lang="ts">
-
 import { toastAlert, toastLoading } from "~/composables/use-toast";
 
 export default defineNuxtComponent({

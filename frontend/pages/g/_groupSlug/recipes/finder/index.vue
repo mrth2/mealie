@@ -333,10 +333,11 @@ interface RecipeSuggestions {
 export default defineNuxtComponent({
   components: { QueryFilterBuilder, RecipeSuggestion, SearchFilter },
   setup() {
+    const breakpoint = useDisplay();
     const i18n = useI18n();
     const { $auth, $vuetify } = useNuxtApp();
     const route = useRoute();
-    const useMobile = computed(() => $vuetify.breakpoint.smAndDown);
+    const useMobile = computed(() => breakpoint.smAndDown);
 
     const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
     const { isOwnGroup } = useLoggedInState();
@@ -585,6 +586,7 @@ export default defineNuxtComponent({
       queryFilterBuilderFields,
       clearQueryFilter,
       saveQueryFilter,
+      breakpoint,
     };
   },
   head() {

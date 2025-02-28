@@ -8,20 +8,20 @@
         <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
       </slot>
       <v-spacer></v-spacer>
-      <v-btn :icon="$vuetify.breakpoint.xsOnly" text :disabled="recipes.length === 0" @click="navigateRandom">
-        <v-icon :left="!$vuetify.breakpoint.xsOnly">
+      <v-btn :icon="breakpoint.xsOnly" text :disabled="recipes.length === 0" @click="navigateRandom">
+        <v-icon :left="!breakpoint.xsOnly">
           {{ $globals.icons.diceMultiple }}
         </v-icon>
-        {{ $vuetify.breakpoint.xsOnly ? null : $t("general.random") }}
+        {{ breakpoint.xsOnly ? null : $t("general.random") }}
       </v-btn>
 
       <v-menu v-if="$listeners.sortRecipes" offset-y left>
         <template #activator="{ on, attrs }">
-          <v-btn text :icon="$vuetify.breakpoint.xsOnly" v-bind="attrs" :loading="sortLoading" v-on="on">
-            <v-icon :left="!$vuetify.breakpoint.xsOnly">
+          <v-btn text :icon="breakpoint.xsOnly" v-bind="attrs" :loading="sortLoading" v-on="on">
+            <v-icon :left="!breakpoint.xsOnly">
               {{ preferences.sortIcon }}
             </v-icon>
-            {{ $vuetify.breakpoint.xsOnly ? null : $t("general.sort") }}
+            {{ breakpoint.xsOnly ? null : $t("general.sort") }}
           </v-btn>
         </template>
         <v-list>
@@ -57,59 +57,32 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <ContextMenu
-        v-if="!$vuetify.breakpoint.smAndDown"
-        :items="[
-          {
-            title: $tc('general.toggle-view'),
-            icon: $globals.icons.eye,
-            event: 'toggle-dense-view',
-          },
-        ]"
-        @toggle-dense-view="toggleMobileCards()"
-      />
+      <ContextMenu v-if="!breakpoint.smAndDown" :items="[
+        {
+          title: $tc('general.toggle-view'),
+          icon: $globals.icons.eye,
+          event: 'toggle-dense-view',
+        },
+      ]" @toggle-dense-view="toggleMobileCards()" />
     </v-app-bar>
     <div v-if="recipes && ready">
       <div class="mt-2">
         <v-row v-if="!useMobileCards">
           <v-col v-for="(recipe, index) in recipes" :key="recipe.slug + index" :sm="6" :md="6" :lg="4" :xl="3">
             <v-lazy>
-              <RecipeCard
-                :name="recipe.name"
-                :description="recipe.description"
-                :slug="recipe.slug"
-                :rating="recipe.rating"
-                :image="recipe.image"
-                :tags="recipe.tags"
-                :recipe-id="recipe.id"
-
-                 v-on="$listeners"
-              />
+              <RecipeCard :name="recipe.name" :description="recipe.description" :slug="recipe.slug"
+                :rating="recipe.rating" :image="recipe.image" :tags="recipe.tags" :recipe-id="recipe.id"
+                v-on="$listeners" />
             </v-lazy>
           </v-col>
         </v-row>
         <v-row v-else dense>
-          <v-col
-            v-for="recipe in recipes"
-            :key="recipe.name"
-            cols="12"
-            :sm="singleColumn ? '12' : '12'"
-            :md="singleColumn ? '12' : '6'"
-            :lg="singleColumn ? '12' : '4'"
-            :xl="singleColumn ? '12' : '3'"
-          >
+          <v-col v-for="recipe in recipes" :key="recipe.name" cols="12" :sm="singleColumn ? '12' : '12'"
+            :md="singleColumn ? '12' : '6'" :lg="singleColumn ? '12' : '4'" :xl="singleColumn ? '12' : '3'">
             <v-lazy>
-              <RecipeCardMobile
-                :name="recipe.name"
-                :description="recipe.description"
-                :slug="recipe.slug"
-                :rating="recipe.rating"
-                :image="recipe.image"
-                :tags="recipe.tags"
-                :recipe-id="recipe.id"
-
-                v-on="$listeners"
-              />
+              <RecipeCardMobile :name="recipe.name" :description="recipe.description" :slug="recipe.slug"
+                :rating="recipe.rating" :image="recipe.image" :tags="recipe.tags" :recipe-id="recipe.id"
+                v-on="$listeners" />
             </v-lazy>
           </v-col>
         </v-row>
@@ -179,10 +152,11 @@ export default defineNuxtComponent({
       shuffle: "shuffle",
     };
 
-    const { $auth, $globals, $vuetify } = useNuxtApp();
+    const breakpoint = useDisplay();
+    const { $auth, $globals } = useNuxtApp();
     const { isOwnGroup } = useLoggedInState();
     const useMobileCards = computed(() => {
-      return $vuetify.breakpoint.smAndDown || preferences.value.useMobileCards;
+      return breakpoint.smAndDown.value || preferences.value.useMobileCards;
     });
 
     const displayTitleIcon = computed(() => {
@@ -398,6 +372,7 @@ export default defineNuxtComponent({
       sortRecipes,
       toggleMobileCards,
       useMobileCards,
+      breakpoint,
     };
   },
 });

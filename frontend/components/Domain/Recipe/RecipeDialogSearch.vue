@@ -2,7 +2,7 @@
   <div>
     <slot v-bind="{ open, close }"> </slot>
     <v-dialog v-model="dialog" max-width="988px" content-class="top-dialog" :scrollable="false">
-      <v-app-bar sticky dark color="primary lighten-1" :rounded="!$vuetify.breakpoint.xs">
+      <v-app-bar sticky dark color="primary lighten-1" :rounded="!breakpoint.xs">
         <v-text-field
           id="arrow-search"
           v-model="search.query.value"
@@ -20,7 +20,7 @@
           :prepend-inner-icon="$globals.icons.search"
         ></v-text-field>
 
-        <v-btn v-if="$vuetify.breakpoint.xs" x-small fab light @click="dialog = false">
+        <v-btn v-if="breakpoint.xs" x-small fab light @click="dialog = false">
           <v-icon>
             {{ $globals.icons.close }}
           </v-icon>
@@ -68,6 +68,7 @@ export default defineNuxtComponent({
 
   setup(_, context) {
     const { $auth } = useNuxtApp();
+    const breakpoint = useDisplay();
     const state = reactive({
       loading: false,
       selectedIndex: -1,
@@ -163,6 +164,7 @@ export default defineNuxtComponent({
       close,
       handleSelect,
       search,
+      breakpoint,
     };
   },
 });

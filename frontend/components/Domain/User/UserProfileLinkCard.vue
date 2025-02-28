@@ -1,6 +1,6 @@
 <template>
   <v-card outlined nuxt :to="link.to" height="100%" class="d-flex flex-column">
-    <div v-if="$vuetify.breakpoint.smAndDown" class="pa-2 mx-auto">
+    <div v-if="breakpoint.smAndDown" class="pa-2 mx-auto">
       <v-img max-width="150px" max-height="125" :src="image" />
     </div>
     <div class="d-flex justify-space-between">
@@ -14,7 +14,7 @@
           </v-card-text>
         </div>
       </div>
-      <div v-if="$vuetify.breakpoint.mdAndUp" class="py-2 px-10 my-auto">
+      <div v-if="breakpoint.mdAndUp" class="py-2 px-10 my-auto">
         <v-img max-width="150px" max-height="125" :src="image"></v-img>
       </div>
     </div>
@@ -47,7 +47,10 @@ export default defineNuxtComponent({
     },
   },
   setup() {
-    return {};
+    const breakpoint = useDisplay();
+    return {
+      breakpoint,
+    };
   },
 });
 </script>

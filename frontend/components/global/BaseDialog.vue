@@ -7,7 +7,7 @@
       :width="width"
       :max-width="maxWidth"
       :content-class="top ? 'top-dialog' : undefined"
-      :fullscreen="$vuetify.breakpoint.xsOnly"
+      :fullscreen="breakpoint.xsOnly"
       @keydown.enter="
         $emit('submit');
         dialog = false;
@@ -141,6 +141,8 @@ export default defineNuxtComponent({
     },
   },
   setup(props, context) {
+    const breakpoint = useDisplay();
+
     const dialog = computed<boolean>({
       get() {
         return props.value;
@@ -152,6 +154,7 @@ export default defineNuxtComponent({
 
     return {
       dialog,
+      breakpoint,
     };
   },
   data() {

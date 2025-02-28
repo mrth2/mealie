@@ -190,7 +190,7 @@
                         </div>
                       </v-col>
                       <v-divider
-                        v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0 && $vuetify.breakpoint.smAndUp"
+                        v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0 && breakpoint.smAndUp"
                         vertical></v-divider>
                       <v-col>
                         <SafeMarkdown class="markdown" :source="step.text" />
@@ -220,6 +220,7 @@ import { useExtractIngredientReferences } from "~/composables/recipe-page/use-ex
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
+
 interface MergerHistory {
   target: number;
   source: number;
@@ -608,6 +609,8 @@ export default defineNuxtComponent({
       input.click();
     }
 
+    const breakpoint = useDisplay();
+
     return {
       // Image Uploader
       toggleDragMode,
@@ -645,6 +648,7 @@ export default defineNuxtComponent({
       isCookMode,
       isEditForm,
       insert,
+      breakpoint,
     };
   },
 });

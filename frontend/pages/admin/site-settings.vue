@@ -97,38 +97,40 @@
       </BaseCardSectionTitle>
       <v-card class="mb-4">
         <template v-if="appInfo && appInfo.length">
-          <template v-for="(property, idx) in appInfo">
-            <v-list-item :key="property.name">
-              <v-list-item-icon>
-                <v-icon> {{ property.icon || $globals.icons.user }} </v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>
-                  <div>{{ property.name }}</div>
-                </v-list-item-title>
-                <template v-if="property.slot === 'recipe-scraper'">
-                  <v-list-item-subtitle>
-                    <a target="_blank"
-                      :href="`https://github.com/hhursev/recipe-scrapers/releases/tag/${property.value}`">
+          <template v-for="(property, idx) in appInfo" :key="property.name">
+            <template>
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon> {{ property.icon || $globals.icons.user }} </v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <div>{{ property.name }}</div>
+                  </v-list-item-title>
+                  <template v-if="property.slot === 'recipe-scraper'">
+                    <v-list-item-subtitle>
+                      <a target="_blank"
+                        :href="`https://github.com/hhursev/recipe-scrapers/releases/tag/${property.value}`">
+                        {{ property.value }}
+                      </a>
+                    </v-list-item-subtitle>
+                  </template>
+                  <template v-else-if="property.slot === 'build'">
+                    <v-list-item-subtitle>
+                      <a target="_blank" :href="`https://github.com/mealie-recipes/mealie/commit/${property.value}`">
+                        {{ property.value }}
+                      </a>
+                    </v-list-item-subtitle>
+                  </template>
+                  <template v-else>
+                    <v-list-item-subtitle>
                       {{ property.value }}
-                    </a>
-                  </v-list-item-subtitle>
-                </template>
-                <template v-else-if="property.slot === 'build'">
-                  <v-list-item-subtitle>
-                    <a target="_blank" :href="`https://github.com/mealie-recipes/mealie/commit/${property.value}`">
-                      {{ property.value }}
-                    </a>
-                  </v-list-item-subtitle>
-                </template>
-                <template v-else>
-                  <v-list-item-subtitle>
-                    {{ property.value }}
-                  </v-list-item-subtitle>
-                </template>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider v-if="appInfo && idx !== appInfo.length - 1" :key="`divider-${property.name}`"></v-divider>
+                    </v-list-item-subtitle>
+                  </template>
+                </v-list-item-content>
+              </v-list-item>
+              <v-divider v-if="appInfo && idx !== appInfo.length - 1" :key="`divider-${property.name}`"></v-divider>
+            </template>
           </template>
         </template>
         <template v-else>

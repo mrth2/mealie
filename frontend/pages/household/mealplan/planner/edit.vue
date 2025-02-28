@@ -115,7 +115,7 @@
             v-for="mealplan in plan.meals"
             :key="mealplan.id"
             class="my-1"
-            :class="{ handle: $vuetify.breakpoint.smAndUp }"
+            :class="{ handle: breakpoint.smAndUp }"
           >
             <v-list-item
               @click="editMeal(mealplan)"
@@ -144,7 +144,7 @@
             </v-list-item>
             <v-divider class="mx-2"></v-divider>
             <div class="py-2 px-2 d-flex" style="align-items: center">
-              <v-btn small icon :class="{ handle: !$vuetify.breakpoint.smAndUp }">
+              <v-btn small icon :class="{ handle: !breakpoint.smAndUp }">
                 <v-icon>
                   {{ $globals.icons.arrowUpDown }}
                 </v-icon>
@@ -226,12 +226,12 @@
 <script lang="ts">
 
 import { format } from "date-fns";
-import { SortableEvent } from "sortablejs";
+import type { SortableEvent } from "sortablejs";
 import draggable from "vuedraggable";
-import { MealsByDate } from "./types";
+import type { MealsByDate } from "./types";
 import { useMealplans, usePlanTypeOptions, getEntryTypeText } from "~/composables/use-group-mealplan";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
-import { PlanEntryType, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
+import type { PlanEntryType, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
@@ -374,6 +374,7 @@ export default defineNuxtComponent({
 
     const search = useRecipeSearch(api);
     const planTypeOptions = usePlanTypeOptions();
+    const breakpoint = useDisplay();
 
     onMounted(async () => {
       await search.trigger();
@@ -398,6 +399,7 @@ export default defineNuxtComponent({
       // Search
       search,
       firstDayOfWeek,
+      breakpoint,
     };
   },
 });

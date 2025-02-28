@@ -61,7 +61,7 @@
       class="px-1"
       :style="maxHeight ? `max-height: ${maxHeight}; overflow-y: auto;` : ''"
     >
-      <v-timeline :dense="$vuetify.breakpoint.smAndDown" class="timeline">
+      <v-timeline :dense="breakpoint.smAndDown" class="timeline">
         <RecipeTimelineItem
           v-for="(event, index) in timelineEvents"
           :key="event.id"
@@ -118,6 +118,7 @@ export default defineNuxtComponent({
   },
 
   setup(props) {
+    const breakpoint = useDisplay();
     const api = useUserApi();
     const i18n = useI18n();
     const preferences = useTimelinePreferences();
@@ -339,6 +340,7 @@ export default defineNuxtComponent({
       toggleEventTypeOption,
       timelineEvents,
       updateTimelineEvent,
+      breakpoint,
     };
   },
 });

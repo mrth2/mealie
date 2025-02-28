@@ -1,5 +1,5 @@
 <template>
-  <v-sheet :class="$vuetify.breakpoint.smAndDown ? 'pa-0' : 'px-3 py-0'">
+  <v-sheet :class="breakpoint.smAndDown ? 'pa-0' : 'px-3 py-0'">
     <BasePageTitle v-if="groupName">
       <template #header>
         <v-img max-height="200" max-width="150" :src="require('~/static/svgs/manage-members.svg')" />
@@ -19,6 +19,7 @@ export default defineNuxtComponent({
   components: { RecipeTimeline },
   middleware: ["auth", "group-only"],
   setup() {
+    const breakpoint = useDisplay();
     const api = useUserApi();
     const ready = ref<boolean>(false);
 
@@ -39,6 +40,7 @@ export default defineNuxtComponent({
       groupName,
       queryFilter,
       ready,
+      breakpoint,
     };
   },
   head() {

@@ -33,7 +33,7 @@
             </v-card-text>
             <v-card-text class="d-flex flex-wrap justify-center align-center" style="gap: 0.8rem">
               <StatsCards v-for="(value, key) in stats" :key="`${key}-${value}`"
-                :min-width="$vuetify.breakpoint.xs ? '100%' : '158'" :icon="getStatsIcon(key)" :to="getStatsTo(key)">
+                :min-width="breakpoint.xs ? '100%' : '158'" :icon="getStatsIcon(key)" :to="getStatsTo(key)">
                 <template #title> {{ getStatsTitle(key) }}</template>
                 <template #value> {{ value }}</template>
               </StatsCards>
@@ -170,6 +170,7 @@ export default defineNuxtComponent({
   middleware: "auth",
   scrollToTop: true,
   async setup() {
+    const breakpoint = useDisplay();
     const i18n = useI18n();
     const { $auth } = useNuxtApp();
     const route = useRoute();
@@ -236,6 +237,7 @@ export default defineNuxtComponent({
       inviteDialog,
       stats,
       user,
+      breakpoint,
     };
   },
   head() {

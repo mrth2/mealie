@@ -53,10 +53,10 @@
           <v-menu offset-y nudge-bottom="3">
             <template #activator="{ on, attrs }">
               <v-btn class="ml-auto" small color="accent" v-bind="attrs" v-on="on">
-                <v-icon :left="!$vuetify.breakpoint.xsOnly">
+                <v-icon :left="!breakpoint.xsOnly">
                   {{ state.orderDirection === "asc" ? $globals.icons.sortAscending : $globals.icons.sortDescending }}
                 </v-icon>
-                {{ $vuetify.breakpoint.xsOnly ? null : sortText }}
+                {{ breakpoint.xsOnly ? null : sortText }}
               </v-btn>
             </template>
             <v-card>
@@ -146,6 +146,7 @@ import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useLazyRecipes } from "~/composables/recipes";
 import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 import type { HouseholdSummary } from "~/lib/api/types/household";
+import { useDisplay } from 'vuetify';
 
 export default defineNuxtComponent({
   components: { SearchFilter, RecipeCardSection },
@@ -188,6 +189,8 @@ export default defineNuxtComponent({
 
     const tools = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
     const selectedTools = ref<NoUndefinedField<RecipeTool>[]>([]);
+
+    const breakpoint = useDisplay();
 
     function calcPassedQuery(): RecipeSearchQuery {
       return {
@@ -585,6 +588,7 @@ export default defineNuxtComponent({
       passedQueryWithSeed,
 
       filterItems,
+      breakpoint,
     };
   },
 });
