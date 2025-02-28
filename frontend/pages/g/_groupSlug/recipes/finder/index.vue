@@ -335,7 +335,7 @@ export default defineNuxtComponent({
   setup() {
     const breakpoint = useDisplay();
     const i18n = useI18n();
-    const { $auth, $vuetify } = useNuxtApp();
+    const { $auth } = useNuxtApp();
     const route = useRoute();
     const useMobile = computed(() => breakpoint.smAndDown);
 

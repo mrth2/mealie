@@ -30,7 +30,8 @@ async function fetchTheme(): Promise<ThemeConfig | undefined> {
 }
 
 export default defineNuxtPlugin(async () => {
-  const { $config, $vuetify } = useNuxtApp();
+  const $vuetify = useTheme();
+  const { $config } = useNuxtApp();
   let theme = __cachedTheme;
   if (!theme) {
     theme = await fetchTheme();
@@ -38,25 +39,31 @@ export default defineNuxtPlugin(async () => {
   }
 
   if (theme) {
-    $vuetify.theme.themes.light.primary = theme.lightPrimary;
-    $vuetify.theme.themes.light.accent = theme.lightAccent;
-    $vuetify.theme.themes.light.secondary = theme.lightSecondary;
-    $vuetify.theme.themes.light.success = theme.lightSuccess;
-    $vuetify.theme.themes.light.info = theme.lightInfo;
-    $vuetify.theme.themes.light.warning = theme.lightWarning;
-    $vuetify.theme.themes.light.error = theme.lightError;
+    $vuetify.themes.value.light.colors = {
+      ...$vuetify.themes.value.light.colors,
+      primary: theme.lightPrimary,
+      accent: theme.lightAccent,
+      secondary: theme.lightSecondary,
+      success: theme.lightSuccess,
+      info: theme.lightInfo,
+      warning: theme.lightWarning,
+      error: theme.lightError,
+    };
 
-    $vuetify.theme.themes.dark.primary = theme.darkPrimary;
-    $vuetify.theme.themes.dark.accent = theme.darkAccent;
-    $vuetify.theme.themes.dark.secondary = theme.darkSecondary;
-    $vuetify.theme.themes.dark.success = theme.darkSuccess;
-    $vuetify.theme.themes.dark.info = theme.darkInfo;
-    $vuetify.theme.themes.dark.warning = theme.darkWarning;
-    $vuetify.theme.themes.dark.error = theme.darkError;
+    $vuetify.themes.value.dark.colors = {
+      ...$vuetify.themes.value.dark.colors,
+      primary: theme.darkPrimary,
+      accent: theme.darkAccent,
+      secondary: theme.darkSecondary,
+      success: theme.darkSuccess,
+      info: theme.darkInfo,
+      warning: theme.darkWarning,
+      error: theme.darkError,
+    };
   }
 
   if ($config.useDark) {
-    $vuetify.theme.dark = true;
+    $vuetify.global.name.value = 'dark';
   }
   return {
     provide: {

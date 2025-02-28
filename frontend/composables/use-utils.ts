@@ -4,11 +4,11 @@ import { useDark } from "@vueuse/core";
 
 export const useToggleDarkMode = () => {
   const isDark = useDark();
-  const { $vuetify } = useNuxtApp();
+  const theme = useTheme();
 
   function toggleDark() {
-    isDark.value = !$vuetify.theme.dark;
-    $vuetify.theme.dark = !$vuetify.theme.dark;
+    isDark.value = !theme.current.value.dark;
+    theme.global.name.value = isDark.value ? "dark" : "light";
   }
 
   return toggleDark;

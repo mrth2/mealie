@@ -2,13 +2,8 @@
   <v-app dark>
     <TheSnackbar />
 
-    <AppSidebar
-      v-model="sidebar"
-      absolute
-      :top-link="topLinks"
-      :secondary-links="cookbookLinks || []"
-      :bottom-links="isAdmin ? bottomLinks : []"
-    >
+    <AppSidebar v-model="sidebar" absolute :top-link="topLinks" :secondary-links="cookbookLinks || []"
+      :bottom-links="isAdmin ? bottomLinks : []">
       <v-menu offset-y nudge-bottom="5" close-delay="50" nudge-right="15">
         <template #activator="{ on, attrs }">
           <v-btn v-if="isOwnGroup" rounded large class="ml-2 mt-3" v-bind="attrs" v-on="on">
@@ -54,11 +49,11 @@
         <v-list-item @click="toggleDark">
           <v-list-item-icon>
             <v-icon>
-              {{ $vuetify.theme.dark ? $globals.icons.weatherSunny : $globals.icons.weatherNight }}
+              {{ currentTheme.dark ? $globals.icons.weatherSunny : $globals.icons.weatherNight }}
             </v-icon>
           </v-list-item-icon>
           <v-list-item-title>
-            {{ $vuetify.theme.dark ? $t("settings.theme.light-mode") : $t("settings.theme.dark-mode") }}
+            {{ currentTheme.dark ? $t("settings.theme.light-mode") : $t("settings.theme.dark-mode") }}
           </v-list-item-title>
         </v-list-item>
       </template>
@@ -96,8 +91,10 @@ import type { HouseholdSummary } from "~/lib/api/types/household";
 export default defineNuxtComponent({
   components: { AppHeader, AppSidebar, LanguageDialog, TheSnackbar },
   setup() {
-    const { $globals, $auth, i18n } = useNuxtApp();
+    const i18n = useI18n();
+    const { $globals, $auth } = useNuxtApp();
     const { isOwnGroup } = useLoggedInState();
+    const { current: currentTheme } = useTheme();
 
     const isAdmin = computed(() => $auth.user?.admin);
     const route = useRoute();
@@ -293,6 +290,7 @@ export default defineNuxtComponent({
       toggleDark,
       sidebar,
       breakpoint,
+      currentTheme,
     };
   },
 });

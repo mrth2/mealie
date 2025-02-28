@@ -29,7 +29,6 @@ export default defineNuxtComponent({
     },
   },
   setup(props) {
-    const { $vuetify } = useNuxtApp();
     const { recipeImage } = useStaticRoutes();
     const { imageKey } = usePageState(props.recipe.slug);
     const { user } = usePageUser();

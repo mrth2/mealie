@@ -393,9 +393,6 @@ export default defineNuxtConfig({
   // },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
-  // vuetify: {
-  //   optionsPath: "./vuetify.options.js",
-  // },
   vuetify: {
     moduleOptions: {},
     vuetifyOptions: {
@@ -403,6 +400,7 @@ export default defineNuxtConfig({
         defaultSet: "mdi-svg"
       },
       theme: {
+        defaultTheme: "dark",
         // Theme Config set at runtime by /plugins/theme.ts
         // This config doesn't do anything.
         themes: {

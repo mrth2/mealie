@@ -1,40 +1,18 @@
 <template>
-  <v-container
-    fill-height
-    fluid
-    class="d-flex justify-center align-center"
-    width="1200px"
-    min-height="700px"
-    :class="{
-      'bg-off-white': !$vuetify.theme.dark,
-    }"
-  >
-    <BaseWizard
-      v-model="currentPage"
-      :max-page-number="totalPages"
-      :title="$t('admin.setup.first-time-setup')"
-      :prev-button-show="activeConfig.showPrevButton"
-      :next-button-show="activeConfig.showNextButton"
-      :next-button-text="activeConfig.nextButtonText"
-      :next-button-icon="activeConfig.nextButtonIcon"
-      :next-button-color="activeConfig.nextButtonColor"
-      :next-button-is-submit="activeConfig.isSubmit"
-      :is-submitting="isSubmitting"
-      @submit="handleSubmit"
-    >
+  <v-container fill-height fluid class="d-flex justify-center align-center" width="1200px" min-height="700px" :class="{
+    'bg-off-white': !$theme.dark,
+  }">
+    <BaseWizard v-model="currentPage" :max-page-number="totalPages" :title="$t('admin.setup.first-time-setup')"
+      :prev-button-show="activeConfig.showPrevButton" :next-button-show="activeConfig.showNextButton"
+      :next-button-text="activeConfig.nextButtonText" :next-button-icon="activeConfig.nextButtonIcon"
+      :next-button-color="activeConfig.nextButtonColor" :next-button-is-submit="activeConfig.isSubmit"
+      :is-submitting="isSubmitting" @submit="handleSubmit">
       <v-container v-if="currentPage === Pages.LANDING" class="mb-12">
         <v-card-title class="text-h4 justify-center">
           {{ $i18n.t('admin.setup.welcome-to-mealie-get-started') }}
         </v-card-title>
-        <v-btn
-          :to="groupSlug ? `/g/${groupSlug}` : '/login'"
-          rounded
-          outlined
-          text
-          color="grey lighten-1"
-          class="text-subtitle-2 d-flex mx-auto"
-          style="width: fit-content;"
-        >
+        <v-btn :to="groupSlug ? `/g/${groupSlug}` : '/login'" rounded outlined text color="grey lighten-1"
+          class="text-subtitle-2 d-flex mx-auto" style="width: fit-content;">
           {{ $i18n.t('admin.setup.already-set-up-bring-to-homepage') }}
         </v-btn>
       </v-container>
@@ -77,10 +55,7 @@
               {{ link.section }}
             </v-card-text>
           </div>
-          <v-btn
-            :to="link.to"
-            color="info"
-          >
+          <v-btn :to="link.to" color="info">
             {{ link.text }}
           </v-btn>
           <v-card-text class="subtitle px-0 py-2">
@@ -93,7 +68,6 @@
 </template>
 
 <script lang="ts">
-
 import { useAdminApi, useUserApi } from "~/composables/api";
 import { useLocales } from "~/composables/use-locales";
 import { alert } from "~/composables/use-toast";
@@ -107,14 +81,19 @@ export default defineNuxtComponent({
   setup() {
     // ================================================================
     // Setup
-    const { $auth, $globals, i18n } = useNuxtApp();
+    const i18n = useI18n();
+    const { $auth, $globals } = useNuxtApp();
     const userApi = useUserApi();
     const adminApi = useAdminApi();
+    const { current: $theme } = useTheme();
 
     const groupSlug = computed(() => $auth.user?.groupSlug);
     const { locale } = useLocales();
     const router = useRouter();
     const isSubmitting = ref(false);
+    useSeoMeta({
+      title: i18n.t("admin.setup.first-time-setup")
+    })
 
     if (!$auth.loggedIn) {
       router.push("/login");
@@ -446,13 +425,8 @@ export default defineNuxtComponent({
       // Page Submission
       isSubmitting,
       handleSubmit,
+      $theme
     }
-  },
-
-  head() {
-    return {
-      title: this.$i18n.t("admin.setup.first-time-setup"),
-    };
   },
 })
 </script>
