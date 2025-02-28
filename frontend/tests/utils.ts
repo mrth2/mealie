@@ -1,7 +1,7 @@
-import VueI18n from "vue-i18n";
-import Vue from "vue";
+import { createI18n } from "vue-i18n";
+import { createApp } from "vue";
 
-Vue.use(VueI18n)
+const app = createApp({});
 
 function loadEnLocales() {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -9,11 +9,11 @@ function loadEnLocales() {
 }
 
 export function stubI18n() {
-  const i18n = new VueI18n({
+  const i18n = createI18n({
     locale: "en-US",
     messages: {
       "en-US": loadEnLocales(),
     },
   })
-  return i18n
+  return i18n.global
 }

@@ -1,4 +1,4 @@
-
+import type { VueI18n } from 'vue-i18n';
 import { scorePassword } from "~/lib/validators";
 
 export function usePasswordField() {
@@ -21,7 +21,7 @@ export function usePasswordField() {
   };
 }
 
-export const usePasswordStrength = (password: Ref<string>, i18n: ReturnType<typeof useI18n>) => {
+export const usePasswordStrength = (password: Ref<string>, i18n: VueI18n) => {
   const score = computed(() => scorePassword(password.value));
   const strength = computed(() => {
     if (score.value < 50) {
