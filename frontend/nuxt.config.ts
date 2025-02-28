@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   // Global page headers: https://go.nuxtjs.dev/config-head
   // target: "static",
   ssr: false,
+  future: {
+    compatibilityVersion: 3,
+  },
   app: {
     baseURL: process.env.SUB_PATH || "",
 
@@ -167,14 +170,14 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || null,
+      GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || undefined,
       SUB_PATH: process.env.SUB_PATH || "",
       axios: {
         browserBaseURL: process.env.SUB_PATH || "",
       },
       // ==============================================
       // Theme Runtime Config
-      useDark: process.env.THEME_USE_DARK || false,
+      useDark: Boolean(process.env.THEME_USE_DARK) || false,
       themes: {
         dark: {
           primary: process.env.THEME_DARK_PRIMARY || "#E58325",
