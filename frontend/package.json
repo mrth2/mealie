@@ -10,7 +10,8 @@
     "lint:js": "eslint --ext \".ts,.js,.vue\" --ignore-path .gitignore .",
     "lint": "yarn lint:js",
     "test": "vitest",
-    "test:ci": "vitest --watch=false"
+    "test:ci": "vitest --watch=false",
+    "cleanup": "nuxt cleanup"
   },
   "lint-staged": {
     "*.{ts,js,vue}": "eslint"
