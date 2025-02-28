@@ -16,7 +16,9 @@ import type { Recipe } from "~/lib/api/types/recipe";
 const { $auth } = useNuxtApp();
 const { isOwnGroup } = useLoggedInState();
 const route = useRoute();
-const title = ref(route.meta.title);
+const title = ref(route.meta?.title ?? "");
+useSeoMeta({ title });
+
 const router = useRouter();
 const slug = route.params.slug as string;
 
@@ -42,7 +44,7 @@ if (isOwnGroup.value) {
 whenever(
   () => recipe.value,
   () => {
-    if (recipe.value) {
+    if (recipe.value && recipe.value.name) {
       title.value = recipe.value.name;
     }
   },

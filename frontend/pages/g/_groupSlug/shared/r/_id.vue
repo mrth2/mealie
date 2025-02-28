@@ -10,7 +10,9 @@
 import RecipePage from "~/components/Domain/Recipe/RecipePage/RecipePage.vue";
 import { usePublicApi } from "~/composables/api/api-client";
 
-setPageLayout('basic');
+definePageMeta({
+  layout: "basic",
+})
 
 const { $auth } = useNuxtApp();
 const route = useRoute();
@@ -20,7 +22,10 @@ const router = useRouter();
 const recipeId = route.params.id as string;
 const api = usePublicApi();
 
-const title = ref(route.meta.title);
+const title = ref(route.meta?.title ?? "");
+useSeoMeta({
+  title,
+})
 
 const { data: recipe } = await useAsyncData('recipe', async () => {
   const { data, error } = await api.shared.getShared(recipeId);
