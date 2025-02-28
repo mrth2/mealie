@@ -55,7 +55,7 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css", "~/assets/css/main.css", "~/assets/style-overrides.scss"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["~/plugins/globals.ts", "~/plugins/theme.ts", "~/plugins/toast.client.ts", "~/plugins/dark-mode.client.ts"],
+  plugins: ["~/plugins/globals.ts", "~/plugins/axios.ts", "~/plugins/theme.ts", "~/plugins/dark-mode.client.ts"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { alert } from "~/composables/use-toast";
 
 export default defineNuxtPlugin(() => {
   const axiosInstance = axios.create({
@@ -22,8 +23,12 @@ export default defineNuxtPlugin(() => {
 
   // Add response interceptor
   axiosInstance.interceptors.response.use(
-    (response) => response,
+    (response) => {
+      if (response?.data?.message) alert.info(response.data.message as string);
+      return response;
+    },
     (error) => {
+      if (error?.response?.data?.detail?.message) alert.error(error.response.data.detail.message as string);
       return Promise.reject(error)
     }
   )
