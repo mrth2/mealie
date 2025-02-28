@@ -1,8 +1,12 @@
-import { Plugin } from "@nuxt/types";
 import type { NuxtAxiosInstance } from "@nuxtjs/axios";
 import { alert } from "~/composables/use-toast";
 
 const toastPlugin: Plugin = ({ $axios }: { $axios: NuxtAxiosInstance }) => {
+
+};
+
+export default defineNuxtPlugin(() => {
+  const { $axios } = useNuxtApp();
   $axios.onResponse((response) => {
     if (response?.data?.message) {
       alert.info(response.data.message as string);
@@ -13,6 +17,5 @@ const toastPlugin: Plugin = ({ $axios }: { $axios: NuxtAxiosInstance }) => {
       alert.error(error.response.data.detail.message as string);
     }
   });
-};
-
-export default toastPlugin;
+  return {}
+});

@@ -1,5 +1,3 @@
-import { Plugin } from "@nuxt/types";
-
 export interface ThemeConfig {
   lightPrimary: string;
   lightAccent: string;
@@ -31,7 +29,8 @@ async function fetchTheme(): Promise<ThemeConfig | undefined> {
   }
 }
 
-const themePlugin: Plugin =  async ({ $vuetify, $config }) => {
+export default defineNuxtPlugin(async () => {
+  const { $config, $vuetify } = useNuxtApp();
   let theme = __cachedTheme;
   if (!theme) {
     theme = await fetchTheme();
@@ -59,6 +58,9 @@ const themePlugin: Plugin =  async ({ $vuetify, $config }) => {
   if ($config.useDark) {
     $vuetify.theme.dark = true;
   }
-};
+  return {
+    provide: {
 
-export default themePlugin;
+    }
+  }
+})
