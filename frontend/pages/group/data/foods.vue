@@ -526,7 +526,7 @@ export default defineNuxtComponent({
     });
 
     const locales = LOCALES.filter((locale) =>
-      (i18n.locales as LocaleObject[]).map((i18nLocale) => i18nLocale.code).includes(locale.value)
+      (i18n.locales.value as LocaleObject[]).map((i18nLocale) => i18nLocale.code).includes(locale.value)
     );
 
     async function seedDatabase() {
