@@ -2,12 +2,8 @@
   <v-container>
     <BasePageTitle divider>
       <template #header>
-        <v-img
-          max-height="200"
-          max-width="200"
-          class="mb-2"
-          :src="require('~/static/svgs/manage-data-migrations.svg')"
-        ></v-img>
+        <v-img max-height="200" max-width="200" class="mb-2"
+          :src="require('~/static/svgs/manage-data-migrations.svg')"></v-img>
       </template>
       <template #title> {{ $t('migration.recipe-data-migrations') }}</template>
       {{ $t('migration.recipe-data-migrations-explanation') }}
@@ -30,33 +26,26 @@
 
         <v-card-title class="mt-0"> {{ $t('general.upload-file') }} </v-card-title>
         <v-card-text>
-          <AppButtonUpload
-            :accept="content.acceptedFileType || '.zip'"
-            class="mb-2"
-            :post="false"
-            file-name="file"
-            :text-btn="false"
-            @uploaded="setFileObject"
-          />
+          <AppButtonUpload :accept="content.acceptedFileType || '.zip'" class="mb-2" :post="false" file-name="file"
+            :text-btn="false" @uploaded="setFileObject" />
           {{ fileObject.name || $t('migration.no-file-selected') }}
         </v-card-text>
 
         <v-card-text>
           <v-checkbox v-model="addMigrationTag">
             <template #label>
-          <i18n path="migration.tag-all-recipes">
-            <template #tag-name>
-              <b class="mx-1"> {{ migrationType }} </b>
-            </template>
-          </i18n>
+              <i18n path="migration.tag-all-recipes">
+                <template #tag-name>
+                  <b class="mx-1"> {{ migrationType }} </b>
+                </template>
+              </i18n>
             </template>
           </v-checkbox>
         </v-card-text>
 
         <v-card-actions class="justify-end">
           <BaseButton :disabled="!fileObject.name" submit @click="startMigration">
-            {{ $t("general.submit") }}</BaseButton
-          >
+            {{ $t("general.submit") }}</BaseButton>
         </v-card-actions>
       </v-card>
     </v-container>
@@ -68,11 +57,10 @@
 </template>
 
 <script lang="ts">
-
-import { ReportSummary } from "~/lib/api/types/reports";
-import { MenuItem } from "~/components/global/BaseOverflowButton.vue";
+import type { ReportSummary } from "~/lib/api/types/reports";
+import type { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 import { useUserApi } from "~/composables/api";
-import { SupportedMigrations } from "~/lib/api/types/group";
+import type { SupportedMigrations } from "~/lib/api/types/group";
 
 const MIGRATIONS = {
   mealie: "mealie_alpha",
@@ -89,7 +77,8 @@ const MIGRATIONS = {
 export default defineNuxtComponent({
   middleware: ["auth", "advanced-only"],
   setup() {
-    const { $globals, i18n } = useNuxtApp();
+    const i18n = useI18n();
+    const { $globals } = useNuxtApp();
 
     const api = useUserApi();
 
@@ -307,7 +296,7 @@ export default defineNuxtComponent({
             icon: $globals.icons.zip,
             name: "plantoeat-recipes-508318_10-13-2023.zip",
             children: [
-                  { id: 9, name: "plantoeat-recipes-508318_10-13-2023.csv", icon: $globals.icons.codeJson },
+              { id: 9, name: "plantoeat-recipes-508318_10-13-2023.csv", icon: $globals.icons.codeJson },
             ],
           }
         ],
@@ -321,13 +310,14 @@ export default defineNuxtComponent({
             icon: $globals.icons.zip,
             name: "recipekeeperhtml.zip",
             children: [
-                  { id: 2, name: "recipes.html", icon: $globals.icons.codeJson },
-                  { id: 3, name: "images", icon: $globals.icons.folderOutline,
-                    children: [
-                    { id: 4, name: "image1.jpg", icon: $globals.icons.fileImage },
-                    { id: 5, name: "image2.jpg", icon: $globals.icons.fileImage },
-                    ]
-                   },
+              { id: 2, name: "recipes.html", icon: $globals.icons.codeJson },
+              {
+                id: 3, name: "images", icon: $globals.icons.folderOutline,
+                children: [
+                  { id: 4, name: "image1.jpg", icon: $globals.icons.fileImage },
+                  { id: 5, name: "image2.jpg", icon: $globals.icons.fileImage },
+                ]
+              },
             ],
           }
         ],

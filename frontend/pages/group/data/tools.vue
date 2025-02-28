@@ -1,20 +1,12 @@
 <template>
   <div>
     <!-- Create Dialog -->
-    <BaseDialog
-      v-model="state.createDialog"
-      :title="$t('data-pages.tools.new-tool')"
-      :icon="$globals.icons.potSteam"
-      @submit="createTool"
-    >
+    <BaseDialog v-model="state.createDialog" :title="$t('data-pages.tools.new-tool')" :icon="$globals.icons.potSteam"
+      @submit="createTool">
       <v-card-text>
         <v-form ref="domNewToolForm">
-          <v-text-field
-            v-model="createTarget.name"
-            autofocus
-            :label="$t('general.name')"
-            :rules="[validators.required]"
-          ></v-text-field>
+          <v-text-field v-model="createTarget.name" autofocus :label="$t('general.name')"
+            :rules="[validators.required]"></v-text-field>
           <v-checkbox v-model="createTarget.onHand" :label="$t('tool.on-hand')">
           </v-checkbox>
         </v-form>
@@ -22,13 +14,8 @@
     </BaseDialog>
 
     <!-- Edit Dialog -->
-    <BaseDialog
-      v-model="state.editDialog"
-      :icon="$globals.icons.potSteam"
-      :title="$t('data-pages.tools.edit-tool')"
-      :submit-text="$tc('general.save')"
-      @submit="editSaveTool"
-    >
+    <BaseDialog v-model="state.editDialog" :icon="$globals.icons.potSteam" :title="$t('data-pages.tools.edit-tool')"
+      :submit-text="$tc('general.save')" @submit="editSaveTool">
       <v-card-text v-if="editTarget">
         <div class="mt-4">
           <v-text-field v-model="editTarget.name" :label="$t('general.name')"> </v-text-field>
@@ -38,13 +25,8 @@
     </BaseDialog>
 
     <!-- Delete Dialog -->
-    <BaseDialog
-      v-model="state.deleteDialog"
-      :title="$tc('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      @confirm="deleteTool"
-    >
+    <BaseDialog v-model="state.deleteDialog" :title="$tc('general.confirm')" :icon="$globals.icons.alertCircle"
+      color="error" @confirm="deleteTool">
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
         <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.name }}</p>
@@ -52,14 +34,8 @@
     </BaseDialog>
 
     <!-- Bulk Delete Dialog -->
-    <BaseDialog
-      v-model="state.bulkDeleteDialog"
-      width="650px"
-      :title="$tc('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      @confirm="deleteSelected"
-    >
+    <BaseDialog v-model="state.bulkDeleteDialog" width="650px" :title="$tc('general.confirm')"
+      :icon="$globals.icons.alertCircle" color="error" @confirm="deleteSelected">
       <v-card-text>
         <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
         <v-card outlined>
@@ -77,17 +53,12 @@
     </BaseDialog>
 
     <!-- Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.potSteam" section :title="$tc('data-pages.tools.tool-data')"> </BaseCardSectionTitle>
-    <CrudTable
-      :table-config="tableConfig"
-      :headers.sync="tableHeaders"
-      :data="tools || []"
-      :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
-      initial-sort="name"
-      @delete-one="deleteEventHandler"
-      @edit-one="editEventHandler"
-      @delete-selected="bulkDeleteEventHandler"
-    >
+    <BaseCardSectionTitle :icon="$globals.icons.potSteam" section :title="$tc('data-pages.tools.tool-data')">
+    </BaseCardSectionTitle>
+    <CrudTable :table-config="tableConfig" :headers.sync="tableHeaders" :data="tools || []"
+      :bulk-actions="[{ icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected' }]"
+      initial-sort="name" @delete-one="deleteEventHandler" @edit-one="editEventHandler"
+      @delete-selected="bulkDeleteEventHandler">
       <template #button-row>
         <BaseButton create @click="state.createDialog = true">{{ $t("general.create") }}</BaseButton>
       </template>
@@ -101,10 +72,9 @@
 </template>
 
 <script lang="ts">
-
 import { validators } from "~/composables/use-validators";
 import { useToolStore, useToolData } from "~/composables/store";
-import { RecipeTool } from "~/lib/api/types/recipe";
+import type { RecipeTool } from "~/lib/api/types/recipe";
 
 interface RecipeToolWithOnHand extends RecipeTool {
   onHand: boolean;
@@ -112,7 +82,8 @@ interface RecipeToolWithOnHand extends RecipeTool {
 
 export default defineNuxtComponent({
   setup() {
-    const { $auth, i18n } = useNuxtApp();
+    const i18n = useI18n();
+    const { $auth } = useNuxtApp();
     const tableConfig = {
       hideColumns: true,
       canExport: true,

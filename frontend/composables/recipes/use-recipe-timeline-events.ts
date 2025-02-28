@@ -1,5 +1,4 @@
-
-import { TimelineEventType } from "~/lib/api/types/recipe";
+import type { TimelineEventType } from "~/lib/api/types/recipe";
 
 export interface TimelineEventTypeData {
   value: TimelineEventType;
@@ -8,7 +7,8 @@ export interface TimelineEventTypeData {
 }
 
 export const useTimelineEventTypes = () => {
-  const { $globals, i18n } = useNuxtApp();
+  const i18n = useI18n();
+  const { $globals } = useNuxtApp();
   const eventTypeOptions = computed<TimelineEventTypeData[]>(() => {
     return [
       {

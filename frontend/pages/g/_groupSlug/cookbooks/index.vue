@@ -128,7 +128,7 @@ import draggable from "vuedraggable";
 import { useCookbooks } from "@/composables/use-group-cookbooks";
 import { useHouseholdSelf } from "@/composables/use-households";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
-import { ReadCookBook } from "~/lib/api/types/cookbook";
+import type { ReadCookBook } from "~/lib/api/types/cookbook";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
 
 export default defineNuxtComponent({
@@ -140,7 +140,8 @@ export default defineNuxtComponent({
       delete: false,
     });
 
-    const { $auth, i18n } = useNuxtApp();
+    const i18n = useI18n();
+    const { $auth } = useNuxtApp();
     const { cookbooks: allCookbooks, actions } = useCookbooks();
     const myCookbooks = computed<ReadCookBook[]>({
       get: () => {

@@ -280,17 +280,16 @@
 </template>
 
 <script lang="ts">
-
 import type { LocaleObject } from "@nuxtjs/i18n";
 import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import { CreateIngredientFood, IngredientFood, IngredientFoodAlias } from "~/lib/api/types/recipe";
+import type { CreateIngredientFood, IngredientFood, IngredientFoodAlias } from "~/lib/api/types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
 import { useFoodStore, useLabelStore } from "~/composables/store";
-import { VForm } from "~/types/vuetify";
-import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
+import type { VForm } from "~/types/vuetify";
+import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 
 interface CreateIngredientFoodWithOnHand extends CreateIngredientFood {
   onHand: boolean;
@@ -305,7 +304,8 @@ export default defineNuxtComponent({
   components: { MultiPurposeLabel, RecipeDataAliasManagerDialog },
   setup() {
     const userApi = useUserApi();
-    const { $auth, i18n } = useNuxtApp();
+    const i18n = useI18n();
+    const { $auth } = useNuxtApp();
     const tableConfig = {
       hideColumns: true,
       canExport: true,

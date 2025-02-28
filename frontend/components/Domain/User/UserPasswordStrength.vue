@@ -13,7 +13,6 @@
 </template>
 
 <script lang="ts">
-
 import { usePasswordStrength } from "~/composables/use-passwords";
 
 export default defineNuxtComponent({

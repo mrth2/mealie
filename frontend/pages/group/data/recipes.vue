@@ -173,10 +173,10 @@ import RecipeDataTable from "~/components/Domain/Recipe/RecipeDataTable.vue";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { useUserApi } from "~/composables/api";
 import { useRecipes, allRecipes } from "~/composables/recipes";
-import { Recipe, RecipeSettings } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeSettings } from "~/lib/api/types/recipe";
 import GroupExportData from "~/components/Domain/Group/GroupExportData.vue";
-import { GroupDataExport } from "~/lib/api/types/group";
-import { MenuItem } from "~/components/global/BaseOverflowButton.vue";
+import type { GroupDataExport } from "~/lib/api/types/group";
+import type { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 import RecipeSettingsSwitches from "~/components/Domain/Recipe/RecipeSettingsSwitches.vue";
 import { useUserStore } from "~/composables/store/use-user-store";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
@@ -195,7 +195,8 @@ export default defineNuxtComponent({
   components: { RecipeDataTable, RecipeOrganizerSelector, GroupExportData, RecipeSettingsSwitches, UserAvatar },
   scrollToTop: true,
   setup() {
-    const { $auth, $globals, i18n } = useNuxtApp();
+    const i18n = useI18n();
+    const { $auth, $globals } = useNuxtApp();
     const { getAllRecipes, refreshRecipes } = useRecipes(true, true, false, `householdId=${$auth.user?.householdId || ""}`);
     const selected = ref<Recipe[]>([]);
 
