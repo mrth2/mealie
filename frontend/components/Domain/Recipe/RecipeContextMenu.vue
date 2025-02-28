@@ -83,7 +83,7 @@ import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import type { Recipe } from "~/lib/api/types/recipe";
 import type { GroupRecipeActionOut, ShoppingListSummary } from "~/lib/api/types/household";
 import type { PlanEntryType } from "~/lib/api/types/meal-plan";
-import { useAxiosDownloader } from "~/composables/api/use-axios-download";
+import { useDownloader } from "~/composables/api/use-downloader";
 
 export interface ContextMenuIncludes {
   delete: boolean;
@@ -333,7 +333,7 @@ export default defineNuxtComponent({
       context.emit("delete", props.slug);
     }
 
-    const download = useAxiosDownloader();
+    const download = useDownloader();
 
     async function handleDownloadEvent() {
       const { data } = await api.recipes.getZipToken(props.slug);

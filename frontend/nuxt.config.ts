@@ -174,9 +174,6 @@ export default defineNuxtConfig({
     public: {
       GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || undefined,
       SUB_PATH: process.env.SUB_PATH || "",
-      axios: {
-        browserBaseURL: process.env.SUB_PATH || "",
-      },
       // ==============================================
       // Theme Runtime Config
       useDark: Boolean(process.env.THEME_USE_DARK) || false,

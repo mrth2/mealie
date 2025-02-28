@@ -3,9 +3,8 @@
 </template>
 
 <script lang="ts">
-
 import { useAsyncKey } from "~/composables/use-utils";
-import { AppInfo, AppStartupInfo } from "~/lib/api/types/admin";
+import type { AppInfo, AppStartupInfo } from "~/lib/api/types/admin";
 
 export default defineNuxtComponent({
   layout: "blank",
@@ -23,7 +22,7 @@ export default defineNuxtComponent({
       }
     }
 
-    useAsync(async () => {
+    useAsyncData(useAsyncKey(), async () => {
       if (groupSlug.value) {
         const data = await $axios.get<AppStartupInfo>("/api/app/about/startup-info");
         const isDemo = data.data.isDemo;
@@ -36,7 +35,7 @@ export default defineNuxtComponent({
       } else {
         redirectPublicUserToDefaultGroup();
       }
-    }, useAsyncKey());
+    });
   }
 });
 </script>
