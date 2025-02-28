@@ -65,9 +65,11 @@ export default defineNuxtConfig({
     // ...(process.env.NODE_ENV === "production" ? ["@nuxtjs/pwa"] : []),
 
     // https://i18n.nuxtjs.org/setup
-    "@nuxtjs/i18n", // https://auth.nuxtjs.org/guide/setup
+    "@nuxtjs/i18n",
 
+    // https://auth.nuxtjs.org/guide/setup
     // "@nuxtjs/auth-next",
+
     // https://github.com/nuxt-community/proxy-module
     /* [
       "@nuxtjs/proxy",
