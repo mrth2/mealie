@@ -61,12 +61,12 @@ export default defineNuxtConfig({
   components: true,
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    // https://go.nuxtjs.dev/pwa
+  modules: [// https://go.nuxtjs.dev/pwa
     // ...(process.env.NODE_ENV === "production" ? ["@nuxtjs/pwa"] : []),
+
     // https://i18n.nuxtjs.org/setup
-    "@nuxtjs/i18n",
-    // https://auth.nuxtjs.org/guide/setup
+    "@nuxtjs/i18n", // https://auth.nuxtjs.org/guide/setup
+
     // "@nuxtjs/auth-next",
     // https://github.com/nuxt-community/proxy-module
     /* [
@@ -87,10 +87,10 @@ export default defineNuxtConfig({
       },
     ], */
 
-    // https://go.nuxtjs.dev/vuetify
-    // "@nuxtjs/vuetify",
     // https://google-fonts.nuxtjs.org/setup
     "@nuxtjs/google-fonts",
+
+    "vuetify-nuxt-module"
   ],
 
   googleFonts: {
@@ -397,6 +397,48 @@ export default defineNuxtConfig({
   // vuetify: {
   //   optionsPath: "./vuetify.options.js",
   // },
+  vuetify: {
+    moduleOptions: {},
+    vuetifyOptions: {
+      icons: {
+        defaultSet: "mdi-svg"
+      },
+      theme: {
+        // Theme Config set at runtime by /plugins/theme.ts
+        // This config doesn't do anything.
+        themes: {
+          dark: {
+            dark: true,
+            colors: {
+              primary: "#E58325",
+              accent: "#007A99",
+              secondary: "#973542",
+              success: "#43A047",
+              info: "#1976d2",
+              warning: "#FF6D00",
+              error: "#EF5350",
+            },
+          },
+          light: {
+            dark: false,
+            colors: {
+              primary: "#E58325",
+              accent: "#007A99",
+              secondary: "#973542",
+              success: "#43A047",
+              info: "#1976d2",
+              warning: "#FF6D00",
+              error: "#EF5350",
+            },
+          },
+        },
+      },
+      locale: {
+        locale: "en-US",
+        fallback: "en-US",
+      },
+    },
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

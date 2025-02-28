@@ -32,7 +32,7 @@
     "vite": "^6.2.0",
     "vue-advanced-cropper": "^2.8.9",
     "vuedraggable": "^4.1.0",
-    "vuetify": "^2.7.2"
+    "vuetify-nuxt-module": "0.18.3"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.26.8",
@@ -40,7 +40,6 @@
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/google-fonts": "^3.2.0",
-    "@nuxtjs/vuetify": "^1.12.3",
     "@types/sortablejs": "^1.15.8",
     "eslint": "^9.21.0",
     "eslint-config-prettier": "^10.0.2",
