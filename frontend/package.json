@@ -17,9 +17,9 @@
     "*.{ts,js,vue}": "eslint"
   },
   "dependencies": {
-    "@adapttive/vue-markdown": "^4.0.2",
     "@mdi/js": "^7.4.47",
     "@nuxtjs/i18n": "^9.2.1",
+    "@nuxtjs/mdc": "0.14.0",
     "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/pwa": "^3.3.5",
     "@vueuse/core": "^12.7.0",

@@ -62,36 +62,30 @@ export default defineNuxtConfig({
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [// https://go.nuxtjs.dev/pwa
-    // ...(process.env.NODE_ENV === "production" ? ["@nuxtjs/pwa"] : []),
+  // ...(process.env.NODE_ENV === "production" ? ["@nuxtjs/pwa"] : []),
 
-    // https://i18n.nuxtjs.org/setup
-    "@nuxtjs/i18n",
+  // https://i18n.nuxtjs.org/setup
+  "@nuxtjs/i18n", "nuxt-auth-utils", // https://github.com/nuxt-community/proxy-module
+  /* [
+    "@nuxtjs/proxy",
+    {
+      logProvider: () => {
+        const provider = {
+          log: console.log,
+          debug: console.log,
+          info: console.info,
+          warn: console.warn,
+          error: console.error,
+        };
 
-    "nuxt-auth-utils",
-
-    // https://github.com/nuxt-community/proxy-module
-    /* [
-      "@nuxtjs/proxy",
-      {
-        logProvider: () => {
-          const provider = {
-            log: console.log,
-            debug: console.log,
-            info: console.info,
-            warn: console.warn,
-            error: console.error,
-          };
-
-          return provider;
-        },
-        logLevel: "debug",
+        return provider;
       },
-    ], */
+      logLevel: "debug",
+    },
+  ], */
 
-    // https://google-fonts.nuxtjs.org/setup
-    "@nuxtjs/google-fonts",
-    "vuetify-nuxt-module",
-  ],
+  // https://google-fonts.nuxtjs.org/setup
+  "@nuxtjs/google-fonts", "vuetify-nuxt-module", "@nuxtjs/mdc"],
 
   googleFonts: {
     fontsPath: "/assets/fonts",
