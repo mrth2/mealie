@@ -303,7 +303,7 @@ export default defineNuxtComponent({
       versionLatest: "null",
     });
     function getAppInfo() {
-      const statistics = useAsync(async () => {
+      const statistics = useAsyncData(useAsyncKey(), async () => {
         const { data } = await adminApi.about.about();
         if (data) {
           rawAppInfo.value.version = data.version;
@@ -370,7 +370,7 @@ export default defineNuxtComponent({
           return prettyInfo;
         }
         return data;
-      }, useAsyncKey());
+      });
       return statistics;
     }
     const appInfo = getAppInfo();

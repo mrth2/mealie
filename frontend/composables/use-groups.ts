@@ -50,7 +50,7 @@ export const useGroups = function () {
   function getAllGroups() {
     loading.value = true;
     const asyncKey = String(Date.now());
-    const groups = useAsync(async () => {
+    const groups = useAsyncData(asyncKey, async () => {
       const { data } = await api.groups.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });;
 
       if (data) {
@@ -58,7 +58,7 @@ export const useGroups = function () {
       } else {
         return null;
       }
-    }, asyncKey);
+    });
 
     loading.value = false;
     return groups;

@@ -18,25 +18,19 @@
                 <v-icon left>
                   {{
                     preferences.orderDirection === "asc" ?
-                    $globals.icons.sortCalendarDescending : $globals.icons.sortCalendarAscending
+                      $globals.icons.sortCalendarDescending : $globals.icons.sortCalendarAscending
                   }}
                 </v-icon>
                 <v-list-item-title>
-                  {{ preferences.orderDirection === "asc" ? $tc("general.sort-descending") : $tc("general.sort-ascending") }}
+                  {{ preferences.orderDirection === "asc" ? $tc("general.sort-descending") :
+                    $tc("general.sort-ascending") }}
                 </v-list-item-title>
               </v-list-item>
               <v-divider />
               <v-list-item class="pa-0">
                 <v-list class="py-0" style="width: 100%;">
-                  <v-list-item
-                    v-for="option, idx in eventTypeFilterState"
-                    :key="idx"
-                  >
-                    <v-checkbox
-                      :input-value="option.checked"
-                      readonly
-                      @click="toggleEventTypeOption(option.value)"
-                    >
+                  <v-list-item v-for="option, idx in eventTypeFilterState" :key="idx">
+                    <v-checkbox :input-value="option.checked" readonly @click="toggleEventTypeOption(option.value)">
                       <template #label>
                         <v-icon left>
                           {{ option.icon }}
@@ -52,25 +46,13 @@
         </v-menu>
       </v-col>
     </v-row>
-    <v-divider class="mx-2"/>
-    <div
-      v-if="timelineEvents.length"
-      id="timeline-container"
-      height="fit-content"
-      width="100%"
-      class="px-1"
-      :style="maxHeight ? `max-height: ${maxHeight}; overflow-y: auto;` : ''"
-    >
+    <v-divider class="mx-2" />
+    <div v-if="timelineEvents.length" id="timeline-container" height="fit-content" width="100%" class="px-1"
+      :style="maxHeight ? `max-height: ${maxHeight}; overflow-y: auto;` : ''">
       <v-timeline :dense="breakpoint.smAndDown" class="timeline">
-        <RecipeTimelineItem
-          v-for="(event, index) in timelineEvents"
-          :key="event.id"
-          :event="event"
-          :recipe="recipes.get(event.recipeId)"
-          :show-recipe-cards="showRecipeCards"
-          @update="updateTimelineEvent(index)"
-          @delete="deleteTimelineEvent(index)"
-        />
+        <RecipeTimelineItem v-for="(event, index) in timelineEvents" :key="event.id" :event="event"
+          :recipe="recipes.get(event.recipeId)" :show-recipe-cards="showRecipeCards"
+          @update="updateTimelineEvent(index)" @delete="deleteTimelineEvent(index)" />
       </v-timeline>
     </div>
     <v-card v-else-if="!loading" class="mt-2">
@@ -143,7 +125,7 @@ export default defineNuxtComponent({
     });
 
     interface ScrollEvent extends Event {
-        target: HTMLInputElement;
+      target: HTMLInputElement;
     }
 
     const screenBuffer = 4;
@@ -155,7 +137,7 @@ export default defineNuxtComponent({
       const { scrollTop, offsetHeight, scrollHeight } = event.target;
 
       // trigger when the user is getting close to the bottom
-      const bottomOfElement = scrollTop + offsetHeight >= scrollHeight - (offsetHeight*screenBuffer);
+      const bottomOfElement = scrollTop + offsetHeight >= scrollHeight - (offsetHeight * screenBuffer);
       if (bottomOfElement) {
         infiniteScroll();
       }
@@ -174,7 +156,7 @@ export default defineNuxtComponent({
         return;
       }
 
-      preferences.value.orderDirection = preferences.value.orderDirection === "asc" ?  "desc" : "asc";
+      preferences.value.orderDirection = preferences.value.orderDirection === "asc" ? "desc" : "asc";
       initializeTimelineEvents();
     }
 
@@ -202,14 +184,14 @@ export default defineNuxtComponent({
         image: event.image,
       };
 
-        const { response } = await api.recipes.updateTimelineEvent(event.id, payload);
-        if (response?.status !== 200) {
-          alert.error(i18n.t("events.something-went-wrong") as string);
-          return;
-        }
+      const { response } = await api.recipes.updateTimelineEvent(event.id, payload);
+      if (response?.status !== 200) {
+        alert.error(i18n.t("events.something-went-wrong") as string);
+        return;
+      }
 
-        alert.success(i18n.t("events.event-updated") as string);
-      };
+      alert.success(i18n.t("events.event-updated") as string);
+    };
 
     async function deleteTimelineEvent(index: number) {
       const { response } = await api.recipes.deleteTimelineEvent(timelineEvents.value[index].id);
@@ -228,23 +210,23 @@ export default defineNuxtComponent({
     };
 
     async function updateRecipes(events: RecipeTimelineEventOut[]) {
-        const recipePromises: Promise<Recipe | null>[] = [];
-        const seenRecipeIds: string[] = [];
-        events.forEach(event => {
-          if (seenRecipeIds.includes(event.recipeId) || recipes.has(event.recipeId)) {
-            return;
-          }
+      const recipePromises: Promise<Recipe | null>[] = [];
+      const seenRecipeIds: string[] = [];
+      events.forEach(event => {
+        if (seenRecipeIds.includes(event.recipeId) || recipes.has(event.recipeId)) {
+          return;
+        }
 
-          seenRecipeIds.push(event.recipeId);
-          recipePromises.push(getRecipe(event.recipeId));
-        })
+        seenRecipeIds.push(event.recipeId);
+        recipePromises.push(getRecipe(event.recipeId));
+      })
 
-        const results = await Promise.all(recipePromises);
-        results.forEach(result => {
-          if (result && result.id) {
-            recipes.set(result.id, result);
-          }
-        })
+      const results = await Promise.all(recipePromises);
+      results.forEach(result => {
+        if (result && result.id) {
+          recipes.set(result.id, result);
+        }
+      })
     }
 
     async function scrollTimelineEvents() {
@@ -291,7 +273,7 @@ export default defineNuxtComponent({
     }
 
     const infiniteScroll = useThrottleFn(() => {
-      useAsync(async () => {
+      useAsyncData(useAsyncKey(), async () => {
         if (!hasMore.value || loading.value) {
           return;
         }
@@ -299,7 +281,7 @@ export default defineNuxtComponent({
         loading.value = true;
         await scrollTimelineEvents();
         loading.value = false;
-      }, useAsyncKey());
+      });
     }, 500);
 
     // preload events
@@ -320,7 +302,7 @@ export default defineNuxtComponent({
             }
           }
 
-          const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight >= document.documentElement.offsetHeight - (window.innerHeight*screenBuffer);
+          const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight >= document.documentElement.offsetHeight - (window.innerHeight * screenBuffer);
           if (bottomOfWindow) {
             infiniteScroll();
           }

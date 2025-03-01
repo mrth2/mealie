@@ -32,7 +32,7 @@ export function useReadOnlyActions<T extends BoundT>(
     params.orderDirection ??= "asc";
 
     loading.value = true;
-    const allItems = useAsync(async () => {
+    const allItems = useAsyncData(useAsyncKey(), async () => {
       const { data } = await api.getAll(page, perPage, params);
       loading.value = false;
 
@@ -45,7 +45,7 @@ export function useReadOnlyActions<T extends BoundT>(
       } else {
         return [];
       }
-    }, useAsyncKey());
+    });
 
     return allItems;
   }
@@ -86,7 +86,7 @@ export function useStoreActions<T extends BoundT>(
     params.orderDirection ??= "asc";
 
     loading.value = true;
-    const allItems = useAsync(async () => {
+    const allItems = useAsyncData(useAsyncKey(), async () => {
       const { data } = await api.getAll(page, perPage, params);
       loading.value = false;
 
@@ -99,7 +99,7 @@ export function useStoreActions<T extends BoundT>(
       } else {
         return [];
       }
-    }, useAsyncKey());
+    });
 
     return allItems;
   }

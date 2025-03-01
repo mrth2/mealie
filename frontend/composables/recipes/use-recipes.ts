@@ -142,9 +142,9 @@ export const useRecipes = (
   }
 
   function getAllRecipes() {
-    useAsync(async () => {
+    useAsyncData(useAsyncKey(), async () => {
       await refreshRecipes();
-    }, useAsyncKey());
+    });
   }
 
   function assignSorted(val: Array<Recipe>) {

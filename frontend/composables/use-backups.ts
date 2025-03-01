@@ -54,7 +54,7 @@ export const useBackups = function (fetch = true) {
   });
 
   function getBackups() {
-    const backups = useAsync(async () => {
+    const backups = useAsyncData(async () => {
       const { data } = await api.backups.getAll();
       return data;
     });

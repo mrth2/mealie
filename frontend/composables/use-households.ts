@@ -53,7 +53,7 @@ export const useAdminHouseholds = function () {
   function getAllHouseholds() {
     loading.value = true;
     const asyncKey = String(Date.now());
-    const households = useAsync(async () => {
+    const households = useAsyncData(asyncKey, async () => {
       const { data } = await api.households.getAll(1, -1, { orderBy: "name, group.name", orderDirection: "asc" });
 
       if (data) {
@@ -61,7 +61,7 @@ export const useAdminHouseholds = function () {
       } else {
         return null;
       }
-    }, asyncKey);
+    });
 
     loading.value = false;
     return households;

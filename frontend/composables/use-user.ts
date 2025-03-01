@@ -1,6 +1,6 @@
 
 import { useUserApi } from "~/composables/api";
-import { UserIn, UserOut } from "~/lib/api/types/user";
+import type { UserIn, UserOut } from "~/lib/api/types/user";
 
 /*
 TODO: Potentially combine useAllUsers and useUser by delaying the get all users functionality
@@ -15,14 +15,14 @@ export const useAllUsers = function () {
   function getAllUsers() {
     loading.value = true;
     const asyncKey = String(Date.now());
-    const allUsers = useAsync(async () => {
+    const allUsers = useAsyncData(asyncKey, async () => {
       const { data } = await api.users.getAll();
       if (data) {
         return data.items;
       } else {
         return null;
       }
-    }, asyncKey);
+    });
 
     loading.value = false;
     return allUsers;
@@ -52,10 +52,10 @@ export const useUser = function (refreshFunc: CallableFunction | null = null) {
 
   function getUser(id: string) {
     loading.value = true;
-    const user = useAsync(async () => {
+    const user = useAsyncData(id, async () => {
       const { data } = await api.users.getOne(id);
       return data;
-    }, id);
+    });
 
     loading.value = false;
     return user;

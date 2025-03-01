@@ -1,8 +1,8 @@
 
 import { useAsyncKey } from "../use-utils";
 import { useUserApi } from "~/composables/api";
-import { VForm } from "~/types/vuetify";
-import { RecipeTool } from "~/lib/api/types/recipe";
+import type { VForm } from "~/types/vuetify";
+import type { RecipeTool } from "~/lib/api/types/recipe";
 
 export const useTools = function (eager = true) {
   const workingToolData = reactive<RecipeTool>({
@@ -18,7 +18,7 @@ export const useTools = function (eager = true) {
   const actions = {
     getAll() {
       loading.value = true;
-      const units = useAsync(async () => {
+      const units = useAsyncData(useAsyncKey(), async () => {
         const { data } = await api.tools.getAll();
 
         if (data) {
@@ -26,7 +26,7 @@ export const useTools = function (eager = true) {
         } else {
           return null;
         }
-      }, useAsyncKey());
+      });
 
       loading.value = false;
       return units;

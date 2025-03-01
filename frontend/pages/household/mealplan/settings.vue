@@ -172,9 +172,9 @@ export default defineNuxtComponent({
       }
     }
 
-    useAsync(async () => {
+    useAsyncData(useAsyncKey(), async () => {
       await refreshAll();
-    }, useAsyncKey());
+    });
 
     // ======================================================
     // Creating Rules

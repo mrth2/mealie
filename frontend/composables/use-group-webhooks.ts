@@ -1,7 +1,6 @@
-
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
-import { ReadWebhook } from "~/lib/api/types/household";
+import type { ReadWebhook } from "~/lib/api/types/household";
 
 export const useGroupWebhooks = function () {
   const api = useUserApi();
@@ -11,7 +10,7 @@ export const useGroupWebhooks = function () {
   const actions = {
     getAll() {
       loading.value = true;
-      const units = useAsync(async () => {
+      const units = useAsyncData(useAsyncKey(), async () => {
         const { data } = await api.groupWebhooks.getAll();
 
         if (data) {
@@ -19,7 +18,7 @@ export const useGroupWebhooks = function () {
         } else {
           return null;
         }
-      }, useAsyncKey());
+      });
 
       loading.value = false;
       return units;

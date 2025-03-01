@@ -331,7 +331,7 @@ export default defineNuxtComponent({
           return;
       }
 
-      useAsync(async () => {
+      useAsyncData(useAsyncKey(), async () => {
         // reset pagination
         page.value = 1;
         hasMore.value = true;
@@ -345,7 +345,7 @@ export default defineNuxtComponent({
 
         state.sortLoading = false;
         loading.value = false;
-      }, useAsyncKey());
+      });
     }
 
     async function navigateRandom() {
