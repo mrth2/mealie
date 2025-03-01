@@ -61,7 +61,7 @@
       </v-card-title>
     </v-card>
     <div v-if="loading" class="mb-3 text-center">
-      <AppLoader :loading="loading" :waiting-text="$tc('general.loading-events')" />
+      <AppLoader :loading="loading" :waiting-text="$t('general.loading-events')" />
     </div>
   </div>
 </template>

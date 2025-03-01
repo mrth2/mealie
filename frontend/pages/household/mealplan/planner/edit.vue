@@ -3,11 +3,11 @@
     <!-- Create Meal Dialog -->
     <BaseDialog
       v-model="state.dialog"
-      :title="$tc(newMeal.existing
+      :title="$t(newMeal.existing
         ? 'meal-plan.update-this-meal-plan'
         : 'meal-plan.create-a-new-meal-plan'
       )"
-      :submit-text="$tc(newMeal.existing
+      :submit-text="$t(newMeal.existing
         ? 'general.update'
         : 'general.create'
       )"

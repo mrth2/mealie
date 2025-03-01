@@ -25,7 +25,7 @@
       v-model="state.editDialog"
       :icon="$globals.icons.tags"
       :title="$t('data-pages.tags.edit-tag')"
-      :submit-text="$tc('general.save')"
+      :submit-text="$t('general.save')"
       @submit="editSaveTag"
     >
       <v-card-text v-if="editTarget">
@@ -38,7 +38,7 @@
     <!-- Delete Dialog -->
     <BaseDialog
       v-model="state.deleteDialog"
-      :title="$tc('general.confirm')"
+      :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
       @confirm="deleteTag"
@@ -53,7 +53,7 @@
     <BaseDialog
       v-model="state.bulkDeleteDialog"
       width="650px"
-      :title="$tc('general.confirm')"
+      :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
       @confirm="deleteSelected"
@@ -75,7 +75,7 @@
     </BaseDialog>
 
     <!-- Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.tags" section :title="$tc('data-pages.tags.tag-data')"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle :icon="$globals.icons.tags" section :title="$t('data-pages.tags.tag-data')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"
       :headers.sync="tableHeaders"

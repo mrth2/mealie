@@ -428,7 +428,7 @@ export default defineNuxtComponent({
   },
   head() {
     return {
-      title: this.$tc("settings.migrations"),
+      title: this.$t("settings.migrations"),
     };
   },
 });

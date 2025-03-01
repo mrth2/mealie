@@ -1,6 +1,6 @@
 <template>
   <v-container v-if="shoppingListChoices && ready" class="narrow-container">
-    <BaseDialog v-model="createDialog" :title="$tc('shopping-list.create-shopping-list')" @submit="createOne">
+    <BaseDialog v-model="createDialog" :title="$t('shopping-list.create-shopping-list')" @submit="createOne">
       <v-card-text>
         <v-text-field v-model="createName" autofocus :label="$t('shopping-list.new-list')"> </v-text-field>
       </v-card-text>
@@ -16,7 +16,7 @@
       </v-container>
     </BaseDialog>
 
-    <BaseDialog v-model="deleteDialog" :title="$tc('general.confirm')" color="error" @confirm="deleteOne">
+    <BaseDialog v-model="deleteDialog" :title="$t('general.confirm')" color="error" @confirm="deleteOne">
       <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-delete-this-item') }}</v-card-text>
     </BaseDialog>
     <BasePageTitle divider>
@@ -27,7 +27,7 @@
     </BasePageTitle>
 
     <v-container class="d-flex justify-end px-0 pt-0 pb-4">
-      <v-checkbox v-model="preferences.viewAllLists" hide-details :label="$tc('general.show-all')"
+      <v-checkbox v-model="preferences.viewAllLists" hide-details :label="$t('general.show-all')"
         class="my-auto mr-4" />
       <BaseButton create @click="createDialog = true" />
     </v-container>

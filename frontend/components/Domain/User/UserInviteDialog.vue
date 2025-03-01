@@ -1,17 +1,17 @@
 <template>
-  <BaseDialog v-model="inviteDialog" :title="$tc('profile.get-invite-link')" :icon="$globals.icons.accountPlusOutline"
+  <BaseDialog v-model="inviteDialog" :title="$t('profile.get-invite-link')" :icon="$globals.icons.accountPlusOutline"
     color="primary">
     <v-container>
       <v-form class="mt-5">
         <v-select v-if="groups && groups.length" v-model="selectedGroup" :items="groups" item-text="name"
-          item-value="id" :return-object="false" filled :label="$tc('group.user-group')"
+          item-value="id" :return-object="false" filled :label="$t('group.user-group')"
           :rules="[validators.required]" />
         <v-select v-if="households && households.length" v-model="selectedHousehold" :items="filteredHouseholds"
-          item-text="name" item-value="id" :return-object="false" filled :label="$tc('household.user-household')"
+          item-text="name" item-value="id" :return-object="false" filled :label="$t('household.user-household')"
           :rules="[validators.required]" />
         <v-row>
           <v-col cols="9">
-            <v-text-field :label="$tc('profile.invite-link')" type="text" readonly filled
+            <v-text-field :label="$t('profile.invite-link')" type="text" readonly filled
               :value="generatedSignupLink" />
           </v-col>
           <v-col cols="3" class="pl-1 mt-3">

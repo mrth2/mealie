@@ -13,7 +13,7 @@
       <v-card outlined>
         <v-card-text>
           <v-select v-if="groups" v-model="household.groupId" disabled :items="groups" rounded class="rounded-lg"
-            item-text="name" item-value="id" :return-object="false" filled :label="$tc('group.user-group')"
+            item-text="name" item-value="id" :return-object="false" filled :label="$t('group.user-group')"
             :rules="[validators.required]" />
           <v-text-field v-model="household.name" :label="$t('household.household-name')"
             :rules="[validators.required]" />

@@ -1,15 +1,15 @@
 <template>
   <div class="text-center">
-    <BaseDialog v-model="recipeEventEditDialog" :title="$tc('recipe.edit-timeline-event')" :icon="$globals.icons.edit"
-      :submit-text="$tc('general.save')" @submit="$emit('update')">
+    <BaseDialog v-model="recipeEventEditDialog" :title="$t('recipe.edit-timeline-event')" :icon="$globals.icons.edit"
+      :submit-text="$t('general.save')" @submit="$emit('update')">
       <v-card-text>
         <v-form ref="domMadeThisForm">
-          <v-text-field v-model="event.subject" :label="$tc('general.subject')" />
-          <v-textarea v-model="event.eventMessage" :label="$tc('general.message')" rows="4" />
+          <v-text-field v-model="event.subject" :label="$t('general.subject')" />
+          <v-textarea v-model="event.eventMessage" :label="$t('general.message')" rows="4" />
         </v-form>
       </v-card-text>
     </BaseDialog>
-    <BaseDialog v-model="recipeEventDeleteDialog" :title="$tc('events.delete-event')" color="error"
+    <BaseDialog v-model="recipeEventDeleteDialog" :title="$t('events.delete-event')" color="error"
       :icon="$globals.icons.alertCircle" @confirm="$emit('delete')">
       <v-card-text>
         {{ $t("events.event-delete-confirmation") }}

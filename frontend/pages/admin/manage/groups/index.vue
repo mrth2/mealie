@@ -24,7 +24,7 @@
       </v-card-text>
     </BaseDialog>
 
-    <BaseCardSectionTitle :title="$tc('group.group-management')"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle :title="$t('group.group-management')"> </BaseCardSectionTitle>
     <section>
       <v-toolbar flat color="transparent" class="justify-between">
         <BaseButton @click="openDialog"> {{ $t("general.create") }} </BaseButton>

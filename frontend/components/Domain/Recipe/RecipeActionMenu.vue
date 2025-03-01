@@ -1,7 +1,7 @@
 <template>
   <v-toolbar rounded height="0" class="fixed-bar mt-0" color="rgb(255, 0, 0, 0.0)" flat
     style="z-index: 2; position: sticky">
-    <BaseDialog v-model="deleteDialog" :title="$tc('recipe.delete-recipe')" color="error"
+    <BaseDialog v-model="deleteDialog" :title="$t('recipe.delete-recipe')" color="error"
       :icon="$globals.icons.alertCircle" @confirm="emitDelete()">
       <v-card-text>
         {{ $t("recipe.delete-confirmation") }}

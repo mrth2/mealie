@@ -118,8 +118,8 @@
     </v-card-text>
     <v-card-actions>
       <v-container fluid class="d-flex justify-end pa-0 mx-2">
-        <v-checkbox v-model="showAdvanced" hide-details :label="$tc('general.show-advanced')" class="my-auto mr-4" />
-        <BaseButton create :text="$tc('general.add-field')" @click="addField(fieldDefs[0])" />
+        <v-checkbox v-model="showAdvanced" hide-details :label="$t('general.show-advanced')" class="my-auto mr-4" />
+        <BaseButton create :text="$t('general.add-field')" @click="addField(fieldDefs[0])" />
       </v-container>
     </v-card-actions>
   </v-card>

@@ -36,7 +36,7 @@
 
     <!-- Configuration -->
     <section>
-      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" :title="$tc('settings.configuration')">
+      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" :title="$t('settings.configuration')">
       </BaseCardSectionTitle>
       <v-card class="mb-4">
         <template v-for="(check, idx) in simpleChecks" :key="`list-item-${idx}`">
@@ -64,7 +64,7 @@
 
     <!-- Email -->
     <section>
-      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.email" :title="$tc('user.email')" />
+      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.email" :title="$t('user.email')" />
       <v-alert border="left" colored-border :type="appConfig.emailReady ? 'success' : 'error'" elevation="2">
         <div class="font-weight-medium">{{ $t('settings.email-configuration-status') }}</div>
         <div>
@@ -93,7 +93,7 @@
 
     <!-- General App Info -->
     <section class="mt-4">
-      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" :title="$tc('settings.general-about')">
+      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" :title="$t('settings.general-about')">
       </BaseCardSectionTitle>
       <v-card class="mb-4">
         <template v-if="appInfo && appInfo.length">
@@ -135,7 +135,7 @@
         </template>
         <template v-else>
           <div class="mb-3 text-center">
-            <AppLoader :waiting-text="$tc('general.loading')" />
+            <AppLoader :waiting-text="$t('general.loading')" />
           </div>
         </template>
       </v-card>

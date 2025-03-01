@@ -33,7 +33,7 @@ export default defineNuxtComponent({
   },
   head() {
     return {
-      title: this.$tc("category.categories"),
+      title: this.$t("category.categories"),
     };
   },
 });

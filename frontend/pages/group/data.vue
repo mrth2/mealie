@@ -118,7 +118,7 @@ export default defineNuxtComponent({
   },
   head() {
     return {
-      title: this.$tc("data-pages.data-management"),
+      title: this.$t("data-pages.data-management"),
     };
   },
 });

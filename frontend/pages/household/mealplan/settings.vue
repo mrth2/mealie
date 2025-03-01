@@ -28,7 +28,7 @@
     </v-card>
 
     <section>
-      <BaseCardSectionTitle class="mt-10" :title="$tc('meal-plan.recipe-rules')" />
+      <BaseCardSectionTitle class="mt-10" :title="$t('meal-plan.recipe-rules')" />
       <div>
         <div v-for="(rule, idx) in allRules" :key="rule.id">
           <v-card class="my-2 left-border">
@@ -227,7 +227,7 @@ export default defineNuxtComponent({
   },
   head() {
     return {
-      title: this.$tc("meal-plan.meal-plan-settings"),
+      title: this.$t("meal-plan.meal-plan-settings"),
     };
   },
 });

@@ -8,7 +8,7 @@
         </div>
       </v-alert>
 
-      <BaseCardSectionTitle :title="$tc('recipe.parser.ingredient-parser')">
+      <BaseCardSectionTitle :title="$t('recipe.parser.ingredient-parser')">
         <div class="mt-4">{{ $tc("recipe.parser.explanation") }}</div>
 
         <div class="my-4">
@@ -373,7 +373,7 @@ export default defineNuxtComponent({
   },
   head() {
     return {
-      title: this.$tc("recipe.parser.ingredient-parser"),
+      title: this.$t("recipe.parser.ingredient-parser"),
     };
   },
 });

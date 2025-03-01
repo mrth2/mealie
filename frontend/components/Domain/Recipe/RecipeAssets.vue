@@ -40,7 +40,7 @@
       <v-spacer></v-spacer>
       <BaseDialog
         v-model="state.newAssetDialog"
-        :title="$tc('asset.new-asset')"
+        :title="$t('asset.new-asset')"
         :icon="getIconDefinition(state.newAsset.icon).icon"
         @submit="addAsset"
       >

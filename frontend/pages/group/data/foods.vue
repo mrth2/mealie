@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Merge Dialog -->
-    <BaseDialog v-model="mergeDialog" :icon="$globals.icons.foods" :title="$tc('data-pages.foods.combine-food')" @confirm="mergeFoods">
+    <BaseDialog v-model="mergeDialog" :icon="$globals.icons.foods" :title="$t('data-pages.foods.combine-food')" @confirm="mergeFoods">
       <v-card-text>
         <div>
           {{ $t("data-pages.foods.merge-dialog-text") }}
@@ -21,7 +21,7 @@
     <BaseDialog
       v-model="seedDialog"
       :icon="$globals.icons.foods"
-      :title="$tc('data-pages.seed-data')"
+      :title="$t('data-pages.seed-data')"
       @confirm="seedDatabase"
     >
       <v-card-text>
@@ -58,9 +58,9 @@
     <BaseDialog
       v-model="createDialog"
       :icon="$globals.icons.foods"
-      :title="$tc('data-pages.foods.create-food')"
+      :title="$t('data-pages.foods.create-food')"
       :submit-icon="$globals.icons.save"
-      :submit-text="$tc('general.save')"
+      :submit-text="$t('general.save')"
       @submit="createFood"
     >
       <v-card-text>
@@ -111,9 +111,9 @@
     <BaseDialog
       v-model="editDialog"
       :icon="$globals.icons.foods"
-      :title="$tc('data-pages.foods.edit-food')"
+      :title="$t('data-pages.foods.edit-food')"
       :submit-icon="$globals.icons.save"
-      :submit-text="$tc('general.save')"
+      :submit-text="$t('general.save')"
       @submit="editSaveFood"
     >
       <v-card-text v-if="editTarget">
@@ -160,7 +160,7 @@
     <!-- Delete Dialog -->
     <BaseDialog
       v-model="deleteDialog"
-      :title="$tc('general.confirm')"
+      :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
       @confirm="deleteFood"
@@ -175,7 +175,7 @@
     <BaseDialog
       v-model="bulkDeleteDialog"
       width="650px"
-      :title="$tc('general.confirm')"
+      :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
       @confirm="deleteSelected"
@@ -199,7 +199,7 @@
     <!-- Bulk Assign Labels Dialog -->
     <BaseDialog
       v-model="bulkAssignLabelDialog"
-      :title="$tc('data-pages.labels.assign-label')"
+      :title="$t('data-pages.labels.assign-label')"
       :icon="$globals.icons.tags"
       @confirm="assignSelected"
     >
@@ -215,7 +215,7 @@
           :items="allLabels"
           item-value="id"
           item-text="name"
-          :label="$tc('data-pages.foods.food-label')"
+          :label="$t('data-pages.foods.food-label')"
         />
         <v-card outlined>
           <v-virtual-scroll height="400" item-height="25" :items="bulkAssignTarget">
@@ -232,7 +232,7 @@
     </BaseDialog>
 
     <!-- Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.foods" section :title="$tc('data-pages.foods.food-data')"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle :icon="$globals.icons.foods" section :title="$t('data-pages.foods.food-data')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"
       :headers.sync="tableHeaders"

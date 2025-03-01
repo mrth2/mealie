@@ -1,6 +1,6 @@
 <template>
   <v-container class="narrow-container">
-    <BaseDialog v-model="deleteDialog" color="error" :title="$tc('general.confirm')" :icon="$globals.icons.alertCircle"
+    <BaseDialog v-model="deleteDialog" color="error" :title="$t('general.confirm')" :icon="$globals.icons.alertCircle"
       @confirm="deleteNotifier(deleteTargetId)">
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}

@@ -14,7 +14,7 @@
         :items="allUsers"
         item-text="fullName"
         item-value="id"
-        :label="$tc('general.owner')"
+        :label="$t('general.owner')"
         hide-details
         :disabled="!canEditOwner"
       >

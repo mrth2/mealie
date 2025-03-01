@@ -10,7 +10,7 @@
       </template>
       <v-card width="400">
         <v-card-text>
-          <v-text-field v-model="state.search" class="mb-2" hide-details dense :label="$tc('search.search')" clearable />
+          <v-text-field v-model="state.search" class="mb-2" hide-details dense :label="$t('search.search')" clearable />
           <div class="d-flex py-4">
             <v-switch
               v-if="requireAll != undefined"

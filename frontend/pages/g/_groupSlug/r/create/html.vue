@@ -12,7 +12,7 @@
         </p>
         <v-switch
           v-model="isEditJSON"
-          :label="$tc('recipe.json-editor')"
+          :label="$t('recipe.json-editor')"
           class="mt-2"
           @change="handleIsEditJson"
         />
@@ -26,7 +26,7 @@
         <v-textarea
           v-else
           v-model="newRecipeData"
-          :label="$tc('new-recipe.recipe-html-or-json')"
+          :label="$t('new-recipe.recipe-html-or-json')"
           :prepend-inner-icon="$globals.icons.codeTags"
           validate-on-blur
           autofocus
@@ -34,11 +34,11 @@
           clearable
           class="rounded-lg mt-2"
           rounded
-          :hint="$tc('new-recipe.url-form-hint')"
+          :hint="$t('new-recipe.url-form-hint')"
           persistent-hint
         />
-        <v-checkbox v-model="importKeywordsAsTags" hide-details :label="$tc('recipe.import-original-keywords-as-tags')" />
-        <v-checkbox v-model="stayInEditMode" hide-details :label="$tc('recipe.stay-in-edit-mode')" />
+        <v-checkbox v-model="importKeywordsAsTags" hide-details :label="$t('recipe.import-original-keywords-as-tags')" />
+        <v-checkbox v-model="stayInEditMode" hide-details :label="$t('recipe.stay-in-edit-mode')" />
       </v-card-text>
       <v-card-actions class="justify-center">
         <div style="width: 250px">

@@ -11,7 +11,7 @@
           v-model="accountDetails.username.value"
           autofocus
           v-bind="inputAttrs"
-          :label="$tc('user.username')"
+          :label="$t('user.username')"
           :prepend-icon="$globals.icons.user"
           :rules="[validators.required]"
           :error-messages="usernameErrorMessages"
@@ -20,7 +20,7 @@
         <v-text-field
           v-model="accountDetails.fullName.value"
           v-bind="inputAttrs"
-          :label="$tc('user.full-name')"
+          :label="$t('user.full-name')"
           :prepend-icon="$globals.icons.user"
           :rules="[validators.required]"
         />
@@ -28,7 +28,7 @@
           v-model="accountDetails.email.value"
           v-bind="inputAttrs"
           :prepend-icon="$globals.icons.email"
-          :label="$tc('user.email')"
+          :label="$t('user.email')"
           :rules="[validators.required, validators.email]"
           :error-messages="emailErrorMessages"
           @blur="validateEmail"
@@ -39,7 +39,7 @@
           :type="pwFields.inputType.value"
           :append-icon="pwFields.passwordIcon.value"
           :prepend-icon="$globals.icons.lock"
-          :label="$tc('user.password')"
+          :label="$t('user.password')"
           :rules="[validators.required, validators.minLength(8), validators.maxLength(258)]"
           @click:append="pwFields.togglePasswordShow"
         />
@@ -52,14 +52,14 @@
           :type="pwFields.inputType.value"
           :append-icon="pwFields.passwordIcon.value"
           :prepend-icon="$globals.icons.lock"
-          :label="$tc('user.confirm-password')"
+          :label="$t('user.confirm-password')"
           :rules="[validators.required, credentials.passwordMatch]"
           @click:append="pwFields.togglePasswordShow"
         />
         <div class="px-2">
           <v-checkbox
             v-model="accountDetails.advancedOptions.value"
-            :label="$tc('user.enable-advanced-content')"
+            :label="$t('user.enable-advanced-content')"
           />
           <p class="text-caption mt-n4">
             {{ $tc("user.enable-advanced-content-description") }}

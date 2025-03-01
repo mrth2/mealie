@@ -9,7 +9,7 @@
     </BasePageTitle>
 
     <section v-if="group">
-      <BaseCardSectionTitle class="mt-10" :title="$tc('group.group-preferences')"></BaseCardSectionTitle>
+      <BaseCardSectionTitle class="mt-10" :title="$t('group.group-preferences')"></BaseCardSectionTitle>
       <div class="mb-6">
         <v-checkbox
           v-model="group.preferences.privateGroup"

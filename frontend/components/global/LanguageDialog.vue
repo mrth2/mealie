@@ -1,5 +1,5 @@
 <template>
-  <BaseDialog v-model="dialog" :icon="$globals.icons.translate" :title="$tc('language-dialog.choose-language')">
+  <BaseDialog v-model="dialog" :icon="$globals.icons.translate" :title="$t('language-dialog.choose-language')">
     <v-card-text>
       {{ $t("language-dialog.select-description") }}
       <v-autocomplete v-model="locale" :items="locales" item-text="name" class="my-3" hide-details outlined offset>

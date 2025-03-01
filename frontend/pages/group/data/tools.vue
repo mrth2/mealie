@@ -15,7 +15,7 @@
 
     <!-- Edit Dialog -->
     <BaseDialog v-model="state.editDialog" :icon="$globals.icons.potSteam" :title="$t('data-pages.tools.edit-tool')"
-      :submit-text="$tc('general.save')" @submit="editSaveTool">
+      :submit-text="$t('general.save')" @submit="editSaveTool">
       <v-card-text v-if="editTarget">
         <div class="mt-4">
           <v-text-field v-model="editTarget.name" :label="$t('general.name')"> </v-text-field>
@@ -25,7 +25,7 @@
     </BaseDialog>
 
     <!-- Delete Dialog -->
-    <BaseDialog v-model="state.deleteDialog" :title="$tc('general.confirm')" :icon="$globals.icons.alertCircle"
+    <BaseDialog v-model="state.deleteDialog" :title="$t('general.confirm')" :icon="$globals.icons.alertCircle"
       color="error" @confirm="deleteTool">
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
@@ -34,7 +34,7 @@
     </BaseDialog>
 
     <!-- Bulk Delete Dialog -->
-    <BaseDialog v-model="state.bulkDeleteDialog" width="650px" :title="$tc('general.confirm')"
+    <BaseDialog v-model="state.bulkDeleteDialog" width="650px" :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle" color="error" @confirm="deleteSelected">
       <v-card-text>
         <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
@@ -53,7 +53,7 @@
     </BaseDialog>
 
     <!-- Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.potSteam" section :title="$tc('data-pages.tools.tool-data')">
+    <BaseCardSectionTitle :icon="$globals.icons.potSteam" section :title="$t('data-pages.tools.tool-data')">
     </BaseCardSectionTitle>
     <CrudTable :table-config="tableConfig" :headers.sync="tableHeaders" :data="tools || []"
       :bulk-actions="[{ icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected' }]"

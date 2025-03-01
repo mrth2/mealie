@@ -93,7 +93,7 @@
       </v-card-actions>
     </section>
     <section class="mt-12">
-      <BaseCardSectionTitle :title="$tc('recipe.bulk-imports')"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle :title="$t('recipe.bulk-imports')"> </BaseCardSectionTitle>
       <ReportTable :items="reports" @delete="deleteReport" />
     </section>
   </div>

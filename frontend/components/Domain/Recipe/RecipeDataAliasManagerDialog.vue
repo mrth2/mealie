@@ -5,7 +5,7 @@
       :title="$t('data-pages.manage-aliases')"
       :icon="$globals.icons.edit"
       :submit-icon="$globals.icons.check"
-      :submit-text="$tc('general.confirm')"
+      :submit-text="$t('general.confirm')"
       @submit="saveAliases"
       @cancel="$emit('cancel')"
     >

@@ -20,14 +20,14 @@
           {{ $t("general.cancel") }}
         </v-btn>
         <div class="d-flex justify-end" style="width: 100%;">
-          <v-checkbox v-model="preferences.viewAllLists" hide-details :label="$tc('general.show-all')"
+          <v-checkbox v-model="preferences.viewAllLists" hide-details :label="$t('general.show-all')"
             class="my-auto mr-4" @click="setShowAllToggled()" />
         </div>
       </template>
     </BaseDialog>
     <BaseDialog v-if="shoppingListIngredientDialog" v-model="dialog"
       :title="selectedShoppingList ? selectedShoppingList.name : $t('recipe.add-to-list')"
-      :icon="$globals.icons.cartCheck" width="70%" :submit-text="$tc('recipe.add-to-list')"
+      :icon="$globals.icons.cartCheck" width="70%" :submit-text="$t('recipe.add-to-list')"
       @submit="addRecipesToList()">
       <div style="max-height: 70vh;  overflow-y: auto">
         <v-card v-for="(recipeSection, recipeSectionIndex) in recipeIngredientSections"

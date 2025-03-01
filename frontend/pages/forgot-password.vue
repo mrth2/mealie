@@ -74,7 +74,7 @@ export default defineNuxtComponent({
 
   head() {
     return {
-      title: this.$tc("user.login"),
+      title: this.$t("user.login"),
     };
   },
 });

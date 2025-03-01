@@ -18,7 +18,7 @@
       :icon="$globals.icons.tags"
       :title="$t('data-pages.labels.edit-label')"
       :submit-icon="$globals.icons.save"
-      :submit-text="$tc('general.save')"
+      :submit-text="$t('general.save')"
       @submit="editSaveLabel"
     >
       <v-card-text v-if="editLabel">
@@ -33,7 +33,7 @@
     <!-- Delete Dialog -->
     <BaseDialog
       v-model="state.deleteDialog"
-      :title="$tc('general.confirm')"
+      :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
       @confirm="deleteLabel"
@@ -50,7 +50,7 @@
     <BaseDialog
       v-model="state.bulkDeleteDialog"
       width="650px"
-      :title="$tc('general.confirm')"
+      :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
       @confirm="deleteSelected"
@@ -75,7 +75,7 @@
     <BaseDialog
       v-model="seedDialog"
       :icon="$globals.icons.foods"
-      :title="$tc('data-pages.seed-data')"
+      :title="$t('data-pages.seed-data')"
       @confirm="seedDatabase"
     >
       <v-card-text>
@@ -109,7 +109,7 @@
     </BaseDialog>
 
     <!-- Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.tags" section :title="$tc('data-pages.labels.labels')"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle :icon="$globals.icons.tags" section :title="$t('data-pages.labels.labels')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"
       :headers.sync="tableHeaders"

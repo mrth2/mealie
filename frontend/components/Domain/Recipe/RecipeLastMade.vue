@@ -4,8 +4,8 @@
       <BaseDialog
         v-model="madeThisDialog"
         :icon="$globals.icons.chefHat"
-        :title="$tc('recipe.made-this')"
-        :submit-text="$tc('recipe.add-to-timeline')"
+        :title="$t('recipe.made-this')"
+        :submit-text="$t('recipe.add-to-timeline')"
         @submit="createTimelineEvent"
         >
         <v-card-text>
@@ -13,8 +13,8 @@
             <v-textarea
               v-model="newTimelineEvent.eventMessage"
               autofocus
-              :label="$tc('recipe.comment')"
-              :hint="$tc('recipe.how-did-it-turn-out')"
+              :label="$t('recipe.comment')"
+              :hint="$t('recipe.how-did-it-turn-out')"
               persistent-hint
               rows="4"
             ></v-textarea>

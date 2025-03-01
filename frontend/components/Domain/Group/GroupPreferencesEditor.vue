@@ -1,6 +1,6 @@
 <template>
   <div v-if="preferences">
-    <BaseCardSectionTitle :title="$tc('group.general-preferences')"></BaseCardSectionTitle>
+    <BaseCardSectionTitle :title="$t('group.general-preferences')"></BaseCardSectionTitle>
     <v-checkbox v-model="preferences.privateGroup" class="mt-n4" :label="$t('group.private-group')"></v-checkbox>
   </div>
 </template>

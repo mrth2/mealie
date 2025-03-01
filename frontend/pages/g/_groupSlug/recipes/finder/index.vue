@@ -35,7 +35,7 @@
                         {{ $globals.icons.filter }}
                       </v-icon>
                       {{ $tc("recipe-finder.other-filters") }}
-                      <BaseDialog v-model="queryFilterMenu" :title="$tc('recipe-finder.other-filters')"
+                      <BaseDialog v-model="queryFilterMenu" :title="$t('recipe-finder.other-filters')"
                         :icon="$globals.icons.filter" width="100%" max-width="1100px"
                         :submit-disabled="!queryFilterEditorValue" @confirm="saveQueryFilter">
                         <QueryFilterBuilder :key="queryFilterMenuKey" :initial-query-filter="queryFilterJSON"
@@ -71,15 +71,15 @@
                     <v-card-text>
                       <div>
                         <v-text-field v-model="settings.maxMissingFoods" type="number" hide-details hide-spin-buttons
-                          :label="$tc('recipe-finder.max-missing-ingredients')" />
+                          :label="$t('recipe-finder.max-missing-ingredients')" />
                         <v-text-field v-model="settings.maxMissingTools" type="number" hide-details hide-spin-buttons
-                          :label="$tc('recipe-finder.max-missing-tools')" class="mt-4" />
+                          :label="$t('recipe-finder.max-missing-tools')" class="mt-4" />
                       </div>
                       <div class="mt-1">
                         <v-checkbox v-if="isOwnGroup" v-model="settings.includeFoodsOnHand" dense small hide-details
-                          class="my-auto" :label="$tc('recipe-finder.include-ingredients-on-hand')" />
+                          class="my-auto" :label="$t('recipe-finder.include-ingredients-on-hand')" />
                         <v-checkbox v-if="isOwnGroup" v-model="settings.includeToolsOnHand" dense small hide-details
-                          class="my-auto" :label="$tc('recipe-finder.include-tools-on-hand')" />
+                          class="my-auto" :label="$t('recipe-finder.include-tools-on-hand')" />
                       </div>
                     </v-card-text>
                   </v-card>
@@ -495,7 +495,7 @@ export default defineNuxtComponent({
   },
   head() {
     return {
-      title: this.$tc("recipe-finder.recipe-finder"),
+      title: this.$t("recipe-finder.recipe-finder"),
     };
   },
 });

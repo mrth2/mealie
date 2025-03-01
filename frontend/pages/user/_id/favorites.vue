@@ -3,7 +3,7 @@
     <RecipeCardSection
       v-if="recipes && isOwnGroup"
       :icon="$globals.icons.heart"
-      :title="$tc('user.user-favorites')"
+      :title="$t('user.user-favorites')"
       :recipes="recipes"
       :query="query"
       @sortRecipes="assignSorted"

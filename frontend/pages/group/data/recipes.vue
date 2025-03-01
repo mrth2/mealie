@@ -70,7 +70,7 @@
           :items="allUsers"
           item-text="fullName"
           item-value="id"
-          :label="$tc('general.owner')"
+          :label="$t('general.owner')"
           hide-details
         >
           <template #prepend>
@@ -85,7 +85,7 @@
     </BaseDialog>
     <section>
       <!-- Recipe Data Table -->
-      <BaseCardSectionTitle :icon="$globals.icons.primary" :title="$tc('data-pages.recipes.recipe-data')">
+      <BaseCardSectionTitle :icon="$globals.icons.primary" :title="$t('data-pages.recipes.recipe-data')">
         {{ $t('data-pages.recipes.recipe-data-description') }}
       </BaseCardSectionTitle>
       <v-card-actions class="mt-n5 mb-1">
@@ -154,7 +154,7 @@
 
     <section class="mt-10">
       <!-- Data Table -->
-      <BaseCardSectionTitle :icon="$globals.icons.database" section :title="$tc('data-pages.recipes.data-exports')">
+      <BaseCardSectionTitle :icon="$globals.icons.database" section :title="$t('data-pages.recipes.data-exports')">
         {{ $t('data-pages.recipes.data-exports-description') }}
       </BaseCardSectionTitle>
       <v-card-actions class="mt-n5 mb-1">
@@ -478,7 +478,7 @@ export default defineNuxtComponent({
   },
   head() {
     return {
-      title: this.$tc("data-pages.recipes.recipe-data"),
+      title: this.$t("data-pages.recipes.recipe-data"),
     };
   },
 });

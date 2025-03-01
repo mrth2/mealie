@@ -37,7 +37,7 @@
         </v-card-actions>
       </v-card>
     </section>
-    <BaseCardSectionTitle class="mt-10" :title="$tc('settings.token.active-tokens')"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle class="mt-10" :title="$t('settings.token.active-tokens')"> </BaseCardSectionTitle>
     <section class="d-flex flex-column">
       <div v-for="(token, index) in $auth.user.value.tokens" :key="index">
         <v-card outlined class="mb-2">

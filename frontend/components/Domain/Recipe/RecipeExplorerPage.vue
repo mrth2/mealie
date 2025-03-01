@@ -4,7 +4,7 @@
       <form class="search-box pa-2" @submit.prevent="search">
         <div class="d-flex justify-center my-2">
           <v-text-field ref="input" v-model="state.search" outlined hide-details clearable color="primary"
-            :placeholder="$tc('search.search-placeholder')" :prepend-inner-icon="$globals.icons.search"
+            :placeholder="$t('search.search-placeholder')" :prepend-inner-icon="$globals.icons.search"
             @keyup.enter="hideKeyboard" />
         </div>
         <div class="search-row">
@@ -117,7 +117,7 @@
     <v-divider></v-divider>
     <v-container class="mt-6 px-md-6">
       <RecipeCardSection v-if="state.ready" class="mt-n5" :icon="$globals.icons.silverwareForkKnife"
-        :title="$tc('general.recipes')" :recipes="recipes" :query="passedQueryWithSeed" @item-selected="filterItems"
+        :title="$t('general.recipes')" :recipes="recipes" :query="passedQueryWithSeed" @item-selected="filterItems"
         @replaceRecipes="replaceRecipes" @appendRecipes="appendRecipes" />
     </v-container>
   </v-container>

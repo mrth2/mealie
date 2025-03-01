@@ -1,14 +1,14 @@
 <template>
   <v-container v-if="shoppingList" class="md-container">
-    <BaseDialog v-model="checkAllDialog" :title="$tc('general.confirm')" @confirm="checkAll">
+    <BaseDialog v-model="checkAllDialog" :title="$t('general.confirm')" @confirm="checkAll">
       <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-check-all-items') }}</v-card-text>
     </BaseDialog>
 
-    <BaseDialog v-model="uncheckAllDialog" :title="$tc('general.confirm')" @confirm="uncheckAll">
+    <BaseDialog v-model="uncheckAllDialog" :title="$t('general.confirm')" @confirm="uncheckAll">
       <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-uncheck-all-items') }}</v-card-text>
     </BaseDialog>
 
-    <BaseDialog v-model="deleteCheckedDialog" :title="$tc('general.confirm')" @confirm="deleteChecked">
+    <BaseDialog v-model="deleteCheckedDialog" :title="$t('general.confirm')" @confirm="deleteChecked">
       <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-delete-checked-items') }}</v-card-text>
     </BaseDialog>
 
@@ -17,7 +17,7 @@
         <v-container>
           <v-row>
             <v-col cols="3" class="text-left">
-              <ButtonLink :to="`/shopping-lists?disableRedirect=true`" :text="$tc('shopping-list.all-lists')"
+              <ButtonLink :to="`/shopping-lists?disableRedirect=true`" :text="$t('shopping-list.all-lists')"
                 :icon="$globals.icons.backArrow" />
             </v-col>
             <v-col cols="6" class="d-none d-lg-flex justify-center">
@@ -79,8 +79,8 @@
       </template>
       <template #title> {{ shoppingList.name }} </template>
     </BasePageTitle>
-    <BannerWarning v-if="$nuxt.isOffline" :title="$tc('shopping-list.you-are-offline')"
-      :description="$tc('shopping-list.you-are-offline-description')" />
+    <BannerWarning v-if="$nuxt.isOffline" :title="$t('shopping-list.you-are-offline')"
+      :description="$t('shopping-list.you-are-offline-description')" />
 
     <!-- Viewer -->
     <section v-if="!edit" class="py-2">
@@ -137,7 +137,7 @@
       <!-- Reorder Labels -->
       <BaseDialog v-model="reorderLabelsDialog" :icon="$globals.icons.tagArrowUp"
         :title="$t('shopping-list.reorder-labels')" :submit-icon="$globals.icons.save"
-        :submit-text="$tc('general.save')" @submit="saveLabelOrder" @close="cancelLabelOrder">
+        :submit-text="$t('general.save')" @submit="saveLabelOrder" @close="cancelLabelOrder">
         <v-card height="fit-content" max-height="70vh" style="overflow-y: auto;">
           <draggable v-if="localLabels" :value="localLabels" handle=".handle" delay="250" :delay-on-touch-only="true"
             class="my-2" @input="updateLabelOrder">

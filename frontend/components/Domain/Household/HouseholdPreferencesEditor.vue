@@ -1,6 +1,6 @@
 <template>
   <div v-if="preferences">
-    <BaseCardSectionTitle class="mt-10" :title="$tc('household.household-preferences')"></BaseCardSectionTitle>
+    <BaseCardSectionTitle class="mt-10" :title="$t('household.household-preferences')"></BaseCardSectionTitle>
     <div class="mb-6">
       <v-checkbox v-model="preferences.privateHousehold" hide-details dense
         :label="$t('household.private-household')" />
@@ -23,7 +23,7 @@
     <v-select v-model="preferences.firstDayOfWeek" :prepend-icon="$globals.icons.calendarWeekBegin" :items="allDays"
       item-text="name" item-value="value" :label="$t('settings.first-day-of-week')" />
 
-    <BaseCardSectionTitle class="mt-5" :title="$tc('household.household-recipe-preferences')"></BaseCardSectionTitle>
+    <BaseCardSectionTitle class="mt-5" :title="$t('household.household-recipe-preferences')"></BaseCardSectionTitle>
     <div class="preference-container">
       <div v-for="p in recipePreferences" :key="p.key">
         <v-checkbox v-model="preferences[p.key]" hide-details dense :label="p.label" />

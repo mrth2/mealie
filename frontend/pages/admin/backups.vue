@@ -2,7 +2,7 @@
   <v-container fluid>
     <section>
       <!-- Delete Dialog -->
-      <BaseDialog v-model="deleteDialog" :title="$tc('settings.backup.delete-backup')" color="error"
+      <BaseDialog v-model="deleteDialog" :title="$t('settings.backup.delete-backup')" color="error"
         :icon="$globals.icons.alertCircle" @confirm="deleteBackup()">
         <v-card-text>
           {{ $t("general.confirm-delete-generic") }}
@@ -47,7 +47,7 @@
       </BaseDialog>
 
       <section>
-        <BaseCardSectionTitle :title="$tc('settings.backup-and-exports')">
+        <BaseCardSectionTitle :title="$t('settings.backup-and-exports')">
           <v-card-text class="py-0 px-1">
             <i18n path="settings.backup.experimental-description" />
           </v-card-text>

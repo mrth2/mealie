@@ -1,5 +1,5 @@
 <template>
-  <BaseDialog v-model="dialog" :icon="$globals.icons.printerSettings" :title="$tc('general.print-preferences')"
+  <BaseDialog v-model="dialog" :icon="$globals.icons.printerSettings" :title="$t('general.print-preferences')"
     width="70%" max-width="816px">
     <div class="pa-6">
       <v-container class="print-config mb-3 pa-0">
@@ -20,15 +20,15 @@
           </v-col>
           <v-col cols="auto" align-self="start">
             <v-row no-gutters>
-              <v-switch v-model="preferences.showDescription" hide-details :label="$tc('recipe.description')" />
+              <v-switch v-model="preferences.showDescription" hide-details :label="$t('recipe.description')" />
             </v-row>
             <v-row no-gutters>
-              <v-switch v-model="preferences.showNotes" hide-details :label="$tc('recipe.notes')" />
+              <v-switch v-model="preferences.showNotes" hide-details :label="$t('recipe.notes')" />
             </v-row>
           </v-col>
           <v-col cols="auto" align-self="start">
             <v-row no-gutters>
-              <v-switch v-model="preferences.showNutrition" hide-details :label="$tc('recipe.nutrition')" />
+              <v-switch v-model="preferences.showNutrition" hide-details :label="$t('recipe.nutrition')" />
             </v-row>
             <v-row no-gutters>
             </v-row>

@@ -1,7 +1,7 @@
 <template>
   <v-container class="pa-0">
     <v-container>
-      <BaseCardSectionTitle :title="$tc('admin.debug-openai-services')">
+      <BaseCardSectionTitle :title="$t('admin.debug-openai-services')">
         {{ $t('admin.debug-openai-services-description') }}
         <br />
         <DocLink class="mt-2" link="/documentation/getting-started/installation/open-ai" />

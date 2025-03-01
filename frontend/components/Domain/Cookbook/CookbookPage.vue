@@ -2,8 +2,8 @@
   <div>
     <!-- Edit Dialog -->
     <BaseDialog v-if="editTarget" v-model="dialogStates.edit" width="100%" max-width="1100px"
-      :icon="$globals.icons.pages" :title="$tc('general.edit')" :submit-icon="$globals.icons.save"
-      :submit-text="$tc('general.save')" :submit-disabled="!editTarget.queryFilterString" @submit="editCookbook">
+      :icon="$globals.icons.pages" :title="$t('general.edit')" :submit-icon="$globals.icons.save"
+      :submit-text="$t('general.save')" :submit-disabled="!editTarget.queryFilterString" @submit="editCookbook">
       <v-card-text>
         <CookbookEditor :cookbook="editTarget" :actions="actions" />
       </v-card-text>

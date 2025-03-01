@@ -42,7 +42,7 @@
         <v-tab :to="`/household/mealplan/planner/view`">{{ $t('meal-plan.meal-planner') }}</v-tab>
         <v-tab :to="`/household/mealplan/planner/edit`">{{ $t('general.edit') }}</v-tab>
       </v-tabs>
-      <ButtonLink :icon="$globals.icons.calendar" :to="`/household/mealplan/settings`" :text="$tc('general.settings')" />
+      <ButtonLink :icon="$globals.icons.calendar" :to="`/household/mealplan/settings`" :text="$t('general.settings')" />
     </div>
 
     <div>

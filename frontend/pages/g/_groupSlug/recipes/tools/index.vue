@@ -68,7 +68,7 @@ export default defineNuxtComponent({
   },
   head() {
     return {
-      title: this.$tc("tool.tools"),
+      title: this.$t("tool.tools"),
     };
   },
 });

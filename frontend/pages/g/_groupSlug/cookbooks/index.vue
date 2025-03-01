@@ -9,7 +9,7 @@
       :icon="$globals.icons.pages"
       :title="$t('cookbook.create-a-cookbook')"
       :submit-icon="$globals.icons.save"
-      :submit-text="$tc('general.save')"
+      :submit-text="$t('general.save')"
       :submit-disabled="!createTarget.queryFilterString"
       @submit="actions.updateOne(createTarget)"
       @cancel="deleteCreateTarget()"
@@ -51,7 +51,7 @@
       <div class="my-6">
         <v-checkbox
           v-model="cookbookPreferences.hideOtherHouseholds"
-          :label="$tc('cookbook.hide-cookbooks-from-other-households')"
+          :label="$t('cookbook.hide-cookbooks-from-other-households')"
           hide-details
         />
         <div class="ml-8">

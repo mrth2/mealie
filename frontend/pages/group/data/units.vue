@@ -30,7 +30,7 @@
 
     <!-- Create Dialog -->
     <BaseDialog v-model="createDialog" :icon="$globals.icons.units" :title="$t('data-pages.units.create-unit')"
-      :submit-icon="$globals.icons.save" :submit-text="$tc('general.save')" @submit="createUnit">
+      :submit-icon="$globals.icons.save" :submit-text="$t('general.save')" @submit="createUnit">
       <v-card-text>
         <v-form ref="domNewUnitForm">
           <v-text-field v-model="createTarget.name" autofocus :label="$t('general.name')"
@@ -56,7 +56,7 @@
 
     <!-- Edit Dialog -->
     <BaseDialog v-model="editDialog" :icon="$globals.icons.units" :title="$t('data-pages.units.edit-unit')"
-      :submit-icon="$globals.icons.save" :submit-text="$tc('general.save')" @submit="editSaveUnit">
+      :submit-icon="$globals.icons.save" :submit-text="$t('general.save')" @submit="editSaveUnit">
       <v-card-text v-if="editTarget">
         <v-form ref="domEditUnitForm">
           <v-text-field v-model="editTarget.name" :label="$t('general.name')"
@@ -80,7 +80,7 @@
     </BaseDialog>
 
     <!-- Delete Dialog -->
-    <BaseDialog v-model="deleteDialog" :title="$tc('general.confirm')" :icon="$globals.icons.alertCircle" color="error"
+    <BaseDialog v-model="deleteDialog" :title="$t('general.confirm')" :icon="$globals.icons.alertCircle" color="error"
       @confirm="deleteUnit">
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
@@ -89,7 +89,7 @@
     </BaseDialog>
 
     <!-- Bulk Delete Dialog -->
-    <BaseDialog v-model="bulkDeleteDialog" width="650px" :title="$tc('general.confirm')"
+    <BaseDialog v-model="bulkDeleteDialog" width="650px" :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle" color="error" @confirm="deleteSelected">
       <v-card-text>
         <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
@@ -108,7 +108,7 @@
     </BaseDialog>
 
     <!-- Seed Dialog-->
-    <BaseDialog v-model="seedDialog" :icon="$globals.icons.foods" :title="$tc('data-pages.seed-data')"
+    <BaseDialog v-model="seedDialog" :icon="$globals.icons.foods" :title="$t('data-pages.seed-data')"
       @confirm="seedDatabase">
       <v-card-text>
         <div class="pb-2">
@@ -133,7 +133,7 @@
     </BaseDialog>
 
     <!-- Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.units" section :title="$tc('data-pages.units.unit-data')">
+    <BaseCardSectionTitle :icon="$globals.icons.units" section :title="$t('data-pages.units.unit-data')">
     </BaseCardSectionTitle>
     <CrudTable :table-config="tableConfig" :headers.sync="tableHeaders" :data="store"
       :bulk-actions="[{ icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected' }]"

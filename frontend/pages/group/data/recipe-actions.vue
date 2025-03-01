@@ -35,7 +35,7 @@
       v-model="state.editDialog"
       :icon="$globals.icons.primary"
       :title="$t('data-pages.recipe-actions.edit-recipe-action')"
-      :submit-text="$tc('general.save')"
+      :submit-text="$t('general.save')"
       @submit="editSaveAction"
     >
       <v-card-text v-if="editTarget">
@@ -58,7 +58,7 @@
     <!-- Delete Dialog -->
     <BaseDialog
       v-model="state.deleteDialog"
-      :title="$tc('general.confirm')"
+      :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
       @confirm="deleteAction"
@@ -73,7 +73,7 @@
     <BaseDialog
       v-model="state.bulkDeleteDialog"
       width="650px"
-      :title="$tc('general.confirm')"
+      :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
       @confirm="deleteSelected"
@@ -95,7 +95,7 @@
     </BaseDialog>
 
     <!-- Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.primary" section :title="$tc('data-pages.recipe-actions.recipe-actions-data')"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle :icon="$globals.icons.primary" section :title="$t('data-pages.recipe-actions.recipe-actions-data')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"
       :headers.sync="tableHeaders"

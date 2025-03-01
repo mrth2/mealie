@@ -91,12 +91,12 @@
                   :rules="[validators.required]" :error-messages="groupErrorMessages" @blur="validGroupName" />
                 <div class="mt-n4 px-2">
                   <v-checkbox v-model="groupDetails.groupPrivate.value" hide-details
-                    :label="$tc('group.settings.keep-my-recipes-private')" />
+                    :label="$t('group.settings.keep-my-recipes-private')" />
                   <p class="text-caption mt-1">
                     {{ $t("group.settings.keep-my-recipes-private-description") }}
                   </p>
                   <v-checkbox v-model="groupDetails.groupSeed.value" hide-details
-                    :label="$tc('data-pages.seed-data')" />
+                    :label="$t('data-pages.seed-data')" />
                   <p class="text-caption mt-1">
                     {{ $t("user-registration.use-seed-data-description") }}
                   </p>

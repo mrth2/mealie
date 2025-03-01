@@ -18,7 +18,7 @@
             item-value="id"
             :return-object="false"
             filled
-            :label="$tc('household.household-group')"
+            :label="$t('household.household-group')"
             :rules="[validators.required]"
           />
           <AutoForm v-model="createHouseholdForm.data" :update-mode="updateMode" :items="createHouseholdForm.items" />
@@ -41,7 +41,7 @@
       </v-card-text>
     </BaseDialog>
 
-    <BaseCardSectionTitle :title="$tc('household.household-management')"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle :title="$t('household.household-management')"> </BaseCardSectionTitle>
     <section>
       <v-toolbar flat color="transparent" class="justify-between">
         <BaseButton @click="openDialog"> {{ $t("general.create") }} </BaseButton>

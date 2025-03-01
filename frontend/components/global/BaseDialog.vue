@@ -128,7 +128,7 @@ export default defineNuxtComponent({
     submitText: {
       type: String,
       default: function () {
-        return this.$t("general.create");
+        return useNuxtApp().$i18n.t("general.create");
       },
     },
     submitDisabled: {

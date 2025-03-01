@@ -26,7 +26,7 @@
         <template #default="{ state }">
           <v-slide-x-transition leave-absolute hide-on-leave>
             <div v-if="!state" key="personal-info">
-              <BaseCardSectionTitle class="mt-10" :title="$tc('profile.personal-information')"> </BaseCardSectionTitle>
+              <BaseCardSectionTitle class="mt-10" :title="$t('profile.personal-information')"> </BaseCardSectionTitle>
               <v-card tag="article" outlined>
                 <v-card-text class="pb-0">
                   <v-form ref="userUpdate">
@@ -45,7 +45,7 @@
               </v-card>
             </div>
             <div v-else key="change-password">
-              <BaseCardSectionTitle class="mt-10" :title="$tc('settings.change-password')"> </BaseCardSectionTitle>
+              <BaseCardSectionTitle class="mt-10" :title="$t('settings.change-password')"> </BaseCardSectionTitle>
               <v-card outlined>
                 <v-card-text class="pb-0">
                   <v-form ref="passChange">
@@ -78,7 +78,7 @@
       </ToggleState>
     </section>
     <section>
-      <BaseCardSectionTitle class="mt-10" :title="$tc('profile.preferences')"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle class="mt-10" :title="$t('profile.preferences')"> </BaseCardSectionTitle>
       <v-checkbox v-model="userCopy.advanced" class="mt-n4" :label="$t('profile.show-advanced-description')"
         @change="updateUser"></v-checkbox>
       <nuxt-link class="mt-5 d-flex flex-column justify-center text-center" :to="`/group`"> {{

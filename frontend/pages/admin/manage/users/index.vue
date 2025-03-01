@@ -3,7 +3,7 @@
     <UserInviteDialog v-model="inviteDialog" />
     <BaseDialog
       v-model="deleteDialog"
-      :title="$tc('general.confirm')"
+      :title="$t('general.confirm')"
       color="error"
       @confirm="deleteUser(deleteTargetId)"
     >
@@ -17,7 +17,7 @@
       </v-card-text>
     </BaseDialog>
 
-    <BaseCardSectionTitle :title="$tc('user.user-management')"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle :title="$t('user.user-management')"> </BaseCardSectionTitle>
     <section>
       <v-toolbar color="transparent" flat class="justify-between">
         <BaseButton to="/admin/manage/users/create" class="mr-2">
