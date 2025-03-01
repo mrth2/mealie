@@ -1,11 +1,8 @@
-interface AdvancedOnlyRedirectParams {
-    $auth: any
-    redirect: (path: string) => void
-}
-export default function ({ $auth, redirect }: AdvancedOnlyRedirectParams) {
+export default defineNuxtRouteMiddleware((to, from) => {
+    const { user } = useUserSession();
     // If the user is not allowed to access advanced features redirect to the home page
-    if (!$auth.user.advanced) {
+    if (!user.value?.advanced) {
         console.warn("User is not allowed to access advanced features");
-        return redirect("/")
+        navigateTo('/');
     }
-}
+});
