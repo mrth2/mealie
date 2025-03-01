@@ -1,7 +1,7 @@
-import type { UserBase } from "~/lib/api/types/user";
+import type { UserOut } from "~/lib/api/types/user";
 
 declare module '#auth-utils' {
-  interface User extends UserBase { }
+  interface User extends UserOut { }
 
   interface UserSession {
 

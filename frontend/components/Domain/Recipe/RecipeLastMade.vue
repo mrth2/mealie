@@ -133,7 +133,7 @@ export default defineNuxtComponent({
     const userApi = useUserApi();
     const { household } = useHouseholdSelf();
     const i18n = useI18n();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const domMadeThisForm = ref<VForm>();
     const newTimelineEvent = ref<RecipeTimelineEventIn>({
       subject: "",
@@ -150,7 +150,7 @@ export default defineNuxtComponent({
     const lastMade = ref(props.recipe.lastMade);
     const lastMadeReady = ref(false);
     onMounted(async () => {
-      if (!$auth.user?.householdSlug) {
+      if (!$auth.user?.value?.householdSlug) {
         lastMade.value = props.recipe.lastMade;
       } else {
         const { data } = await userApi.households.getCurrentUserHouseholdRecipe(props.recipe.slug || "");
@@ -200,8 +200,8 @@ export default defineNuxtComponent({
       }
 
       newTimelineEvent.value.recipeId = props.recipe.id
-      // @ts-expect-error - TS doesn't like the $auth global user attribute
-      newTimelineEvent.value.subject = i18n.t("recipe.user-made-this", { user: $auth.user.fullName })
+      // Note: $auth.user is now a ref
+      newTimelineEvent.value.subject = i18n.t("recipe.user-made-this", { user: $auth.user.value?.fullName })
 
       // the user only selects the date, so we set the time to end of day local time
       // we choose the end of day so it always comes after "new recipe" events

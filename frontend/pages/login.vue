@@ -121,9 +121,10 @@ export default defineNuxtComponent({
 
     const router = useRouter();
     const i18n = useI18n();
-    const { $auth, $axios } = useNuxtApp();
+    const $auth = useUserSession();
+    const { $axios } = useNuxtApp();
     const { loggedIn } = useLoggedInState();
-    const groupSlug = computed(() => $auth.user?.groupSlug);
+    const groupSlug = computed(() => $auth.user.value?.groupSlug);
     const isDemo = ref(false);
     const isFirstLogin = ref(false);
 
@@ -142,7 +143,7 @@ export default defineNuxtComponent({
     whenever(
       () => loggedIn.value && groupSlug.value,
       () => {
-        if (!isDemo.value && isFirstLogin.value && $auth.user?.admin) {
+        if (!isDemo.value && isFirstLogin.value && $auth.user.value?.admin) {
           router.push("/admin/setup");
         } else {
           router.push(`/g/${groupSlug.value || ""}`);

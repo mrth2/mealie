@@ -9,9 +9,9 @@
  */
 export default defineNuxtComponent({
   setup(_, ctx) {
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
 
-    const r = $auth?.user?.advanced || false;
+    const r = $auth.user.value?.advanced || false;
 
     return () => {
       return r ? ctx.slots.default?.() : null;

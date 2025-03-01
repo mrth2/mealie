@@ -1,16 +1,8 @@
 <template>
   <v-tooltip bottom nudge-right="50" :color="buttonStyle ? 'info' : 'secondary'">
     <template #activator="{ on, attrs }">
-      <v-btn
-        v-if="isFavorite || showAlways"
-        small
-        :color="buttonStyle ? 'info' : 'secondary'"
-        :icon="!buttonStyle"
-        :fab="buttonStyle"
-        v-bind="attrs"
-        @click.prevent="toggleFavorite"
-        v-on="on"
-      >
+      <v-btn v-if="isFavorite || showAlways" small :color="buttonStyle ? 'info' : 'secondary'" :icon="!buttonStyle"
+        :fab="buttonStyle" v-bind="attrs" @click.prevent="toggleFavorite" v-on="on">
         <v-icon :small="!buttonStyle" :color="buttonStyle ? 'white' : 'secondary'">
           {{ isFavorite ? $globals.icons.heart : $globals.icons.heartOutline }}
         </v-icon>
@@ -41,22 +33,20 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const api = useUserApi();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const { userRatings, refreshUserRatings } = useUserSelfRatings();
 
-    // TODO Setup the correct type for $auth.user
-    // See https://github.com/nuxt-community/auth-module/issues/1097
-    const user = computed(() => $auth.user as unknown as UserOut);
     const isFavorite = computed(() => {
       const rating = userRatings.value.find((r) => r.recipeId === props.recipeId);
       return rating?.isFavorite || false;
     });
 
     async function toggleFavorite() {
+      if (!$auth.user.value) return;
       if (!isFavorite.value) {
-        await api.users.addFavorite(user.value?.id, props.recipeId);
+        await api.users.addFavorite($auth.user.value?.id, props.recipeId);
       } else {
-        await api.users.removeFavorite(user.value?.id, props.recipeId);
+        await api.users.removeFavorite($auth.user.value?.id, props.recipeId);
       }
       await refreshUserRatings();
     }

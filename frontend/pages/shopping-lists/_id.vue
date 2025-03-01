@@ -260,7 +260,7 @@ export default defineNuxtComponent({
   middleware: "auth",
   setup() {
     const i18n = useI18n();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const preferences = useShoppingListPreferences();
 
     const { idle } = useIdle(5 * 60 * 1000) // 5 minutes
@@ -274,8 +274,8 @@ export default defineNuxtComponent({
     const preserveItemOrder = ref(false);
 
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
-    const id = route.params.id;
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+    const id = route.params.id as string;
     const shoppingListItemActions = useShoppingListItemActions(id);
 
     const state = reactive({
@@ -875,6 +875,18 @@ export default defineNuxtComponent({
         foodId: undefined,
       };
     }
+
+    const newMeal = reactive({
+      date: "",
+      title: "",
+      text: "",
+      recipeId: undefined as string | undefined,
+      entryType: "dinner" as PlanEntryType,
+      existing: false,
+      id: 0,
+      groupId: "",
+      userId: $auth.user.value?.id || "",
+    });
 
     function createListItem() {
       if (!shoppingList.value) {

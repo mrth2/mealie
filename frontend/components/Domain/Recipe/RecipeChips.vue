@@ -18,8 +18,7 @@
 </template>
 
 <script lang="ts">
-
-import { RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 
 export type UrlPrefixParam = "tags" | "categories" | "tools";
 
@@ -55,10 +54,10 @@ export default defineNuxtComponent({
     },
   },
   setup(props) {
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
 
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "")
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "")
     const baseRecipeRoute = computed<string>(() => {
       return `/g/${groupSlug.value}`
     });

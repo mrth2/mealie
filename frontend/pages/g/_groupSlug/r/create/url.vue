@@ -82,10 +82,10 @@ export default defineNuxtComponent({
       loading: false,
     });
 
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const api = useUserApi();
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
     const router = useRouter();
     const tags = useTagStore();

@@ -14,9 +14,9 @@ definePageMeta({
   layout: "basic",
 })
 
-const { $auth } = useNuxtApp();
+const $auth = useUserSession();
 const route = useRoute();
-const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
 const router = useRouter();
 const recipeId = route.params.id as string;

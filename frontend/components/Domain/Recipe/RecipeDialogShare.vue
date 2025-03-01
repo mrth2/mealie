@@ -94,10 +94,10 @@ export default defineNuxtComponent({
     );
 
     const i18n = useI18n();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const { household } = useHouseholdSelf();
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
     const firstDayOfWeek = computed(() => {
       return household.value?.preferences?.firstDayOfWeek || 0;

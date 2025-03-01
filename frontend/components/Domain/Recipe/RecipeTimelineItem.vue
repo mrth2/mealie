@@ -123,13 +123,13 @@ export default defineNuxtComponent({
   },
 
   setup(props) {
-    const { $auth, $globals } = useNuxtApp();
+    const $auth = useUserSession();
     const { recipeTimelineEventImage } = useStaticRoutes();
     const { eventTypeOptions } = useTimelineEventTypes();
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);
 
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user?.value?.groupSlug || "");
 
     const breakpoint = useDisplay();
 

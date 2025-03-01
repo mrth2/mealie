@@ -194,12 +194,13 @@ export default defineNuxtComponent({
     });
 
     const i18n = useI18n();
-    const { $auth, $globals } = useNuxtApp();
+    const $auth = useUserSession();
+    const { $globals } = useNuxtApp();
     const { household } = useHouseholdSelf();
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
 
     const firstDayOfWeek = computed(() => {
       return household.value?.preferences?.firstDayOfWeek || 0;
@@ -293,7 +294,7 @@ export default defineNuxtComponent({
     // Context Menu Event Handler
 
     const shoppingLists = ref<ShoppingListSummary[]>();
-    const recipeRef = ref<Recipe>(props.recipe);
+    const recipeRef = ref<Recipe | undefined>(props.recipe);
     const recipeRefWithScale = computed(() => recipeRef.value ? { scale: props.recipeScale, ...recipeRef.value } : undefined);
 
     async function getShoppingLists() {

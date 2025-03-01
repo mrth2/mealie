@@ -124,9 +124,9 @@ export default defineNuxtComponent({
       },
     });
 
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user?.value?.groupSlug || "");
 
     // =================================================================
     // Context Menu

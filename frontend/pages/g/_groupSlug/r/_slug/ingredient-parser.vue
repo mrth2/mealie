@@ -77,7 +77,6 @@
 </template>
 
 <script lang="ts">
-
 import { invoke, until } from "@vueuse/core";
 import draggable from "vuedraggable";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
@@ -87,7 +86,7 @@ import { useRecipe } from "~/composables/recipes";
 import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "~/composables/store";
 import { useParsingPreferences } from "~/composables/use-users/preferences";
 import { uuid4 } from "~/composables/use-utils";
-import {
+import type {
   CreateIngredientFood,
   CreateIngredientUnit,
   IngredientFood,
@@ -95,7 +94,7 @@ import {
   ParsedIngredient,
   RecipeIngredient,
 } from "~/lib/api/types/recipe";
-import { Parser } from "~/lib/api/user/recipes/recipe";
+import type { Parser } from "~/lib/api/user/recipes/recipe";
 
 interface Error {
   ingredientIndex: number;
@@ -113,11 +112,11 @@ export default defineNuxtComponent({
   middleware: ["auth", "group-only"],
   setup() {
     const i18n = useI18n();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const panels = ref<number[]>([]);
 
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
     const router = useRouter();
     const slug = route.params.slug as string;

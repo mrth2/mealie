@@ -83,9 +83,9 @@ export default defineNuxtComponent({
     const api = useAdminApi();
     const refUserDialog = ref();
     const inviteDialog = ref();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
 
-    const user = computed(() => $auth.user);
+    const user = computed(() => $auth.user.value);
 
     const i18n = useI18n();
     const { $globals } = useNuxtApp();
@@ -120,7 +120,7 @@ export default defineNuxtComponent({
       deleteUserMixin(id);
 
       if (isUserOwnAccount.value) {
-        $auth.logout();
+        $auth.clear();
       }
     }
 

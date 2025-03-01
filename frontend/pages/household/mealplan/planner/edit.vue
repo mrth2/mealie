@@ -224,7 +224,6 @@
 </template>
 
 <script lang="ts">
-
 import { format } from "date-fns";
 import type { SortableEvent } from "sortablejs";
 import draggable from "vuedraggable";
@@ -253,7 +252,7 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const api = useUserApi();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const { household } = useHouseholdSelf();
     const requiredRule = (value: any) => !!value || "Required."
 
@@ -315,7 +314,7 @@ export default defineNuxtComponent({
       existing: false,
       id: 0,
       groupId: "",
-      userId: $auth.user?.id || "",
+      userId: $auth.user.value?.id || "",
     });
 
     const isCreateDisabled = computed(() => {
@@ -343,7 +342,7 @@ export default defineNuxtComponent({
       newMeal.existing = true;
       newMeal.id = id;
       newMeal.groupId = groupId;
-      newMeal.userId = userId || $auth.user?.id || "";
+      newMeal.userId = userId || $auth.user.value?.id || "";
 
       state.value.dialog = true;
       dialog.note = !recipeId;

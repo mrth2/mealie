@@ -119,11 +119,11 @@ export default defineNuxtComponent({
     },
   },
   setup(props) {
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
     const showRecipeContent = computed(() => props.recipeId && props.slug);
     const recipeRoute = computed<string>(() => {
       return showRecipeContent.value ? `/g/${groupSlug.value}/r/${props.slug}` : "";

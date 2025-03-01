@@ -76,12 +76,12 @@ import type { UserOut } from "~/lib/api/types/user";
 export default defineNuxtComponent({
   middleware: "auth",
   setup() {
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const ready = ref(false);
     const userApi = useUserApi();
     const route = useRoute();
     const router = useRouter();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
     const overrideDisableRedirect = ref(false);
     const disableRedirect = computed(() => route.query.disableRedirect === "true" || overrideDisableRedirect.value);
     const preferences = useShoppingListPreferences();
@@ -104,7 +104,7 @@ export default defineNuxtComponent({
         return [];
       }
 
-      return shoppingLists.value.filter((list) => preferences.value.viewAllLists || list.userId === $auth.user?.id);
+      return shoppingLists.value.filter((list) => preferences.value.viewAllLists || list.userId === $auth.user.value?.id);
     });
 
     // This has to appear before the shoppingListChoices watcher, otherwise that runs first and the redirect is not disabled

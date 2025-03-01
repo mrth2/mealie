@@ -3,14 +3,9 @@
     <BasePageTitle divider>
       <template #header>
         <div class="d-flex flex-column align-center justify-center">
-          <UserAvatar :tooltip="false" size="96" :user-id="$auth.user.id" />
-          <AppButtonUpload
-            class="my-1"
-            file-name="profile"
-            accept="image/*"
-            :url="`/api/users/${$auth.user.id}/image`"
-            @uploaded="$auth.fetchUser()"
-          />
+          <UserAvatar :tooltip="false" size="96" :user-id="userCopy.id!" />
+          <AppButtonUpload class="my-1" file-name="profile" accept="image/*" :url="`/api/users/${userCopy.id}/image`"
+            @uploaded="$auth.fetch()" />
         </div>
       </template>
       <template #title> {{ $t("profile.user-settings") }} </template>
@@ -54,45 +49,27 @@
               <v-card outlined>
                 <v-card-text class="pb-0">
                   <v-form ref="passChange">
-                    <v-text-field
-                      v-model="password.current"
-                      :prepend-icon="$globals.icons.lock"
-                      :label="$t('user.current-password')"
-                      validate-on-blur
-                      :type="showPassword ? 'text' : 'password'"
+                    <v-text-field v-model="password.current" :prepend-icon="$globals.icons.lock"
+                      :label="$t('user.current-password')" validate-on-blur :type="showPassword ? 'text' : 'password'"
                       :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
-                      :rules="[validators.minLength(1)]"
-                      @click:append="showPassword = !showPassword"
-                    />
-                    <v-text-field
-                      v-model="password.newOne"
-                      :prepend-icon="$globals.icons.lock"
-                      :label="$t('user.new-password')"
-                      :type="showPassword ? 'text' : 'password'"
+                      :rules="[validators.minLength(1)]" @click:append="showPassword = !showPassword" />
+                    <v-text-field v-model="password.newOne" :prepend-icon="$globals.icons.lock"
+                      :label="$t('user.new-password')" :type="showPassword ? 'text' : 'password'"
                       :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
-                      :rules="[validators.minLength(8)]"
-                      @click:append="showPassword = !showPassword"
-                    />
-                    <v-text-field
-                      v-model="password.newTwo"
-                      :prepend-icon="$globals.icons.lock"
+                      :rules="[validators.minLength(8)]" @click:append="showPassword = !showPassword" />
+                    <v-text-field v-model="password.newTwo" :prepend-icon="$globals.icons.lock"
                       :label="$t('user.confirm-password')"
-                      :rules="[password.newOne === password.newTwo || $t('user.password-must-match')]"
-                      validate-on-blur
+                      :rules="[password.newOne === password.newTwo || $t('user.password-must-match')]" validate-on-blur
                       :type="showPassword ? 'text' : 'password'"
                       :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
-                      @click:append="showPassword = !showPassword"
-                    />
+                      @click:append="showPassword = !showPassword" />
                     <UserPasswordStrength :value="password.newOne" />
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <BaseButton
-                    update
-                    :disabled="!passwordsMatch || password.current.length < 0"
-                    @click="updatePassword"
-                  />
+                  <BaseButton update :disabled="!passwordsMatch || password.current.length < 0"
+                    @click="updatePassword" />
                 </v-card-actions>
               </v-card>
             </div>
@@ -102,13 +79,10 @@
     </section>
     <section>
       <BaseCardSectionTitle class="mt-10" :title="$tc('profile.preferences')"> </BaseCardSectionTitle>
-      <v-checkbox
-        v-model="userCopy.advanced"
-        class="mt-n4"
-        :label="$t('profile.show-advanced-description')"
-        @change="updateUser"
-      ></v-checkbox>
-      <nuxt-link class="mt-5 d-flex flex-column justify-center text-center" :to="`/group`"> {{ $t('profile.looking-for-privacy-settings') }} </nuxt-link>
+      <v-checkbox v-model="userCopy.advanced" class="mt-n4" :label="$t('profile.show-advanced-description')"
+        @change="updateUser"></v-checkbox>
+      <nuxt-link class="mt-5 d-flex flex-column justify-center text-center" :to="`/group`"> {{
+        $t('profile.looking-for-privacy-settings') }} </nuxt-link>
       <div class="d-flex flex-wrap justify-center mt-5">
         <v-btn outlined class="rounded-xl my-1 mx-1" :to="`/user/profile`" nuxt exact>
           <v-icon left>
@@ -122,11 +96,9 @@
 </template>
 
 <script lang="ts">
-
 import { useUserApi } from "~/composables/api";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
-import { VForm } from "~/types/vuetify";
-import { UserOut } from "~/lib/api/types/user";
+import type { VForm } from "~/types/vuetify";
 import UserPasswordStrength from "~/components/Domain/User/UserPasswordStrength.vue";
 import { validators } from "~/composables/use-validators";
 
@@ -137,8 +109,8 @@ export default defineNuxtComponent({
   },
   middleware: "auth",
   setup() {
-    const { $auth } = useNuxtApp();
-    const user = computed(() => $auth.user as unknown as UserOut);
+    const $auth = useUserSession();
+    const user = computed(() => $auth.user.value);
 
     watch(user, () => {
       userCopy.value = { ...user.value };
@@ -158,9 +130,10 @@ export default defineNuxtComponent({
     const passwordsMatch = computed(() => password.newOne === password.newTwo && password.newOne.length > 0);
 
     async function updateUser() {
+      if (!userCopy.value?.id) return;
       const { response } = await api.users.updateOne(userCopy.value.id, userCopy.value);
       if (response?.status === 200) {
-        $auth.fetchUser();
+        $auth.fetch();
       }
     }
 
@@ -194,6 +167,7 @@ export default defineNuxtComponent({
       domUpdatePassword,
       passwordsMatch,
       validators,
+      $auth,
     };
   },
   head() {

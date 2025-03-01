@@ -153,7 +153,8 @@ export default defineNuxtComponent({
   setup() {
     const router = useRouter();
     const i18n = useI18n();
-    const { $auth, $globals } = useNuxtApp();
+    const $auth = useUserSession();
+    const { $globals } = useNuxtApp();
 
     const { isOwnGroup } = useLoggedInState();
     const state = ref({
@@ -171,7 +172,7 @@ export default defineNuxtComponent({
     });
 
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
     const searchQuerySession = useUserSearchQuerySession();
 
     const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
@@ -382,7 +383,7 @@ export default defineNuxtComponent({
     }
 
     async function hydrateSearch() {
-      const query = router.currentRoute.query;
+      const query = router.currentRoute.value.query;
       if (query.auto?.length) {
         state.value.auto = query.auto === "true";
       }

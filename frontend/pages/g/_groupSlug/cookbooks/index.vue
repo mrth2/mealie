@@ -141,12 +141,12 @@ export default defineNuxtComponent({
     });
 
     const i18n = useI18n();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const { cookbooks: allCookbooks, actions } = useCookbooks();
     const myCookbooks = computed<ReadCookBook[]>({
       get: () => {
         return allCookbooks.value?.filter((cookbook) => {
-          return cookbook.householdId === $auth.user?.householdId;
+          return cookbook.householdId === $auth.user.value?.householdId;
         }) || [];
       },
       set: (value: ReadCookBook[]) => {

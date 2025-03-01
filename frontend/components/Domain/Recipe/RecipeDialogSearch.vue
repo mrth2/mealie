@@ -53,10 +53,9 @@
 </template>
 
 <script lang="ts">
-
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import { RecipeSummary } from "~/lib/api/types/recipe";
+import type { RecipeSummary } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 import { usePublicExploreApi } from "~/composables/api/api-client";
@@ -67,7 +66,7 @@ export default defineNuxtComponent({
   },
 
   setup(_, context) {
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const breakpoint = useDisplay();
     const state = reactive({
       loading: false,
@@ -131,7 +130,7 @@ export default defineNuxtComponent({
       }
     });
 
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
     const route = useRoute();
     const advancedSearchUrl = computed(() => `/g/${groupSlug.value}`)
     watch(route, close);

@@ -82,12 +82,13 @@ export default defineNuxtComponent({
     // ================================================================
     // Setup
     const i18n = useI18n();
-    const { $auth, $globals } = useNuxtApp();
+    const $auth = useUserSession();
+    const { $globals } = useNuxtApp();
     const userApi = useUserApi();
     const adminApi = useAdminApi();
     const { current: $theme } = useTheme();
 
-    const groupSlug = computed(() => $auth.user?.groupSlug);
+    const groupSlug = computed(() => $auth.user.value?.groupSlug);
     const { locale } = useLocales();
     const router = useRouter();
     const isSubmitting = ref(false);
@@ -95,9 +96,9 @@ export default defineNuxtComponent({
       title: i18n.t("admin.setup.first-time-setup")
     })
 
-    if (!$auth.loggedIn) {
+    if (!$auth.loggedIn.value) {
       router.push("/login");
-    } else if (!$auth.user?.admin) {
+    } else if (!$auth.user.value?.admin) {
       router.push(groupSlug.value ? `/g/${groupSlug.value}` : "/login");
     }
 
@@ -243,9 +244,9 @@ export default defineNuxtComponent({
     // Page Submission
 
     async function updateUser() {
-      // @ts-ignore-next-line user will never be null here
-      const { response } = await userApi.users.updateOne($auth.user?.id, {
-        ...$auth.user,
+      // Note: $auth.user is now a ref
+      const { response } = await userApi.users.updateOne($auth.user.value!.id, {
+        ...$auth.user.value,
         email: accountDetails.email.value,
         username: accountDetails.username.value,
         fullName: accountDetails.fullName.value,
@@ -256,7 +257,7 @@ export default defineNuxtComponent({
         alert.error(i18n.t("events.something-went-wrong"));
       } else {
         $auth.setUser({
-          ...$auth.user,
+          ...$auth.user.value,
           email: accountDetails.email.value,
           username: accountDetails.username.value,
           fullName: accountDetails.fullName.value,
@@ -282,8 +283,8 @@ export default defineNuxtComponent({
     }
 
     async function updateGroup() {
-      // @ts-ignore-next-line user will never be null here
-      const { data } = await userApi.groups.getOne($auth.user?.groupId);
+      // Note: $auth.user is now a ref
+      const { data } = await userApi.groups.getOne($auth.user.value!.groupId);
       if (!data || !data.preferences) {
         alert.error(i18n.t("events.something-went-wrong"));
         return;
@@ -299,16 +300,16 @@ export default defineNuxtComponent({
         preferences,
       }
 
-      // @ts-ignore-next-line user will never be null here
-      const { response } = await userApi.groups.updateOne($auth.user?.groupId, payload);
+      // Note: $auth.user is now a ref
+      const { response } = await userApi.groups.updateOne($auth.user.value!.groupId, payload);
       if (!response || response.status !== 200) {
         alert.error(i18n.t("events.something-went-wrong"));
       }
     }
 
     async function updateHousehold() {
-      // @ts-ignore-next-line user will never be null here
-      const { data } = await adminApi.households.getOne($auth.user?.householdId);
+      // Note: $auth.user is now a ref
+      const { data } = await adminApi.households.getOne($auth.user.value!.householdId);
       if (!data || !data.preferences) {
         alert.error(i18n.t("events.something-went-wrong"));
         return;
@@ -325,8 +326,8 @@ export default defineNuxtComponent({
         preferences,
       }
 
-      // @ts-ignore-next-line user will never be null here
-      const { response } = await adminApi.households.updateOne($auth.user?.householdId, payload);
+      // Note: $auth.user is now a ref
+      const { response } = await adminApi.households.updateOne($auth.user.value!.householdId, payload);
       if (!response || response.status !== 200) {
         alert.error(i18n.t("events.something-went-wrong"));
       }

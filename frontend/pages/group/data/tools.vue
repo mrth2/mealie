@@ -83,7 +83,7 @@ interface RecipeToolWithOnHand extends RecipeTool {
 export default defineNuxtComponent({
   setup() {
     const i18n = useI18n();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const tableConfig = {
       hideColumns: true,
       canExport: true,
@@ -113,7 +113,7 @@ export default defineNuxtComponent({
       bulkDeleteDialog: false,
     });
 
-    const userHousehold = computed(() => $auth.user?.householdSlug || "");
+    const userHousehold = computed(() => $auth.user.value?.householdSlug || "");
     const toolData = useToolData();
     const toolStore = useToolStore();
     const tools = computed(() => toolStore.store.value.map((tools) => {

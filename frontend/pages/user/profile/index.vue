@@ -172,12 +172,12 @@ export default defineNuxtComponent({
   async setup() {
     const breakpoint = useDisplay();
     const i18n = useI18n();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
 
     // @ts-ignore $auth.user is typed as unknown, but it's a user
-    const user = computed<UserOut | null>(() => $auth.user);
+    const user = computed<UserOut | null>(() => $auth.user.value);
 
     const inviteDialog = ref(false);
     const api = useUserApi();

@@ -15,13 +15,8 @@
           </v-form>
 
           <template v-if="createdToken != ''">
-            <v-textarea
-              v-model="createdToken"
-              class="mb-0 pb-0"
-              :label="$t('settings.token.api-token')"
-              readonly
-              rows="3"
-            >
+            <v-textarea v-model="createdToken" class="mb-0 pb-0" :label="$t('settings.token.api-token')" readonly
+              rows="3">
             </v-textarea>
             <v-subheader class="text-center">
               {{
@@ -44,14 +39,15 @@
     </section>
     <BaseCardSectionTitle class="mt-10" :title="$tc('settings.token.active-tokens')"> </BaseCardSectionTitle>
     <section class="d-flex flex-column">
-      <div v-for="(token, index) in $auth.user.tokens" :key="index">
+      <div v-for="(token, index) in $auth.user.value.tokens" :key="index">
         <v-card outlined class="mb-2">
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>
                 {{ token.name }}
               </v-list-item-title>
-              <v-list-item-subtitle> {{ $t('general.created-on-date', [$d(new Date(token.createdAt))]) }} </v-list-item-subtitle>
+              <v-list-item-subtitle> {{ $t('general.created-on-date', [$d(new Date(token.createdAt))]) }}
+              </v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action>
               <BaseButton delete small @click="deleteToken(token.id)"></BaseButton>
@@ -64,17 +60,16 @@
 </template>
 
 <script lang="ts">
-
 import { useUserApi } from "~/composables/api";
-import { VForm } from "~/types/vuetify";
+import type { VForm } from "~/types/vuetify";
 
 export default defineNuxtComponent({
   middleware: ["auth", "advanced-only"],
   setup() {
-    const nuxtContext = useNuxtApp();
+    const $auth = useUserSession();
 
     const user = computed(() => {
-      return nuxtContext.$auth.user;
+      return $auth.user.value;
     });
 
     const api = useUserApi();
@@ -89,7 +84,7 @@ export default defineNuxtComponent({
       createdToken.value = "";
       loading.value = false;
       name.value = "";
-      nuxtContext.$auth.fetchUser();
+      $auth.fetch();
     }
 
     async function createToken(name: string) {
@@ -114,7 +109,7 @@ export default defineNuxtComponent({
 
     async function deleteToken(id: number) {
       const { data } = await api.users.deleteAPIToken(id);
-      nuxtContext.$auth.fetchUser();
+      $auth.fetch();
       return data;
     }
 

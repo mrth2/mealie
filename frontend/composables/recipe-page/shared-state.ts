@@ -1,5 +1,4 @@
-
-import { UserOut } from "~/lib/api/types/user";
+import type { UserOut } from "~/lib/api/types/user";
 import { useNavigationWarning } from "~/composables/use-navigation-warning";
 
 export enum PageMode {
@@ -151,9 +150,9 @@ export function clearPageState(slug: string) {
  * object with all properties set to their zero value is returned.
  */
 export function usePageUser(): { user: UserOut } {
-  const { $auth } = useNuxtApp();
+  const $auth = useUserSession();
 
-  if (!$auth.user) {
+  if (!$auth.user.value) {
     return {
       user: {
         id: "",
@@ -169,5 +168,5 @@ export function usePageUser(): { user: UserOut } {
     };
   }
 
-  return { user: $auth.user };
+  return { user: $auth.user.value };
 }

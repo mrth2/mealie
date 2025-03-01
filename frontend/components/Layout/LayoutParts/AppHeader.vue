@@ -50,11 +50,11 @@ export default defineNuxtComponent({
     },
   },
   setup() {
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const { loggedIn } = useLoggedInState();
     const route = useRoute();
     const router = useRouter();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
     const breakpoint = useDisplay();
 
     const routerLink = computed(() => groupSlug.value ? `/g/${groupSlug.value}` : "/");
@@ -81,7 +81,7 @@ export default defineNuxtComponent({
     });
 
     async function logout() {
-      await $auth.logout().then(() => router.push("/login?direct=1"))
+      await $auth.clear().then(() => router.push("/login?direct=1"))
     }
 
     return {

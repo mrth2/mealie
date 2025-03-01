@@ -38,14 +38,15 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const i18n = useI18n();
-    const { $auth, $globals } = useNuxtApp();
+    const $auth = useUserSession();
+    const { $globals } = useNuxtApp();
     const ready = ref(false);
 
     const route = useRoute();
     const router = useRouter();
 
     async function insertGroupSlugIntoRoute() {
-      const groupSlug = ref($auth.user?.groupSlug);
+      const groupSlug = ref($auth.user.value?.groupSlug);
       if (!groupSlug.value) {
         return;
       }

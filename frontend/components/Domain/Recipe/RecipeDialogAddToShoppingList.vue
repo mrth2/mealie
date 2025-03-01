@@ -144,7 +144,7 @@ export default defineNuxtComponent({
   },
   setup(props, context) {
     const i18n = useI18n();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const api = useUserApi();
     const preferences = useShoppingListPreferences();
     const breakpoint = useDisplay();
@@ -168,11 +168,11 @@ export default defineNuxtComponent({
     });
 
     const userHousehold = computed(() => {
-      return $auth.user?.householdSlug || "";
+      return $auth.user.value?.householdSlug || "";
     });
 
     const shoppingListChoices = computed(() => {
-      return props.shoppingLists.filter((list) => preferences.value.viewAllLists || list.userId === $auth.user?.id);
+      return props.shoppingLists.filter((list) => preferences.value.viewAllLists || list.userId === $auth.user.value?.id);
     });
 
     const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);

@@ -101,9 +101,9 @@ export default defineNuxtComponent({
   layout: "admin",
   setup() {
     const i18n = useI18n();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
 
     const adminApi = useAdminApi();
     const selected = ref("");
@@ -142,7 +142,7 @@ export default defineNuxtComponent({
         alert.error(i18n.t("settings.backup.restore-fail"));
       } else {
         alert.success(i18n.t("settings.backup.restore-success"));
-        $auth.logout();
+        $auth.clear();
       }
     }
 

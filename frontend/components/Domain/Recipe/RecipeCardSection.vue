@@ -153,7 +153,8 @@ export default defineNuxtComponent({
     };
 
     const breakpoint = useDisplay();
-    const { $auth, $globals } = useNuxtApp();
+    const $auth = useUserSession();
+    const { $globals } = useNuxtApp();
     const { isOwnGroup } = useLoggedInState();
     const useMobileCards = computed(() => {
       return breakpoint.smAndDown.value || preferences.value.useMobileCards;
@@ -168,7 +169,7 @@ export default defineNuxtComponent({
     });
 
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
     const page = ref(1);
     const perPage = 32;
@@ -248,7 +249,7 @@ export default defineNuxtComponent({
     }
 
     const infiniteScroll = useThrottleFn(() => {
-      useAsync(async () => {
+      useAsyncData(useAsyncKey(), async () => {
         if (!hasMore.value || loading.value) {
           return;
         }
@@ -265,7 +266,7 @@ export default defineNuxtComponent({
         }
 
         loading.value = false;
-      }, useAsyncKey());
+      });
     }, 500);
 
 

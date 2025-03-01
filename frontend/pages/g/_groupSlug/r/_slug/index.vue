@@ -13,7 +13,7 @@ import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useRecipe } from "~/composables/recipes";
 import type { Recipe } from "~/lib/api/types/recipe";
 
-const { $auth } = useNuxtApp();
+const $auth = useUserSession();
 const { isOwnGroup } = useLoggedInState();
 const route = useRoute();
 const title = ref(route.meta?.title ?? "");
@@ -27,7 +27,7 @@ if (isOwnGroup.value) {
   const { recipe: data } = useRecipe(slug);
   recipe.value = data.value;
 } else {
-  const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "")
+  const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "")
   const api = usePublicExploreApi(groupSlug.value);
   const { data } = await useAsyncData(useAsyncKey(), async () => {
     const { data, error } = await api.explore.recipes.getOne(slug);

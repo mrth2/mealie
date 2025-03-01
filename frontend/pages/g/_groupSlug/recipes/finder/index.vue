@@ -13,52 +13,34 @@
           <v-container class="ma-0 pa-0">
             <v-row no-gutters>
               <v-col cols="12" no-gutters :class="attrs.searchFilter.colClass">
-                <SearchFilter v-if="foods" v-model="selectedFoods" :items="foods" :class="attrs.searchFilter.filterClass">
+                <SearchFilter v-if="foods" v-model="selectedFoods" :items="foods"
+                  :class="attrs.searchFilter.filterClass">
                   <v-icon left>
                     {{ $globals.icons.foods }}
                   </v-icon>
                   {{ $t("general.foods") }}
                 </SearchFilter>
-                <SearchFilter v-if="tools" v-model="selectedTools" :items="tools" :class="attrs.searchFilter.filterClass">
+                <SearchFilter v-if="tools" v-model="selectedTools" :items="tools"
+                  :class="attrs.searchFilter.filterClass">
                   <v-icon left>
                     {{ $globals.icons.potSteam }}
                   </v-icon>
                   {{ $t("tool.tools") }}
                 </SearchFilter>
                 <div :class="attrs.searchFilter.filterClass">
-                  <v-badge
-                    :value="queryFilterJSON.parts && queryFilterJSON.parts.length"
-                    small
-                    overlap
-                    color="primary"
-                    :content="(queryFilterJSON.parts || []).length"
-                  >
-                    <v-btn
-                      small
-                      color="accent"
-                      dark
-                      @click="queryFilterMenu = !queryFilterMenu"
-                    >
+                  <v-badge :value="queryFilterJSON.parts && queryFilterJSON.parts.length" small overlap color="primary"
+                    :content="(queryFilterJSON.parts || []).length">
+                    <v-btn small color="accent" dark @click="queryFilterMenu = !queryFilterMenu">
                       <v-icon left>
                         {{ $globals.icons.filter }}
                       </v-icon>
                       {{ $tc("recipe-finder.other-filters") }}
-                      <BaseDialog
-                        v-model="queryFilterMenu"
-                        :title="$tc('recipe-finder.other-filters')"
-                        :icon="$globals.icons.filter"
-                        width="100%"
-                        max-width="1100px"
-                        :submit-disabled="!queryFilterEditorValue"
-                        @confirm="saveQueryFilter"
-                      >
-                        <QueryFilterBuilder
-                          :key="queryFilterMenuKey"
-                          :initial-query-filter="queryFilterJSON"
-                          :field-defs="queryFilterBuilderFields"
-                          @input="(value) => queryFilterEditorValue = value"
-                          @inputJSON="(value) => queryFilterEditorValueJSON = value"
-                        />
+                      <BaseDialog v-model="queryFilterMenu" :title="$tc('recipe-finder.other-filters')"
+                        :icon="$globals.icons.filter" width="100%" max-width="1100px"
+                        :submit-disabled="!queryFilterEditorValue" @confirm="saveQueryFilter">
+                        <QueryFilterBuilder :key="queryFilterMenuKey" :initial-query-filter="queryFilterJSON"
+                          :field-defs="queryFilterBuilderFields" @input="(value) => queryFilterEditorValue = value"
+                          @inputJSON="(value) => queryFilterEditorValueJSON = value" />
                         <template #custom-card-action>
                           <BaseButton color="error" type="submit" @click="clearQueryFilter">
                             <template #icon>
@@ -76,13 +58,8 @@
             <!-- Settings Menu -->
             <v-row no-gutters class="mb-2">
               <v-col cols="12" :class="attrs.settings.colClass">
-                <v-menu
-                  v-model="settingsMenu"
-                  offset-y
-                  nudge-bottom="3"
-                  :close-on-content-click="false"
-                >
-                  <template #activator="{ on, attrs: activatorAttrs}">
+                <v-menu v-model="settingsMenu" offset-y nudge-bottom="3" :close-on-content-click="false">
+                  <template #activator="{ on, attrs: activatorAttrs }">
                     <v-btn small color="primary" dark v-bind="activatorAttrs" v-on="on">
                       <v-icon left>
                         {{ $globals.icons.cog }}
@@ -93,41 +70,16 @@
                   <v-card>
                     <v-card-text>
                       <div>
-                        <v-text-field
-                          v-model="settings.maxMissingFoods"
-                          type="number"
-                          hide-details
-                          hide-spin-buttons
-                          :label="$tc('recipe-finder.max-missing-ingredients')"
-                        />
-                        <v-text-field
-                          v-model="settings.maxMissingTools"
-                          type="number"
-                          hide-details
-                          hide-spin-buttons
-                          :label="$tc('recipe-finder.max-missing-tools')"
-                          class="mt-4"
-                        />
+                        <v-text-field v-model="settings.maxMissingFoods" type="number" hide-details hide-spin-buttons
+                          :label="$tc('recipe-finder.max-missing-ingredients')" />
+                        <v-text-field v-model="settings.maxMissingTools" type="number" hide-details hide-spin-buttons
+                          :label="$tc('recipe-finder.max-missing-tools')" class="mt-4" />
                       </div>
                       <div class="mt-1">
-                        <v-checkbox
-                          v-if="isOwnGroup"
-                          v-model="settings.includeFoodsOnHand"
-                          dense
-                          small
-                          hide-details
-                          class="my-auto"
-                          :label="$tc('recipe-finder.include-ingredients-on-hand')"
-                        />
-                        <v-checkbox
-                          v-if="isOwnGroup"
-                          v-model="settings.includeToolsOnHand"
-                          dense
-                          small
-                          hide-details
-                          class="my-auto"
-                          :label="$tc('recipe-finder.include-tools-on-hand')"
-                        />
+                        <v-checkbox v-if="isOwnGroup" v-model="settings.includeFoodsOnHand" dense small hide-details
+                          class="my-auto" :label="$tc('recipe-finder.include-ingredients-on-hand')" />
+                        <v-checkbox v-if="isOwnGroup" v-model="settings.includeToolsOnHand" dense small hide-details
+                          class="my-auto" :label="$tc('recipe-finder.include-tools-on-hand')" />
                       </div>
                     </v-card-text>
                   </v-card>
@@ -150,15 +102,8 @@
                 <div v-if="useMobile">
                   <v-row no-gutters>
                     <v-col cols="12" class="d-flex flex-wrap justify-end">
-                      <v-chip
-                        v-for="food in selectedFoods"
-                        :key="food.id"
-                        label
-                        class="ma-1"
-                        color="accent custom-transparent"
-                        close
-                        @click:close="removeFood(food)"
-                      >
+                      <v-chip v-for="food in selectedFoods" :key="food.id" label class="ma-1"
+                        color="accent custom-transparent" close @click:close="removeFood(food)">
                         <span class="text-hide-overflow">{{ food.pluralName || food.name }}</span>
                       </v-chip>
                     </v-col>
@@ -167,12 +112,7 @@
                 <div v-else>
                   <v-row v-for="food in selectedFoods" :key="food.id" no-gutters class="mb-1">
                     <v-col cols="12">
-                      <v-chip
-                        label
-                        color="accent custom-transparent"
-                        close
-                        @click:close="removeFood(food)"
-                      >
+                      <v-chip label color="accent custom-transparent" close @click:close="removeFood(food)">
                         <span class="text-hide-overflow">{{ food.pluralName || food.name }}</span>
                       </v-chip>
                     </v-col>
@@ -188,15 +128,8 @@
                 <div v-if="useMobile">
                   <v-row no-gutters>
                     <v-col cols="12" class="d-flex flex-wrap justify-end">
-                      <v-chip
-                        v-for="tool in selectedTools"
-                        :key="tool.id"
-                        label
-                        class="ma-1"
-                        color="accent custom-transparent"
-                        close
-                        @click:close="removeTool(tool)"
-                      >
+                      <v-chip v-for="tool in selectedTools" :key="tool.id" label class="ma-1"
+                        color="accent custom-transparent" close @click:close="removeTool(tool)">
                         <span class="text-hide-overflow">{{ tool.name }}</span>
                       </v-chip>
                     </v-col>
@@ -205,12 +138,7 @@
                 <div v-else>
                   <v-row v-for="tool in selectedTools" :key="tool.id" no-gutters class="mb-1">
                     <v-col cols="12">
-                      <v-chip
-                        label
-                        color="accent custom-transparent"
-                        close
-                        @click:close="removeTool(tool)"
-                      >
+                      <v-chip label color="accent custom-transparent" close @click:close="removeTool(tool)">
                         <span class="text-hide-overflow">{{ tool.name }}</span>
                       </v-chip>
                     </v-col>
@@ -221,32 +149,19 @@
           </v-container>
         </v-col>
         <v-col :cols="useMobile ? 12 : 9" :style="useMobile ? '' : 'max-height: 70vh; overflow-y: auto'">
-          <v-container
-            v-if="recipeSuggestions.readyToMake.length || recipeSuggestions.missingItems.length"
-            class="ma-0 pa-0"
-          >
+          <v-container v-if="recipeSuggestions.readyToMake.length || recipeSuggestions.missingItems.length"
+            class="ma-0 pa-0">
             <v-row v-if="recipeSuggestions.readyToMake.length" dense>
               <v-col cols="12">
                 <v-card-title :class="attrs.title.class.readyToMake">
                   {{ $tc("recipe-finder.ready-to-make") }}
                 </v-card-title>
               </v-col>
-              <v-col
-                v-for="(item, idx) in recipeSuggestions.readyToMake"
-                :key="`${idx}-ready`"
-                cols="12"
-              >
+              <v-col v-for="(item, idx) in recipeSuggestions.readyToMake" :key="`${idx}-ready`" cols="12">
                 <v-lazy>
-                  <RecipeSuggestion
-                    :recipe="item.recipe"
-                    :missing-foods="item.missingFoods"
-                    :missing-tools="item.missingTools"
-                    :disable-checkbox="loading"
-                    @add-food="addFood"
-                    @remove-food="removeFood"
-                    @add-tool="addTool"
-                    @remove-tool="removeTool"
-                  />
+                  <RecipeSuggestion :recipe="item.recipe" :missing-foods="item.missingFoods"
+                    :missing-tools="item.missingTools" :disable-checkbox="loading" @add-food="addFood"
+                    @remove-food="removeFood" @add-tool="addTool" @remove-tool="removeTool" />
                 </v-lazy>
               </v-col>
             </v-row>
@@ -256,23 +171,12 @@
                   {{ $tc("recipe-finder.almost-ready-to-make") }}
                 </v-card-title>
               </v-col>
-              <v-col
-                v-for="(item, idx) in recipeSuggestions.missingItems"
-                :key="`${idx}-missing`"
-                cols="12"
-              >
-              <v-lazy>
-                <RecipeSuggestion
-                  :recipe="item.recipe"
-                  :missing-foods="item.missingFoods"
-                  :missing-tools="item.missingTools"
-                  :disable-checkbox="loading"
-                  @add-food="addFood"
-                  @remove-food="removeFood"
-                  @add-tool="addTool"
-                  @remove-tool="removeTool"
-                />
-              </v-lazy>
+              <v-col v-for="(item, idx) in recipeSuggestions.missingItems" :key="`${idx}-missing`" cols="12">
+                <v-lazy>
+                  <RecipeSuggestion :recipe="item.recipe" :missing-foods="item.missingFoods"
+                    :missing-tools="item.missingTools" :disable-checkbox="loading" @add-food="addFood"
+                    @remove-food="removeFood" @add-tool="addTool" @remove-tool="removeTool" />
+                </v-lazy>
               </v-col>
             </v-row>
           </v-container>
@@ -335,11 +239,11 @@ export default defineNuxtComponent({
   setup() {
     const breakpoint = useDisplay();
     const i18n = useI18n();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const route = useRoute();
     const useMobile = computed(() => breakpoint.smAndDown);
 
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
     const { isOwnGroup } = useLoggedInState();
     const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
 
@@ -455,8 +359,8 @@ export default defineNuxtComponent({
       }
 
       const foods = preferences.value.foodIds
-      .map((foodId) => foodStore.store.value.find((food) => food.id === foodId))
-      .filter((food) => !!food);
+        .map((foodId) => foodStore.store.value.find((food) => food.id === foodId))
+        .filter((food) => !!food);
 
       selectedFoods.value = foods;
     }
@@ -470,8 +374,8 @@ export default defineNuxtComponent({
       }
 
       const tools = preferences.value.toolIds
-      .map((toolId) => toolStore.store.value.find((tool) => tool.id === toolId))
-      .filter((tool) => !!tool);
+        .map((toolId) => toolStore.store.value.find((tool) => tool.id === toolId))
+        .filter((tool) => !!tool);
 
       selectedTools.value = tools;
     }
@@ -505,7 +409,7 @@ export default defineNuxtComponent({
     watchDebounced(
       [selectedFoods, selectedTools, state.settings], async () => {
         // don't search for suggestions if no foods are selected
-        if(!selectedFoods.value.length) {
+        if (!selectedFoods.value.length) {
           recipeResponseItems.value = [];
           state.recipesReady = true;
           return;

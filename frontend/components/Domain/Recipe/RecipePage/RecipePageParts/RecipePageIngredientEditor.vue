@@ -62,12 +62,13 @@ export default defineNuxtComponent({
     const { user } = usePageUser();
     const { imageKey } = usePageState(props.recipe.slug);
     const i18n = useI18n();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession(); // Using useUserSession directly
 
     const drag = ref(false);
 
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    // Note: $auth.user is a ref, so we need to use .value to access its properties
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
     const hasFoodOrUnit = computed(() => {
       if (!props.recipe) {

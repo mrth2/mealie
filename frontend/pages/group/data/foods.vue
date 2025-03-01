@@ -305,7 +305,7 @@ export default defineNuxtComponent({
   setup() {
     const userApi = useUserApi();
     const i18n = useI18n();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const tableConfig = {
       hideColumns: true,
       canExport: true,
@@ -361,7 +361,7 @@ export default defineNuxtComponent({
       }
     }
 
-    const userHousehold = computed(() => $auth.user?.householdSlug || "");
+    const userHousehold = computed(() => $auth.user.value?.householdSlug || "");
     const foodStore = useFoodStore();
     const foods = computed(() => foodStore.store.value.map((food) => {
       const onHand = food.householdsWithIngredientFood?.includes(userHousehold.value) || false;

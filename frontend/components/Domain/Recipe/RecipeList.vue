@@ -62,10 +62,10 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const { frac } = useFraction();
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.value?.groupSlug || "");
 
     const attrs = computed(() => {
       return props.small ? {

@@ -74,11 +74,7 @@
 
 <script lang="ts">
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import AppHeader from "@/components/layout/LayoutParts/AppHeader.vue";
-import AppSidebar from "@/components/layout/LayoutParts/AppSidebar.vue";
 import type { SideBarLink } from "~/types/application-types";
-import LanguageDialog from "~/components/global/LanguageDialog.vue";
-import TheSnackbar from "@/components/layout/LayoutParts/TheSnackbar.vue";
 import { useAppInfo } from "~/composables/api";
 import { useCookbooks, usePublicCookbooks } from "~/composables/use-group-cookbooks";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
@@ -87,18 +83,24 @@ import { useToggleDarkMode } from "~/composables/use-utils";
 import type { ReadCookBook } from "~/lib/api/types/cookbook";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 
+import LanguageDialog from "~/components/global/LanguageDialog.vue";
+import AppHeader from "./LayoutParts/AppHeader.vue";
+import AppSidebar from "./LayoutParts/AppSidebar.vue";
+import TheSnackbar from "./LayoutParts/TheSnackbar.vue";
+
 
 export default defineNuxtComponent({
   components: { AppHeader, AppSidebar, LanguageDialog, TheSnackbar },
   setup() {
     const i18n = useI18n();
-    const { $globals, $auth } = useNuxtApp();
+    const { $globals } = useNuxtApp();
+    const $auth = useUserSession();
     const { isOwnGroup } = useLoggedInState();
     const { current: currentTheme } = useTheme();
 
-    const isAdmin = computed(() => $auth.user?.admin);
+    const isAdmin = computed(() => $auth.user.value?.admin);
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
     const { cookbooks } = isOwnGroup.value ? useCookbooks() : usePublicCookbooks(groupSlug.value || "");
     const cookbookPreferences = useCookbookPreferences();
     const { store: households } = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value || "");
@@ -135,7 +137,7 @@ export default defineNuxtComponent({
       };
     }
 
-    const currentUserHouseholdId = computed(() => $auth.user?.householdId);
+    const currentUserHouseholdId = computed(() => $auth.user.value?.householdId);
     const cookbookLinks = computed<SideBarLink[]>(() => {
       if (!cookbooks.value) {
         return [];
@@ -168,7 +170,7 @@ export default defineNuxtComponent({
       });
 
       links.sort((a, b) => a.title.localeCompare(b.title));
-      if ($auth.user && cookbookPreferences.value.hideOtherHouseholds) {
+      if ($auth.user.value && cookbookPreferences.value.hideOtherHouseholds) {
         return ownLinks;
       } else {
         return [...ownLinks, ...links];

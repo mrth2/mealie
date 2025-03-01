@@ -6,7 +6,7 @@
         :class="isFlat ? 'mx-auto flat' : 'mx-auto'"
         :style="{ cursor }"
         hover
-        :to="$listeners.selected ? undefined : recipeRoute"
+        :to="$attrs.selected ? undefined : recipeRoute"
         @click="$emit('selected')"
       >
         <v-img v-if="vertical" class="rounded-sm">
@@ -147,17 +147,16 @@ export default defineNuxtComponent({
     },
   },
   setup(props) {
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
     const showRecipeContent = computed(() => props.recipeId && props.slug);
     const recipeRoute = computed<string>(() => {
       return showRecipeContent.value ? `/g/${groupSlug.value}/r/${props.slug}` : "";
     });
     const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
-
 
     return {
       isOwnGroup,

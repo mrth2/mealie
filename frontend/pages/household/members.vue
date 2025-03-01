@@ -28,25 +28,25 @@
       </template>
       <template #item.manageHousehold="{ item }">
         <div class="d-flex justify-center">
-          <v-checkbox v-model="item.canManageHousehold" :disabled="item.id === $auth.user.id || item.admin" class=""
+          <v-checkbox v-model="item.canManageHousehold" :disabled="item.id === sessionUser?.id || item.admin" class=""
             style="max-width: 30px" @change="setPermissions(item)"></v-checkbox>
         </div>
       </template>
       <template #item.manage="{ item }">
         <div class="d-flex justify-center">
-          <v-checkbox v-model="item.canManage" :disabled="item.id === $auth.user.id || item.admin" class=""
+          <v-checkbox v-model="item.canManage" :disabled="item.id === sessionUser?.id || item.admin" class=""
             style="max-width: 30px" @change="setPermissions(item)"></v-checkbox>
         </div>
       </template>
       <template #item.organize="{ item }">
         <div class="d-flex justify-center">
-          <v-checkbox v-model="item.canOrganize" :disabled="item.id === $auth.user.id || item.admin" class=""
+          <v-checkbox v-model="item.canOrganize" :disabled="item.id === sessionUser?.id || item.admin" class=""
             style="max-width: 30px" @change="setPermissions(item)"></v-checkbox>
         </div>
       </template>
       <template #item.invite="{ item }">
         <div class="d-flex justify-center">
-          <v-checkbox v-model="item.canInvite" :disabled="item.id === $auth.user.id || item.admin" class=""
+          <v-checkbox v-model="item.canInvite" :disabled="item.id === sessionUser?.id || item.admin" class=""
             style="max-width: 30px" @change="setPermissions(item)"></v-checkbox>
         </div>
       </template>
@@ -65,9 +65,13 @@ export default defineNuxtComponent({
   },
   middleware: ["auth"],
   setup() {
+    const $auth = useUserSession();
     const api = useUserApi();
-
     const i18n = useI18n();
+
+    useSeoMeta({
+      title: i18n.t("profile.members"),
+    })
 
     const members = ref<UserOut[] | null[]>([]);
 
@@ -105,7 +109,7 @@ export default defineNuxtComponent({
       await refreshMembers();
     });
 
-    return { members, headers, setPermissions };
+    return { members, headers, setPermissions, sessionUser: $auth.user };
   },
   head() {
     return {

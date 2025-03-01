@@ -32,7 +32,6 @@
 </template>
 
 <script lang="ts">
-
 import { watchEffect } from "vue";
 import { useUserApi } from "@/composables/api";
 import BaseDialog from "~/components/global/BaseDialog.vue";
@@ -40,8 +39,8 @@ import AppButtonCopy from "~/components/global/AppButtonCopy.vue";
 import BaseButton from "~/components/global/BaseButton.vue";
 import { validators } from "~/composables/use-validators";
 import { alert } from "~/composables/use-toast";
-import { GroupInDB } from "~/lib/api/types/user";
-import { HouseholdInDB } from "~/lib/api/types/household";
+import type { GroupInDB } from "~/lib/api/types/user";
+import type { HouseholdInDB } from "~/lib/api/types/household";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
 
@@ -60,9 +59,9 @@ export default defineNuxtComponent({
   },
   setup(props, context) {
     const i18n = useI18n();
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
 
-    const isAdmin = computed(() => $auth.user?.admin);
+    const isAdmin = computed(() => $auth.user.value?.admin);
     const token = ref("");
     const selectedGroup = ref<string | null>(null);
     const selectedHousehold = ref<string | null>(null);
@@ -164,6 +163,7 @@ export default defineNuxtComponent({
       households,
       fetchGroupsAndHouseholds,
       ...toRefs(state),
+      isAdmin,
     };
   },
   watch: {

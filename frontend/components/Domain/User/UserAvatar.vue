@@ -19,9 +19,7 @@
 </template>
 
 <script lang="ts">
-
 import { useUserStore } from "~/composables/store/use-user-store";
-import { UserOut } from "~/lib/api/types/user";
 
 export default defineNuxtComponent({
   props: {
@@ -47,15 +45,15 @@ export default defineNuxtComponent({
       error: false,
     });
 
-    const { $auth } = useNuxtApp();
+    const $auth = useUserSession();
     const { store: users } = useUserStore();
     const user = computed(() => {
       return users.value.find((user) => user.id === props.userId);
     })
 
     const imageURL = computed(() => {
-      // TODO Setup correct user type for $auth.user
-      const authUser = $auth.user as unknown as UserOut | null;
+      // Note: $auth.user is a ref now
+      const authUser = $auth.user.value;
       const key = authUser?.cacheKey ?? "";
       return `/api/media/users/${props.userId}/profile.webp?cacheKey=${key}`;
     });

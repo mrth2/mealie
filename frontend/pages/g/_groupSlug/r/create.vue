@@ -36,7 +36,8 @@ export default defineNuxtComponent({
   middleware: ["auth", "group-only"],
   setup() {
     const i18n = useI18n();
-    const { $auth, $globals } = useNuxtApp();
+    const $auth = useUserSession();
+    const $globals = useNuxtApp().$globals;
 
     const appInfo = useAppInfo();
     const enableOpenAIImages = computed(() => appInfo.value?.enableOpenaiImageServices);
@@ -82,7 +83,7 @@ export default defineNuxtComponent({
 
     const route = useRoute();
     const router = useRouter();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
 
     const subpage = computed({
       set(subpage: string) {
