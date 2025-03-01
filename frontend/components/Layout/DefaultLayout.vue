@@ -49,11 +49,11 @@
         <v-list-item @click="toggleDark">
           <v-list-item-icon>
             <v-icon>
-              {{ currentTheme.dark ? $globals.icons.weatherSunny : $globals.icons.weatherNight }}
+              {{ currentTheme?.dark ? $globals.icons.weatherSunny : $globals.icons.weatherNight }}
             </v-icon>
           </v-list-item-icon>
           <v-list-item-title>
-            {{ currentTheme.dark ? $t("settings.theme.light-mode") : $t("settings.theme.dark-mode") }}
+            {{ currentTheme?.dark ? $t("settings.theme.light-mode") : $t("settings.theme.dark-mode") }}
           </v-list-item-title>
         </v-list-item>
       </template>
@@ -84,9 +84,9 @@ import type { ReadCookBook } from "~/lib/api/types/cookbook";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 
 import LanguageDialog from "~/components/global/LanguageDialog.vue";
-import AppHeader from "./LayoutParts/AppHeader.vue";
-import AppSidebar from "./LayoutParts/AppSidebar.vue";
-import TheSnackbar from "./LayoutParts/TheSnackbar.vue";
+import AppHeader from "../layout/layoutParts/AppHeader.vue";
+import AppSidebar from "../layout/layoutParts/AppSidebar.vue";
+import TheSnackbar from "../layout/layoutParts/TheSnackbar.vue";
 
 
 export default defineNuxtComponent({

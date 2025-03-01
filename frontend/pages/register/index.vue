@@ -1,12 +1,7 @@
 <template>
-  <v-container
-    fill-height
-    fluid
-    class="d-flex justify-center align-center"
-    :class="{
-      'bg-off-white': !$theme.dark && !isDark,
-    }"
-  >
+  <v-container fill-height fluid class="d-flex justify-center align-center" :class="{
+    'bg-off-white': !$theme.dark && !isDark,
+  }">
     <LanguageDialog v-model="langDialog" />
 
     <v-card class="d-flex flex-column" width="1200px" min-height="700px">
@@ -20,8 +15,7 @@
           <v-avatar class="pa-2 icon-avatar" color="primary" size="75">
             <svg class="icon-white" style="width: 75" viewBox="0 0 24 24">
               <path
-                d="M8.1,13.34L3.91,9.16C2.35,7.59 2.35,5.06 3.91,3.5L10.93,10.5L8.1,13.34M13.41,13L20.29,19.88L18.88,21.29L12,14.41L5.12,21.29L3.71,19.88L13.36,10.22L13.16,10C12.38,9.23 12.38,7.97 13.16,7.19L17.5,2.82L18.43,3.74L15.19,7L16.15,7.94L19.39,4.69L20.31,5.61L17.06,8.85L18,9.81L21.26,6.56L22.18,7.5L17.81,11.84C17.03,12.62 15.77,12.62 15,11.84L14.78,11.64L13.41,13Z"
-              />
+                d="M8.1,13.34L3.91,9.16C2.35,7.59 2.35,5.06 3.91,3.5L10.93,10.5L8.1,13.34M13.41,13L20.29,19.88L18.88,21.29L12,14.41L5.12,21.29L3.71,19.88L13.36,10.22L13.16,10C12.38,9.23 12.38,7.97 13.16,7.19L17.5,2.82L18.43,3.74L15.19,7L16.15,7.94L19.39,4.69L20.31,5.61L17.06,8.85L18,9.81L21.26,6.56L22.18,7.5L17.81,11.84C17.03,12.62 15.77,12.62 15,11.84L14.78,11.64L13.41,13Z" />
             </svg>
           </v-avatar>
         </div>
@@ -63,7 +57,8 @@
             <v-card-text>
               {{ $t("user-registration.provide-registration-token-description") }}
               <v-form ref="domTokenForm" class="mt-4" @submit.prevent>
-                <v-text-field v-model="token" v-bind="inputAttrs" :label="$t('group.group-token')" :rules="[validators.required]" />
+                <v-text-field v-model="token" v-bind="inputAttrs" :label="$t('group.group-token')"
+                  :rules="[validators.required]" />
               </v-form>
             </v-card-text>
             <v-divider />
@@ -92,28 +87,16 @@
             <v-divider />
             <v-card-text>
               <v-form ref="domGroupForm" @submit.prevent>
-                <v-text-field
-                  v-model="groupDetails.groupName.value"
-                  v-bind="inputAttrs"
-                  :label="$t('group.group-name')"
-                  :rules="[validators.required]"
-                  :error-messages="groupErrorMessages"
-                  @blur="validGroupName"
-                />
+                <v-text-field v-model="groupDetails.groupName.value" v-bind="inputAttrs" :label="$t('group.group-name')"
+                  :rules="[validators.required]" :error-messages="groupErrorMessages" @blur="validGroupName" />
                 <div class="mt-n4 px-2">
-                  <v-checkbox
-                    v-model="groupDetails.groupPrivate.value"
-                    hide-details
-                    :label="$tc('group.settings.keep-my-recipes-private')"
-                  />
+                  <v-checkbox v-model="groupDetails.groupPrivate.value" hide-details
+                    :label="$tc('group.settings.keep-my-recipes-private')" />
                   <p class="text-caption mt-1">
                     {{ $t("group.settings.keep-my-recipes-private-description") }}
                   </p>
-                  <v-checkbox
-                    v-model="groupDetails.groupSeed.value"
-                    hide-details
-                    :label="$tc('data-pages.seed-data')"
-                  />
+                  <v-checkbox v-model="groupDetails.groupSeed.value" hide-details
+                    :label="$tc('data-pages.seed-data')" />
                   <p class="text-caption mt-1">
                     {{ $t("user-registration.use-seed-data-description") }}
                   </p>
@@ -196,7 +179,6 @@
 </template>
 
 <script lang="ts">
-
 import { useDark } from "@vueuse/core";
 import { States, RegistrationType, useRegistration } from "./states";
 import { useUserRegistrationForm } from "~/composables/use-users/user-registration-form";
@@ -224,7 +206,7 @@ export default defineNuxtComponent({
   setup() {
     const i18n = useI18n();
     const isDark = useDark();
-    const {current: $theme} = useTheme();
+    const { current: $theme } = useTheme();
 
     function safeValidate(form: Ref<VForm | null>) {
       if (form.value && form.value.validate) {
@@ -326,9 +308,9 @@ export default defineNuxtComponent({
     } = useUserRegistrationForm();
     async function accountDetailsNext() {
       if (!await accountDetails.validate()) {
-          return;
-        }
-        state.setState(States.Confirmation);
+        return;
+      }
+      state.setState(States.Confirmation);
     }
     // ================================================================
     // Locale
