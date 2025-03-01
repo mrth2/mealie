@@ -2,12 +2,12 @@ import { useDark } from "@vueuse/core";
 
 export default defineNuxtPlugin(() => {
   const isDark = useDark();
-  const theme = useTheme();
+  const { $vuetify } = useNuxtApp();
 
   // Vuetify metadata is bugged and doesn't render dark mode fully when called immediately
   // Adding a delay fixes this problem
   // https://stackoverflow.com/questions/69399797/vuetify-darkmode-colors-wrong-after-page-reload
-  setTimeout(() => { theme.global.name.value = isDark.value ? 'dark' : 'light' }, 200);
+  setTimeout(() => { $vuetify.theme.global.name.value = isDark.value ? 'dark' : 'light' }, 200);
   return {
     provide: {
       isDark,

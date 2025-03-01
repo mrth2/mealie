@@ -30,8 +30,8 @@ async function fetchTheme(): Promise<ThemeConfig | undefined> {
 }
 
 export default defineNuxtPlugin(async () => {
-  const $vuetify = useTheme();
-  const { $config } = useNuxtApp();
+  const { $vuetify } = useNuxtApp();
+  const config = useRuntimeConfig();
   let theme = __cachedTheme;
   if (!theme) {
     theme = await fetchTheme();
@@ -39,8 +39,8 @@ export default defineNuxtPlugin(async () => {
   }
 
   if (theme) {
-    $vuetify.themes.value.light.colors = {
-      ...$vuetify.themes.value.light.colors,
+    $vuetify.theme.themes.value.light.colors = {
+      ...$vuetify.theme.themes.value.light.colors,
       primary: theme.lightPrimary,
       accent: theme.lightAccent,
       secondary: theme.lightSecondary,
@@ -50,8 +50,8 @@ export default defineNuxtPlugin(async () => {
       error: theme.lightError,
     };
 
-    $vuetify.themes.value.dark.colors = {
-      ...$vuetify.themes.value.dark.colors,
+    $vuetify.theme.themes.value.dark.colors = {
+      ...$vuetify.theme.themes.value.dark.colors,
       primary: theme.darkPrimary,
       accent: theme.darkAccent,
       secondary: theme.darkSecondary,
@@ -62,8 +62,8 @@ export default defineNuxtPlugin(async () => {
     };
   }
 
-  if ($config.useDark) {
-    $vuetify.global.name.value = 'dark';
+  if (config.public.useDark) {
+    $vuetify.theme.global.name.value = 'dark';
   }
   return {
     provide: {
