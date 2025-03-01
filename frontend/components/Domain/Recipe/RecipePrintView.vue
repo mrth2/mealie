@@ -3,12 +3,8 @@
     <section>
       <v-container class="ma-0 pa-0">
         <v-row>
-          <v-col
-            v-if="preferences.imagePosition && preferences.imagePosition != ImagePosition.hidden"
-            :order="preferences.imagePosition == ImagePosition.left ? -1 : 1"
-            cols="4"
-            align-self="center"
-          >
+          <v-col v-if="preferences.imagePosition && preferences.imagePosition != ImagePosition.hidden"
+            :order="preferences.imagePosition == ImagePosition.left ? -1 : 1" cols="4" align-self="center">
             <img :key="imageKey" :src="recipeImageUrl" style="min-height: 50; max-width: 100%;" />
           </v-col>
           <v-col order=0>
@@ -19,10 +15,7 @@
               {{ recipe.name }}
             </v-card-title>
             <div v-if="recipeYield" class="d-flex justify-space-between align-center px-4 pb-2">
-              <v-chip
-                :small="breakpoint.smAndDown"
-                label
-              >
+              <v-chip :small="breakpoint.smAndDown" label>
                 <v-icon left>
                   {{ $globals.icons.potSteam }}
                 </v-icon>
@@ -30,12 +23,8 @@
                 <span v-html="recipeYield"></span>
               </v-chip>
             </div>
-            <RecipeTimeCard
-              :prep-time="recipe.prepTime"
-              :total-time="recipe.totalTime"
-              :perform-time="recipe.performTime"
-              color="white"
-            />
+            <RecipeTimeCard :prep-time="recipe.prepTime" :total-time="recipe.totalTime"
+              :perform-time="recipe.performTime" color="white" />
             <v-card-text v-if="preferences.showDescription" class="px-0">
               <SafeMarkdown :source="recipe.description" />
             </v-card-text>
@@ -47,21 +36,17 @@
     <!-- Ingredients -->
     <section>
       <v-card-title class="headline pl-0"> {{ $t("recipe.ingredients") }} </v-card-title>
-      <div
-        v-for="(ingredientSection, sectionIndex) in ingredientSections"
-        :key="`ingredient-section-${sectionIndex}`"
-        class="print-section"
-      >
+      <div v-for="(ingredientSection, sectionIndex) in ingredientSections" :key="`ingredient-section-${sectionIndex}`"
+        class="print-section">
         <h4 v-if="ingredientSection.ingredients[0].title" class="ingredient-title mt-2">
           {{ ingredientSection.ingredients[0].title }}
         </h4>
-        <div
-          class="ingredient-grid"
-          :style="{ gridTemplateRows: `repeat(${Math.ceil(ingredientSection.ingredients.length / 2)}, min-content)` }"
-        >
-          <template v-for="(ingredient, ingredientIndex) in ingredientSection.ingredients">
+        <div class="ingredient-grid"
+          :style="{ gridTemplateRows: `repeat(${Math.ceil(ingredientSection.ingredients.length / 2)}, min-content)` }">
+          <template v-for="(ingredient, ingredientIndex) in ingredientSection.ingredients"
+            :key="`ingredient-${ingredientIndex}`">
             <!-- eslint-disable-next-line vue/no-v-html -->
-            <p :key="`ingredient-${ingredientIndex}`" class="ingredient-body" v-html="parseText(ingredient)" />
+            <p class="ingredient-body" v-html="parseText(ingredient)" />
           </template>
         </div>
       </div>
@@ -69,18 +54,18 @@
 
     <!-- Instructions -->
     <section>
-      <div
-        v-for="(instructionSection, sectionIndex) in instructionSections"
-        :key="`instruction-section-${sectionIndex}`"
-        :class="{ 'print-section': instructionSection.sectionName }"
-      >
+      <div v-for="(instructionSection, sectionIndex) in instructionSections"
+        :key="`instruction-section-${sectionIndex}`" :class="{ 'print-section': instructionSection.sectionName }">
         <v-card-title v-if="!sectionIndex" class="headline pl-0">{{ $t("recipe.instructions") }}</v-card-title>
         <div v-for="(step, stepIndex) in instructionSection.instructions" :key="`instruction-${stepIndex}`">
           <div class="print-section">
             <h4 v-if="step.title" :key="`instruction-title-${stepIndex}`" class="instruction-title mb-2">
               {{ step.title }}
             </h4>
-            <h5>{{ step.summary ? step.summary : $t("recipe.step-index", { step: stepIndex + instructionSection.stepOffset + 1 }) }}</h5>
+            <h5>{{ step.summary ? step.summary : $t("recipe.step-index", {
+              step: stepIndex +
+                instructionSection.stepOffset +
+              1 }) }}</h5>
             <SafeMarkdown :source="step.text" class="recipe-step-body" />
           </div>
         </div>
@@ -117,8 +102,8 @@
               </tr>
             </tbody>
           </table>
-      </div>
-    </section>
+        </div>
+      </section>
     </div>
 
   </div>
@@ -128,7 +113,7 @@
 import DOMPurify from "dompurify";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { useStaticRoutes } from "~/composables/api";
-import type { Recipe, RecipeIngredient, RecipeStep} from "~/lib/api/types/recipe";
+import type { Recipe, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
 import { parseIngredientText, useNutritionLabels } from "~/composables/recipes";
@@ -170,7 +155,7 @@ export default defineNuxtComponent({
     const preferences = useUserPrintPreferences();
     const { recipeImage } = useStaticRoutes();
     const { imageKey } = usePageState(props.recipe.slug);
-    const {labels} = useNutritionLabels();
+    const { labels } = useNutritionLabels();
 
     function sanitizeHTML(rawHtml: string) {
       return DOMPurify.sanitize(rawHtml, {
@@ -315,7 +300,7 @@ export default defineNuxtComponent({
 }
 
 .wrapper,
-.wrapper >>> * {
+.wrapper>>>* {
   opacity: 1 !important;
   color: black !important;
 }
@@ -391,10 +376,10 @@ li {
   width: 30%;
   text-align: right;
 }
+
 .nutrition-table td {
   padding: 2px;
   text-align: left;
   font-size: 14px;
 }
-
 </style>
