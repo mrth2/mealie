@@ -67,8 +67,7 @@ export default defineNuxtConfig({
     // https://i18n.nuxtjs.org/setup
     "@nuxtjs/i18n",
 
-    // https://auth.nuxtjs.org/guide/setup
-    // "@nuxtjs/auth-next",
+    "nuxt-auth-utils",
 
     // https://github.com/nuxt-community/proxy-module
     /* [
@@ -91,8 +90,7 @@ export default defineNuxtConfig({
 
     // https://google-fonts.nuxtjs.org/setup
     "@nuxtjs/google-fonts",
-
-    "vuetify-nuxt-module"
+    "vuetify-nuxt-module",
   ],
 
   googleFonts: {
@@ -171,6 +169,7 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    sessionPassword: process.env.SESSION_PASSWORD || "password-with-at-least-32-characters",
     public: {
       GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || undefined,
       SUB_PATH: process.env.SUB_PATH || "",
