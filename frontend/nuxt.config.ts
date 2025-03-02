@@ -52,17 +52,20 @@ export default defineNuxtConfig({
   },
 
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["~/assets/css/main.css", "~/assets/css/main.css", "~/assets/style-overrides.scss"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ["~/plugins/globals.ts", "~/plugins/axios.ts", "~/plugins/theme.ts", "~/plugins/dark-mode.client.ts"],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    },
+  ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [// https://go.nuxtjs.dev/pwa
+  modules: [
+    // https://go.nuxtjs.dev/pwa
     // ...(process.env.NODE_ENV === "production" ? ["@nuxtjs/pwa"] : []),
 
     // https://i18n.nuxtjs.org/setup
