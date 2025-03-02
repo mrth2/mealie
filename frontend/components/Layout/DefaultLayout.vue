@@ -49,11 +49,11 @@
         <v-list-item @click="toggleDark">
           <template #prepend>
             <v-icon>
-              {{ currentTheme?.dark ? $globals.icons.weatherSunny : $globals.icons.weatherNight }}
+              {{ $vuetify.theme.current.dark ? $globals.icons.weatherSunny : $globals.icons.weatherNight }}
             </v-icon>
           </template>
           <v-list-item-title>
-            {{ currentTheme?.dark ? $t("settings.theme.light-mode") : $t("settings.theme.dark-mode") }}
+            {{ $vuetify.theme.current.dark ? $t("settings.theme.light-mode") : $t("settings.theme.dark-mode") }}
           </v-list-item-title>
         </v-list-item>
       </template>
@@ -91,7 +91,6 @@ export default defineNuxtComponent({
     const { $globals, $vuetify } = useNuxtApp();
     const $auth = useMealieAuth();
     const { isOwnGroup } = useLoggedInState();
-    const { current: currentTheme } = useTheme();
 
     const isAdmin = computed(() => $auth.user.value?.admin);
     const route = useRoute();
@@ -284,7 +283,6 @@ export default defineNuxtComponent({
       languageDialog,
       toggleDark,
       sidebar,
-      currentTheme,
     };
   },
 });
