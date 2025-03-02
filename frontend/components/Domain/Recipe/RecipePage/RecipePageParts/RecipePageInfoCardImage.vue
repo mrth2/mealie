@@ -29,6 +29,7 @@ export default defineNuxtComponent({
     },
   },
   setup(props) {
+    const { $vuetify } = useNuxtApp();
     const { recipeImage } = useStaticRoutes();
     const { imageKey } = usePageState(props.recipe.slug);
     const { user } = usePageUser();
@@ -41,11 +42,9 @@ export default defineNuxtComponent({
       });
     }
 
-    const breakpoint = useDisplay();
-
     const hideImage = ref(false);
     const imageHeight = computed(() => {
-      return breakpoint.xs.value ? "200" : "400";
+      return $vuetify.display.xs ? "200" : "400";
     });
 
     const recipeImageUrl = computed(() => {
@@ -64,7 +63,6 @@ export default defineNuxtComponent({
       imageKey,
       hideImage,
       imageHeight,
-      breakpoint,
     };
   }
 });

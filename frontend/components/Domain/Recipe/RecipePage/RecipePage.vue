@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-container v-show="!isCookMode" key="recipe-page" :class="{ 'pa-0': breakpoint.smAndDown }">
-      <v-card :flat="breakpoint.smAndDown" class="d-print-none">
+    <v-container v-show="!isCookMode" key="recipe-page" :class="{ 'pa-0': $vuetify.display.smAndDown }">
+      <v-card :flat="$vuetify.display.smAndDown" class="d-print-none">
         <RecipePageHeader
           :recipe="recipe"
           :recipe-scale="scale"
@@ -35,9 +35,9 @@
             -->
             <v-col v-if="!isCookMode || isEditForm" cols="12" sm="12" md="4" lg="4">
               <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="recipe" :scale="scale" />
-              <RecipePageOrganizers v-if="breakpoint.mdAndUp" :recipe="recipe" @item-selected="chipClicked" />
+              <RecipePageOrganizers v-if="$vuetify.display.mdAndUp" :recipe="recipe" @item-selected="chipClicked" />
             </v-col>
-            <v-divider v-if="breakpoint.mdAndUp && !isCookMode" class="my-divider" :vertical="true" />
+            <v-divider v-if="$vuetify.display.mdAndUp && !isCookMode" class="my-divider" :vertical="true" />
 
             <!--
               the right column is always rendered, but it's layout width is determined by where the left column is
@@ -54,7 +54,7 @@
                 <RecipeDialogBulkAdd class="ml-auto my-2 mr-1" @bulk-data="addStep" />
                 <BaseButton class="my-2" @click="addStep()"> {{ $t("general.add") }}</BaseButton>
               </div>
-              <div v-if="!breakpoint.mdAndUp">
+              <div v-if="!$vuetify.display.mdAndUp">
                 <RecipePageOrganizers :recipe="recipe" />
               </div>
               <RecipeNotes v-model="recipe.notes" :edit="isEditForm" />
@@ -72,7 +72,7 @@
       <RecipePrintContainer :recipe="recipe" :scale="scale" />
     </v-container>
     <!-- Cook mode displayes two columns with ingredients and instructions side by side, each being scrolled individually, allowing to view both at the same timer -->
-    <v-sheet v-show="isCookMode && !hasLinkedIngredients" key="cookmode" :style="{height: breakpoint.smAndUp ? 'calc(100vh - 48px)' : ''}"> <!-- the calc is to account for the toolbar a more dynamic solution could be needed  -->
+    <v-sheet v-show="isCookMode && !hasLinkedIngredients" key="cookmode" :style="{height: $vuetify.display.smAndUp ? 'calc(100vh - 48px)' : ''}"> <!-- the calc is to account for the toolbar a more dynamic solution could be needed  -->
       <v-row  style="height: 100%;"  no-gutters class="overflow-hidden">
         <v-col  cols="12" sm="5" class="overflow-y-auto pl-4 pr-3 py-2" style="height: 100%;">
           <div class="d-flex align-center">
@@ -194,8 +194,11 @@ export default defineNuxtComponent({
     },
   },
   setup(props) {
+    const { $vuetify } = useNuxtApp();
+    const i18n = useI18n();
     const $auth = useMealieAuth();
     const route = useRoute();
+
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user?.value?.groupSlug || "");
     const { isOwnGroup } = useLoggedInState();
 
@@ -278,12 +281,9 @@ export default defineNuxtComponent({
     /** =============================================================
      * View Preferences
      */
-    const i18n = useI18n();
-    const breakpoint = useDisplay();
-
     const landscape = computed(() => {
       const preferLandscape = props.recipe.settings.landscapeView;
-      const smallScreen = !breakpoint.smAndUp;
+      const smallScreen = !$vuetify.display.smAndUp;
 
       if (preferLandscape) {
         return true;
@@ -354,7 +354,6 @@ export default defineNuxtComponent({
       hasLinkedIngredients,
       notLinkedIngredients,
       chipClicked,
-      breakpoint,
     };
   },
 });

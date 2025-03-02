@@ -190,7 +190,7 @@
                         </div>
                       </v-col>
                       <v-divider
-                        v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0 && breakpoint.smAndUp"
+                        v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0 && $vuetify.display.smAndUp"
                         vertical></v-divider>
                       <v-col>
                         <SafeMarkdown class="markdown" :source="step.text" />

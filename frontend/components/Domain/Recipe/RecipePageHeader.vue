@@ -1,16 +1,13 @@
 <script lang="ts">
 export default defineNuxtComponent({
   setup(props) {
-    const breakpoint = useDisplay();
-
+    const { $vuetify } = useNuxtApp();
     const imageHeight = computed(() => {
-      return breakpoint.xs.value ? "200" : "400";
+      return $vuetify.display.xs ? "200" : "400";
     });
-
 
     return {
       imageHeight,
-      breakpoint,
     };
   },
 });

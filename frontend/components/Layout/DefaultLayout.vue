@@ -84,16 +84,15 @@ import type { ReadCookBook } from "~/lib/api/types/cookbook";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 
 import LanguageDialog from "~/components/global/LanguageDialog.vue";
-import AppHeader from "../layout/layoutParts/AppHeader.vue";
-import AppSidebar from "../layout/layoutParts/AppSidebar.vue";
-import TheSnackbar from "../layout/layoutParts/TheSnackbar.vue";
-
+import AppHeader from "~/components/Layout/LayoutParts/AppHeader.vue";
+import AppSidebar from "~/components/Layout/LayoutParts/AppSidebar.vue";
+import TheSnackbar from "~/components/Layout/LayoutParts/TheSnackbar.vue";
 
 export default defineNuxtComponent({
   components: { AppHeader, AppSidebar, LanguageDialog, TheSnackbar },
   setup() {
     const i18n = useI18n();
-    const { $globals } = useNuxtApp();
+    const { $globals, $vuetify } = useNuxtApp();
     const $auth = useMealieAuth();
     const { isOwnGroup } = useLoggedInState();
     const { current: currentTheme } = useTheme();
@@ -119,12 +118,10 @@ export default defineNuxtComponent({
 
     const languageDialog = ref<boolean>(false);
 
-    const breakpoint = useDisplay();
-
     const sidebar = ref<boolean | null>(null);
 
     onMounted(() => {
-      sidebar.value = !breakpoint.md.value;
+      sidebar.value = !$vuetify.display.md;
     });
 
     function cookbookAsLink(cookbook: ReadCookBook): SideBarLink {
@@ -291,7 +288,6 @@ export default defineNuxtComponent({
       languageDialog,
       toggleDark,
       sidebar,
-      breakpoint,
       currentTheme,
     };
   },

@@ -35,7 +35,7 @@
     <RecipeDialogAddToShoppingList v-if="shoppingLists && recipeRefWithScale" v-model="shoppingListDialog"
       :recipes="[recipeRefWithScale]" :shopping-lists="shoppingLists" />
     <v-menu offset-y left :bottom="!menuTop" :nudge-bottom="!menuTop ? '5' : '0'" :top="menuTop"
-      :nudge-top="menuTop ? '5' : '0'" allow-overflow close-delay="125" :open-on-hover="breakpoint.mdAndUp"
+      :nudge-top="menuTop ? '5' : '0'" allow-overflow close-delay="125" :open-on-hover="$vuetify.display.mdAndUp"
       content-class="d-print-none">
       <template #activator="{ on, attrs }">
         <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="attrs" v-on="on" @click.prevent>
@@ -176,7 +176,6 @@ export default defineNuxtComponent({
   },
   setup(props, context) {
     const api = useUserApi();
-    const breakpoint = useDisplay();
 
     const state = reactive({
       printPreferencesDialog: false,
@@ -428,7 +427,6 @@ export default defineNuxtComponent({
       icon,
       planTypeOptions,
       firstDayOfWeek,
-      breakpoint,
     };
   },
 });

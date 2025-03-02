@@ -2,7 +2,7 @@
     <div
         v-if="wakeIsSupported"
         class="d-print-none d-flex px-2"
-        :class="breakpoint.smAndDown ? 'justify-center' : 'justify-end'"
+        :class="$vuetify.display.smAndDown ? 'justify-center' : 'justify-end'"
     >
         <v-switch v-model="wakeLock" small :label="$t('recipe.screen-awake')" />
     </div>
@@ -13,7 +13,6 @@ import { useWakeLock } from "@vueuse/core";
 
 export default defineNuxtComponent({
     setup() {
-        const breakpoint = useDisplay();
         const { isSupported: wakeIsSupported, isActive, request, release } = useWakeLock();
         const wakeLock = computed({
             get: () => isActive.value,
@@ -43,7 +42,6 @@ export default defineNuxtComponent({
         return {
             wakeLock,
             wakeIsSupported,
-            breakpoint,
         };
     },
 });

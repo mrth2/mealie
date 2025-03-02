@@ -210,7 +210,7 @@ export default defineNuxtComponent({
 });
 </script>
 
-<style>
+<style scoped>
 @media print {
   .no-print {
     display: none;

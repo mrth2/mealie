@@ -41,8 +41,6 @@
 </template>
 
 <script lang="ts">
-
-
 export default defineNuxtComponent({
   name: "MaterialCard",
 
@@ -73,14 +71,12 @@ export default defineNuxtComponent({
     },
   },
   setup() {
-    const breakpoint = useDisplay();
-
     const hasHeading = computed(() => false);
     const hasAltHeading = computed(() => false);
     const classes = computed(() => {
       return {
         "v-card--material--has-heading": hasHeading,
-        "mt-3": breakpoint.name === "xs" || breakpoint.name === "sm",
+        "mt-3": $vuetify.display.name === "xs" || $vuetify.display.name === "sm",
       };
     });
 
@@ -88,7 +84,6 @@ export default defineNuxtComponent({
       hasHeading,
       hasAltHeading,
       classes,
-      breakpoint,
     };
   },
 });

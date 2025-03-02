@@ -39,10 +39,10 @@
         }" class="ml-1" @print="$emit('print')" />
     </div>
     <div v-if="open" class="custom-btn-group gapped">
-      <v-btn v-for="(btn, index) in editorButtons" :key="index" :fab="breakpoint.xs" :small="breakpoint.xs"
+      <v-btn v-for="(btn, index) in editorButtons" :key="index" :fab="$vuetify.display.xs" :small="$vuetify.display.xs"
         :color="btn.color" @click="emitHandler(btn.event)">
-        <v-icon :left="!breakpoint.xs">{{ btn.icon }}</v-icon>
-        {{ breakpoint.xs ? "" : btn.text }}
+        <v-icon :left="!$vuetify.display.xs">{{ btn.icon }}</v-icon>
+        {{ $vuetify.display.xs ? "" : btn.text }}
       </v-btn>
     </div>
   </v-toolbar>
@@ -98,8 +98,6 @@ export default defineNuxtComponent({
   setup(_, context) {
     const deleteDialog = ref(false);
 
-    const breakpoint = useDisplay();
-
     const i18n = useI18n();
     const { $globals } = useNuxtApp();
     const editorButtons = [
@@ -154,7 +152,6 @@ export default defineNuxtComponent({
       editorButtons,
       emitHandler,
       emitDelete,
-      breakpoint,
     };
   },
 });

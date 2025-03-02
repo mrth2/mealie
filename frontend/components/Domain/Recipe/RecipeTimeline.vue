@@ -49,7 +49,7 @@
     <v-divider class="mx-2" />
     <div v-if="timelineEvents.length" id="timeline-container" height="fit-content" width="100%" class="px-1"
       :style="maxHeight ? `max-height: ${maxHeight}; overflow-y: auto;` : ''">
-      <v-timeline :dense="breakpoint.smAndDown" class="timeline">
+      <v-timeline :dense="$vuetify.display.smAndDown" class="timeline">
         <RecipeTimelineItem v-for="(event, index) in timelineEvents" :key="event.id" :event="event"
           :recipe="recipes.get(event.recipeId)" :show-recipe-cards="showRecipeCards"
           @update="updateTimelineEvent(index)" @delete="deleteTimelineEvent(index)" />
@@ -67,7 +67,6 @@
 </template>
 
 <script lang="ts">
-
 import { useThrottleFn, whenever } from "@vueuse/core";
 import RecipeTimelineItem from "./RecipeTimelineItem.vue"
 import { useTimelinePreferences } from "~/composables/use-users/preferences";
@@ -100,7 +99,6 @@ export default defineNuxtComponent({
   },
 
   setup(props) {
-    const breakpoint = useDisplay();
     const api = useUserApi();
     const i18n = useI18n();
     const preferences = useTimelinePreferences();
@@ -322,7 +320,6 @@ export default defineNuxtComponent({
       toggleEventTypeOption,
       timelineEvents,
       updateTimelineEvent,
-      breakpoint,
     };
   },
 });

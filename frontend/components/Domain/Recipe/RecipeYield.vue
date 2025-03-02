@@ -1,7 +1,7 @@
 <template>
   <div v-if="displayText" class="d-flex justify-space-between align-center">
     <v-chip
-      :small="breakpoint.smAndDown"
+      :small="$vuetify.display.smAndDown"
       label
       :color="color"
     >
@@ -39,7 +39,6 @@ export default defineNuxtComponent({
     },
   },
   setup(props) {
-    const breakpoint = useDisplay();
     const i18n = useI18n();
 
     function sanitizeHTML(rawHtml: string) {
@@ -64,7 +63,6 @@ export default defineNuxtComponent({
 
     return {
       displayText,
-      breakpoint,
     };
   },
 });

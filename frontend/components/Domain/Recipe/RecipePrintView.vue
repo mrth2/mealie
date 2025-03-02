@@ -15,7 +15,7 @@
               {{ recipe.name }}
             </v-card-title>
             <div v-if="recipeYield" class="d-flex justify-space-between align-center px-4 pb-2">
-              <v-chip :small="breakpoint.smAndDown" label>
+              <v-chip :small="$vuetify.display.smAndDown" label>
                 <v-icon left>
                   {{ $globals.icons.potSteam }}
                 </v-icon>
@@ -150,7 +150,6 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const breakpoint = useDisplay();
     const i18n = useI18n();
     const preferences = useUserPrintPreferences();
     const { recipeImage } = useStaticRoutes();
@@ -287,7 +286,6 @@ export default defineNuxtComponent({
       recipeYield,
       ingredientSections,
       instructionSections,
-      breakpoint,
     };
   },
 });

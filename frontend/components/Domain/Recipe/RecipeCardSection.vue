@@ -8,20 +8,20 @@
         <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
       </slot>
       <v-spacer></v-spacer>
-      <v-btn :icon="breakpoint.xsOnly" text :disabled="recipes.length === 0" @click="navigateRandom">
-        <v-icon :left="!breakpoint.xsOnly">
+      <v-btn :icon="$vuetify.display.xs" text :disabled="recipes.length === 0" @click="navigateRandom">
+        <v-icon :left="!$vuetify.display.xs">
           {{ $globals.icons.diceMultiple }}
         </v-icon>
-        {{ breakpoint.xsOnly ? null : $t("general.random") }}
+        {{ $vuetify.display.xs ? null : $t("general.random") }}
       </v-btn>
 
       <v-menu v-if="$listeners.sortRecipes" offset-y left>
         <template #activator="{ on, attrs }">
-          <v-btn text :icon="breakpoint.xsOnly" v-bind="attrs" :loading="sortLoading" v-on="on">
-            <v-icon :left="!breakpoint.xsOnly">
+          <v-btn text :icon="$vuetify.display.xs" v-bind="attrs" :loading="sortLoading" v-on="on">
+            <v-icon :left="!$vuetify.display.xs">
               {{ preferences.sortIcon }}
             </v-icon>
-            {{ breakpoint.xsOnly ? null : $t("general.sort") }}
+            {{ $vuetify.display.xs ? null : $t("general.sort") }}
           </v-btn>
         </template>
         <v-list>
@@ -57,7 +57,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <ContextMenu v-if="!breakpoint.smAndDown" :items="[
+      <ContextMenu v-if="!$vuetify.display.smAndDown" :items="[
         {
           title: $tc('general.toggle-view'),
           icon: $globals.icons.eye,
@@ -152,12 +152,11 @@ export default defineNuxtComponent({
       shuffle: "shuffle",
     };
 
-    const breakpoint = useDisplay();
     const $auth = useMealieAuth();
     const { $globals } = useNuxtApp();
     const { isOwnGroup } = useLoggedInState();
     const useMobileCards = computed(() => {
-      return breakpoint.smAndDown.value || preferences.value.useMobileCards;
+      return $vuetify.display.smAndDown || preferences.value.useMobileCards;
     });
 
     const displayTitleIcon = computed(() => {
@@ -373,7 +372,6 @@ export default defineNuxtComponent({
       sortRecipes,
       toggleMobileCards,
       useMobileCards,
-      breakpoint,
     };
   },
 });

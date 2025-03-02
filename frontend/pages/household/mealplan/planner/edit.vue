@@ -115,7 +115,7 @@
             v-for="mealplan in plan.meals"
             :key="mealplan.id"
             class="my-1"
-            :class="{ handle: breakpoint.smAndUp }"
+            :class="{ handle: $vuetify.display.smAndUp }"
           >
             <v-list-item
               @click="editMeal(mealplan)"
@@ -144,7 +144,7 @@
             </v-list-item>
             <v-divider class="mx-2"></v-divider>
             <div class="py-2 px-2 d-flex" style="align-items: center">
-              <v-btn small icon :class="{ handle: !breakpoint.smAndUp }">
+              <v-btn small icon :class="{ handle: !$vuetify.display.smAndUp }">
                 <v-icon>
                   {{ $globals.icons.arrowUpDown }}
                 </v-icon>
@@ -373,7 +373,6 @@ export default defineNuxtComponent({
 
     const search = useRecipeSearch(api);
     const planTypeOptions = usePlanTypeOptions();
-    const breakpoint = useDisplay();
 
     onMounted(async () => {
       await search.trigger();
@@ -398,7 +397,6 @@ export default defineNuxtComponent({
       // Search
       search,
       firstDayOfWeek,
-      breakpoint,
     };
   },
 });

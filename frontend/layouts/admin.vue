@@ -30,12 +30,11 @@ export default defineNuxtComponent({
   auth: true,
   setup() {
     const i18n = useI18n();
-    const { $globals } = useNuxtApp();
-    const breakpoint = useDisplay();
+    const { $globals, $vuetify } = useNuxtApp();
 
     const sidebar = ref<boolean | null>(null);
     onMounted(() => {
-      sidebar.value = !breakpoint.md.value;
+      sidebar.value = !$vuetify.display.md;
     });
 
     const topLinks: SidebarLinks = [

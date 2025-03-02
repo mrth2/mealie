@@ -7,30 +7,30 @@
       <v-divider class="mx-2"></v-divider>
       <v-list v-if="value.length > 0" :flat="!edit">
         <v-list-item v-for="(item, i) in value" :key="i">
-          <v-list-item-icon class="ma-auto">
-            <v-tooltip bottom>
-              <template #activator="{ on, attrs }">
-                <v-icon v-bind="attrs" v-on="on">
-                  {{ getIconDefinition(item.icon).icon }}
-                </v-icon>
-              </template>
-              <span>{{ getIconDefinition(item.icon).title }}</span>
-            </v-tooltip>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title class="pl-2">
-              {{ item.name }}
-            </v-list-item-title>
-          </v-list-item-content>
+          <template #prepend>
+            <div class="ma-auto">
+              <v-tooltip bottom>
+                <template #activator="{ props }">
+                  <v-icon v-bind="props">
+                    {{ getIconDefinition(item.icon).icon }}
+                  </v-icon>
+                </template>
+                <span>{{ getIconDefinition(item.icon).title }}</span>
+              </v-tooltip>
+            </div>
+          </template>
+          <v-list-item-title class="pl-2">
+            {{ item.name }}
+          </v-list-item-title>
           <v-list-item-action>
-            <v-btn v-if="!edit" color="primary" icon :href="assetURL(item.fileName)" target="_blank" top>
+            <v-btn v-if="!edit" color="primary" icon :href="assetURL(item.fileName ?? '')" target="_blank" top>
               <v-icon> {{ $globals.icons.download }} </v-icon>
             </v-btn>
             <div v-else>
               <v-btn color="error" icon top @click="value.splice(i, 1)">
                 <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
-              <AppButtonCopy color="" :copy-text="assetEmbed(item.fileName)" />
+              <AppButtonCopy color="" :copy-text="assetEmbed(item.fileName ?? '')" />
             </div>
           </v-list-item-action>
         </v-list-item>
@@ -38,27 +38,16 @@
     </v-card>
     <div class="d-flex ml-auto mt-2">
       <v-spacer></v-spacer>
-      <BaseDialog
-        v-model="state.newAssetDialog"
-        :title="$t('asset.new-asset')"
-        :icon="getIconDefinition(state.newAsset.icon).icon"
-        @submit="addAsset"
-      >
+      <BaseDialog v-model="state.newAssetDialog" :title="$t('asset.new-asset')"
+        :icon="getIconDefinition(state.newAsset.icon).icon" @submit="addAsset">
         <template #activator>
           <BaseButton v-if="edit" small create @click="state.newAssetDialog = true" />
         </template>
         <v-card-text class="pt-4">
           <v-text-field v-model="state.newAsset.name" dense :label="$t('general.name')"></v-text-field>
           <div class="d-flex justify-space-between">
-            <v-select
-              v-model="state.newAsset.icon"
-              dense
-              :prepend-icon="getIconDefinition(state.newAsset.icon).icon"
-              :items="iconOptions"
-              item-text="title"
-              item-value="name"
-              class="mr-2"
-            >
+            <v-select v-model="state.newAsset.icon" dense :prepend-icon="getIconDefinition(state.newAsset.icon).icon"
+              :items="iconOptions" item-text="title" item-value="name" class="mr-2">
               <template #item="{ item }">
                 <v-avatar>
                   <v-icon class="mr-auto">
