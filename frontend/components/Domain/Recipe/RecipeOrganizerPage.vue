@@ -124,7 +124,7 @@ export default defineNuxtComponent({
       },
     });
 
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const route = useRoute();
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user?.value?.groupSlug || "");
 

@@ -101,7 +101,7 @@ export default defineNuxtComponent({
   layout: "admin",
   setup() {
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const route = useRoute();
     const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
 

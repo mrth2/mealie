@@ -109,7 +109,7 @@ export default defineNuxtComponent({
   },
   middleware: "auth",
   setup() {
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const user = computed(() => $auth.user.value);
 
     watch(user, () => {

@@ -167,7 +167,7 @@ export default defineNuxtComponent({
       },
     });
 
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { loggedIn, isOwnGroup } = useLoggedInState();
 
     const userFavoritesLink = computed(() => $auth.user.value ? `/user/${$auth.user.value.id}/favorites` : undefined);

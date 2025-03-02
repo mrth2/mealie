@@ -121,7 +121,7 @@ export default defineNuxtComponent({
 
     const router = useRouter();
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { $axios } = useNuxtApp();
     const { loggedIn } = useLoggedInState();
     const groupSlug = computed(() => $auth.user.value?.groupSlug);
@@ -214,7 +214,8 @@ export default defineNuxtComponent({
       formData.append("remember_me", String(form.remember));
 
       try {
-        await $auth.loginWith("local", { data: formData });
+        await $auth.signIn(formData.values());
+        // await $auth.loginWith("local", { data: formData });
       } catch (error) {
         alertOnError(error)
       }

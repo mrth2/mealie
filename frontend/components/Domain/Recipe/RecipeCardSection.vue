@@ -153,7 +153,7 @@ export default defineNuxtComponent({
     };
 
     const breakpoint = useDisplay();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { $globals } = useNuxtApp();
     const { isOwnGroup } = useLoggedInState();
     const useMobileCards = computed(() => {

@@ -82,7 +82,7 @@ export default defineNuxtComponent({
     // ================================================================
     // Setup
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { $globals } = useNuxtApp();
     const userApi = useUserApi();
     const adminApi = useAdminApi();

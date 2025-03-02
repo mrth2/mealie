@@ -305,7 +305,7 @@ export default defineNuxtComponent({
   setup() {
     const userApi = useUserApi();
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const tableConfig = {
       hideColumns: true,
       canExport: true,

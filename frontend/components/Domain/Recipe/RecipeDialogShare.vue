@@ -94,7 +94,7 @@ export default defineNuxtComponent({
     );
 
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { household } = useHouseholdSelf();
     const route = useRoute();
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");

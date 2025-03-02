@@ -9,7 +9,7 @@ import type { AppInfo, AppStartupInfo } from "~/lib/api/types/admin";
 export default defineNuxtComponent({
   layout: "blank",
   setup() {
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { $axios } = useNuxtApp();
     const router = useRouter();
     const groupSlug = computed(() => $auth.user.value?.groupSlug);

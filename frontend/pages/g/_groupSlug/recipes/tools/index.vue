@@ -28,7 +28,7 @@ export default defineNuxtComponent({
   },
   middleware: ["auth", "group-only"],
   setup() {
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const toolStore = useToolStore();
     const dialog = ref(false);
 

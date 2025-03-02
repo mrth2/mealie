@@ -66,7 +66,7 @@ export default defineNuxtComponent({
   },
 
   setup(_, context) {
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const breakpoint = useDisplay();
     const state = reactive({
       loading: false,

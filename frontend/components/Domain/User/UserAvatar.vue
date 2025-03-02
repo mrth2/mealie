@@ -45,7 +45,7 @@ export default defineNuxtComponent({
       error: false,
     });
 
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { store: users } = useUserStore();
     const user = computed(() => {
       return users.value.find((user) => user.id === props.userId);

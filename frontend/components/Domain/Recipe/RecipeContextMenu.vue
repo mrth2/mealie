@@ -194,7 +194,7 @@ export default defineNuxtComponent({
     });
 
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { $globals } = useNuxtApp();
     const { household } = useHouseholdSelf();
     const { isOwnGroup } = useLoggedInState();

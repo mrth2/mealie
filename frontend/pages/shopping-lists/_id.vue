@@ -260,7 +260,7 @@ export default defineNuxtComponent({
   middleware: "auth",
   setup() {
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const preferences = useShoppingListPreferences();
 
     const { idle } = useIdle(5 * 60 * 1000) // 5 minutes

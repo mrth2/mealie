@@ -8,14 +8,14 @@ Unsure how this could work but still be clear and functional. Perhaps by passing
 to control whether the object is substantiated... but some of the others rely on it being substantiated...Will come back to this.
 */
 
-export const useAllUsers = function () {
+export const useAllUsers = async function () {
   const api = useUserApi();
   const loading = ref(false);
 
-  function getAllUsers() {
+  async function getAllUsers() {
     loading.value = true;
     const asyncKey = String(Date.now());
-    const allUsers = useAsyncData(asyncKey, async () => {
+    const { data: allUsers } = await useAsyncData(asyncKey, async () => {
       const { data } = await api.users.getAll();
       if (data) {
         return data.items;
@@ -41,7 +41,7 @@ export const useAllUsers = function () {
     loading.value = false;
   }
 
-  const users = getAllUsers();
+  const users = await getAllUsers();
 
   return { users, refreshAllUsers };
 };

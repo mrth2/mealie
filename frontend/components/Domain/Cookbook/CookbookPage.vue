@@ -42,7 +42,7 @@ import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
 export default defineNuxtComponent({
   components: { RecipeCardSection, CookbookEditor },
   setup() {
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();

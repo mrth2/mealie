@@ -133,7 +133,7 @@ export default defineNuxtComponent({
     const userApi = useUserApi();
     const { household } = useHouseholdSelf();
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const domMadeThisForm = ref<VForm>();
     const newTimelineEvent = ref<RecipeTimelineEventIn>({
       subject: "",

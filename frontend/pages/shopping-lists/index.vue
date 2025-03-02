@@ -76,7 +76,7 @@ import type { UserOut } from "~/lib/api/types/user";
 export default defineNuxtComponent({
   middleware: "auth",
   setup() {
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const ready = ref(false);
     const userApi = useUserApi();
     const route = useRoute();

@@ -1,5 +1,6 @@
 import { defineNuxtConfig } from "nuxt/config";
 import commonjs from 'vite-plugin-commonjs';
+import type { UserOut } from "./lib/api/types/user";
 
 export default defineNuxtConfig({
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -66,7 +67,9 @@ export default defineNuxtConfig({
     // ...(process.env.NODE_ENV === "production" ? ["@nuxtjs/pwa"] : []),
 
     // https://i18n.nuxtjs.org/setup
-    "@nuxtjs/i18n", "nuxt-auth-utils", // https://github.com/nuxt-community/proxy-module
+    "@nuxtjs/i18n", // https://github.com/nuxt-community/proxy-module
+
+    "@sidebase/nuxt-auth",
     /* [
       "@nuxtjs/proxy",
       {
@@ -86,7 +89,10 @@ export default defineNuxtConfig({
     ], */
 
     // https://google-fonts.nuxtjs.org/setup
-    "@nuxtjs/google-fonts", "vuetify-nuxt-module", "@nuxtjs/mdc"],
+    "@nuxtjs/google-fonts",
+    "vuetify-nuxt-module",
+    "@nuxtjs/mdc",
+  ],
 
   googleFonts: {
     fontsPath: "/assets/fonts",
@@ -96,6 +102,27 @@ export default defineNuxtConfig({
     },
   },
 
+  auth: {
+    isEnabled: true,
+    disableServerSideAuth: true,
+    originEnvKey: 'AUTH_ORIGIN',
+    baseURL: 'http://localhost:9000',
+    provider: {
+      type: 'local',
+      endpoints: {
+        signIn: { path: '/api/auth/token', method: 'post' },
+        signOut: { path: '/api/auth/logout', method: 'post' },
+        getSession: { path: '/api/users/self', method: 'get' },
+      },
+      token: {
+        type: 'Bearer',
+      },
+    },
+    sessionRefresh: {
+      enablePeriodically: true,
+      enableOnWindowFocus: true,
+    }
+  },
   /* auth: {
     redirect: {
       login: "/login",

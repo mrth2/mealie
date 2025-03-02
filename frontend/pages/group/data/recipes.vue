@@ -196,7 +196,7 @@ export default defineNuxtComponent({
   scrollToTop: true,
   setup() {
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { $globals } = useNuxtApp();
     const { getAllRecipes, refreshRecipes } = useRecipes(true, true, false, `householdId=${$auth.user.value?.householdId || ""}`);
     const selected = ref<Recipe[]>([]);

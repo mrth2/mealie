@@ -9,7 +9,7 @@
  */
 export default defineNuxtComponent({
   setup(_, ctx) {
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
 
     const r = $auth.user.value?.advanced || false;
 

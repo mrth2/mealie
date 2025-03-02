@@ -66,7 +66,7 @@ import type { VForm } from "~/types/vuetify";
 export default defineNuxtComponent({
   middleware: ["auth", "advanced-only"],
   setup() {
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
 
     const user = computed(() => {
       return $auth.user.value;

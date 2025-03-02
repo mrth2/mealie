@@ -1,5 +1,5 @@
 export const useLoggedInState = function () {
-  const $auth = useUserSession();
+  const $auth = useMealieAuth();
   const route = useRoute();
 
   const loggedIn = computed(() => $auth.loggedIn.value);

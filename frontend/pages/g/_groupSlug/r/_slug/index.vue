@@ -13,7 +13,7 @@ import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useRecipe } from "~/composables/recipes";
 import type { Recipe } from "~/lib/api/types/recipe";
 
-const $auth = useUserSession();
+const $auth = useMealieAuth();
 const { isOwnGroup } = useLoggedInState();
 const route = useRoute();
 const title = ref(route.meta?.title ?? "");

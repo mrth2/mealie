@@ -144,7 +144,7 @@ export default defineNuxtComponent({
   },
   setup(props, context) {
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const api = useUserApi();
     const preferences = useShoppingListPreferences();
     const breakpoint = useDisplay();

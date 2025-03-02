@@ -150,7 +150,7 @@ export function clearPageState(slug: string) {
  * object with all properties set to their zero value is returned.
  */
 export function usePageUser(): { user: UserOut } {
-  const $auth = useUserSession();
+  const $auth = useMealieAuth();
 
   if (!$auth.user.value) {
     return {

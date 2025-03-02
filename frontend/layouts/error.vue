@@ -38,7 +38,7 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { $globals } = useNuxtApp();
     const ready = ref(false);
 

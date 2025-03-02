@@ -252,7 +252,7 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const api = useUserApi();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { household } = useHouseholdSelf();
     const requiredRule = (value: any) => !!value || "Required."
 

@@ -65,7 +65,7 @@ export default defineNuxtComponent({
   },
   middleware: ["auth"],
   setup() {
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const api = useUserApi();
     const i18n = useI18n();
 

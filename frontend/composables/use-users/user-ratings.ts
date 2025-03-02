@@ -6,7 +6,7 @@ const loading = ref(false);
 const ready = ref(false);
 
 export const useUserSelfRatings = function () {
-  const $auth = useUserSession();
+  const $auth = useMealieAuth();
   const api = useUserApi();
 
   async function refreshUserRatings() {

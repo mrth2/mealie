@@ -83,7 +83,7 @@ export default defineNuxtComponent({
     const api = useAdminApi();
     const refUserDialog = ref();
     const inviteDialog = ref();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
 
     const user = computed(() => $auth.user.value);
 

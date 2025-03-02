@@ -123,7 +123,7 @@ export default defineNuxtComponent({
   },
 
   setup(props) {
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { recipeTimelineEventImage } = useStaticRoutes();
     const { eventTypeOptions } = useTimelineEventTypes();
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);

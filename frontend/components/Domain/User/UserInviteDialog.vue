@@ -59,7 +59,7 @@ export default defineNuxtComponent({
   },
   setup(props, context) {
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
 
     const isAdmin = computed(() => $auth.user.value?.admin);
     const token = ref("");

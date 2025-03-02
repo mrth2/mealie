@@ -147,7 +147,7 @@ export default defineNuxtComponent({
     },
   },
   setup(props) {
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();

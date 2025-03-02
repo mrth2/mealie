@@ -94,7 +94,7 @@ export default defineNuxtComponent({
   setup() {
     const i18n = useI18n();
     const { $globals } = useNuxtApp();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { isOwnGroup } = useLoggedInState();
     const { current: currentTheme } = useTheme();
 

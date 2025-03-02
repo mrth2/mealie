@@ -62,7 +62,7 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { frac } = useFraction();
     const route = useRoute();
     const groupSlug = computed(() => route.params.groupSlug || $auth.user?.value?.groupSlug || "");

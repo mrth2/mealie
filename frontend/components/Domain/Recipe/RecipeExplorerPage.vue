@@ -153,7 +153,7 @@ export default defineNuxtComponent({
   setup() {
     const router = useRouter();
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { $globals } = useNuxtApp();
 
     const { isOwnGroup } = useLoggedInState();

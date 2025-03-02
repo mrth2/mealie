@@ -141,7 +141,7 @@ export default defineNuxtComponent({
     });
 
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { cookbooks: allCookbooks, actions } = useCookbooks();
     const myCookbooks = computed<ReadCookBook[]>({
       get: () => {

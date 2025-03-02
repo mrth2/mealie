@@ -95,7 +95,7 @@ export default defineNuxtComponent({
   },
   setup(props, context) {
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const groupSlug = $auth.user.value?.groupSlug;
     const router = useRouter();
     function setValue(value: Recipe[]) {

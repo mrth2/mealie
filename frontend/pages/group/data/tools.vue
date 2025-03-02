@@ -83,7 +83,7 @@ interface RecipeToolWithOnHand extends RecipeTool {
 export default defineNuxtComponent({
   setup() {
     const i18n = useI18n();
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const tableConfig = {
       hideColumns: true,
       canExport: true,

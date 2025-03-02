@@ -16,7 +16,7 @@
 
     <!-- Navigation Menu -->
     <template v-if="menu">
-      <div v-if="!breakpoint.xs" style="max-width: 500px" @click="activateSearch">
+      <div v-if="!xs" style="max-width: 500px" @click="activateSearch">
         <v-text-field readonly class="mt-6 rounded-xl" rounded dark solo dense flat
           :prepend-inner-icon="$globals.icons.search" background-color="primary darken-1" color="white"
           :placeholder="$t('search.search-hint')">
@@ -25,9 +25,9 @@
       <v-btn v-else icon @click="activateSearch">
         <v-icon> {{ $globals.icons.search }}</v-icon>
       </v-btn>
-      <v-btn v-if="loggedIn" :text="breakpoint.smAndUp" :icon="breakpoint.xs" @click="logout()">
-        <v-icon :left="breakpoint.smAndUp">{{ $globals.icons.logout }}</v-icon>
-        {{ breakpoint.smAndUp ? $t("user.logout") : "" }}
+      <v-btn v-if="loggedIn" :text="smAndUp" :icon="xs" @click="logout()">
+        <v-icon :left="smAndUp">{{ $globals.icons.logout }}</v-icon>
+        {{ smAndUp ? $t("user.logout") : "" }}
       </v-btn>
       <v-btn v-else text nuxt to="/login">
         <v-icon left>{{ $globals.icons.user }}</v-icon>
@@ -50,12 +50,12 @@ export default defineNuxtComponent({
     },
   },
   setup() {
-    const $auth = useUserSession();
+    const $auth = useMealieAuth();
     const { loggedIn } = useLoggedInState();
     const route = useRoute();
     const router = useRouter();
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
-    const breakpoint = useDisplay();
+    const { xs, smAndUp } = useDisplay();
 
     const routerLink = computed(() => groupSlug.value ? `/g/${groupSlug.value}` : "/");
     const domSearchDialog = ref<InstanceType<typeof RecipeDialogSearch> | null>(null);
@@ -81,7 +81,12 @@ export default defineNuxtComponent({
     });
 
     async function logout() {
-      await $auth.clear().then(() => router.push("/login?direct=1"))
+      try {
+        await $auth.signOut();
+        router.push("/login?direct=1");
+      } catch (e) {
+        console.error(e);
+      }
     }
 
     return {
@@ -90,7 +95,7 @@ export default defineNuxtComponent({
       routerLink,
       loggedIn,
       logout,
-      breakpoint,
+      xs, smAndUp,
     };
   },
 });
