@@ -8,9 +8,9 @@
       :style="tile ? 'max-width: 100%; width: fit-content;' : 'width: 100%;'"
     >
       <v-list-item :to="disabled ? '' : '/g/' + groupSlug + '/r/' + recipe.slug" :class="attrs.class.listItem">
-        <v-list-item-avatar :class="attrs.class.avatar">
+        <v-avatar :class="attrs.class.avatar">
           <v-icon :class="attrs.class.icon" dark :small="small"> {{ $globals.icons.primary }} </v-icon>
-        </v-list-item-avatar>
+        </v-avatar>
         <v-list-item-content :class="attrs.class.text">
           <v-list-item-title :class="listItem && listItemDescriptions[index] ? '' : 'pr-4'" :style="attrs.style.text.title">
             {{ recipe.name }}

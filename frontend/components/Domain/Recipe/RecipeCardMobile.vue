@@ -21,7 +21,7 @@
         </v-img>
         <v-list-item three-line :class="vertical ? 'px-2' : 'px-0'">
           <slot v-if="!vertical" name="avatar">
-            <v-list-item-avatar tile :height="height" width="125" class="v-mobile-img rounded-sm my-0">
+            <v-avatar tile :height="height" width="125" class="v-mobile-img rounded-sm my-0">
               <RecipeCardImage
                 :icon-size="100"
                 :height="height"
@@ -30,7 +30,7 @@
                 :image-version="image"
                 small
               />
-            </v-list-item-avatar>
+            </v-avatar>
           </slot>
           <v-list-item-content class="py-0">
             <v-list-item-title class="mt-1 mb-1 text-top">{{ name }}</v-list-item-title>

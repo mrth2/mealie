@@ -18,11 +18,11 @@
             <div v-if="!item.hide" :key="item.title">
               <v-divider v-if="item.insertDivider" :key="index" class="mx-2"></v-divider>
               <v-list-item v-if="!item.restricted || isOwnGroup" :key="item.title" :to="item.to" exact>
-                <v-list-item-avatar>
+                <v-avatar>
                   <v-icon>
                     {{ item.icon }}
                   </v-icon>
-                </v-list-item-avatar>
+                </v-avatar>
                 <v-list-item-content>
                   <v-list-item-title>
                     {{ item.title }}

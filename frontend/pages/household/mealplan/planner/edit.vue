@@ -120,7 +120,7 @@
             <v-list-item
               @click="editMeal(mealplan)"
             >
-              <v-list-item-avatar :rounded="false">
+              <v-avatar :rounded="false">
                 <RecipeCardImage
                   v-if="mealplan.recipe"
                   :recipe-id="mealplan.recipe.id"
@@ -132,7 +132,7 @@
                 <v-icon v-else>
                   {{ $globals.icons.primary }}
                 </v-icon>
-              </v-list-item-avatar>
+              </v-avatar>
               <v-list-item-content>
                 <v-list-item-title class="mb-1">
                   {{ mealplan.recipe ? mealplan.recipe.name : mealplan.title }}

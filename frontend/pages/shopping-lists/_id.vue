@@ -69,10 +69,9 @@
                     },
                   ],
                 },
-              ]" @edit="edit = true" @three-dot="threeDot = true" @check="openCheckAll"
-                @sort-by-labels="sortByLabels" @copy-plain="copyListItems('plain')"
-                @copy-markdown="copyListItems('markdown')" @reorder-labels="toggleReorderLabelsDialog()"
-                @manage-labels="$router.push(`/group/data/labels`)" />
+              ]" @edit="edit = true" @three-dot="threeDot = true" @check="openCheckAll" @sort-by-labels="sortByLabels"
+                @copy-plain="copyListItems('plain')" @copy-markdown="copyListItems('markdown')"
+                @reorder-labels="toggleReorderLabelsDialog()" @manage-labels="$router.push(`/group/data/labels`)" />
             </v-col>
           </v-row>
         </v-container>
@@ -136,8 +135,8 @@
 
       <!-- Reorder Labels -->
       <BaseDialog v-model="reorderLabelsDialog" :icon="$globals.icons.tagArrowUp"
-        :title="$t('shopping-list.reorder-labels')" :submit-icon="$globals.icons.save"
-        :submit-text="$t('general.save')" @submit="saveLabelOrder" @close="cancelLabelOrder">
+        :title="$t('shopping-list.reorder-labels')" :submit-icon="$globals.icons.save" :submit-text="$t('general.save')"
+        @submit="saveLabelOrder" @close="cancelLabelOrder">
         <v-card height="fit-content" max-height="70vh" style="overflow-y: auto;">
           <draggable v-if="localLabels" :value="localLabels" handle=".handle" delay="250" :delay-on-touch-only="true"
             class="my-2" @input="updateLabelOrder">
@@ -200,24 +199,27 @@
           </span>
           {{ $tc('shopping-list.linked-recipes-count', shoppingList.recipeReferences ?
             shoppingList.recipeReferences.length
-          : 0) }}
+            : 0) }}
         </div>
         <v-divider class="my-4"></v-divider>
         <RecipeList :recipes="Array.from(recipeMap.values())" show-description :disabled="$nuxt.isOffline">
-          <template v-for="(recipe, index) in recipeMap.values()" #[`actions-${recipe.id}`]>
-            <v-list-item-action :key="'item-actions-decrease' + recipe.id">
-              <v-btn icon :disabled="$nuxt.isOffline" @click.prevent="removeRecipeReferenceToList(recipe.id)">
-                <v-icon color="grey lighten-1">{{ $globals.icons.minus }}</v-icon>
-              </v-btn>
-            </v-list-item-action>
-            <div :key="'item-actions-quantity' + recipe.id" class="pl-3">
-              {{ shoppingList.recipeReferences[index].recipeQuantity }}
-            </div>
-            <v-list-item-action :key="'item-actions-increase' + recipe.id">
-              <v-btn icon :disabled="$nuxt.isOffline" @click.prevent="addRecipeReferenceToList(recipe.id)">
-                <v-icon color="grey lighten-1">{{ $globals.icons.createAlt }}</v-icon>
-              </v-btn>
-            </v-list-item-action>
+          <template v-for="(recipe, index) in recipeMap.values()" #[`actions-${recipe.id}`]
+            :key="'item-actions-decrease' + recipe.id">
+            <template>
+              <v-list-item-action>
+                <v-btn icon :disabled="$nuxt.isOffline" @click.prevent="removeRecipeReferenceToList(recipe.id)">
+                  <v-icon color="grey lighten-1">{{ $globals.icons.minus }}</v-icon>
+                </v-btn>
+              </v-list-item-action>
+              <div :key="'item-actions-quantity' + recipe.id" class="pl-3">
+                {{ shoppingList.recipeReferences[index].recipeQuantity }}
+              </div>
+              <v-list-item-action :key="'item-actions-increase' + recipe.id">
+                <v-btn icon :disabled="$nuxt.isOffline" @click.prevent="addRecipeReferenceToList(recipe.id)">
+                  <v-icon color="grey lighten-1">{{ $globals.icons.createAlt }}</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </template>
           </template>
         </RecipeList>
       </section>

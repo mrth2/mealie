@@ -5,9 +5,9 @@
     right
   >
     <template #activator="{ on, attrs }">
-      <v-list-item-avatar v-if="list" v-bind="attrs" v-on="on">
+      <v-avatar v-if="list" v-bind="attrs" v-on="on">
         <v-img :src="imageURL" :alt="userId" @load="error = false" @error="error = true"> </v-img>
-      </v-list-item-avatar>
+      </v-avatar>
       <v-avatar v-else :size="size" v-bind="attrs" v-on="on">
         <v-img :src="imageURL" :alt="userId" @load="error = false" @error="error = true"> </v-img>
       </v-avatar>

@@ -60,11 +60,11 @@
               class="mr-2"
             >
               <template #item="{ item }">
-                <v-list-item-avatar>
+                <v-avatar>
                   <v-icon class="mr-auto">
                     {{ item.icon }}
                   </v-icon>
-                </v-list-item-avatar>
+                </v-avatar>
                 {{ item.title }}
               </template>
             </v-select>

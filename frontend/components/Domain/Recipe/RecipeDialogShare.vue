@@ -18,9 +18,9 @@
       </v-card-actions>
 
       <v-list-item v-for="token in tokens" :key="token.id" @click="shareRecipe(token.id)">
-        <v-list-item-avatar color="grey">
+        <v-avatar color="grey">
           <v-icon dark class="pa-2"> {{ $globals.icons.link }} </v-icon>
-        </v-list-item-avatar>
+        </v-avatar>
 
         <v-list-item-content>
           <v-list-item-title> {{ $t("recipe-share.expires-at") }} </v-list-item-title>
