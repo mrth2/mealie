@@ -83,13 +83,7 @@ import { useToggleDarkMode } from "~/composables/use-utils";
 import type { ReadCookBook } from "~/lib/api/types/cookbook";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 
-import LanguageDialog from "~/components/global/LanguageDialog.vue";
-import AppHeader from "~/components/Layout/LayoutParts/AppHeader.vue";
-import AppSidebar from "~/components/Layout/LayoutParts/AppSidebar.vue";
-import TheSnackbar from "~/components/Layout/LayoutParts/TheSnackbar.vue";
-
 export default defineNuxtComponent({
-  components: { AppHeader, AppSidebar, LanguageDialog, TheSnackbar },
   setup() {
     const i18n = useI18n();
     const { $globals, $vuetify } = useNuxtApp();
