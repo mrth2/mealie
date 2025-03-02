@@ -1,61 +1,7 @@
 export default {
   legacy: false,
-  lazy: true,
-  defaultLocale: 'en-US',
-  locales: [
-    // CODE_GEN_ID: MESSAGE_LOCALES
-    { code: "lv-LV", file: "lv-LV.json" },
-    { code: "el-GR", file: "el-GR.json" },
-    { code: "it-IT", file: "it-IT.json" },
-    { code: "ko-KR", file: "ko-KR.json" },
-    { code: "es-ES", file: "es-ES.json" },
-    { code: "ja-JP", file: "ja-JP.json" },
-    { code: "bg-BG", file: "bg-BG.json" },
-    { code: "zh-CN", file: "zh-CN.json" },
-    { code: "tr-TR", file: "tr-TR.json" },
-    { code: "ar-SA", file: "ar-SA.json" },
-    { code: "hu-HU", file: "hu-HU.json" },
-    { code: "pt-PT", file: "pt-PT.json" },
-    { code: "no-NO", file: "no-NO.json" },
-    { code: "sv-SE", file: "sv-SE.json" },
-    { code: "ro-RO", file: "ro-RO.json" },
-    { code: "sk-SK", file: "sk-SK.json" },
-    { code: "uk-UA", file: "uk-UA.json" },
-    { code: "lt-LT", file: "lt-LT.json" },
-    { code: "fr-CA", file: "fr-CA.json" },
-    { code: "pl-PL", file: "pl-PL.json" },
-    { code: "hr-HR", file: "hr-HR.json" },
-    { code: "da-DK", file: "da-DK.json" },
-    { code: "pt-BR", file: "pt-BR.json" },
-    { code: "de-DE", file: "de-DE.json" },
-    { code: "ca-ES", file: "ca-ES.json" },
-    { code: "sr-SP", file: "sr-SP.json" },
-    { code: "cs-CZ", file: "cs-CZ.json" },
-    { code: "gl-ES", file: "gl-ES.json" },
-    { code: "fr-FR", file: "fr-FR.json" },
-    { code: "fr-BE", file: "fr-BE.json" },
-    { code: "zh-TW", file: "zh-TW.json" },
-    { code: "af-ZA", file: "af-ZA.json" },
-    { code: "is-IS", file: "is-IS.json" },
-    { code: "sl-SI", file: "sl-SI.json" },
-    { code: "ru-RU", file: "ru-RU.json" },
-    { code: "he-IL", file: "he-IL.json" },
-    { code: "nl-NL", file: "nl-NL.json" },
-    { code: "en-US", file: "en-US.json" },
-    { code: "en-GB", file: "en-GB.json" },
-    { code: "fi-FI", file: "fi-FI.json" },
-    { code: "vi-VN", file: "vi-VN.json" },
-    // END: MESSAGE_LOCALES
-  ],
-  strategy: "no_prefix",
-  langDir: "./lang/messages",
-  detectBrowserLanguage: {
-    useCookie: true,
-    alwaysRedirect: true,
-    fallbackLocale: "en-US",
-  },
-  // todo: this should be removed, as it is not used. Right now there's a reference in `gen_ts_locales.py`
-  /* dateTimeFormats: {
+  locale: 'en-US',
+  datetimeFormats: {
     // CODE_GEN_ID: DATE_LOCALES
     "el-GR": require("./lang/dateTimeFormats/el-GR.json"),
     "it-IT": require("./lang/dateTimeFormats/it-IT.json"),
@@ -99,5 +45,5 @@ export default {
     "lt-LT": require("./lang/dateTimeFormats/lt-LT.json"),
     "hr-HR": require("./lang/dateTimeFormats/hr-HR.json"),
     // END: DATE_LOCALES
-  }, */
-};
+  }
+}
