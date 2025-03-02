@@ -14,19 +14,19 @@
         :icon="$globals.icons.database">
         <v-divider></v-divider>
         <v-card-text>
-          <i18n path="settings.backup.back-restore-description">
+          <i18n-t keypath="settings.backup.back-restore-description">
             <template #cannot-be-undone>
               <b> {{ $t('settings.backup.cannot-be-undone') }} </b>
             </template>
-          </i18n>
+          </i18n-t>
 
           <p class="mt-3">
-            <i18n path="settings.backup.postgresql-note">
+            <i18n-t keypath="settings.backup.postgresql-note">
               <template #backup-restore-process>
                 <a href="https://nightly.mealie.io/documentation/getting-started/usage/backups-and-restoring/">{{
                   $t('settings.backup.backup-restore-process-in-the-documentation') }}</a>
               </template>
-            </i18n>
+            </i18n-t>
             {{ $t('') }}
           </p>
 
@@ -49,7 +49,7 @@
       <section>
         <BaseCardSectionTitle :title="$t('settings.backup-and-exports')">
           <v-card-text class="py-0 px-1">
-            <i18n path="settings.backup.experimental-description" />
+            <i18n-t keypath="settings.backup.experimental-description" />
           </v-card-text>
         </BaseCardSectionTitle>
         <v-toolbar color="transparent" flat class="justify-between">

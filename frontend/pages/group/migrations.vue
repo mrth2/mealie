@@ -34,11 +34,11 @@
         <v-card-text>
           <v-checkbox v-model="addMigrationTag">
             <template #label>
-              <i18n path="migration.tag-all-recipes">
+              <i18n-t keypath="migration.tag-all-recipes">
                 <template #tag-name>
                   <b class="mx-1"> {{ migrationType }} </b>
                 </template>
-              </i18n>
+              </i18n-t>
             </template>
           </v-checkbox>
         </v-card-text>

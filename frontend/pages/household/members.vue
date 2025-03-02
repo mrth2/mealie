@@ -5,14 +5,14 @@
         <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-members.svg')"></v-img>
       </template>
       <template #title> {{ $t('group.manage-members') }} </template>
-      <i18n path="group.manage-members-description">
+      <i18n-t keypath="group.manage-members-description">
         <template #manage>
           <b>{{ $t('group.manage') }}</b>
         </template>
         <template #invite>
           <b>{{ $t('group.invite') }}</b>
         </template>
-      </i18n>
+      </i18n-t>
       <v-container class="mt-1 px-0">
         <nuxt-link class="text-center" :to="`/user/profile/edit`"> {{ $t('group.looking-to-update-your-profile') }}
         </nuxt-link>

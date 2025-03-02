@@ -10,13 +10,13 @@
           </v-list-item-content>
         </template>
       </v-autocomplete>
-      <i18n path="language-dialog.how-to-contribute-description">
+      <i18n-t keypath="language-dialog.how-to-contribute-description">
         <template #read-the-docs-link>
           <a href="https://docs.mealie.io/contributors/translating/" target="_blank">{{
             $t("language-dialog.read-the-docs")
           }}</a>
         </template>
-      </i18n>
+      </i18n-t>
     </v-card-text>
   </BaseDialog>
 </template>

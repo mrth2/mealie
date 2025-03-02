@@ -4,11 +4,11 @@
     <BaseDialog v-model="mergeDialog" :icon="$globals.icons.units" :title="$t('data-pages.units.combine-unit')"
       @confirm="mergeUnits">
       <v-card-text>
-        <i18n path="data-pages.units.combine-unit-description">
+        <i18n-t keypath="data-pages.units.combine-unit-description">
           <template #source-unit-will-be-deleted>
             <strong> {{ $t('data-pages.recipes.source-unit-will-be-deleted') }} </strong>
           </template>
-        </i18n>
+        </i18n-t>
 
         <v-autocomplete v-model="fromUnit" return-object :items="store" item-text="id"
           :label="$t('data-pages.units.source-unit')">

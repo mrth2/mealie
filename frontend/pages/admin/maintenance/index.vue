@@ -49,14 +49,14 @@
     <section>
       <BaseCardSectionTitle class="pb-0 mt-8" :icon="$globals.icons.wrench"
         :title="$t('admin.mainentance.actions-title')">
-        <i18n path="admin.maintenance.actions-description">
+        <i18n-t keypath="admin.maintenance.actions-description">
           <template #destructive_in_bold>
             <b>{{ $t("admin.maintenance.actions-description-destructive") }}</b>
           </template>
           <template #irreversible_in_bold>
             <b>{{ $t("admin.maintenance.actions-description-irreversible") }}</b>
           </template>
-        </i18n>
+        </i18n-t>
       </BaseCardSectionTitle>
       <v-card class="ma-2" :loading="state.actionLoading">
         <template v-for="(action, idx) in actions" :key="`item-${idx}`">
