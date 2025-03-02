@@ -20,6 +20,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     // "plugin:prettier/recommended",
     "prettier",
+    'plugin:vuetify/base'
   ],
   // Re-add once we use nuxt bridge
   // See https://v3.nuxtjs.org/getting-started/bridge#update-nuxtconfig
