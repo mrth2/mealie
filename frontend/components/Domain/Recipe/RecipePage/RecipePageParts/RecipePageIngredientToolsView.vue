@@ -1,21 +1,12 @@
 <template>
   <div>
-    <RecipeIngredients
-      :value="recipe.recipeIngredient"
-      :scale="scale"
-      :disable-amount="recipe.settings.disableAmount"
-      :is-cook-mode="isCookMode"
-    />
+    <RecipeIngredients :value="recipe.recipeIngredient" :scale="scale" :disable-amount="recipe.settings.disableAmount"
+      :is-cook-mode="isCookMode" />
     <div v-if="!isEditMode && recipe.tools && recipe.tools.length > 0">
       <h2 class="mb-2 mt-4">{{ $t('tool.required-tools') }}</h2>
       <v-list-item v-for="(tool, index) in recipe.tools" :key="index" dense>
-        <v-checkbox
-          v-model="recipeTools[index].onHand"
-          hide-details
-          class="pt-0 my-auto py-auto"
-          color="secondary"
-          @change="updateTool(index)"
-        >
+        <v-checkbox v-model="recipeTools[index].onHand" hide-details class="pt-0 my-auto py-auto" color="secondary"
+          @change="updateTool(index)">
         </v-checkbox>
         <v-list-item-content>
           {{ tool.name }}
@@ -26,12 +17,11 @@
 </template>
 
 <script lang="ts">
-
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { useToolStore } from "~/composables/store";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
-import { Recipe, RecipeTool } from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { Recipe, RecipeTool } from "~/lib/api/types/recipe";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 
 interface RecipeToolWithOnHand extends RecipeTool {

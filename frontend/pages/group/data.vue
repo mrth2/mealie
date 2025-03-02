@@ -8,19 +8,16 @@
       {{ $t('data-pages.data-management-description') }}
       <template #content>
         <div>
-          <BaseOverflowButton
-            :btn-text="buttonText"
-            mode="link"
-            rounded
-            :items="DATA_TYPE_OPTIONS"
-          >
+          <BaseOverflowButton :btn-text="buttonText" mode="link" rounded :items="DATA_TYPE_OPTIONS">
           </BaseOverflowButton>
         </div>
       </template>
     </BasePageTitle>
     <section>
       <v-scroll-x-transition>
-        <NuxtChild />
+        <div>
+          <NuxtChild />
+        </div>
       </v-scroll-x-transition>
     </section>
   </v-container>

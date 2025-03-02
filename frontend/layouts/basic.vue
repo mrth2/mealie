@@ -5,7 +5,9 @@
     <AppHeader :menu="false"> </AppHeader>
     <v-main>
       <v-scroll-x-transition>
-        <NuxtPage />
+        <div>
+          <NuxtPage />
+        </div>
       </v-scroll-x-transition>
     </v-main>
   </v-app>

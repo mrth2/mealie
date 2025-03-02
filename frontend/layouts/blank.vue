@@ -10,7 +10,9 @@
 
     <v-main>
       <v-scroll-x-transition>
+        <div>
         <NuxtPage />
+        </div>
       </v-scroll-x-transition>
     </v-main>
   </v-app>

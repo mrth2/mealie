@@ -66,7 +66,9 @@
     </AppHeader>
     <v-main>
       <v-scroll-x-transition>
-        <NuxtPage />
+        <div>
+          <NuxtPage />
+        </div>
       </v-scroll-x-transition>
     </v-main>
   </v-app>
@@ -168,7 +170,7 @@ export default defineNuxtComponent({
       }
     });
 
-    const createLinks = computed<SideBarLink[]>(() => [
+    const createLinks = computed(() => [
       {
         insertDivider: false,
         icon: $globals.icons.link,
