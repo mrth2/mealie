@@ -1,6 +1,5 @@
 import { defineNuxtConfig } from "nuxt/config";
 import commonjs from 'vite-plugin-commonjs';
-import type { UserOut } from "./lib/api/types/user";
 
 export default defineNuxtConfig({
   // Global page headers: https://go.nuxtjs.dev/config-head
