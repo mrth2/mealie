@@ -104,8 +104,8 @@
         <!-- Color Picker -->
         <div v-else-if="inputField.type === fieldTypes.COLOR" class="d-flex" style="width: 100%">
           <v-menu offset-y>
-            <template #activator="{ on }">
-              <v-btn class="my-2 ml-auto" style="min-width: 200px" :color="value[inputField.varName]" dark v-on="on">
+            <template #activator="{ props }">
+              <v-btn class="my-2 ml-auto" style="min-width: 200px" :color="value[inputField.varName]" dark v-bind="props">
                 {{ inputField.label }}
               </v-btn>
             </template>

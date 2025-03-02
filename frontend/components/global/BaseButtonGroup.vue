@@ -3,8 +3,8 @@
     <template v-for="btn in buttons">
       <v-menu v-if="btn.children" :key="'menu-' + btn.event" active-class="pa-0" offset-y top left
         :style="stretch ? 'width: 100%;' : ''">
-        <template #activator="{ on, attrs }">
-          <v-btn tile :large="large" icon v-bind="attrs" v-on="on">
+        <template #activator="{ props }">
+          <v-btn tile :large="large" icon v-bind="props">
             <v-icon>
               {{ btn.icon }}
             </v-icon>
@@ -21,9 +21,9 @@
       </v-menu>
       <v-tooltip v-else :key="'btn-' + btn.event" open-delay="200" transition="slide-y-reverse-transition" dense bottom
         content-class="text-caption">
-        <template #activator="{ on, attrs }">
+        <template #activator="{ props }">
           <v-btn tile icon :color="btn.color" :large="large" :disabled="btn.disabled"
-            :style="stretch ? `width: ${maxButtonWidth};` : ''" v-bind="attrs" v-on="on" @click="$emit(btn.event)">
+            :style="stretch ? `width: ${maxButtonWidth};` : ''" v-bind="props" @click="$emit(btn.event)">
             <v-icon> {{ btn.icon }} </v-icon>
           </v-btn>
         </template>

@@ -9,18 +9,15 @@
     close-delay="500"
     transition="slide-y-transition"
   >
-    <template #activator="{ on }">
+    <template #activator="{ props }">
       <v-btn
         :icon="icon"
         :color="color"
         retain-focus-on-click
         :class="btnClass"
         :disabled="copyText !== '' ? false : true"
-        @click="
-          on.click;
-          textToClipboard();
-        "
-        @blur="on.blur"
+        v-bind="props"
+        @click="textToClipboard()"
       >
         <v-icon>{{ $globals.icons.contentCopy }}</v-icon>
         {{ icon ? "" : $t("general.copy") }}

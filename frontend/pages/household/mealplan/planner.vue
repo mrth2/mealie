@@ -8,8 +8,8 @@
       max-width="290px"
       min-width="auto"
     >
-      <template #activator="{ on, attrs }">
-        <v-btn color="primary" class="mb-2" v-bind="attrs" v-on="on">
+      <template #activator="{ props }">
+        <v-btn color="primary" class="mb-2" v-bind="props">
           <v-icon left>
             {{ $globals.icons.calendar }}
           </v-icon>

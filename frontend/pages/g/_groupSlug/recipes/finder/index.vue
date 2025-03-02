@@ -59,8 +59,8 @@
             <v-row no-gutters class="mb-2">
               <v-col cols="12" :class="attrs.settings.colClass">
                 <v-menu v-model="settingsMenu" offset-y nudge-bottom="3" :close-on-content-click="false">
-                  <template #activator="{ on, attrs: activatorAttrs }">
-                    <v-btn small color="primary" dark v-bind="activatorAttrs" v-on="on">
+                  <template #activator="{ props }">
+                    <v-btn small color="primary" dark v-bind="props">
                       <v-icon left>
                         {{ $globals.icons.cog }}
                       </v-icon>

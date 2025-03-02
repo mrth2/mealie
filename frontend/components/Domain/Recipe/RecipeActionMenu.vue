@@ -14,8 +14,8 @@
       <RecipeTimelineBadge v-if="loggedIn" button-style class="ml-1" :slug="recipe.slug" :recipe-name="recipe.name" />
       <div v-if="loggedIn">
         <v-tooltip v-if="canEdit" bottom color="info">
-          <template #activator="{ on, attrs }">
-            <v-btn fab small class="ml-1" color="info" v-bind="attrs" v-on="on" @click="$emit('edit', true)">
+          <template #activator="{ props }">
+            <v-btn fab small class="ml-1" color="info" v-bind="props" @click="$emit('edit', true)">
               <v-icon> {{ $globals.icons.edit }} </v-icon>
             </v-btn>
           </template>

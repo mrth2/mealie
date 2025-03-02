@@ -1,13 +1,12 @@
 <template>
   <v-tooltip bottom nudge-right="50" :color="buttonStyle ? 'info' : 'secondary'">
-    <template #activator="{ on, attrs }">
+    <template #activator="{ props }">
       <v-btn
         small
         :color="buttonStyle ? 'info' : 'secondary'"
         :fab="buttonStyle"
         class="ml-1"
-        v-bind="attrs"
-        v-on="on"
+        v-bind="props"
         @click.prevent="toggleTimeline"
       >
         <v-icon :small="!buttonStyle" :color="buttonStyle ? 'white' : 'secondary'">

@@ -1,8 +1,8 @@
 <template>
   <div class="text-center">
     <v-dialog v-model="dialog" width="800">
-      <template #activator="{ on, attrs }">
-        <BaseButton v-bind="attrs" v-on="on" @click="inputText = inputTextProp">
+      <template #activator="{ props }">
+        <BaseButton v-bind="props" @click="inputText = inputTextProp">
           {{ $t("new-recipe.bulk-add") }}
         </BaseButton>
       </template>

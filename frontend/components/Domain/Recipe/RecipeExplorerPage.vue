@@ -51,8 +51,8 @@
 
           <!-- Sort Options -->
           <v-menu offset-y nudge-bottom="3">
-            <template #activator="{ on, attrs }">
-              <v-btn class="ml-auto" small color="accent" v-bind="attrs" v-on="on">
+            <template #activator="{ props }">
+              <v-btn class="ml-auto" small color="accent" v-bind="props">
                 <v-icon :left="!$vuetify.display.xs">
                   {{ state.orderDirection === "asc" ? $globals.icons.sortAscending : $globals.icons.sortDescending }}
                 </v-icon>
@@ -87,8 +87,8 @@
 
           <!-- Settings -->
           <v-menu offset-y bottom left nudge-bottom="3" :close-on-content-click="false">
-            <template #activator="{ on, attrs }">
-              <v-btn small color="accent" dark v-bind="attrs" v-on="on">
+            <template #activator="{ props }">
+              <v-btn small color="accent" dark v-bind="props">
                 <v-icon small>
                   {{ $globals.icons.cog }}
                 </v-icon>

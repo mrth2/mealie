@@ -29,13 +29,12 @@
                     max-width="290px"
                     min-width="auto"
                   >
-                    <template #activator="{ on, attrs }">
+                    <template #activator="{ props }">
                       <v-text-field
                         v-model="newTimelineEventTimestamp"
                         :prepend-icon="$globals.icons.calendar"
-                        v-bind="attrs"
+                        v-bind="props"
                         readonly
-                        v-on="on"
                       ></v-text-field>
                     </template>
                     <v-date-picker

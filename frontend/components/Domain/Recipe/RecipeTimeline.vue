@@ -5,9 +5,9 @@
       <v-col class="text-right">
         <!-- Filters -->
         <v-menu offset-y bottom left nudge-bottom="3" :close-on-content-click="false">
-          <template #activator="{ on, attrs }">
+          <template #activator="{ props }">
             <v-badge :content="filterBadgeCount" :value="filterBadgeCount" bordered overlap>
-              <v-btn fab small color="info" v-bind="attrs" v-on="on">
+              <v-btn fab small color="info" v-bind="props">
                 <v-icon> {{ $globals.icons.filter }} </v-icon>
               </v-btn>
             </v-badge>

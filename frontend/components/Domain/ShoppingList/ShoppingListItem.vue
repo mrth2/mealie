@@ -25,7 +25,7 @@
       <v-col cols="auto" class="text-right">
         <div v-if="!listItem.checked" style="min-width: 72px">
           <v-menu offset-x left min-width="125px">
-            <template #activator="{ on, attrs }">
+            <template #activator="{ props }">
               <v-tooltip
                 v-if="recipeList && recipeList.length"
                 open-delay="200"
@@ -34,8 +34,8 @@
                 right
                 content-class="text-caption"
               >
-                <template #activator="{ on: onBtn, attrs: attrsBtn }">
-                  <v-btn small class="ml-2" icon v-bind="attrsBtn" v-on="onBtn" @click="displayRecipeRefs = !displayRecipeRefs">
+                <template #activator="{ props }">
+                  <v-btn small class="ml-2" icon v-bind="props" @click="displayRecipeRefs = !displayRecipeRefs">
                     <v-icon>
                       {{ $globals.icons.potSteam }}
                     </v-icon>
@@ -47,7 +47,7 @@
               <v-btn v-else small class="ml-2" icon disabled>
               </v-btn>
 
-              <v-btn small class="ml-2 handle" icon v-bind="attrs" v-on="on">
+              <v-btn small class="ml-2 handle" icon v-bind="props">
                 <v-icon>
                   {{ $globals.icons.arrowUpDown }}
                 </v-icon>

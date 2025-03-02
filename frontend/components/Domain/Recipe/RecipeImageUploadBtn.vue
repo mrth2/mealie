@@ -1,8 +1,8 @@
 <template>
   <div class="text-center">
     <v-menu v-model="menu" offset-y top nudge-top="6" :close-on-content-click="false">
-      <template #activator="{ on, attrs }">
-        <v-btn color="accent" dark v-bind="attrs" v-on="on">
+      <template #activator="{ props }">
+        <v-btn color="accent" dark v-bind="props">
           <v-icon left>
             {{ $globals.icons.fileImage }}
           </v-icon>

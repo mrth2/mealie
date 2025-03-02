@@ -18,8 +18,8 @@
     <v-menu offset-y left :bottom="!menuTop" :nudge-bottom="!menuTop ? '5' : '0'" :top="menuTop"
       :nudge-top="menuTop ? '5' : '0'" allow-overflow close-delay="125" :open-on-hover="!useMobileFormat"
       content-class="d-print-none">
-      <template #activator="{ on, attrs }">
-        <v-btn :fab="fab" :x-small="fab" :elevation="elevation" :color="color" :icon="!fab" v-bind="attrs" v-on="on"
+      <template #activator="{ props }">
+        <v-btn :fab="fab" :x-small="fab" :elevation="elevation" :color="color" :icon="!fab" v-bind="props"
           @click.prevent>
           <v-icon>{{ icon }}</v-icon>
         </v-btn>

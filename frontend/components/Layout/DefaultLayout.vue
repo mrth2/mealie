@@ -5,8 +5,8 @@
     <AppSidebar v-model="sidebar" absolute :top-link="topLinks" :secondary-links="cookbookLinks || []"
       :bottom-links="isAdmin ? bottomLinks : []">
       <v-menu offset-y nudge-bottom="5" close-delay="50" nudge-right="15">
-        <template #activator="{ on, attrs }">
-          <v-btn v-if="isOwnGroup" rounded large class="ml-2 mt-3" v-bind="attrs" v-on="on">
+        <template #activator="{ props }">
+          <v-btn v-if="isOwnGroup" rounded large class="ml-2 mt-3" v-bind="props">
             <v-icon left large color="primary">
               {{ $globals.icons.createAlt }}
             </v-icon>

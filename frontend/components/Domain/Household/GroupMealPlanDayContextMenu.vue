@@ -5,8 +5,8 @@
     <v-menu offset-y left :bottom="!menuTop" :nudge-bottom="!menuTop ? '5' : '0'" :top="menuTop"
       :nudge-top="menuTop ? '5' : '0'" allow-overflow close-delay="125" :open-on-hover="mdAndUp"
       content-class="d-print-none">
-      <template #activator="{ on, attrs }">
-        <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="attrs" v-on="on" @click.prevent>
+      <template #activator="{ props }">
+        <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="props" @click.prevent>
           <v-icon>{{ icon }}</v-icon>
         </v-btn>
       </template>

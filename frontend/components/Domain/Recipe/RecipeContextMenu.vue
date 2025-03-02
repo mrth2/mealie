@@ -21,9 +21,9 @@
       <v-card-text>
         <v-menu v-model="pickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y
           max-width="290px" min-width="auto">
-          <template #activator="{ on, attrs }">
+          <template #activator="{ props }">
             <v-text-field v-model="newMealdate" :label="$t('general.date')" :prepend-icon="$globals.icons.calendar"
-              v-bind="attrs" readonly v-on="on"></v-text-field>
+              v-bind="props" readonly></v-text-field>
           </template>
           <v-date-picker v-model="newMealdate" no-title :first-day-of-week="firstDayOfWeek" :local="$i18n.locale"
             @input="pickerMenu = false" />
@@ -37,8 +37,8 @@
     <v-menu offset-y left :bottom="!menuTop" :nudge-bottom="!menuTop ? '5' : '0'" :top="menuTop"
       :nudge-top="menuTop ? '5' : '0'" allow-overflow close-delay="125" :open-on-hover="$vuetify.display.mdAndUp"
       content-class="d-print-none">
-      <template #activator="{ on, attrs }">
-        <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="attrs" v-on="on" @click.prevent>
+      <template #activator="{ props }">
+        <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="props" @click.prevent>
           <v-icon>{{ icon }}</v-icon>
         </v-btn>
       </template>

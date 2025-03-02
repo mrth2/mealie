@@ -67,9 +67,9 @@
                 @change="setFieldValue(field, index, $event)" />
               <v-menu v-else-if="field.type === 'date'" v-model="datePickers[index]" :close-on-content-click="false"
                 transition="scale-transition" offset-y max-width="290px" min-width="auto">
-                <template #activator="{ on, attrs: menuAttrs }">
+                <template #activator="{ props }">
                   <v-text-field v-model="field.value" persistent-hint :prepend-icon="$globals.icons.calendar"
-                    v-bind="menuAttrs" readonly v-on="on" />
+                    v-bind="props" readonly />
                 </template>
                 <v-date-picker v-model="field.value" no-title :first-day-of-week="firstDayOfWeek" :local="$i18n.locale"
                   @input="setFieldValue(field, index, $event)" />

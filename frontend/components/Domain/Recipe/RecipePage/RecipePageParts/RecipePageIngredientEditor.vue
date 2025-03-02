@@ -18,10 +18,10 @@
     <v-skeleton-loader v-else boilerplate elevation="2" type="list-item"> </v-skeleton-loader>
     <div class="d-flex flex-wrap justify-center justify-sm-end mt-3">
       <v-tooltip top color="accent">
-        <template #activator="{ on, attrs }">
-          <span v-on="on">
+        <template #activator="{ props }">
+          <span>
             <BaseButton class="mb-1" :disabled="recipe.settings.disableAmount || hasFoodOrUnit" color="accent"
-              :to="`/g/${groupSlug}/r/${recipe.slug}/ingredient-parser`" v-bind="attrs">
+              :to="`/g/${groupSlug}/r/${recipe.slug}/ingredient-parser`" v-bind="props">
               <template #icon>
                 {{ $globals.icons.foods }}
               </template>

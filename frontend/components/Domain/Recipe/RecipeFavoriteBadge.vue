@@ -1,8 +1,8 @@
 <template>
   <v-tooltip bottom nudge-right="50" :color="buttonStyle ? 'info' : 'secondary'">
-    <template #activator="{ on, attrs }">
+    <template #activator="{ props }">
       <v-btn v-if="isFavorite || showAlways" small :color="buttonStyle ? 'info' : 'secondary'" :icon="!buttonStyle"
-        :fab="buttonStyle" v-bind="attrs" @click.prevent="toggleFavorite" v-on="on">
+        :fab="buttonStyle" v-bind="props" @click.prevent="toggleFavorite">
         <v-icon :small="!buttonStyle" :color="buttonStyle ? 'white' : 'secondary'">
           {{ isFavorite ? $globals.icons.heart : $globals.icons.heartOutline }}
         </v-icon>

@@ -10,8 +10,8 @@
     </div>
     <div style="min-width: 72px" class="ml-auto text-right">
       <v-menu offset-x left min-width="125px">
-        <template #activator="{ on, attrs }">
-          <v-btn small class="ml-2 handle" icon v-bind="attrs" v-on="on">
+        <template #activator="{ props }">
+          <v-btn small class="ml-2 handle" icon v-bind="props">
             <v-icon>
               {{ $globals.icons.arrowUpDown }}
             </v-icon>
@@ -23,8 +23,7 @@
 </template>
 
 <script lang="ts">
-
-import { ShoppingListMultiPurposeLabelOut } from "~/lib/api/types/household";
+import type { ShoppingListMultiPurposeLabelOut } from "~/lib/api/types/household";
 
 export default defineNuxtComponent({
   props: {

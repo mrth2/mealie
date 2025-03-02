@@ -1,13 +1,12 @@
 <template>
   <div class="d-flex justify-space-between align-center pt-2 pb-3">
     <v-tooltip v-if="!isEditMode" small top color="secondary darken-1">
-      <template #activator="{ on, attrs }">
+      <template #activator="{ props }">
         <RecipeScaleEditButton
           v-model.number="scaleValue"
-          v-bind="attrs"
+          v-bind="props"
           :recipe-servings="recipeServings"
           :edit-scale="!recipe.settings.disableAmount && !isEditMode"
-          v-on="on"
         />
       </template>
       <span> {{ $t("recipe.edit-scale") }} </span>
@@ -16,10 +15,9 @@
 </template>
 
 <script lang="ts">
-
 import RecipeScaleEditButton from "~/components/Domain/Recipe/RecipeScaleEditButton.vue";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { Recipe } from "~/lib/api/types/recipe";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 
 export default defineNuxtComponent({

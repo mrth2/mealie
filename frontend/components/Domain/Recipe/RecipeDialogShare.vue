@@ -4,10 +4,10 @@
       <v-card-text>
         <v-menu v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y
           max-width="290px" min-width="auto">
-          <template #activator="{ on, attrs }">
+          <template #activator="{ props }">
             <v-text-field v-model="expirationDate" :label="$t('recipe-share.expiration-date')"
               :hint="$t('recipe-share.default-30-days')" persistent-hint :prepend-icon="$globals.icons.calendar"
-              v-bind="attrs" readonly v-on="on"></v-text-field>
+              v-bind="props" readonly></v-text-field>
           </template>
           <v-date-picker v-model="expirationDate" no-title :first-day-of-week="firstDayOfWeek" :local="$i18n.locale"
             @input="datePickerMenu = false" />

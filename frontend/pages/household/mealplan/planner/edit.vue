@@ -33,16 +33,15 @@
           max-width="290px"
           min-width="auto"
         >
-          <template #activator="{ on, attrs }">
+          <template #activator="{ props }">
             <v-text-field
               v-model="newMeal.date"
               :label="$t('general.date')"
               :hint="$t('recipe.date-format-hint-yyyy-mm-dd')"
               persistent-hint
               :prepend-icon="$globals.icons.calendar"
-              v-bind="attrs"
+              v-bind="props"
               readonly
-              v-on="on"
             />
           </template>
           <v-date-picker
@@ -150,8 +149,8 @@
                 </v-icon>
               </v-btn>
               <v-menu offset-y>
-                <template #activator="{ on, attrs }">
-                  <v-chip v-bind="attrs" label small color="accent" v-on="on" @click.prevent>
+                <template #activator="{ props }">
+                  <v-chip v-bind="props" label small color="accent" @click.prevent>
                     <v-icon left>
                       {{ $globals.icons.tags }}
                     </v-icon>

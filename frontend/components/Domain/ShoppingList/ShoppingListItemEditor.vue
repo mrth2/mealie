@@ -57,8 +57,8 @@
               left
               top
             >
-              <template #activator="{ on, attrs }">
-                <v-icon class="mt-auto" icon v-bind="attrs" color="warning" v-on="on">
+              <template #activator="{ props }">
+                <v-icon class="mt-auto" :icon="$globals.icons.alert" v-bind="props" color="warning">
                   {{ $globals.icons.alert }}
                 </v-icon>
               </template>

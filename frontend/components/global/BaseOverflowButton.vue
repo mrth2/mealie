@@ -1,7 +1,7 @@
 <template>
   <v-menu offset-y>
-    <template #activator="{ on, attrs }">
-      <v-btn color="primary" v-bind="{ ...attrs, ...$attrs }" :class="btnClass" :disabled="disabled" v-on="on">
+    <template #activator="{ props }">
+      <v-btn color="primary" v-bind="{ ...props, ...$attrs }" :class="btnClass" :disabled="disabled">
         <v-icon v-if="activeObj.icon" left>
           {{ activeObj.icon }}
         </v-icon>

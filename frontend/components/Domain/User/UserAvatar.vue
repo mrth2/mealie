@@ -4,11 +4,11 @@
     :disabled="!user || !tooltip"
     right
   >
-    <template #activator="{ on, attrs }">
-      <v-avatar v-if="list" v-bind="attrs" v-on="on">
+    <template #activator="{ props }">
+      <v-avatar v-if="list" v-bind="props">
         <v-img :src="imageURL" :alt="userId" @load="error = false" @error="error = true"> </v-img>
       </v-avatar>
-      <v-avatar v-else :size="size" v-bind="attrs" v-on="on">
+      <v-avatar v-else :size="size" v-bind="props">
         <v-img :src="imageURL" :alt="userId" @load="error = false" @error="error = true"> </v-img>
       </v-avatar>
     </template>

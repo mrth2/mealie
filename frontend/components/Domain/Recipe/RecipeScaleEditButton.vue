@@ -3,15 +3,14 @@
     <div class="text-center d-flex align-center">
       <div>
         <v-menu v-model="menu" :disabled="!canEditScale" offset-y top nudge-top="6" :close-on-content-click="false">
-          <template #activator="{ on, attrs }">
+          <template #activator="{ props }">
             <v-card
               class="pa-1 px-2"
               dark
               color="secondary darken-1"
               small
-              v-bind="attrs"
+              v-bind="props"
               :style="{ cursor: canEditScale ? '' : 'default' }"
-              v-on="on"
             >
               <v-icon v-if="canEditScale" small class="mr-2">{{ $globals.icons.edit }}</v-icon>
               <!-- eslint-disable-next-line vue/no-v-html -->
@@ -26,8 +25,8 @@
               <div class="mt-4 d-flex align-center">
                 <v-text-field v-model="yieldQuantityEditorValue" type="number" :min="0" hide-spin-buttons @input="recalculateScale(yieldQuantityEditorValue)" />
                 <v-tooltip right color="secondary darken-1">
-                  <template #activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" icon class="mx-1" small v-on="on" @click="scale = 1">
+                  <template #activator="{ props }">
+                    <v-btn v-bind="props" icon class="mx-1" small @click="scale = 1">
                       <v-icon>
                         {{ $globals.icons.undo }}
                       </v-icon>

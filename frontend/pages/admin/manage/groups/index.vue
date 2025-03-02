@@ -48,8 +48,8 @@
         </template>
         <template #item.actions="{ item }">
           <v-tooltip bottom :disabled="!(item && (item.households.length > 0 || item.users.length > 0))">
-            <template #activator="{ on, attrs }">
-              <div v-bind="attrs" v-on="on" >
+            <template #activator="{ props }">
+              <div v-bind="props">
                 <v-btn
                   :disabled="item && (item.households.length > 0 || item.users.length > 0)"
                   class="mr-1"

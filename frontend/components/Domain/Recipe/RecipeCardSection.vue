@@ -16,8 +16,8 @@
       </v-btn>
 
       <v-menu v-if="$listeners.sortRecipes" offset-y left>
-        <template #activator="{ on, attrs }">
-          <v-btn text :icon="$vuetify.display.xs" v-bind="attrs" :loading="sortLoading" v-on="on">
+        <template #activator="{ props }">
+          <v-btn text :icon="$vuetify.display.xs" v-bind="props" :loading="sortLoading">
             <v-icon :left="!$vuetify.display.xs">
               {{ preferences.sortIcon }}
             </v-icon>
