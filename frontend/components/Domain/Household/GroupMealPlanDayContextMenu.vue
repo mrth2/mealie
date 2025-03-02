@@ -12,9 +12,9 @@
       </template>
       <v-list dense>
         <v-list-item v-for="(item, index) in menuItems" :key="index" @click="contextMenuEventHandler(item.event)">
-          <v-list-item-icon>
+          <template #prepend>
             <v-icon :color="item.color"> {{ item.icon }} </v-icon>
-          </v-list-item-icon>
+          </template>
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
       </v-list>

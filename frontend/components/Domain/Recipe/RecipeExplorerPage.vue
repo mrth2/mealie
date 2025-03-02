@@ -146,7 +146,6 @@ import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useLazyRecipes } from "~/composables/recipes";
 import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 import type { HouseholdSummary } from "~/lib/api/types/household";
-import { useDisplay } from 'vuetify';
 
 export default defineNuxtComponent({
   components: { SearchFilter, RecipeCardSection },
