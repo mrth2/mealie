@@ -158,6 +158,10 @@ export default defineNuxtComponent({
       }
     }
 
+    useSeoMeta({
+      title: i18n.t("sidebar.manage-users"),
+    });
+
     return {
       isUserOwnAccount,
       unlockAllUsers,

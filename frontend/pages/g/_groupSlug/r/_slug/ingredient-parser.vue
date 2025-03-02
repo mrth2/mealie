@@ -349,6 +349,10 @@ export default defineNuxtComponent({
       }
     }
 
+    useSeoMeta({
+      title: i18n.t("recipe.parser.ingredient-parser"),
+    });
+
     return {
       parser,
       availableParsers,
@@ -369,11 +373,6 @@ export default defineNuxtComponent({
       loading,
       parserLoading,
       ingredients,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("recipe.parser.ingredient-parser"),
     };
   },
 });

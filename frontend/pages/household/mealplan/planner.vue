@@ -64,7 +64,12 @@ export default defineNuxtComponent({
   setup() {
     const route = useRoute();
     const router = useRouter();
+    const i18n = useI18n();
     const { household } = useHouseholdSelf();
+
+    useSeoMeta({
+      title: i18n.t("meal-plan.dinner-this-week"),
+    });
 
     const mealPlanPreferences = useUserMealPlanPreferences();
     const numberOfDays = ref<number>(mealPlanPreferences.value.numberOfDays || 7);
@@ -159,11 +164,6 @@ export default defineNuxtComponent({
       weekRange,
       firstDayOfWeek,
       numberOfDays,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("meal-plan.dinner-this-week") as string,
     };
   },
 });

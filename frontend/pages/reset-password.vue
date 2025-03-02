@@ -87,6 +87,11 @@ export default defineNuxtComponent({
     const i18n = useI18n();
     const passwordMatch = () => state.password === state.passwordConfirm || i18n.t("user.password-must-match");
 
+    // Set page title
+    useSeoMeta({
+      title: i18n.t("user.login"),
+    });
+
     // ===================
     // Token Getter
     const token = useRouteQuery("token", "");
@@ -123,12 +128,6 @@ export default defineNuxtComponent({
       requestLink,
       validators,
       ...toRefs(state),
-    };
-  },
-
-  head() {
-    return {
-      title: this.$t("user.login") as string,
     };
   },
 });

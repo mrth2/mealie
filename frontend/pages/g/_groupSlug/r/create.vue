@@ -39,6 +39,10 @@ export default defineNuxtComponent({
     const $auth = useMealieAuth();
     const $globals = useNuxtApp().$globals;
 
+    useSeoMeta({
+      title: i18n.t("general.create"),
+    });
+
     const appInfo = useAppInfo();
     const enableOpenAIImages = computed(() => appInfo.value?.enableOpenaiImageServices);
 
@@ -98,11 +102,6 @@ export default defineNuxtComponent({
       groupSlug,
       subpages,
       subpage,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("general.create") as string,
     };
   },
 });

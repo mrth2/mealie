@@ -25,15 +25,15 @@ export default defineNuxtComponent({
   middleware: ["auth", "group-only"],
   setup() {
     const { store, actions } = useTagStore();
+    const i18n = useI18n();
+
+    useSeoMeta({
+      title: i18n.t("tag.tags"),
+    });
 
     return {
       store,
       actions,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("tag.tags"),
     };
   },
 });

@@ -77,10 +77,16 @@ export default defineNuxtComponent({
   middleware: "auth",
   setup() {
     const $auth = useMealieAuth();
+    const i18n = useI18n();
     const ready = ref(false);
     const userApi = useUserApi();
     const route = useRoute();
     const router = useRouter();
+
+    useSeoMeta({
+      title: i18n.t("shopping-list.shopping-list"),
+    });
+
     const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
     const overrideDisableRedirect = ref(false);
     const disableRedirect = computed(() => route.query.disableRedirect === "true" || overrideDisableRedirect.value);
@@ -224,11 +230,6 @@ export default defineNuxtComponent({
       updateOwner,
       deleteOne,
       openDelete,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("shopping-list.shopping-list") as string,
     };
   },
 });

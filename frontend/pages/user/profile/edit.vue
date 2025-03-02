@@ -109,8 +109,13 @@ export default defineNuxtComponent({
   },
   middleware: "auth",
   setup() {
+    const i18n = useI18n();
     const $auth = useMealieAuth();
     const user = computed(() => $auth.user.value);
+
+    useSeoMeta({
+      title: i18n.t("settings.profile"),
+    });
 
     watch(user, () => {
       userCopy.value = { ...user.value };
@@ -168,11 +173,6 @@ export default defineNuxtComponent({
       passwordsMatch,
       validators,
       $auth,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("settings.profile") as string,
     };
   },
 });

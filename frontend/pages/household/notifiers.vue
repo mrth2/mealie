@@ -110,6 +110,11 @@ export default defineNuxtComponent({
   middleware: ["auth", "advanced-only"],
   setup() {
     const api = useUserApi();
+    const i18n = useI18n();
+
+    useSeoMeta({
+      title: i18n.t("profile.notifiers"),
+    });
 
     const state = reactive({
       deleteDialog: false,
@@ -160,7 +165,6 @@ export default defineNuxtComponent({
 
     // ===============================================================
     // Options Definitions
-    const i18n = useI18n();
 
     const optionsSections: OptionSection[] = [
       {
@@ -285,11 +289,6 @@ export default defineNuxtComponent({
       testNotifier,
       saveNotifier,
       createNewNotifier,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("profile.notifiers"),
     };
   },
 });

@@ -198,6 +198,11 @@ export default defineNuxtComponent({
     const i18n = useI18n();
     const $auth = useMealieAuth();
     const { $globals } = useNuxtApp();
+
+    useSeoMeta({
+      title: i18n.t("data-pages.recipes.recipe-data"),
+    });
+
     const { getAllRecipes, refreshRecipes } = useRecipes(true, true, false, `householdId=${$auth.user.value?.householdId || ""}`);
     const selected = ref<Recipe[]>([]);
 
@@ -474,11 +479,6 @@ export default defineNuxtComponent({
       allUsers,
       selectedOwner,
       selectedOwnerHousehold,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("data-pages.recipes.recipe-data"),
     };
   },
 });

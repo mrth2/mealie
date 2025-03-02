@@ -30,22 +30,21 @@
 </template>
 
 <script lang="ts">
-
 import { useGroupSelf } from "~/composables/use-groups";
 
 export default defineNuxtComponent({
   middleware: ["auth", "can-manage-only"],
   setup() {
     const { group, actions: groupActions } = useGroupSelf();
+    const i18n = useI18n();
+
+    useSeoMeta({
+      title: i18n.t("group.group"),
+    });
 
     return {
       group,
       groupActions,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("group.group") as string,
     };
   },
 });

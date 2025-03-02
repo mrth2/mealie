@@ -84,6 +84,12 @@ export default defineNuxtComponent({
   layout: "admin",
   setup() {
     const i18n = useI18n();
+
+    // Set page title
+    useSeoMeta({
+      title: i18n.t("group.manage-groups"),
+    });
+
     const { groups, refreshAllGroups, deleteGroup, createGroup } = useGroups();
 
     const state = reactive({

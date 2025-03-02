@@ -46,6 +46,7 @@ export default defineNuxtComponent({
   },
   emits: ["delete", "save", "test"],
   setup(props, { emit }) {
+    const i18n = useI18n();
     const itemUTC = ref<string>(props.webhook.scheduledTime);
     const itemLocal = ref<string>(timeUTCToLocal(props.webhook.scheduledTime));
 
@@ -66,17 +67,17 @@ export default defineNuxtComponent({
       emit("save", webhookCopy.value);
     }
 
+    // Set page title using useSeoMeta
+    useSeoMeta({
+      title: i18n.t("settings.webhooks.webhooks"),
+    });
+
     return {
       webhookCopy,
       scheduledTime,
       handleSave,
       itemUTC,
       itemLocal,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("settings.webhooks.webhooks") as string,
     };
   },
 });

@@ -141,6 +141,12 @@ export default defineNuxtComponent({
     });
 
     const i18n = useI18n();
+
+    // Set page title
+    useSeoMeta({
+      title: i18n.t("cookbook.cookbooks"),
+    });
+
     const $auth = useMealieAuth();
     const { cookbooks: allCookbooks, actions } = useCookbooks();
     const myCookbooks = computed<ReadCookBook[]>({
@@ -222,11 +228,6 @@ export default defineNuxtComponent({
       deleteEventHandler,
       deleteCookbook,
       deleteCreateTarget,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("cookbook.cookbooks") as string,
     };
   },
 });

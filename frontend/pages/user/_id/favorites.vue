@@ -24,7 +24,12 @@ export default defineNuxtComponent({
   middleware: "auth",
   setup() {
     const route = useRoute();
+    const i18n = useI18n();
     const { isOwnGroup } = useLoggedInState();
+
+    useSeoMeta({
+      title: i18n.t("general.favorites"),
+    });
 
     const userId = route.params.id;
     const query = { queryFilter: `favoritedBy.id = "${userId}"` }
@@ -38,11 +43,6 @@ export default defineNuxtComponent({
       assignSorted,
       removeRecipe,
       replaceRecipes,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("general.favorites") as string,
     };
   },
 });

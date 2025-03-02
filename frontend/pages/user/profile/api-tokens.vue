@@ -66,7 +66,12 @@ import type { VForm } from "~/types/vuetify";
 export default defineNuxtComponent({
   middleware: ["auth", "advanced-only"],
   setup() {
+    const i18n = useI18n();
     const $auth = useMealieAuth();
+
+    useSeoMeta({
+      title: i18n.t("settings.token.api-tokens"),
+    });
 
     const user = computed(() => {
       return $auth.user.value;
@@ -114,11 +119,6 @@ export default defineNuxtComponent({
     }
 
     return { createToken, deleteToken, createdToken, loading, name, user, resetCreate };
-  },
-  head() {
-    return {
-      title: this.$t("settings.token.api-tokens") as string,
-    };
   },
 });
 </script>

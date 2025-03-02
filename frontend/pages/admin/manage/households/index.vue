@@ -108,6 +108,12 @@ export default defineNuxtComponent({
   layout: "admin",
   setup() {
     const i18n = useI18n();
+
+    // Set page title
+    useSeoMeta({
+      title: i18n.t("household.manage-households"),
+    });
+
     const { groups } = useGroups();
     const { households, refreshAllHouseholds, deleteHousehold, createHousehold } = useAdminHouseholds();
     const refNewHouseholdForm = ref<VForm | null>(null);
@@ -180,11 +186,6 @@ export default defineNuxtComponent({
         handleCreateSubmit,
         openDialog,
         handleRowClick,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("household.manage-households") as string,
     };
   },
 });

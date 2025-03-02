@@ -108,14 +108,13 @@ export default defineNuxtComponent({
       return i18n.t("data-pages.select-data");
     });
 
+    useSeoMeta({
+      title: i18n.t("data-pages.data-management"),
+    });
+
     return {
       buttonText,
       DATA_TYPE_OPTIONS
-    };
-  },
-  head() {
-    return {
-      title: this.$t("data-pages.data-management"),
     };
   },
 });

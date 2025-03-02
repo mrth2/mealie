@@ -175,6 +175,9 @@ export default defineNuxtComponent({
   components: { AppLoader },
   layout: "admin",
   setup() {
+    const { $globals } = useNuxtApp();
+    const i18n = useI18n();
+
     const state = reactive({
       loading: false,
       address: "",
@@ -182,6 +185,12 @@ export default defineNuxtComponent({
       error: "",
       tested: false,
     });
+
+    // Set page title
+    useSeoMeta({
+      title: i18n.t("settings.site-settings"),
+    });
+
     const appConfig = ref<CheckApp>({
       emailReady: true,
       baseUrlSet: true,
@@ -296,8 +305,6 @@ export default defineNuxtComponent({
     });
     // ============================================================
     // General About Info
-    const i18n = useI18n();
-    const { $globals } = useNuxtApp();
     const rawAppInfo = ref({
       version: "null",
       versionLatest: "null",
@@ -416,11 +423,6 @@ export default defineNuxtComponent({
       appInfo,
     };
   },
-  head() {
-    return {
-      title: this.$t("settings.site-settings") as string,
-    };
-  }
 });
 </script>
 

@@ -126,6 +126,10 @@ export default defineNuxtComponent({
     const isDemo = ref(false);
     const isFirstLogin = ref(false);
 
+    useSeoMeta({
+      title: i18n.t("user.login"),
+    });
+
     const form = reactive({
       email: "",
       password: "",
@@ -250,12 +254,6 @@ export default defineNuxtComponent({
       inputType,
       togglePasswordShow,
       isFirstLogin,
-    };
-  },
-
-  head() {
-    return {
-      title: this.$t("user.login") as string,
     };
   },
 });

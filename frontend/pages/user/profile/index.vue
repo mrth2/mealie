@@ -175,6 +175,10 @@ export default defineNuxtComponent({
     const route = useRoute();
     const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
 
+    useSeoMeta({
+      title: i18n.t("settings.profile"),
+    });
+
     // @ts-ignore $auth.user is typed as unknown, but it's a user
     const user = computed<UserOut | null>(() => $auth.user.value);
 
@@ -236,11 +240,6 @@ export default defineNuxtComponent({
       inviteDialog,
       stats,
       user,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("settings.profile") as string,
     };
   },
 });

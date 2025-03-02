@@ -52,18 +52,18 @@ export default defineNuxtComponent({
   components: { GroupWebhookEditor },
   middleware: ["auth", "advanced-only"],
   setup() {
+    const i18n = useI18n();
     const { actions, webhooks } = useGroupWebhooks();
+
+    useSeoMeta({
+      title: i18n.t("settings.webhooks.webhooks"),
+    });
 
     return {
       alert,
       webhooks,
       actions,
       timeUTC
-    };
-  },
-  head() {
-    return {
-      title: this.$t("settings.webhooks.webhooks") as string,
     };
   },
 });

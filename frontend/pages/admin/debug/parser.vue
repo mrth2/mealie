@@ -85,6 +85,11 @@ export default defineNuxtComponent({
 
     const i18n = useI18n();
 
+    // Set page title
+    useSeoMeta({
+      title: i18n.t("admin.parser"),
+    });
+
     const confidence = ref<IngredientConfidence>({});
 
     function getColor(attribute: ConfidenceAttribute) {
@@ -208,11 +213,6 @@ export default defineNuxtComponent({
       properties,
       processTryText,
       processIngredient,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("admin.parser"),
     };
   },
 });

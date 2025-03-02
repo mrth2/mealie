@@ -265,6 +265,10 @@ export default defineNuxtComponent({
     const $auth = useMealieAuth();
     const preferences = useShoppingListPreferences();
 
+    useSeoMeta({
+      title: i18n.t("shopping-list.shopping-list"),
+    });
+
     const { idle } = useIdle(5 * 60 * 1000) // 5 minutes
     const loadingCounter = ref(1);
     const recipeReferenceLoading = ref(false);
@@ -1038,11 +1042,6 @@ export default defineNuxtComponent({
       allUnits,
       allFoods,
       getTextColor,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("shopping-list.shopping-list") as string,
     };
   },
 });

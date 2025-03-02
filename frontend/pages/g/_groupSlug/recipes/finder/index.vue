@@ -237,10 +237,15 @@ interface RecipeSuggestions {
 export default defineNuxtComponent({
   components: { QueryFilterBuilder, RecipeSuggestion, SearchFilter },
   setup() {
-    const { $vuetify } = useVuetify();
+    const { $vuetify } = useNuxtApp();
     const i18n = useI18n();
     const $auth = useMealieAuth();
     const route = useRoute();
+
+    useSeoMeta({
+      title: i18n.t("recipe-finder.recipe-finder"),
+    });
+
     const useMobile = computed(() => $vuetify.display.smAndDown);
 
     const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
@@ -490,11 +495,6 @@ export default defineNuxtComponent({
       queryFilterBuilderFields,
       clearQueryFilter,
       saveQueryFilter,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("recipe-finder.recipe-finder"),
     };
   },
 });

@@ -111,10 +111,5 @@ export default defineNuxtComponent({
 
     return { members, headers, setPermissions, sessionUser: $auth.user };
   },
-  head() {
-    return {
-      title: this.$t("profile.members"),
-    };
-  },
 });
 </script>

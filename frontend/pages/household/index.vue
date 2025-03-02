@@ -37,6 +37,10 @@ export default defineNuxtComponent({
     const { household, actions: householdActions } = useHouseholdSelf();
     const i18n = useI18n();
 
+    useSeoMeta({
+      title: i18n.t("household.household"),
+    });
+
     const refHouseholdEditForm = ref<VForm | null>(null);
 
     type Preference = {
@@ -142,11 +146,6 @@ export default defineNuxtComponent({
       preferencesEditor,
       refHouseholdEditForm,
       handleSubmit,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("household.household") as string,
     };
   },
 });

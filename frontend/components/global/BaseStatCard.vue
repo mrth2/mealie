@@ -2,14 +2,8 @@
   <v-card v-bind="$attrs" :class="classes" class="v-card--material pa-3">
     <div class="d-flex grow flex-wrap">
       <slot name="avatar">
-        <v-sheet
-          :color="color"
-          :max-height="icon ? 90 : undefined"
-          :width="icon ? 'auto' : '100%'"
-          elevation="6"
-          class="text-start v-card--material__heading mb-n6 mt-n10 pa-7"
-          dark
-        >
+        <v-sheet :color="color" :max-height="icon ? 90 : undefined" :width="icon ? 'auto' : '100%'" elevation="6"
+          class="text-start v-card--material__heading mb-n6 mt-n10 pa-7" dark>
           <v-icon v-if="icon" size="40"> {{ icon }} </v-icon>
           <div v-if="text" class="headline font-weight-thin" v-text="text" />
         </v-sheet>
@@ -71,6 +65,7 @@ export default defineNuxtComponent({
     },
   },
   setup() {
+    const { $vuetify } = useNuxtApp();
     const hasHeading = computed(() => false);
     const hasAltHeading = computed(() => false);
     const classes = computed(() => {

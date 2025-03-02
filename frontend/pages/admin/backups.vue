@@ -181,6 +181,10 @@ export default defineNuxtComponent({
 
     const backupsFileNameDownload = (fileName: string) => `api/admin/backups/${fileName}`;
 
+    useSeoMeta({
+      title: i18n.t("sidebar.backups"),
+    });
+
     onMounted(refreshBackups);
 
     return {

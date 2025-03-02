@@ -98,6 +98,11 @@ export default defineNuxtComponent({
     const adminApi = useAdminApi();
     const i18n = useI18n();
 
+    // Set page title
+    useSeoMeta({
+      title: i18n.t("admin.maintenance.page-title"),
+    });
+
     // ==========================================================================
     // General Info
 
@@ -214,11 +219,6 @@ export default defineNuxtComponent({
       info,
       getSummary,
       actions,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("admin.maintenance.page-title") as string,
     };
   },
 });

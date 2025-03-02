@@ -80,6 +80,10 @@ export default defineNuxtComponent({
     const i18n = useI18n();
     const { $globals } = useNuxtApp();
 
+    useSeoMeta({
+      title: i18n.t("settings.migrations"),
+    });
+
     const api = useUserApi();
 
     const state = reactive({
@@ -424,11 +428,6 @@ export default defineNuxtComponent({
       deleteReport,
       startMigration,
       getMigrationReports,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("settings.migrations"),
     };
   },
 });

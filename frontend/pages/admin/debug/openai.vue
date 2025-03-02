@@ -72,6 +72,13 @@ export default defineNuxtComponent({
   layout: "admin",
   setup() {
     const api = useAdminApi();
+    const i18n = useI18n();
+
+    // Set page title
+    useSeoMeta({
+      title: i18n.t("admin.debug-openai-services"),
+    });
+
     const loading = ref(false);
     const response = ref("");
 
@@ -115,11 +122,6 @@ export default defineNuxtComponent({
       uploadImage,
       clearImage,
       testOpenAI,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("admin.debug-openai-services"),
     };
   },
 });

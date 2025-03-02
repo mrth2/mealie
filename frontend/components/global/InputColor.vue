@@ -10,7 +10,7 @@
     <template #append>
       <v-menu v-model="menu" left nudge-left="30" nudge-top="20" :close-on-content-click="false">
         <template #activator="{ props }">
-          <v-icon v-on="on">
+          <v-icon v-bind="props">
             {{ $globals.icons.formatColorFill }}
           </v-icon>
         </template>

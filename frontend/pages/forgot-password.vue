@@ -48,6 +48,12 @@ export default defineNuxtComponent({
     });
 
     const i18n = useI18n();
+
+    // Set page title
+    useSeoMeta({
+      title: i18n.t("user.login"),
+    });
+
     const api = useUserApi();
 
     async function requestLink() {
@@ -69,12 +75,6 @@ export default defineNuxtComponent({
     return {
       requestLink,
       ...toRefs(state),
-    };
-  },
-
-  head() {
-    return {
-      title: this.$t("user.login"),
     };
   },
 });

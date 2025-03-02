@@ -19,8 +19,13 @@ export default defineNuxtComponent({
   components: { RecipeTimeline },
   middleware: ["auth", "group-only"],
   setup() {
+    const i18n = useI18n();
     const api = useUserApi();
     const ready = ref<boolean>(false);
+
+    useSeoMeta({
+      title: i18n.t("recipe.timeline"),
+    });
 
     const groupName = ref<string>("");
     const queryFilter = ref<string>("");
@@ -35,15 +40,11 @@ export default defineNuxtComponent({
     }
 
     fetchHousehold();
+
     return {
       groupName,
       queryFilter,
       ready,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("recipe.timeline") as string,
     };
   },
 });

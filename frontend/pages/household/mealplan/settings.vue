@@ -153,6 +153,11 @@ export default defineNuxtComponent({
   },
   setup() {
     const api = useUserApi();
+    const i18n = useI18n();
+
+    useSeoMeta({
+      title: i18n.t("meal-plan.meal-plan-settings"),
+    });
 
     // ======================================================
     // Manage All
@@ -223,11 +228,6 @@ export default defineNuxtComponent({
       editState,
       updateRule,
       toggleEditState,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("meal-plan.meal-plan-settings"),
     };
   },
 });
