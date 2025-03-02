@@ -42,11 +42,11 @@
         <template v-for="(check, idx) in simpleChecks" :key="`list-item-${idx}`">
           <template>
             <v-list-item>
-              <v-list-item-icon>
+              <template #prepend>
                 <v-icon :color="check.color">
                   {{ check.icon }}
                 </v-icon>
-              </v-list-item-icon>
+              </template>
               <v-list-item-content>
                 <v-list-item-title>
                   {{ check.text }}
@@ -100,9 +100,9 @@
           <template v-for="(property, idx) in appInfo" :key="property.name">
             <template>
               <v-list-item>
-                <v-list-item-icon>
+                <template #prepend>
                   <v-icon> {{ property.icon || $globals.icons.user }} </v-icon>
-                </v-list-item-icon>
+                </template>
                 <v-list-item-content>
                   <v-list-item-title>
                     <div>{{ property.name }}</div>

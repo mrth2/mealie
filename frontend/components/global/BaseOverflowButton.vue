@@ -17,12 +17,12 @@
         <template v-for="(item, index) in items">
           <div v-if="!item.hide" :key="index">
             <v-list-item @click="setValue(item)">
-              <v-list-item-icon v-if="item.icon">
+              <template v-if="item.icon" #prepend>
                 <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item-icon>
+              </template>
               <v-list-item-title>{{ item.text }}</v-list-item-title>
             </v-list-item>
-            <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1" ></v-divider>
+            <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1"></v-divider>
           </div>
         </template>
       </v-list-item-group>
@@ -33,12 +33,12 @@
         <template v-for="(item, index) in items">
           <div v-if="!item.hide" :key="index">
             <v-list-item :to="item.to">
-            <v-list-item-icon v-if="item.icon">
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>{{ item.text }}</v-list-item-title>
+              <template v-if="item.icon" #prepend>
+                <v-icon>{{ item.icon }}</v-icon>
+              </template>
+              <v-list-item-title>{{ item.text }}</v-list-item-title>
             </v-list-item>
-            <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1" ></v-divider>
+            <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1"></v-divider>
           </div>
         </template>
       </v-list-item-group>
@@ -48,12 +48,12 @@
       <template v-for="(item, index) in items">
         <div v-if="!item.hide" :key="index">
           <v-list-item @click="$emit(item.event)">
-            <v-list-item-icon v-if="item.icon">
+            <template v-if="item.icon" #prepend>
               <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
+            </template>
             <v-list-item-title>{{ item.text }}</v-list-item-title>
           </v-list-item>
-          <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1" ></v-divider>
+          <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1"></v-divider>
         </div>
       </template>
     </v-list>
@@ -112,7 +112,7 @@ export default defineNuxtComponent({
       type: String,
       required: false,
       default: function () {
-        return this.$t("general.actions");
+        return useI18n().t("general.actions");
       }
     },
   },

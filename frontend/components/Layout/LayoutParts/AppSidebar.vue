@@ -36,9 +36,9 @@
 
               <v-list-item v-for="child in nav.children" :key="child.key || child.title" exact :to="child.to"
                 class="ml-2">
-                <v-list-item-icon>
+                <template #prepend>
                   <v-icon>{{ child.icon }}</v-icon>
-                </v-list-item-icon>
+                </template>
                 <v-list-item-title>{{ child.title }}</v-list-item-title>
               </v-list-item>
             </v-list-group>
@@ -47,9 +47,9 @@
             <v-list-item-group v-else :key="(nav.key || nav.title) + 'single-item'" v-model="secondarySelected"
               color="primary">
               <v-list-item exact link :to="nav.to">
-                <v-list-item-icon>
+                <template #prepend>
                   <v-icon>{{ nav.icon }}</v-icon>
-                </v-list-item-icon>
+                </template>
                 <v-list-item-title>{{ nav.title }}</v-list-item-title>
               </v-list-item>
             </v-list-item-group>
@@ -73,9 +73,9 @@
 
               <v-list-item v-for="child in nav.children" :key="child.key || child.title" exact :to="child.to"
                 class="ml-2">
-                <v-list-item-icon>
+                <template #prepend>
                   <v-icon>{{ child.icon }}</v-icon>
-                </v-list-item-icon>
+                </template>
                 <v-list-item-title>{{ child.title }}</v-list-item-title>
               </v-list-item>
             </v-list-group>
@@ -84,9 +84,9 @@
             <v-list-item-group v-else :key="(nav.key || nav.title) + 'single-item'" v-model="secondarySelected"
               color="primary">
               <v-list-item exact link :to="nav.to">
-                <v-list-item-icon>
+                <template #prepend>
                   <v-icon>{{ nav.icon }}</v-icon>
-                </v-list-item-icon>
+                </template>
                 <v-list-item-title>{{ nav.title }}</v-list-item-title>
               </v-list-item>
             </v-list-item-group>
@@ -103,9 +103,9 @@
             <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
               <v-list-item :key="nav.key || nav.title" exact link :to="nav.to || null" :href="nav.href || null"
                 :target="nav.href ? '_blank' : null">
-                <v-list-item-icon>
+                <template #prepend>
                   <v-icon>{{ nav.icon }}</v-icon>
-                </v-list-item-icon>
+                </template>
                 <v-list-item-title>{{ nav.title }}</v-list-item-title>
               </v-list-item>
             </div>

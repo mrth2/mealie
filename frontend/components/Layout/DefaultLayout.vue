@@ -38,20 +38,20 @@
       </v-menu>
       <template #bottom>
         <v-list-item @click.stop="languageDialog = true">
-          <v-list-item-icon>
+          <template #prepend>
             <v-icon>{{ $globals.icons.translate }}</v-icon>
-          </v-list-item-icon>
+          </template>
           <v-list-item-content>
             <v-list-item-title>{{ $t("sidebar.language") }}</v-list-item-title>
             <LanguageDialog v-model="languageDialog" />
           </v-list-item-content>
         </v-list-item>
         <v-list-item @click="toggleDark">
-          <v-list-item-icon>
+          <template #prepend>
             <v-icon>
               {{ currentTheme?.dark ? $globals.icons.weatherSunny : $globals.icons.weatherNight }}
             </v-icon>
-          </v-list-item-icon>
+          </template>
           <v-list-item-title>
             {{ currentTheme?.dark ? $t("settings.theme.light-mode") : $t("settings.theme.dark-mode") }}
           </v-list-item-title>

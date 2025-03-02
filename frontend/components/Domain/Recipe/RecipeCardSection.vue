@@ -141,6 +141,7 @@ export default defineNuxtComponent({
     },
   },
   setup(props, context) {
+    const { $vuetify } = useNuxtApp();
     const preferences = useUserSortPreferences();
 
     const EVENTS = {
