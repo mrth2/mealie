@@ -1,6 +1,6 @@
 <template>
   <v-container fill-height fluid class="d-flex justify-center align-center" width="1200px" min-height="700px" :class="{
-    'bg-off-white': !$theme.dark,
+    'bg-off-white': !$vuetify.theme.current.dark,
   }">
     <BaseWizard v-model="currentPage" :max-page-number="totalPages" :title="$t('admin.setup.first-time-setup')"
       :prev-button-show="activeConfig.showPrevButton" :next-button-show="activeConfig.showNextButton"
@@ -86,7 +86,6 @@ export default defineNuxtComponent({
     const { $globals } = useNuxtApp();
     const userApi = useUserApi();
     const adminApi = useAdminApi();
-    const { current: $theme } = useTheme();
 
     const groupSlug = computed(() => $auth.user.value?.groupSlug);
     const { locale } = useLocales();
@@ -426,7 +425,6 @@ export default defineNuxtComponent({
       // Page Submission
       isSubmitting,
       handleSubmit,
-      $theme
     }
   },
 })

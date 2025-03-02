@@ -1,6 +1,6 @@
 <template>
   <v-container fill-height fluid class="d-flex justify-center align-center flex-column" :class="{
-    'bg-off-white': !$theme.dark && !isDark,
+    'bg-off-white': !$vuetify.theme.current.dark && !isDark,
   }">
     <v-alert v-if="isFirstLogin" class="my-4" type="info" icon="mdi-information">
       <div>
@@ -50,8 +50,8 @@
           <div v-if="allowOidc" class="d-flex my-4 justify-center align-center" width="80%">
             <v-divider class="div-width" />
             <span class="absolute px-2" :class="{
-              'bg-white': !$theme.dark && !isDark,
-              'bg-background': $theme.dark || isDark,
+              'bg-white': !$vuetify.theme.current.dark && !isDark,
+              'bg-background': $vuetify.theme.current.dark || isDark,
             }">
               {{ $t("user.or") }}
             </span>
@@ -103,7 +103,6 @@
 </template>
 
 <script lang="ts">
-
 import { useDark, whenever } from "@vueuse/core";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useAppInfo } from "~/composables/api";
@@ -117,7 +116,6 @@ export default defineNuxtComponent({
 
   setup() {
     const isDark = useDark();
-    const { current: $theme } = useTheme();
 
     const router = useRouter();
     const i18n = useI18n();
@@ -252,7 +250,6 @@ export default defineNuxtComponent({
       inputType,
       togglePasswordShow,
       isFirstLogin,
-      $theme,
     };
   },
 

@@ -1,6 +1,6 @@
 <template>
   <v-container fill-height fluid class="d-flex justify-center align-center" :class="{
-    'bg-off-white': !$theme.dark && !isDark,
+    'bg-off-white': !$vuetify.theme.current.dark && !isDark,
   }">
     <LanguageDialog v-model="langDialog" />
 
@@ -206,7 +206,6 @@ export default defineNuxtComponent({
   setup() {
     const i18n = useI18n();
     const isDark = useDark();
-    const { current: $theme } = useTheme();
 
     function safeValidate(form: Ref<VForm | null>) {
       if (form.value && form.value.validate) {
@@ -415,7 +414,6 @@ export default defineNuxtComponent({
       domAccountForm,
       domGroupForm,
       domTokenForm,
-      $theme,
     };
   },
 });
