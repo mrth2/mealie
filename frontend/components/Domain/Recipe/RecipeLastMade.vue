@@ -1,69 +1,31 @@
 <template>
   <div>
     <div>
-      <BaseDialog
-        v-model="madeThisDialog"
-        :icon="$globals.icons.chefHat"
-        :title="$t('recipe.made-this')"
-        :submit-text="$t('recipe.add-to-timeline')"
-        @submit="createTimelineEvent"
-        >
+      <BaseDialog v-model="madeThisDialog" :icon="$globals.icons.chefHat" :title="$t('recipe.made-this')"
+        :submit-text="$t('recipe.add-to-timeline')" @submit="createTimelineEvent">
         <v-card-text>
           <v-form ref="domMadeThisForm">
-            <v-textarea
-              v-model="newTimelineEvent.eventMessage"
-              autofocus
-              :label="$t('recipe.comment')"
-              :hint="$t('recipe.how-did-it-turn-out')"
-              persistent-hint
-              rows="4"
-            ></v-textarea>
+            <v-textarea v-model="newTimelineEvent.eventMessage" autofocus :label="$t('recipe.comment')"
+              :hint="$t('recipe.how-did-it-turn-out')" persistent-hint rows="4"></v-textarea>
             <v-container>
               <v-row>
                 <v-col cols="auto">
-                  <v-menu
-                    v-model="datePickerMenu"
-                    :close-on-content-click="false"
-                    transition="scale-transition"
-                    offset-y
-                    max-width="290px"
-                    min-width="auto"
-                  >
+                  <v-menu v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition"
+                    offset-y max-width="290px" min-width="auto">
                     <template #activator="{ props }">
-                      <v-text-field
-                        v-model="newTimelineEventTimestamp"
-                        :prepend-icon="$globals.icons.calendar"
-                        v-bind="props"
-                        readonly
-                      ></v-text-field>
+                      <v-text-field v-model="newTimelineEventTimestamp" :prepend-icon="$globals.icons.calendar"
+                        v-bind="props" readonly></v-text-field>
                     </template>
-                    <v-date-picker
-                      v-model="newTimelineEventTimestamp"
-                      no-title
-                      :first-day-of-week="firstDayOfWeek"
-                      :local="$i18n.locale"
-                      @input="datePickerMenu = false"
-                    />
+                    <v-date-picker v-model="newTimelineEventTimestamp" no-title :first-day-of-week="firstDayOfWeek"
+                      :local="$i18n.locale" @input="datePickerMenu = false" />
                   </v-menu>
                 </v-col>
                 <v-spacer />
                 <v-col cols="auto" align-self="center">
-                  <AppButtonUpload
-                    v-if="!newTimelineEventImage"
-                    class="ml-auto"
-                    url="none"
-                    file-name="image"
-                    accept="image/*"
-                    :text="$t('recipe.upload-image')"
-                    :text-btn="false"
-                    :post="false"
-                    @uploaded="uploadImage"
-                  />
-                  <v-btn
-                    v-if="!!newTimelineEventImage"
-                    color="error"
-                    @click="clearImage"
-                  >
+                  <AppButtonUpload v-if="!newTimelineEventImage" class="ml-auto" url="none" file-name="image"
+                    accept="image/*" :text="$t('recipe.upload-image')" :text-btn="false" :post="false"
+                    @uploaded="uploadImage" />
+                  <v-btn v-if="!!newTimelineEventImage" color="error" @click="clearImage">
                     <v-icon left>{{ $globals.icons.close }}</v-icon>
                     {{ $t('recipe.remove-image') }}
                   </v-btn>
@@ -71,12 +33,8 @@
               </v-row>
               <v-row v-if="newTimelineEventImage && newTimelineEventImagePreviewUrl">
                 <v-col cols="12" align-self="center">
-                  <ImageCropper
-                    :img="newTimelineEventImagePreviewUrl"
-                    cropper-height="20vh"
-                    cropper-width="100%"
-                    @save="updateUploadedImage"
-                  />
+                  <ImageCropper :img="newTimelineEventImagePreviewUrl" cropper-height="20vh" cropper-width="100%"
+                    @save="updateUploadedImage" />
                 </v-col>
               </v-row>
             </v-container>
@@ -85,29 +43,21 @@
       </BaseDialog>
     </div>
     <div>
-      <div class="d-flex justify-center flex-wrap">
-        <v-chip
-          label
-          :small="$vuetify.display.smAndDown"
-          color="accent custom-transparent"
-          class="ma-1 pa-3"
-        >
-          <v-icon left>
-            {{ $globals.icons.calendar }}
-          </v-icon>
-            <div v-if="lastMadeReady">
-              {{ $t('recipe.last-made-date', { date: lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $t("general.never") } ) }}
-            </div>
-            <div v-else>
-              <AppLoader tiny />
-            </div>
-        </v-chip>
-      </div>
-      <div class="d-flex justify-center flex-wrap mt-1">
-        <BaseButton :small="$vuetify.display.smAndDown" @click="madeThisDialog = true">
-          <template #icon> {{ $globals.icons.chefHat }} </template>
-          {{ $t('recipe.made-this') }}
-        </BaseButton>
+      <div v-if="lastMadeReady" class="d-flex justify-center flex-wrap">
+        <v-row no-gutters class="d-flex flex-wrap align-center" style="font-size: larger;">
+          <v-tooltip bottom>
+            <template #activator="{ props }">
+              <v-btn rounded outlined x-large color="primary" v-bind="props" @click="madeThisDialog = true">
+                <v-icon left large>{{ $globals.icons.calendar }}</v-icon>
+                <span class="text--secondary" style="letter-spacing: normal;"><b>{{ $tc("general.last-made")
+                    }}</b><br>{{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $tc("general.never")
+                  }}</span>
+                <v-icon right large>{{ $globals.icons.createAlt }}</v-icon>
+              </v-btn>
+            </template>
+            <span>{{ $tc("recipe.made-this") }}</span>
+          </v-tooltip>
+        </v-row>
       </div>
     </div>
   </div>
@@ -191,7 +141,7 @@ export default defineNuxtComponent({
       newTimelineEventImagePreviewUrl.value = URL.createObjectURL(fileObject);
     }
 
-    const state = reactive({datePickerMenu: false});
+    const state = reactive({ datePickerMenu: false });
     async function createTimelineEvent() {
       if (!(newTimelineEventTimestamp.value && props.recipe?.id && props.recipe?.slug)) {
         return;
@@ -211,7 +161,7 @@ export default defineNuxtComponent({
       // we also update the recipe's last made value
       if (!lastMade.value || newTimelineEvent.value.timestamp > lastMade.value) {
         lastMade.value = newTimelineEvent.value.timestamp;
-        await userApi.recipes.updateLastMade(props.recipe.slug,  newTimelineEvent.value.timestamp);
+        await userApi.recipes.updateLastMade(props.recipe.slug, newTimelineEvent.value.timestamp);
       }
 
       // update the image, if provided

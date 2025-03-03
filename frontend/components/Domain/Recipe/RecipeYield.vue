@@ -1,21 +1,19 @@
 <template>
-  <div v-if="displayText" class="d-flex justify-space-between align-center">
-    <v-chip
-      :small="$vuetify.display.smAndDown"
-      label
-      :color="color"
-    >
-      <v-icon left>
-        {{ $globals.icons.potSteam }}
+  <div v-if="scaledAmount" class="d-flex align-center">
+    <v-row no-gutters class="d-flex flex-wrap align-center" style="font-size: larger;">
+      <v-icon x-large left color="primary">
+        {{ $globals.icons.bread }}
       </v-icon>
-      <!-- eslint-disable-next-line vue/no-v-html -->
-      <span v-html="displayText"></span>
-    </v-chip>
+      <p class="my-0">
+        <span class="font-weight-bold">{{ $t("recipe.yield") }}</span><br>
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <span v-html="scaledAmount"></span> {{ text }}
+      </p>
+    </v-row>
   </div>
 </template>
 
 <script lang="ts">
-
 import DOMPurify from "dompurify";
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
@@ -39,8 +37,6 @@ export default defineNuxtComponent({
     },
   },
   setup(props) {
-    const i18n = useI18n();
-
     function sanitizeHTML(rawHtml: string) {
       return DOMPurify.sanitize(rawHtml, {
         USE_PROFILES: { html: true },
@@ -48,21 +44,15 @@ export default defineNuxtComponent({
       });
     }
 
-    const displayText = computed(() => {
-      if (!(props.yieldQuantity || props.yield)) {
-        return "";
-      }
-
-      const { scaledAmountDisplay } = useScaledAmount(props.yieldQuantity, props.scale);
-
-      return i18n.t("recipe.yields-amount-with-text", {
-        amount: scaledAmountDisplay,
-        text: sanitizeHTML(props.yield),
-      }) as string;
+    const scaledAmount = computed(() => {
+      const {scaledAmountDisplay} =  useScaledAmount(props.yieldQuantity, props.scale);
+      return scaledAmountDisplay;
     });
+    const text = sanitizeHTML(props.yield);
 
     return {
-      displayText,
+      scaledAmount,
+      text,
     };
   },
 });
