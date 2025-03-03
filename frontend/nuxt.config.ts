@@ -265,7 +265,7 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    //
+    baseURL: process.env.SUB_PATH || "",
   },
   /* proxy: {
     // See Proxy section
