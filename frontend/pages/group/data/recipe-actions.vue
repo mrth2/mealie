@@ -1,68 +1,40 @@
 <template>
   <div>
     <!-- Create Dialog -->
-    <BaseDialog
-      v-model="state.createDialog"
-      :title="$t('data-pages.recipe-actions.new-recipe-action')"
-      :icon="$globals.icons.primary"
-      @submit="createAction"
-    >
+    <BaseDialog v-model="state.createDialog" :title="$t('data-pages.recipe-actions.new-recipe-action')"
+      :icon="$globals.icons.primary" @submit="createAction">
       <v-card-text>
         <v-form ref="domNewActionForm">
-          <v-text-field
-            v-model="createTarget.title"
-            autofocus
-            :label="$t('general.title')"
-            :rules="[validators.required]"
-          />
-          <v-text-field
-            v-model="createTarget.url"
-            :label="$t('general.url')"
-            :rules="[validators.required]"
-          />
-          <v-select
-            v-model="createTarget.actionType"
-            :items="actionTypeOptions"
-            :label="$t('data-pages.recipe-actions.action-type')"
-            :rules="[validators.required]"
-          />
+          <v-text-field v-model="createTarget.title" autofocus :label="$t('general.title')"
+            :rules="[validators.required]" />
+          <v-text-field v-model="createTarget.url" :label="$t('general.url')" :rules="[validators.required]" />
+          <v-select v-model="createTarget.actionType" :items="actionTypeOptions"
+            :label="$t('data-pages.recipe-actions.action-type')" :rules="[validators.required]" />
         </v-form>
       </v-card-text>
     </BaseDialog>
 
     <!-- Edit Dialog -->
-    <BaseDialog
-      v-model="state.editDialog"
-      :icon="$globals.icons.primary"
-      :title="$t('data-pages.recipe-actions.edit-recipe-action')"
-      :submit-text="$t('general.save')"
-      @submit="editSaveAction"
-    >
+    <BaseDialog v-model="state.editDialog" :icon="$globals.icons.primary"
+      :title="$t('data-pages.recipe-actions.edit-recipe-action')" :submit-text="$t('general.save')"
+      @submit="editSaveAction">
       <v-card-text v-if="editTarget">
         <div class="mt-4">
-          <v-text-field v-model="editTarget.title" :label="$t('general.title')"/>
+          <v-text-field v-model="editTarget.title" :label="$t('general.title')" />
         </div>
         <div class="mt-4">
-          <v-text-field v-model="editTarget.url" :label="$t('general.url')"/>
+          <v-text-field v-model="editTarget.url" :label="$t('general.url')" />
         </div>
         <div class="mt-4">
-          <v-select
-            v-model="editTarget.actionType"
-            :items="actionTypeOptions"
-            :label="$t('data-pages.recipe-actions.action-type')"
-          />
+          <v-select v-model="editTarget.actionType" :items="actionTypeOptions"
+            :label="$t('data-pages.recipe-actions.action-type')" />
         </div>
       </v-card-text>
     </BaseDialog>
 
     <!-- Delete Dialog -->
-    <BaseDialog
-      v-model="state.deleteDialog"
-      :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      @confirm="deleteAction"
-    >
+    <BaseDialog v-model="state.deleteDialog" :title="$t('general.confirm')" :icon="$globals.icons.alertCircle"
+      color="error" @confirm="deleteAction">
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
         <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.title }}</p>
@@ -70,23 +42,15 @@
     </BaseDialog>
 
     <!-- Bulk Delete Dialog -->
-    <BaseDialog
-      v-model="state.bulkDeleteDialog"
-      width="650px"
-      :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      @confirm="deleteSelected"
-    >
+    <BaseDialog v-model="state.bulkDeleteDialog" width="650px" :title="$t('general.confirm')"
+      :icon="$globals.icons.alertCircle" color="error" @confirm="deleteSelected">
       <v-card-text>
         <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
         <v-card outlined>
           <v-virtual-scroll height="400" item-height="25" :items="bulkDeleteTarget">
             <template #default="{ item }">
               <v-list-item class="pb-2">
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.name }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
               </v-list-item>
             </template>
           </v-virtual-scroll>
@@ -95,17 +59,12 @@
     </BaseDialog>
 
     <!-- Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.primary" section :title="$t('data-pages.recipe-actions.recipe-actions-data')"> </BaseCardSectionTitle>
-    <CrudTable
-      :table-config="tableConfig"
-      :headers.sync="tableHeaders"
-      :data="actions || []"
-      :bulk-actions="[{icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected'}]"
-      initial-sort="title"
-      @delete-one="deleteEventHandler"
-      @edit-one="editEventHandler"
-      @delete-selected="bulkDeleteEventHandler"
-    >
+    <BaseCardSectionTitle :icon="$globals.icons.primary" section
+      :title="$t('data-pages.recipe-actions.recipe-actions-data')"> </BaseCardSectionTitle>
+    <CrudTable :table-config="tableConfig" :headers.sync="tableHeaders" :data="actions || []"
+      :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
+      initial-sort="title" @delete-one="deleteEventHandler" @edit-one="editEventHandler"
+      @delete-selected="bulkDeleteEventHandler">
       <template #button-row>
         <BaseButton create @click="state.createDialog = true">{{ $t("general.create") }}</BaseButton>
       </template>

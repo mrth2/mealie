@@ -8,9 +8,9 @@
         <v-checkbox v-model="recipeTools[index].onHand" hide-details class="pt-0 my-auto py-auto" color="secondary"
           @change="updateTool(index)">
         </v-checkbox>
-        <v-list-item-content>
+        <div>
           {{ tool.name }}
-        </v-list-item-content>
+        </div>
       </v-list-item>
     </div>
   </div>

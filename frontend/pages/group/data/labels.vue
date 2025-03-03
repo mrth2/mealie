@@ -1,7 +1,8 @@
 <template>
   <div>
     <!-- Create New Dialog -->
-    <BaseDialog v-model="state.createDialog" :title="$t('data-pages.labels.new-label')" :icon="$globals.icons.tags" @submit="createLabel">
+    <BaseDialog v-model="state.createDialog" :title="$t('data-pages.labels.new-label')" :icon="$globals.icons.tags"
+      @submit="createLabel">
       <v-card-text>
         <MultiPurposeLabel :label="createLabelData" />
 
@@ -13,14 +14,8 @@
     </BaseDialog>
 
     <!-- Edit Dialog -->
-    <BaseDialog
-      v-model="state.editDialog"
-      :icon="$globals.icons.tags"
-      :title="$t('data-pages.labels.edit-label')"
-      :submit-icon="$globals.icons.save"
-      :submit-text="$t('general.save')"
-      @submit="editSaveLabel"
-    >
+    <BaseDialog v-model="state.editDialog" :icon="$globals.icons.tags" :title="$t('data-pages.labels.edit-label')"
+      :submit-icon="$globals.icons.save" :submit-text="$t('general.save')" @submit="editSaveLabel">
       <v-card-text v-if="editLabel">
         <MultiPurposeLabel :label="editLabel" />
         <div class="mt-4">
@@ -31,13 +26,8 @@
     </BaseDialog>
 
     <!-- Delete Dialog -->
-    <BaseDialog
-      v-model="state.deleteDialog"
-      :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      @confirm="deleteLabel"
-    >
+    <BaseDialog v-model="state.deleteDialog" :title="$t('general.confirm')" :icon="$globals.icons.alertCircle"
+      color="error" @confirm="deleteLabel">
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
         <v-row>
@@ -47,23 +37,15 @@
     </BaseDialog>
 
     <!-- Bulk Delete Dialog -->
-    <BaseDialog
-      v-model="state.bulkDeleteDialog"
-      width="650px"
-      :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      @confirm="deleteSelected"
-    >
+    <BaseDialog v-model="state.bulkDeleteDialog" width="650px" :title="$t('general.confirm')"
+      :icon="$globals.icons.alertCircle" color="error" @confirm="deleteSelected">
       <v-card-text>
         <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
         <v-card outlined>
           <v-virtual-scroll height="400" item-height="25" :items="bulkDeleteTarget">
             <template #default="{ item }">
               <v-list-item class="pb-2">
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.name }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
               </v-list-item>
             </template>
           </v-virtual-scroll>
@@ -72,33 +54,19 @@
     </BaseDialog>
 
     <!-- Seed Dialog-->
-    <BaseDialog
-      v-model="seedDialog"
-      :icon="$globals.icons.foods"
-      :title="$t('data-pages.seed-data')"
-      @confirm="seedDatabase"
-    >
+    <BaseDialog v-model="seedDialog" :icon="$globals.icons.foods" :title="$t('data-pages.seed-data')"
+      @confirm="seedDatabase">
       <v-card-text>
         <div class="pb-2">
           {{ $t("data-pages.labels.seed-dialog-text") }}
         </div>
-        <v-autocomplete
-          v-model="locale"
-          :items="locales"
-          item-text="name"
-          :label="$t('data-pages.select-language')"
-          class="my-3"
-          hide-details
-          outlined
-          offset
-        >
+        <v-autocomplete v-model="locale" :items="locales" item-text="name" :label="$t('data-pages.select-language')"
+          class="my-3" hide-details outlined offset>
           <template #item="{ item }">
-            <v-list-item-content>
               <v-list-item-title> {{ item.name }} </v-list-item-title>
               <v-list-item-subtitle>
                 {{ item.progress }}% {{ $t("language-dialog.translated") }}
               </v-list-item-subtitle>
-            </v-list-item-content>
           </template>
         </v-autocomplete>
 
@@ -109,17 +77,12 @@
     </BaseDialog>
 
     <!-- Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.tags" section :title="$t('data-pages.labels.labels')"> </BaseCardSectionTitle>
-    <CrudTable
-      :table-config="tableConfig"
-      :headers.sync="tableHeaders"
-      :data="labels || []"
-      :bulk-actions="[{icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected'}]"
-      initial-sort="name"
-      @delete-one="deleteEventHandler"
-      @edit-one="editEventHandler"
-      @delete-selected="bulkDeleteEventHandler"
-    >
+    <BaseCardSectionTitle :icon="$globals.icons.tags" section :title="$t('data-pages.labels.labels')">
+    </BaseCardSectionTitle>
+    <CrudTable :table-config="tableConfig" :headers.sync="tableHeaders" :data="labels || []"
+      :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
+      initial-sort="name" @delete-one="deleteEventHandler" @edit-one="editEventHandler"
+      @delete-selected="bulkDeleteEventHandler">
       <template #button-row>
         <BaseButton create @click="state.createDialog = true">{{ $t("general.create") }}</BaseButton>
       </template>

@@ -97,9 +97,7 @@
           <v-virtual-scroll height="400" item-height="25" :items="bulkDeleteTarget">
             <template #default="{ item }">
               <v-list-item class="pb-2">
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.name }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
               </v-list-item>
             </template>
           </v-virtual-scroll>
@@ -117,12 +115,10 @@
         <v-autocomplete v-model="locale" :items="locales" item-text="name" :label="$t('data-pages.select-language')"
           class="my-3" hide-details outlined offset>
           <template #item="{ item }">
-            <v-list-item-content>
-              <v-list-item-title> {{ item.name }} </v-list-item-title>
-              <v-list-item-subtitle>
-                {{ item.progress }}% {{ $t("language-dialog.translated") }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
+            <v-list-item-title> {{ item.name }} </v-list-item-title>
+            <v-list-item-subtitle>
+              {{ item.progress }}% {{ $t("language-dialog.translated") }}
+            </v-list-item-subtitle>
           </template>
         </v-autocomplete>
 

@@ -12,9 +12,9 @@
         </template>
         <v-list-item dense @click.stop="toggleChecked(index)">
           <v-checkbox hide-details :value="checked[index]" class="pt-0 my-auto py-auto" color="secondary" />
-          <v-list-item-content :key="ingredient.quantity">
+          <div :key="ingredient.quantity">
             <RecipeIngredientListItem :ingredient="ingredient" :disable-amount="disableAmount" :scale="scale" />
-          </v-list-item-content>
+          </div>
         </v-list-item>
       </div>
     </div>

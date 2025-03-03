@@ -1,77 +1,37 @@
 <template>
   <div>
     <!-- Create Meal Dialog -->
-    <BaseDialog
-      v-model="state.dialog"
-      :title="$t(newMeal.existing
-        ? 'meal-plan.update-this-meal-plan'
-        : 'meal-plan.create-a-new-meal-plan'
-      )"
-      :submit-text="$t(newMeal.existing
+    <BaseDialog v-model="state.dialog" :title="$t(newMeal.existing
+      ? 'meal-plan.update-this-meal-plan'
+      : 'meal-plan.create-a-new-meal-plan'
+    )" :submit-text="$t(newMeal.existing
         ? 'general.update'
         : 'general.create'
-      )"
-      color="primary"
-      :icon="$globals.icons.foods"
-      :submit-disabled="isCreateDisabled"
-      @submit="
+      )" color="primary" :icon="$globals.icons.foods" :submit-disabled="isCreateDisabled" @submit="
         if (newMeal.existing) {
-          actions.updateOne(newMeal);
-        } else {
-          actions.createOne(newMeal);
-        }
+        actions.updateOne(newMeal);
+      } else {
+        actions.createOne(newMeal);
+      }
         resetDialog();
-      "
-      @close="resetDialog()"
-    >
+        " @close="resetDialog()">
       <v-card-text>
-        <v-menu
-          v-model="state.pickerMenu"
-          :close-on-content-click="false"
-          transition="scale-transition"
-          offset-y
-          max-width="290px"
-          min-width="auto"
-        >
+        <v-menu v-model="state.pickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y
+          max-width="290px" min-width="auto">
           <template #activator="{ props }">
-            <v-text-field
-              v-model="newMeal.date"
-              :label="$t('general.date')"
-              :hint="$t('recipe.date-format-hint-yyyy-mm-dd')"
-              persistent-hint
-              :prepend-icon="$globals.icons.calendar"
-              v-bind="props"
-              readonly
-            />
+            <v-text-field v-model="newMeal.date" :label="$t('general.date')"
+              :hint="$t('recipe.date-format-hint-yyyy-mm-dd')" persistent-hint :prepend-icon="$globals.icons.calendar"
+              v-bind="props" readonly />
           </template>
-          <v-date-picker
-            v-model="newMeal.date"
-            no-title
-            :first-day-of-week="firstDayOfWeek"
-            :local="$i18n.locale"
-            @input="state.pickerMenu = false"
-          />
+          <v-date-picker v-model="newMeal.date" no-title :first-day-of-week="firstDayOfWeek" :local="$i18n.locale"
+            @input="state.pickerMenu = false" />
         </v-menu>
         <v-card-text>
-          <v-select
-            v-model="newMeal.entryType"
-            :return-object="false"
-            :items="planTypeOptions"
-            :label="$t('recipe.entry-type')"
-          />
-          <v-autocomplete
-            v-if="!dialog.note"
-            v-model="newMeal.recipeId"
-            :label="$t('meal-plan.meal-recipe')"
-            :items="search.data.value"
-            :loading="search.loading.value"
-            :search-input.sync="search.query.value"
-            cache-items
-            item-text="name"
-            item-value="id"
-            :return-object="false"
-            :rules="[requiredRule]"
-          />
+          <v-select v-model="newMeal.entryType" :return-object="false" :items="planTypeOptions"
+            :label="$t('recipe.entry-type')" />
+          <v-autocomplete v-if="!dialog.note" v-model="newMeal.recipeId" :label="$t('meal-plan.meal-recipe')"
+            :items="search.data.value" :loading="search.loading.value" :search-input.sync="search.query.value"
+            cache-items item-text="name" item-value="id" :return-object="false" :rules="[requiredRule]" />
           <template v-else>
             <v-text-field v-model="newMeal.title" :rules="[requiredRule]" :label="$t('meal-plan.meal-title')" />
             <v-textarea v-model="newMeal.text" rows="2" :label="$t('meal-plan.meal-note')" />
@@ -83,63 +43,32 @@
       </v-card-text>
     </BaseDialog>
     <v-row>
-      <v-col
-        v-for="(plan, index) in mealplans"
-        :key="index"
-        cols="12"
-        sm="12"
-        md="3"
-        lg="3"
-        xl="2"
-        class="col-borders my-1 d-flex flex-column"
-      >
+      <v-col v-for="(plan, index) in mealplans" :key="index" cols="12" sm="12" md="3" lg="3" xl="2"
+        class="col-borders my-1 d-flex flex-column">
         <v-card class="mb-2 border-left-primary rounded-sm pa-2">
           <p class="pl-2 mb-1">
             {{ $d(plan.date, "short") }}
           </p>
         </v-card>
-        <draggable
-          tag="div"
-          handle=".handle"
-          delay="250"
-          :delay-on-touch-only="true"
-          :value="plan.meals"
-          group="meals"
-          :data-index="index"
-          :data-box="plan.date"
-          style="min-height: 150px"
-          @end="onMoveCallback"
-        >
-          <v-card
-            v-for="mealplan in plan.meals"
-            :key="mealplan.id"
-            class="my-1"
-            :class="{ handle: $vuetify.display.smAndUp }"
-          >
-            <v-list-item
-              @click="editMeal(mealplan)"
-            >
+        <draggable tag="div" handle=".handle" delay="250" :delay-on-touch-only="true" :value="plan.meals" group="meals"
+          :data-index="index" :data-box="plan.date" style="min-height: 150px" @end="onMoveCallback">
+          <v-card v-for="mealplan in plan.meals" :key="mealplan.id" class="my-1"
+            :class="{ handle: $vuetify.display.smAndUp }">
+            <v-list-item @click="editMeal(mealplan)">
               <v-avatar :rounded="false">
-                <RecipeCardImage
-                  v-if="mealplan.recipe"
-                  :recipe-id="mealplan.recipe.id"
-                  tiny
-                  icon-size="25"
-                  :slug="mealplan.recipe ? mealplan.recipe.slug : ''"
-                >
+                <RecipeCardImage v-if="mealplan.recipe" :recipe-id="mealplan.recipe.id" tiny icon-size="25"
+                  :slug="mealplan.recipe ? mealplan.recipe.slug : ''">
                 </RecipeCardImage>
                 <v-icon v-else>
                   {{ $globals.icons.primary }}
                 </v-icon>
               </v-avatar>
-              <v-list-item-content>
-                <v-list-item-title class="mb-1">
-                  {{ mealplan.recipe ? mealplan.recipe.name : mealplan.title }}
-                </v-list-item-title>
-                <v-list-item-subtitle style="min-height: 16px">
-                  {{ mealplan.recipe ? mealplan.recipe.description + " " : mealplan.text }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
+              <v-list-item-title class="mb-1">
+                {{ mealplan.recipe ? mealplan.recipe.name : mealplan.title }}
+              </v-list-item-title>
+              <v-list-item-subtitle style="min-height: 16px">
+                {{ mealplan.recipe ? mealplan.recipe.description + " " : mealplan.text }}
+              </v-list-item-subtitle>
             </v-list-item>
             <v-divider class="mx-2"></v-divider>
             <div class="py-2 px-2 d-flex" style="align-items: center">
@@ -158,11 +87,8 @@
                   </v-chip>
                 </template>
                 <v-list>
-                  <v-list-item
-                    v-for="mealType in planTypeOptions"
-                    :key="mealType.value"
-                    @click="actions.setType(mealplan, mealType.value)"
-                  >
+                  <v-list-item v-for="mealType in planTypeOptions" :key="mealType.value"
+                    @click="actions.setType(mealplan, mealType.value)">
                     <v-list-item-title> {{ mealType.text }} </v-list-item-title>
                   </v-list-item>
                 </v-list>
@@ -175,47 +101,42 @@
         </draggable>
         <!-- Day Column Actions -->
         <div class="d-flex justify-end mt-auto">
-          <BaseButtonGroup
-            :buttons="[
-              {
-                icon: $globals.icons.diceMultiple,
-                text: $t('meal-plan.random-meal'),
-                event: 'random',
-                children: [
-                  {
-                    icon: $globals.icons.diceMultiple,
-                    text: $t('meal-plan.breakfast'),
-                    event: 'randomBreakfast',
-                  },
-                  {
-                    icon: $globals.icons.diceMultiple,
-                    text: $t('meal-plan.lunch'),
-                    event: 'randomLunch',
-                  },
-                ],
-              },
-              {
-                icon: $globals.icons.potSteam,
-                text: $t('meal-plan.random-dinner'),
-                event: 'randomDinner',
-              },
-              {
-                icon: $globals.icons.bowlMixOutline,
-                text: $t('meal-plan.random-side'),
-                event: 'randomSide',
-              },
-              {
-                icon: $globals.icons.createAlt,
-                text: $t('general.new'),
-                event: 'create',
-              },
-            ]"
-            @create="openDialog(plan.date)"
-            @randomBreakfast="randomMeal(plan.date, 'breakfast')"
-            @randomLunch="randomMeal(plan.date, 'lunch')"
-            @randomDinner="randomMeal(plan.date, 'dinner')"
-            @randomSide="randomMeal(plan.date, 'side')"
-          />
+          <BaseButtonGroup :buttons="[
+            {
+              icon: $globals.icons.diceMultiple,
+              text: $t('meal-plan.random-meal'),
+              event: 'random',
+              children: [
+                {
+                  icon: $globals.icons.diceMultiple,
+                  text: $t('meal-plan.breakfast'),
+                  event: 'randomBreakfast',
+                },
+                {
+                  icon: $globals.icons.diceMultiple,
+                  text: $t('meal-plan.lunch'),
+                  event: 'randomLunch',
+                },
+              ],
+            },
+            {
+              icon: $globals.icons.potSteam,
+              text: $t('meal-plan.random-dinner'),
+              event: 'randomDinner',
+            },
+            {
+              icon: $globals.icons.bowlMixOutline,
+              text: $t('meal-plan.random-side'),
+              event: 'randomSide',
+            },
+            {
+              icon: $globals.icons.createAlt,
+              text: $t('general.new'),
+              event: 'create',
+            },
+          ]" @create="openDialog(plan.date)" @randomBreakfast="randomMeal(plan.date, 'breakfast')"
+            @randomLunch="randomMeal(plan.date, 'lunch')" @randomDinner="randomMeal(plan.date, 'dinner')"
+            @randomSide="randomMeal(plan.date, 'side')" />
         </div>
       </v-col>
     </v-row>

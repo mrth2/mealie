@@ -12,41 +12,27 @@
         <v-card-text>
           <v-text-field v-model="state.search" class="mb-2" hide-details dense :label="$t('search.search')" clearable />
           <div class="d-flex py-4">
-            <v-switch
-              v-if="requireAll != undefined"
-              v-model="requireAllValue"
-              dense
-              small
-              hide-details
-              class="my-auto"
-              :label="`${requireAll ? $t('search.has-all') : $t('search.has-any')}`"
-            />
+            <v-switch v-if="requireAll != undefined" v-model="requireAllValue" dense small hide-details class="my-auto"
+              :label="`${requireAll ? $t('search.has-all') : $t('search.has-any')}`" />
             <v-spacer />
-            <v-btn
-              small
-              color="accent"
-              class="mr-2 my-auto"
-              @click="clearSelection"
-            >
+            <v-btn small color="accent" class="mr-2 my-auto" @click="clearSelection">
               {{ $t("search.clear-selection") }}
             </v-btn>
           </div>
           <v-card v-if="filtered.length > 0" flat outlined>
             <v-radio-group v-model="selectedRadio" class="ma-0 pa-0">
-            <v-virtual-scroll :items="filtered" height="300" item-height="51">
-              <template #default="{ item }">
+              <v-virtual-scroll :items="filtered" height="300" item-height="51">
+                <template #default="{ item }">
                   <v-list-item :key="item.id" dense :value="item">
                     <v-list-item-action>
                       <v-radio v-if="radio" :value="item" @click="handleRadioClick(item)" />
                       <v-checkbox v-else v-model="selected" :value="item" />
                     </v-list-item-action>
-                    <v-list-item-content>
-                      <v-list-item-title> {{ item.name }} </v-list-item-title>
-                    </v-list-item-content>
+                    <v-list-item-title> {{ item.name }} </v-list-item-title>
                   </v-list-item>
-                <v-divider></v-divider>
-              </template>
-            </v-virtual-scroll>
+                  <v-divider></v-divider>
+                </template>
+              </v-virtual-scroll>
             </v-radio-group>
           </v-card>
           <div v-else>

@@ -23,14 +23,14 @@
                     {{ item.icon }}
                   </v-icon>
                 </v-avatar>
-                <v-list-item-content>
+                <div>
                   <v-list-item-title>
                     {{ item.title }}
                   </v-list-item-title>
                   <v-list-item-subtitle v-if="item.subtitle">
                     {{ item.subtitle }}
                   </v-list-item-subtitle>
-                </v-list-item-content>
+                </div>
               </v-list-item>
             </div>
           </template>
@@ -41,10 +41,8 @@
           <template #prepend>
             <v-icon>{{ $globals.icons.translate }}</v-icon>
           </template>
-          <v-list-item-content>
-            <v-list-item-title>{{ $t("sidebar.language") }}</v-list-item-title>
-            <LanguageDialog v-model="languageDialog" />
-          </v-list-item-content>
+          <v-list-item-title>{{ $t("sidebar.language") }}</v-list-item-title>
+          <LanguageDialog v-model="languageDialog" />
         </v-list-item>
         <v-list-item @click="toggleDark">
           <template #prepend>

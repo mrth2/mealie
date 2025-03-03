@@ -32,7 +32,7 @@
               />
             </v-avatar>
           </slot>
-          <v-list-item-content class="py-0">
+          <div class="py-0">
             <v-list-item-title class="mt-1 mb-1 text-top">{{ name }}</v-list-item-title>
             <v-list-item-subtitle class="ma-0 text-top">
               <SafeMarkdown :source="description" />
@@ -75,7 +75,7 @@
                 />
               </slot>
             </div>
-          </v-list-item-content>
+          </div>
         </v-list-item>
         <slot />
       </v-card>

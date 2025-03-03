@@ -94,10 +94,10 @@
           @blur="emitBlur"
         >
           <template #item="{ item }">
-            <v-list-item-content>
+            <div>
               <v-list-item-title>{{ item.text }}</v-list-item-title>
               <v-list-item-subtitle>{{ item.description }}</v-list-item-subtitle>
-            </v-list-item-content>
+            </div>
           </template>
         </v-select>
 

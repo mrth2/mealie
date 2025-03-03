@@ -1,13 +1,16 @@
 <template>
   <div>
     <!-- Merge Dialog -->
-    <BaseDialog v-model="mergeDialog" :icon="$globals.icons.foods" :title="$t('data-pages.foods.combine-food')" @confirm="mergeFoods">
+    <BaseDialog v-model="mergeDialog" :icon="$globals.icons.foods" :title="$t('data-pages.foods.combine-food')"
+      @confirm="mergeFoods">
       <v-card-text>
         <div>
           {{ $t("data-pages.foods.merge-dialog-text") }}
         </div>
-        <v-autocomplete v-model="fromFood" return-object :items="foods" item-text="name" :label="$t('data-pages.foods.source-food')" />
-        <v-autocomplete v-model="toFood" return-object :items="foods" item-text="name" :label="$t('data-pages.foods.target-food')" />
+        <v-autocomplete v-model="fromFood" return-object :items="foods" item-text="name"
+          :label="$t('data-pages.foods.source-food')" />
+        <v-autocomplete v-model="toFood" return-object :items="foods" item-text="name"
+          :label="$t('data-pages.foods.target-food')" />
 
         <template v-if="canMerge && fromFood && toFood">
           <div class="text-center">
@@ -18,33 +21,19 @@
     </BaseDialog>
 
     <!-- Seed Dialog-->
-    <BaseDialog
-      v-model="seedDialog"
-      :icon="$globals.icons.foods"
-      :title="$t('data-pages.seed-data')"
-      @confirm="seedDatabase"
-    >
+    <BaseDialog v-model="seedDialog" :icon="$globals.icons.foods" :title="$t('data-pages.seed-data')"
+      @confirm="seedDatabase">
       <v-card-text>
         <div class="pb-2">
           {{ $t("data-pages.foods.seed-dialog-text") }}
         </div>
-        <v-autocomplete
-          v-model="locale"
-          :items="locales"
-          item-text="name"
-          :label="$t('data-pages.select-language')"
-          class="my-3"
-          hide-details
-          outlined
-          offset
-        >
+        <v-autocomplete v-model="locale" :items="locales" item-text="name" :label="$t('data-pages.select-language')"
+          class="my-3" hide-details outlined offset>
           <template #item="{ item }">
-            <v-list-item-content>
-              <v-list-item-title> {{ item.name }} </v-list-item-title>
-              <v-list-item-subtitle>
-                {{ item.progress }}% {{ $t("language-dialog.translated") }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
+            <v-list-item-title> {{ item.name }} </v-list-item-title>
+            <v-list-item-subtitle>
+              {{ item.progress }}% {{ $t("language-dialog.translated") }}
+            </v-list-item-subtitle>
           </template>
         </v-autocomplete>
 
@@ -55,98 +44,43 @@
     </BaseDialog>
 
     <!-- Create Dialog -->
-    <BaseDialog
-      v-model="createDialog"
-      :icon="$globals.icons.foods"
-      :title="$t('data-pages.foods.create-food')"
-      :submit-icon="$globals.icons.save"
-      :submit-text="$t('general.save')"
-      @submit="createFood"
-    >
+    <BaseDialog v-model="createDialog" :icon="$globals.icons.foods" :title="$t('data-pages.foods.create-food')"
+      :submit-icon="$globals.icons.save" :submit-text="$t('general.save')" @submit="createFood">
       <v-card-text>
         <v-form ref="domNewFoodForm">
-          <v-text-field
-            v-model="createTarget.name"
-            autofocus
-            :label="$t('general.name')"
-            :hint="$t('data-pages.foods.example-food-singular')"
-            :rules="[validators.required]"
-          ></v-text-field>
-          <v-text-field
-            v-model="createTarget.pluralName"
-            :label="$t('general.plural-name')"
-            :hint="$t('data-pages.foods.example-food-plural')"
-          ></v-text-field>
+          <v-text-field v-model="createTarget.name" autofocus :label="$t('general.name')"
+            :hint="$t('data-pages.foods.example-food-singular')" :rules="[validators.required]"></v-text-field>
+          <v-text-field v-model="createTarget.pluralName" :label="$t('general.plural-name')"
+            :hint="$t('data-pages.foods.example-food-plural')"></v-text-field>
           <v-text-field v-model="createTarget.description" :label="$t('recipe.description')"></v-text-field>
-          <v-autocomplete
-            v-model="createTarget.labelId"
-            clearable
-            :items="allLabels"
-            item-value="id"
-            item-text="name"
-            :label="$t('data-pages.foods.food-label')"
-          >
+          <v-autocomplete v-model="createTarget.labelId" clearable :items="allLabels" item-value="id" item-text="name"
+            :label="$t('data-pages.foods.food-label')">
           </v-autocomplete>
-          <v-checkbox
-            v-model="createTarget.onHand"
-            hide-details
-            :label="$t('tool.on-hand')"
-          />
+          <v-checkbox v-model="createTarget.onHand" hide-details :label="$t('tool.on-hand')" />
           <p class="text-caption mt-1">
             {{ $t("data-pages.foods.on-hand-checkbox-label") }}
           </p>
-        </v-form> </v-card-text
-    ></BaseDialog>
+        </v-form> </v-card-text>
+    </BaseDialog>
 
     <!-- Alias Sub-Dialog -->
-    <RecipeDataAliasManagerDialog
-      v-if="editTarget"
-      :value="aliasManagerDialog"
-      :data="editTarget"
-      @submit="updateFoodAlias"
-      @cancel="aliasManagerDialog = false"
-    />
+    <RecipeDataAliasManagerDialog v-if="editTarget" :value="aliasManagerDialog" :data="editTarget"
+      @submit="updateFoodAlias" @cancel="aliasManagerDialog = false" />
 
     <!-- Edit Dialog -->
-    <BaseDialog
-      v-model="editDialog"
-      :icon="$globals.icons.foods"
-      :title="$t('data-pages.foods.edit-food')"
-      :submit-icon="$globals.icons.save"
-      :submit-text="$t('general.save')"
-      @submit="editSaveFood"
-    >
+    <BaseDialog v-model="editDialog" :icon="$globals.icons.foods" :title="$t('data-pages.foods.edit-food')"
+      :submit-icon="$globals.icons.save" :submit-text="$t('general.save')" @submit="editSaveFood">
       <v-card-text v-if="editTarget">
         <v-form ref="domEditFoodForm">
-          <v-text-field
-            v-model="editTarget.name"
-            :label="$t('general.name')"
-            :hint="$t('data-pages.foods.example-food-singular')"
-            :rules="[validators.required]"
-          ></v-text-field>
-          <v-text-field
-            v-model="editTarget.pluralName"
-            :label="$t('general.plural-name')"
-            :hint="$t('data-pages.foods.example-food-plural')"
-          ></v-text-field>
-          <v-text-field
-            v-model="editTarget.description"
-            :label="$t('recipe.description')"
-          ></v-text-field>
-          <v-autocomplete
-            v-model="editTarget.labelId"
-            clearable
-            :items="allLabels"
-            item-value="id"
-            item-text="name"
-            :label="$t('data-pages.foods.food-label')"
-          >
+          <v-text-field v-model="editTarget.name" :label="$t('general.name')"
+            :hint="$t('data-pages.foods.example-food-singular')" :rules="[validators.required]"></v-text-field>
+          <v-text-field v-model="editTarget.pluralName" :label="$t('general.plural-name')"
+            :hint="$t('data-pages.foods.example-food-plural')"></v-text-field>
+          <v-text-field v-model="editTarget.description" :label="$t('recipe.description')"></v-text-field>
+          <v-autocomplete v-model="editTarget.labelId" clearable :items="allLabels" item-value="id" item-text="name"
+            :label="$t('data-pages.foods.food-label')">
           </v-autocomplete>
-          <v-checkbox
-            v-model="editTarget.onHand"
-            hide-details
-            :label="$t('tool.on-hand')"
-          />
+          <v-checkbox v-model="editTarget.onHand" hide-details :label="$t('tool.on-hand')" />
           <p class="text-caption mt-1">
             {{ $t("data-pages.foods.on-hand-checkbox-label") }}
           </p>
@@ -158,13 +92,8 @@
     </BaseDialog>
 
     <!-- Delete Dialog -->
-    <BaseDialog
-      v-model="deleteDialog"
-      :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      @confirm="deleteFood"
-    >
+    <BaseDialog v-model="deleteDialog" :title="$t('general.confirm')" :icon="$globals.icons.alertCircle" color="error"
+      @confirm="deleteFood">
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
         <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.name }}</p>
@@ -172,23 +101,15 @@
     </BaseDialog>
 
     <!-- Bulk Delete Dialog -->
-    <BaseDialog
-      v-model="bulkDeleteDialog"
-      width="650px"
-      :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      @confirm="deleteSelected"
-    >
+    <BaseDialog v-model="bulkDeleteDialog" width="650px" :title="$t('general.confirm')"
+      :icon="$globals.icons.alertCircle" color="error" @confirm="deleteSelected">
       <v-card-text>
         <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
         <v-card outlined>
           <v-virtual-scroll height="400" item-height="25" :items="bulkDeleteTarget">
             <template #default="{ item }">
               <v-list-item class="pb-2">
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.name }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
               </v-list-item>
             </template>
           </v-virtual-scroll>
@@ -197,33 +118,21 @@
     </BaseDialog>
 
     <!-- Bulk Assign Labels Dialog -->
-    <BaseDialog
-      v-model="bulkAssignLabelDialog"
-      :title="$t('data-pages.labels.assign-label')"
-      :icon="$globals.icons.tags"
-      @confirm="assignSelected"
-    >
+    <BaseDialog v-model="bulkAssignLabelDialog" :title="$t('data-pages.labels.assign-label')"
+      :icon="$globals.icons.tags" @confirm="assignSelected">
       <v-card-text>
         <v-card class="mb-4">
           <v-card-title>{{ $t("general.caution") }}</v-card-title>
           <v-card-text>{{ $t("data-pages.foods.label-overwrite-warning") }}</v-card-text>
         </v-card>
 
-        <v-autocomplete
-          v-model="bulkAssignLabelId"
-          clearable
-          :items="allLabels"
-          item-value="id"
-          item-text="name"
-          :label="$t('data-pages.foods.food-label')"
-        />
+        <v-autocomplete v-model="bulkAssignLabelId" clearable :items="allLabels" item-value="id" item-text="name"
+          :label="$t('data-pages.foods.food-label')" />
         <v-card outlined>
           <v-virtual-scroll height="400" item-height="25" :items="bulkAssignTarget">
             <template #default="{ item }">
               <v-list-item class="pb-2">
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.name }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
               </v-list-item>
             </template>
           </v-virtual-scroll>
@@ -232,23 +141,14 @@
     </BaseDialog>
 
     <!-- Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.foods" section :title="$t('data-pages.foods.food-data')"> </BaseCardSectionTitle>
-    <CrudTable
-      :table-config="tableConfig"
-      :headers.sync="tableHeaders"
-      :data="foods || []"
-      :bulk-actions="[
-        {icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected'},
-        {icon: $globals.icons.tags, text: $t('data-pages.labels.assign-label'), event: 'assign-selected'}
-      ]"
-      initial-sort="createdAt"
-      initial-sort-desc
-      @delete-one="deleteEventHandler"
-      @edit-one="editEventHandler"
-      @create-one="createEventHandler"
-      @delete-selected="bulkDeleteEventHandler"
-      @assign-selected="bulkAssignEventHandler"
-    >
+    <BaseCardSectionTitle :icon="$globals.icons.foods" section :title="$t('data-pages.foods.food-data')">
+    </BaseCardSectionTitle>
+    <CrudTable :table-config="tableConfig" :headers.sync="tableHeaders" :data="foods || []" :bulk-actions="[
+      { icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' },
+      { icon: $globals.icons.tags, text: $t('data-pages.labels.assign-label'), event: 'assign-selected' }
+    ]" initial-sort="createdAt" initial-sort-desc @delete-one="deleteEventHandler" @edit-one="editEventHandler"
+      @create-one="createEventHandler" @delete-selected="bulkDeleteEventHandler"
+      @assign-selected="bulkAssignEventHandler">
       <template #button-row>
         <BaseButton create @click="createDialog = true" />
         <BaseButton @click="mergeDialog = true">

@@ -32,10 +32,8 @@
         <v-list>
           <template v-for="(item, idx) in confirmationData">
             <v-list-item v-if="item.display" :key="idx">
-              <v-list-item-content>
-                <v-list-item-title> {{ item.text }} </v-list-item-title>
-                <v-list-item-subtitle> {{ item.value }} </v-list-item-subtitle>
-              </v-list-item-content>
+              <v-list-item-title> {{ item.text }} </v-list-item-title>
+              <v-list-item-subtitle> {{ item.value }} </v-list-item-subtitle>
             </v-list-item>
             <v-divider v-if="idx !== confirmationData.length - 1" :key="`divider-${idx}`" />
           </template>

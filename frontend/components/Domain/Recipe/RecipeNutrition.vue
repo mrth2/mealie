@@ -14,13 +14,13 @@ dense :value="value[key]" :label="labels[key].label" :suffix="labels[key].suffix
       </v-card-text>
       <v-list v-if="showViewer" dense class="mt-0 pt-0">
         <v-list-item v-for="(item, key, index) in renderedList" :key="index" style="min-height: 25px" dense>
-          <v-list-item-content>
+          <div>
             <v-list-item-title class="pl-4 caption flex row">
               <div>{{ item.label }}</div>
               <div class="ml-auto mr-1">{{ item.value }}</div>
               <div>{{ item.suffix }}</div>
             </v-list-item-title>
-          </v-list-item-content>
+          </div>
         </v-list-item>
       </v-list>
     </v-card>

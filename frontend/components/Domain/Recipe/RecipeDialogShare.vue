@@ -22,11 +22,11 @@
           <v-icon dark class="pa-2"> {{ $globals.icons.link }} </v-icon>
         </v-avatar>
 
-        <v-list-item-content>
+        <div>
           <v-list-item-title> {{ $t("recipe-share.expires-at") }} </v-list-item-title>
 
           <v-list-item-subtitle>{{ $d(new Date(token.expiresAt), "long") }}</v-list-item-subtitle>
-        </v-list-item-content>
+        </div>
 
         <v-list-item-action>
           <v-btn icon @click.stop="deleteToken(token.id)">

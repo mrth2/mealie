@@ -95,8 +95,7 @@
                   <p class="text-caption mt-1">
                     {{ $t("group.settings.keep-my-recipes-private-description") }}
                   </p>
-                  <v-checkbox v-model="groupDetails.groupSeed.value" hide-details
-                    :label="$t('data-pages.seed-data')" />
+                  <v-checkbox v-model="groupDetails.groupSeed.value" hide-details :label="$t('data-pages.seed-data')" />
                   <p class="text-caption mt-1">
                     {{ $t("user-registration.use-seed-data-description") }}
                   </p>
@@ -143,10 +142,8 @@
             <v-list>
               <template v-for="(item, idx) in confirmationData">
                 <v-list-item v-if="item.display" :key="idx">
-                  <v-list-item-content>
-                    <v-list-item-title> {{ item.text }} </v-list-item-title>
-                    <v-list-item-subtitle> {{ item.value }} </v-list-item-subtitle>
-                  </v-list-item-content>
+                  <v-list-item-title> {{ item.text }} </v-list-item-title>
+                  <v-list-item-subtitle> {{ item.value }} </v-list-item-subtitle>
                 </v-list-item>
                 <v-divider v-if="idx !== confirmationData.length - 1" :key="`divider-${idx}`" />
               </template>

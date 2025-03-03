@@ -1,33 +1,20 @@
 <template>
   <div>
     <!-- Create Dialog -->
-    <BaseDialog
-      v-model="state.createDialog"
-      :title="$t('data-pages.categories.new-category')"
-      :icon="$globals.icons.categories"
-      @submit="createCategory"
-    >
+    <BaseDialog v-model="state.createDialog" :title="$t('data-pages.categories.new-category')"
+      :icon="$globals.icons.categories" @submit="createCategory">
       <v-card-text>
         <v-form ref="domNewCategoryForm">
-          <v-text-field
-            v-model="createTarget.name"
-            autofocus
-            :label="$t('general.name')"
-            :rules="[validators.required]"
-          ></v-text-field>
+          <v-text-field v-model="createTarget.name" autofocus :label="$t('general.name')"
+            :rules="[validators.required]"></v-text-field>
         </v-form>
       </v-card-text>
 
     </BaseDialog>
 
     <!-- Edit Dialog -->
-    <BaseDialog
-      v-model="state.editDialog"
-      :icon="$globals.icons.categories"
-      :title="$t('data-pages.categories.edit-category')"
-      :submit-text="$t('general.save')"
-      @submit="editSaveCategory"
-    >
+    <BaseDialog v-model="state.editDialog" :icon="$globals.icons.categories"
+      :title="$t('data-pages.categories.edit-category')" :submit-text="$t('general.save')" @submit="editSaveCategory">
       <v-card-text v-if="editTarget">
         <div class="mt-4">
           <v-text-field v-model="editTarget.name" :label="$t('general.name')"> </v-text-field>
@@ -36,13 +23,8 @@
     </BaseDialog>
 
     <!-- Delete Dialog -->
-    <BaseDialog
-      v-model="state.deleteDialog"
-      :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      @confirm="deleteCategory"
-    >
+    <BaseDialog v-model="state.deleteDialog" :title="$t('general.confirm')" :icon="$globals.icons.alertCircle"
+      color="error" @confirm="deleteCategory">
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
         <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.name }}</p>
@@ -50,23 +32,15 @@
     </BaseDialog>
 
     <!-- Bulk Delete Dialog -->
-    <BaseDialog
-      v-model="state.bulkDeleteDialog"
-      width="650px"
-      :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      @confirm="deleteSelected"
-    >
+    <BaseDialog v-model="state.bulkDeleteDialog" width="650px" :title="$t('general.confirm')"
+      :icon="$globals.icons.alertCircle" color="error" @confirm="deleteSelected">
       <v-card-text>
         <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
         <v-card outlined>
           <v-virtual-scroll height="400" item-height="25" :items="bulkDeleteTarget">
             <template #default="{ item }">
               <v-list-item class="pb-2">
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.name }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
               </v-list-item>
             </template>
           </v-virtual-scroll>
@@ -75,17 +49,12 @@
     </BaseDialog>
 
     <!-- Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.categories" section :title="$t('data-pages.categories.category-data')"> </BaseCardSectionTitle>
-    <CrudTable
-      :table-config="tableConfig"
-      :headers.sync="tableHeaders"
-      :data="categories || []"
-      :bulk-actions="[{icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected'}]"
-      initial-sort="name"
-      @delete-one="deleteEventHandler"
-      @edit-one="editEventHandler"
-      @delete-selected="bulkDeleteEventHandler"
-    >
+    <BaseCardSectionTitle :icon="$globals.icons.categories" section :title="$t('data-pages.categories.category-data')">
+    </BaseCardSectionTitle>
+    <CrudTable :table-config="tableConfig" :headers.sync="tableHeaders" :data="categories || []"
+      :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
+      initial-sort="name" @delete-one="deleteEventHandler" @edit-one="editEventHandler"
+      @delete-selected="bulkDeleteEventHandler">
       <template #button-row>
         <BaseButton create @click="state.createDialog = true">{{ $t("general.create") }}</BaseButton>
       </template>

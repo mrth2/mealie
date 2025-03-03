@@ -11,7 +11,7 @@
         <v-avatar :class="attrs.class.avatar">
           <v-icon :class="attrs.class.icon" dark :small="small"> {{ $globals.icons.primary }} </v-icon>
         </v-avatar>
-        <v-list-item-content :class="attrs.class.text">
+        <div :class="attrs.class.text">
           <v-list-item-title :class="listItem && listItemDescriptions[index] ? '' : 'pr-4'" :style="attrs.style.text.title">
             {{ recipe.name }}
           </v-list-item-title>
@@ -20,7 +20,7 @@
             <!-- eslint-disable-next-line vue/no-v-html -->
             <div v-html="listItemDescriptions[index]"></div>
           </v-list-item-subtitle>
-        </v-list-item-content>
+        </div>
         <slot :name="'actions-' + recipe.id" :v-bind="{ item: recipe }"> </slot>
       </v-list-item>
     </v-sheet>

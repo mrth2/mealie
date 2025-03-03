@@ -1,26 +1,14 @@
 <template>
   <v-container fluid>
     <!-- Export Purge Confirmation Dialog -->
-    <BaseDialog
-      v-model="purgeExportsDialog"
-      :title="$t('data-pages.recipes.purge-exports')"
-      color="error"
-      :icon="$globals.icons.alertCircle"
-      @confirm="purgeExports()"
-    >
+    <BaseDialog v-model="purgeExportsDialog" :title="$t('data-pages.recipes.purge-exports')" color="error"
+      :icon="$globals.icons.alertCircle" @confirm="purgeExports()">
       <v-card-text> {{ $t('data-pages.recipes.are-you-sure-you-want-to-delete-all-export-data') }} </v-card-text>
     </BaseDialog>
 
     <!-- Base Dialog Object -->
-    <BaseDialog
-      ref="domDialog"
-      v-model="dialog.state"
-      width="650px"
-      :icon="dialog.icon"
-      :title="dialog.title"
-      :submit-text="$t('general.submit')"
-      @submit="dialog.callback"
-    >
+    <BaseDialog ref="domDialog" v-model="dialog.state" width="650px" :icon="dialog.icon" :title="dialog.title"
+      :submit-text="$t('general.submit')" @submit="dialog.callback">
       <v-card-text v-if="dialog.mode == MODES.tag">
         <RecipeOrganizerSelector v-model="toSetTags" selector-type="tags" />
       </v-card-text>
@@ -33,23 +21,21 @@
           <v-virtual-scroll height="400" item-height="25" :items="selected">
             <template #default="{ item }">
               <v-list-item class="pb-2">
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.name }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
               </v-list-item>
             </template>
           </v-virtual-scroll>
         </v-card>
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.export">
-        <p class="h4">{{ $t('data-pages.recipes.the-following-recipes-selected-length-will-be-exported', [selected.length]) }}</p>
+        <p class="h4">{{ $t('data-pages.recipes.the-following-recipes-selected-length-will-be-exported',
+          [selected.length]) }}
+        </p>
         <v-card outlined>
           <v-virtual-scroll height="400" item-height="25" :items="selected">
             <template #default="{ item }">
               <v-list-item class="pb-2">
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.name }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
               </v-list-item>
             </template>
           </v-virtual-scroll>
@@ -65,14 +51,8 @@
         </p>
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.changeOwner">
-        <v-select
-          v-model="selectedOwner"
-          :items="allUsers"
-          item-text="fullName"
-          item-value="id"
-          :label="$t('general.owner')"
-          hide-details
-        >
+        <v-select v-model="selectedOwner" :items="allUsers" item-text="fullName" item-value="id"
+          :label="$t('general.owner')" hide-details>
           <template #prepend>
             <UserAvatar :user-id="selectedOwner" :tooltip="false" />
           </template>
@@ -104,45 +84,28 @@
             </v-card-title>
             <v-divider class="mx-2"></v-divider>
             <v-card-text class="mt-n5">
-              <v-checkbox
-                v-for="(_, key) in headers"
-                :key="key"
-                v-model="headers[key]"
-                dense
-                flat
-                inset
-                :label="headerLabels[key]"
-                hide-details
-              ></v-checkbox>
+              <v-checkbox v-for="(_, key) in headers" :key="key" v-model="headers[key]" dense flat inset
+                :label="headerLabels[key]" hide-details></v-checkbox>
             </v-card-text>
           </v-card>
         </v-menu>
-        <BaseOverflowButton
-          :disabled="selected.length < 1"
-          mode="event"
-          color="info"
-          :items="actions"
-          @export-selected="openDialog(MODES.export)"
-          @tag-selected="openDialog(MODES.tag)"
-          @categorize-selected="openDialog(MODES.category)"
-          @delete-selected="openDialog(MODES.delete)"
-          @update-settings="openDialog(MODES.updateSettings)"
-          @change-owner="openDialog(MODES.changeOwner)"
-        >
+        <BaseOverflowButton :disabled="selected.length < 1" mode="event" color="info" :items="actions"
+          @export-selected="openDialog(MODES.export)" @tag-selected="openDialog(MODES.tag)"
+          @categorize-selected="openDialog(MODES.category)" @delete-selected="openDialog(MODES.delete)"
+          @update-settings="openDialog(MODES.updateSettings)" @change-owner="openDialog(MODES.changeOwner)">
         </BaseOverflowButton>
 
-        <p v-if="selected.length > 0" class="text-caption my-auto ml-5">{{ $t('general.selected-count', selected.length) }}</p>
+        <p v-if="selected.length > 0" class="text-caption my-auto ml-5">{{ $t('general.selected-count', selected.length)
+          }}
+        </p>
       </v-card-actions>
       <v-card>
         <RecipeDataTable v-model="selected" :loading="loading" :recipes="allRecipes" :show-headers="headers" />
         <v-card-actions class="justify-end">
-          <BaseButton
-            color="info"
-            @click="
-              selectAll();
-              openDialog(MODES.export);
-            "
-          >
+          <BaseButton color="info" @click="
+            selectAll();
+          openDialog(MODES.export);
+          ">
             <template #icon>
               {{ $globals.icons.database }}
             </template>
@@ -373,7 +336,7 @@ export default defineNuxtComponent({
     }
 
     async function changeOwner() {
-      if(!selected.value.length || !selectedOwner.value) {
+      if (!selected.value.length || !selectedOwner.value) {
         return;
       }
 
@@ -442,7 +405,7 @@ export default defineNuxtComponent({
     const { store: households } = useHouseholdStore();
     const selectedOwner = ref("");
     const selectedOwnerHousehold = computed(() => {
-      if(!selectedOwner.value) {
+      if (!selectedOwner.value) {
         return null;
       }
 

@@ -65,10 +65,10 @@
                       .checked">
                   <v-checkbox hide-details :input-value="ingredientData.checked" class="pt-0 my-auto py-auto"
                     color="secondary" />
-                  <v-list-item-content :key="ingredientData.ingredient.quantity">
+                  <div :key="ingredientData.ingredient.quantity">
                     <RecipeIngredientListItem :ingredient="ingredientData.ingredient"
                       :disable-amount="ingredientData.disableAmount" :scale="recipeSection.recipeScale" />
-                  </v-list-item-content>
+                  </div>
                 </v-list-item>
               </div>
             </div>

@@ -4,10 +4,10 @@
       {{ $t("language-dialog.select-description") }}
       <v-autocomplete v-model="locale" :items="locales" item-text="name" class="my-3" hide-details outlined offset>
         <template #item="{ item }">
-          <v-list-item-content>
+          <div>
             <v-list-item-title> {{ item.name }} </v-list-item-title>
             <v-list-item-subtitle> {{ item.progress }}% {{ $t("language-dialog.translated") }} </v-list-item-subtitle>
-          </v-list-item-content>
+          </div>
         </template>
       </v-autocomplete>
       <i18n-t keypath="language-dialog.how-to-contribute-description">

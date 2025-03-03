@@ -47,14 +47,12 @@
                   {{ check.icon }}
                 </v-icon>
               </template>
-              <v-list-item-content>
-                <v-list-item-title>
-                  {{ check.text }}
-                </v-list-item-title>
-                <v-list-item-subtitle class="wrap-word">
-                  {{ check.status ? check.successText : check.errorText }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
+              <v-list-item-title>
+                {{ check.text }}
+              </v-list-item-title>
+              <v-list-item-subtitle class="wrap-word">
+                {{ check.status ? check.successText : check.errorText }}
+              </v-list-item-subtitle>
             </v-list-item>
             <v-divider :key="`divider-${idx}`"></v-divider>
           </template>
@@ -103,31 +101,29 @@
                 <template #prepend>
                   <v-icon> {{ property.icon || $globals.icons.user }} </v-icon>
                 </template>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <div>{{ property.name }}</div>
-                  </v-list-item-title>
-                  <template v-if="property.slot === 'recipe-scraper'">
-                    <v-list-item-subtitle>
-                      <a target="_blank"
-                        :href="`https://github.com/hhursev/recipe-scrapers/releases/tag/${property.value}`">
-                        {{ property.value }}
-                      </a>
-                    </v-list-item-subtitle>
-                  </template>
-                  <template v-else-if="property.slot === 'build'">
-                    <v-list-item-subtitle>
-                      <a target="_blank" :href="`https://github.com/mealie-recipes/mealie/commit/${property.value}`">
-                        {{ property.value }}
-                      </a>
-                    </v-list-item-subtitle>
-                  </template>
-                  <template v-else>
-                    <v-list-item-subtitle>
+                <v-list-item-title>
+                  <div>{{ property.name }}</div>
+                </v-list-item-title>
+                <template v-if="property.slot === 'recipe-scraper'">
+                  <v-list-item-subtitle>
+                    <a target="_blank"
+                      :href="`https://github.com/hhursev/recipe-scrapers/releases/tag/${property.value}`">
                       {{ property.value }}
-                    </v-list-item-subtitle>
-                  </template>
-                </v-list-item-content>
+                    </a>
+                  </v-list-item-subtitle>
+                </template>
+                <template v-else-if="property.slot === 'build'">
+                  <v-list-item-subtitle>
+                    <a target="_blank" :href="`https://github.com/mealie-recipes/mealie/commit/${property.value}`">
+                      {{ property.value }}
+                    </a>
+                  </v-list-item-subtitle>
+                </template>
+                <template v-else>
+                  <v-list-item-subtitle>
+                    {{ property.value }}
+                  </v-list-item-subtitle>
+                </template>
               </v-list-item>
               <v-divider v-if="appInfo && idx !== appInfo.length - 1" :key="`divider-${property.name}`"></v-divider>
             </template>
