@@ -450,37 +450,9 @@ export default defineNuxtConfig({
       icons: {
         defaultSet: "mdi-svg"
       },
-      theme: {
-        defaultTheme: "dark",
-        // Theme Config set at runtime by /plugins/theme.ts
-        // This config doesn't do anything.
-        themes: {
-          dark: {
-            dark: true,
-            colors: {
-              primary: "#E58325",
-              accent: "#007A99",
-              secondary: "#973542",
-              success: "#43A047",
-              info: "#1976d2",
-              warning: "#FF6D00",
-              error: "#EF5350",
-            },
-          },
-          light: {
-            dark: false,
-            colors: {
-              primary: "#E58325",
-              accent: "#007A99",
-              secondary: "#973542",
-              success: "#43A047",
-              info: "#1976d2",
-              warning: "#FF6D00",
-              error: "#EF5350",
-            },
-          },
-        },
-      },
+      // Theme Config set at runtime by /plugins/theme.ts
+      // This config doesn't do anything.
+      theme: {},
       locale: {
         locale: "en-US",
         fallback: "en-US",
