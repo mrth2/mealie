@@ -4,7 +4,7 @@
       <template #header>
         <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
       </template>
-      <template #title> {{ $tc('recipe-finder.recipe-finder') }} </template>
+      <template #title> {{ $t('recipe-finder.recipe-finder') }} </template>
       {{ $t('recipe-finder.recipe-finder-description') }}
     </BasePageTitle>
     <v-container v-if="ready">
@@ -34,7 +34,7 @@
                       <v-icon left>
                         {{ $globals.icons.filter }}
                       </v-icon>
-                      {{ $tc("recipe-finder.other-filters") }}
+                      {{ $t("recipe-finder.other-filters") }}
                       <BaseDialog v-model="queryFilterMenu" :title="$t('recipe-finder.other-filters')"
                         :icon="$globals.icons.filter" width="100%" max-width="1100px"
                         :submit-disabled="!queryFilterEditorValue" @confirm="saveQueryFilter">
@@ -93,11 +93,11 @@
             </v-row>
             <v-row no-gutters class="mt-5">
               <v-card-title class="ma-0 pa-0">
-                {{ $tc("recipe-finder.selected-ingredients") }}
+                {{ $t("recipe-finder.selected-ingredients") }}
               </v-card-title>
               <v-container class="ma-0 pa-0" style="max-height: 60vh; overflow-y: auto;">
                 <v-card-text v-if="!selectedFoods.length" class="ma-0 pa-0">
-                  {{ $tc("recipe-finder.no-ingredients-selected") }}
+                  {{ $t("recipe-finder.no-ingredients-selected") }}
                 </v-card-text>
                 <div v-if="useMobile">
                   <v-row no-gutters>
@@ -122,7 +122,7 @@
             </v-row>
             <v-row v-if="selectedTools.length" no-gutters class="mt-5">
               <v-card-title class="ma-0 pa-0">
-                {{ $tc("recipe-finder.selected-tools") }}
+                {{ $t("recipe-finder.selected-tools") }}
               </v-card-title>
               <v-container class="ma-0 pa-0">
                 <div v-if="useMobile">
@@ -154,7 +154,7 @@
             <v-row v-if="recipeSuggestions.readyToMake.length" dense>
               <v-col cols="12">
                 <v-card-title :class="attrs.title.class.readyToMake">
-                  {{ $tc("recipe-finder.ready-to-make") }}
+                  {{ $t("recipe-finder.ready-to-make") }}
                 </v-card-title>
               </v-col>
               <v-col v-for="(item, idx) in recipeSuggestions.readyToMake" :key="`${idx}-ready`" cols="12">
@@ -168,7 +168,7 @@
             <v-row v-if="recipeSuggestions.missingItems.length" dense>
               <v-col cols="12">
                 <v-card-title :class="attrs.title.class.missingItems">
-                  {{ $tc("recipe-finder.almost-ready-to-make") }}
+                  {{ $t("recipe-finder.almost-ready-to-make") }}
                 </v-card-title>
               </v-col>
               <v-col v-for="(item, idx) in recipeSuggestions.missingItems" :key="`${idx}-missing`" cols="12">
@@ -192,9 +192,9 @@
           <v-container v-else>
             <v-row>
               <v-col cols="12" class="d-flex flex-row flex-wrap justify-center">
-                <v-card-title class="ma-0 pa-0">{{ $tc("recipe-finder.no-recipes-found") }}</v-card-title>
+                <v-card-title class="ma-0 pa-0">{{ $t("recipe-finder.no-recipes-found") }}</v-card-title>
                 <v-card-text class="ma-0 pa-0 text-center">
-                  {{ $tc("recipe-finder.no-recipes-found-description") }}
+                  {{ $t("recipe-finder.no-recipes-found-description") }}
                 </v-card-text>
               </v-col>
             </v-row>

@@ -22,8 +22,8 @@
                   }}
                 </v-icon>
                 <v-list-item-title>
-                  {{ preferences.orderDirection === "asc" ? $tc("general.sort-descending") :
-                    $tc("general.sort-ascending") }}
+                  {{ preferences.orderDirection === "asc" ? $t("general.sort-descending") :
+                    $t("general.sort-ascending") }}
                 </v-list-item-title>
               </v-list-item>
               <v-divider />

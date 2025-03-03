@@ -42,7 +42,7 @@
             <v-list-item-content>
               <v-list-item-title> {{ item.name }} </v-list-item-title>
               <v-list-item-subtitle>
-                {{ item.progress }}% {{ $tc("language-dialog.translated") }}
+                {{ item.progress }}% {{ $t("language-dialog.translated") }}
               </v-list-item-subtitle>
             </v-list-item-content>
           </template>
@@ -205,8 +205,8 @@
     >
       <v-card-text>
         <v-card class="mb-4">
-          <v-card-title>{{ $tc("general.caution") }}</v-card-title>
-          <v-card-text>{{ $tc("data-pages.foods.label-overwrite-warning") }}</v-card-text>
+          <v-card-title>{{ $t("general.caution") }}</v-card-title>
+          <v-card-text>{{ $t("data-pages.foods.label-overwrite-warning") }}</v-card-text>
         </v-card>
 
         <v-autocomplete
@@ -238,8 +238,8 @@
       :headers.sync="tableHeaders"
       :data="foods || []"
       :bulk-actions="[
-        {icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'},
-        {icon: $globals.icons.tags, text: $tc('data-pages.labels.assign-label'), event: 'assign-selected'}
+        {icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected'},
+        {icon: $globals.icons.tags, text: $t('data-pages.labels.assign-label'), event: 'assign-selected'}
       ]"
       initial-sort="createdAt"
       initial-sort-desc

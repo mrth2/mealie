@@ -3,7 +3,7 @@
     <v-icon left small>
       {{ $globals.icons.folderOutline }}
     </v-icon>
-    {{ $tc("about.docs") }}
+    {{ $t("about.docs") }}
   </v-btn>
 </template>
 

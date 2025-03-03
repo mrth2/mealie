@@ -5,7 +5,7 @@
         :buttons="[
           {
             icon: previewState ? $globals.icons.edit : $globals.icons.eye,
-            text: previewState ? $tc('general.edit') : $tc('markdown-editor.preview-markdown-button-label'),
+            text: previewState ? $t('general.edit') : $t('markdown-editor.preview-markdown-button-label'),
             event: 'toggle',
           },
         ]"

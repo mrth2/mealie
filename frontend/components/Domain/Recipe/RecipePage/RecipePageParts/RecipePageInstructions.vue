@@ -97,7 +97,7 @@
                     <BaseButtonGroup :large="false" :buttons="[
                       {
                         icon: $globals.icons.delete,
-                        text: $tc('general.delete'),
+                        text: $t('general.delete'),
                         event: 'delete',
                       },
                       {
@@ -106,41 +106,41 @@
                         event: 'open',
                         children: [
                           {
-                            text: $tc('recipe.toggle-section'),
+                            text: $t('recipe.toggle-section'),
                             event: 'toggle-section',
                           },
                           {
-                            text: $tc('recipe.link-ingredients'),
+                            text: $t('recipe.link-ingredients'),
                             event: 'link-ingredients',
                           },
                           {
-                            text: $tc('recipe.upload-image'),
+                            text: $t('recipe.upload-image'),
                             event: 'upload-image'
                           },
                           {
                             icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
-                            text: previewStates[index] ? $tc('recipe.edit-markdown') : $tc('markdown-editor.preview-markdown-button-label'),
+                            text: previewStates[index] ? $t('recipe.edit-markdown') : $t('markdown-editor.preview-markdown-button-label'),
                             event: 'preview-step',
                             divider: true,
                           },
                           {
-                            text: $tc('recipe.merge-above'),
+                            text: $t('recipe.merge-above'),
                             event: 'merge-above',
                           },
                           {
-                            text: $tc('recipe.move-to-top'),
+                            text: $t('recipe.move-to-top'),
                             event: 'move-to-top',
                           },
                           {
-                            text: $tc('recipe.move-to-bottom'),
+                            text: $t('recipe.move-to-bottom'),
                             event: 'move-to-bottom',
                           },
                           {
-                            text: $tc('recipe.insert-above'),
+                            text: $t('recipe.insert-above'),
                             event: 'insert-above'
                           },
                           {
-                            text: $tc('recipe.insert-below'),
+                            text: $t('recipe.insert-below'),
                             event: 'insert-below'
                           },
                         ],

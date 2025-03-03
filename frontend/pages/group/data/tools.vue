@@ -56,7 +56,7 @@
     <BaseCardSectionTitle :icon="$globals.icons.potSteam" section :title="$t('data-pages.tools.tool-data')">
     </BaseCardSectionTitle>
     <CrudTable :table-config="tableConfig" :headers.sync="tableHeaders" :data="tools || []"
-      :bulk-actions="[{ icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected' }]"
+      :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
       initial-sort="name" @delete-one="deleteEventHandler" @edit-one="editEventHandler"
       @delete-selected="bulkDeleteEventHandler">
       <template #button-row>

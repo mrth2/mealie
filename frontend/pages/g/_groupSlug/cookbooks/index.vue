@@ -56,7 +56,7 @@
         />
         <div class="ml-8">
           <p class="text-subtitle-2 my-0 py-0">
-            {{ $tc("cookbook.hide-cookbooks-from-other-households-description") }}
+            {{ $t("cookbook.hide-cookbooks-from-other-households-description") }}
           </p>
         </div>
       </div>
@@ -100,12 +100,12 @@
                 <BaseButtonGroup
                   :buttons="[{
                     icon: $globals.icons.delete,
-                    text: $tc('general.delete'),
+                    text: $t('general.delete'),
                     event: 'delete',
                   },
                   {
                     icon: $globals.icons.save,
-                    text: $tc('general.save'),
+                    text: $t('general.save'),
                     event: 'save',
                     disabled: !cookbook.queryFilterString
                   },

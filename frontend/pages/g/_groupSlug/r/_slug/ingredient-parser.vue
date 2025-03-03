@@ -2,20 +2,20 @@
   <v-container v-if="recipe">
     <v-container>
       <v-alert dismissible border="left" colored-border type="warning" elevation="2" :icon="$globals.icons.alert">
-        <b>{{ $tc("banner-experimental.title") }}</b>
+        <b>{{ $t("banner-experimental.title") }}</b>
         <div>
-          {{ $tc("recipe.parser.experimental-alert-text") }}
+          {{ $t("recipe.parser.experimental-alert-text") }}
         </div>
       </v-alert>
 
       <BaseCardSectionTitle :title="$t('recipe.parser.ingredient-parser')">
-        <div class="mt-4">{{ $tc("recipe.parser.explanation") }}</div>
+        <div class="mt-4">{{ $t("recipe.parser.explanation") }}</div>
 
         <div class="my-4">
-          {{ $tc("recipe.parser.alerts-explainer") }}
+          {{ $t("recipe.parser.alerts-explainer") }}
         </div>
         <div class="d-flex align-center mb-n4">
-          <div class="mb-4">{{ $tc("recipe.parser.select-parser") }}</div>
+          <div class="mb-4">{{ $t("recipe.parser.select-parser") }}</div>
           <BaseOverflowButton v-model="parser" btn-class="mx-2 mb-4" :items="availableParsers" />
         </div>
       </BaseCardSectionTitle>
@@ -24,7 +24,7 @@
         <BaseButton cancel class="mr-auto" @click="$router.go(-1)"></BaseButton>
         <BaseButton color="info" :disabled="parserLoading" @click="fetchParsed">
           <template #icon> {{ $globals.icons.foods }}</template>
-          {{ $tc("recipe.parser.parse-all") }}
+          {{ $t("recipe.parser.parse-all") }}
         </BaseButton>
         <BaseButton save :disabled="parserLoading" @click="saveAll" />
       </div>

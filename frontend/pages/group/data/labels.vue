@@ -96,7 +96,7 @@
             <v-list-item-content>
               <v-list-item-title> {{ item.name }} </v-list-item-title>
               <v-list-item-subtitle>
-                {{ item.progress }}% {{ $tc("language-dialog.translated") }}
+                {{ item.progress }}% {{ $t("language-dialog.translated") }}
               </v-list-item-subtitle>
             </v-list-item-content>
           </template>
@@ -114,7 +114,7 @@
       :table-config="tableConfig"
       :headers.sync="tableHeaders"
       :data="labels || []"
-      :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
+      :bulk-actions="[{icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected'}]"
       initial-sort="name"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"

@@ -49,13 +49,13 @@
             <template #activator="{ props }">
               <v-btn rounded outlined x-large color="primary" v-bind="props" @click="madeThisDialog = true">
                 <v-icon left large>{{ $globals.icons.calendar }}</v-icon>
-                <span class="text--secondary" style="letter-spacing: normal;"><b>{{ $tc("general.last-made")
-                    }}</b><br>{{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $tc("general.never")
+                <span class="text--secondary" style="letter-spacing: normal;"><b>{{ $t("general.last-made")
+                    }}</b><br>{{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $t("general.never")
                   }}</span>
                 <v-icon right large>{{ $globals.icons.createAlt }}</v-icon>
               </v-btn>
             </template>
-            <span>{{ $tc("recipe.made-this") }}</span>
+            <span>{{ $t("recipe.made-this") }}</span>
           </v-tooltip>
         </v-row>
       </div>

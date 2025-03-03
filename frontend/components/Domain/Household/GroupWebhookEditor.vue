@@ -11,17 +11,17 @@
         :buttons="[
           {
             icon: $globals.icons.delete,
-            text: $tc('general.delete'),
+            text: $t('general.delete'),
             event: 'delete',
           },
           {
             icon: $globals.icons.testTube,
-            text: $tc('general.test'),
+            text: $t('general.test'),
             event: 'test',
           },
           {
             icon: $globals.icons.save,
-            text: $tc('general.save'),
+            text: $t('general.save'),
             event: 'save',
           },
         ]"

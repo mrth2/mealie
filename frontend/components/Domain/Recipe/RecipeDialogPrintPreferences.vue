@@ -5,7 +5,7 @@
       <v-container class="print-config mb-3 pa-0">
         <v-row>
           <v-col cols="auto" align-self="center" class="text-center">
-            <div class="text-subtitle-2" style="text-align: center;">{{ $tc('recipe.recipe-image') }}</div>
+            <div class="text-subtitle-2" style="text-align: center;">{{ $t('recipe.recipe-image') }}</div>
             <v-btn-toggle v-model="preferences.imagePosition" mandatory style="width: fit-content;">
               <v-btn :value="ImagePosition.left">
                 <v-icon>{{ $globals.icons.dockLeft }}</v-icon>

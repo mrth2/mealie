@@ -43,7 +43,7 @@
               <v-row v-if="recipeSection.recipeScale > 1" no-gutters class="ma-0 pa-0">
                 <!-- TODO: make this editable in the dialog and visible on single-recipe lists -->
                 <v-col cols="12" align-self="center" class="text-center">
-                  ({{ $tc("recipe.quantity") }}: {{ recipeSection.recipeScale }})
+                  ({{ $t("recipe.quantity") }}: {{ recipeSection.recipeScale }})
                 </v-col>
               </v-row>
             </v-container>
@@ -79,12 +79,12 @@
         <BaseButtonGroup :buttons="[
           {
             icon: $globals.icons.checkboxBlankOutline,
-            text: $tc('shopping-list.uncheck-all-items'),
+            text: $t('shopping-list.uncheck-all-items'),
             event: 'uncheck',
           },
           {
             icon: $globals.icons.checkboxOutline,
-            text: $tc('shopping-list.check-all-items'),
+            text: $t('shopping-list.check-all-items'),
             event: 'check',
           },
         ]" @uncheck="bulkCheckIngredients(false)" @check="bulkCheckIngredients(true)" />

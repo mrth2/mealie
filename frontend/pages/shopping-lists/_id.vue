@@ -32,19 +32,19 @@
                   children: [
                     {
                       icon: $globals.icons.contentCopy,
-                      text: $tc('shopping-list.copy-as-text'),
+                      text: $t('shopping-list.copy-as-text'),
                       event: 'copy-plain',
                     },
                     {
                       icon: $globals.icons.contentCopy,
-                      text: $tc('shopping-list.copy-as-markdown'),
+                      text: $t('shopping-list.copy-as-markdown'),
                       event: 'copy-markdown',
                     },
                   ],
                 },
                 {
                   icon: $globals.icons.checkboxOutline,
-                  text: $tc('shopping-list.check-all-items'),
+                  text: $t('shopping-list.check-all-items'),
                   event: 'check',
                 },
                 {
@@ -54,17 +54,17 @@
                   children: [
                     {
                       icon: $globals.icons.tags,
-                      text: $tc('shopping-list.toggle-label-sort'),
+                      text: $t('shopping-list.toggle-label-sort'),
                       event: 'sort-by-labels',
                     },
                     {
                       icon: $globals.icons.tags,
-                      text: $tc('shopping-list.reorder-labels'),
+                      text: $t('shopping-list.reorder-labels'),
                       event: 'reorder-labels',
                     },
                     {
                       icon: $globals.icons.tags,
-                      text: $tc('shopping-list.manage-labels'),
+                      text: $t('shopping-list.manage-labels'),
                       event: 'manage-labels',
                     },
                   ],
@@ -157,19 +157,19 @@
                   {{ showChecked ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
                 </v-icon>
               </span>
-              {{ $tc('shopping-list.items-checked-count', listItems.checked ? listItems.checked.length : 0) }}
+              {{ $t('shopping-list.items-checked-count', listItems.checked ? listItems.checked.length : 0) }}
             </button>
           </div>
           <div class="justify-end mt-n2">
             <BaseButtonGroup :buttons="[
               {
                 icon: $globals.icons.checkboxBlankOutline,
-                text: $tc('shopping-list.uncheck-all-items'),
+                text: $t('shopping-list.uncheck-all-items'),
                 event: 'uncheck',
               },
               {
                 icon: $globals.icons.delete,
-                text: $tc('shopping-list.delete-checked'),
+                text: $t('shopping-list.delete-checked'),
                 event: 'delete',
               },
             ]" @uncheck="openUncheckAll" @delete="openDeleteChecked" />
@@ -197,7 +197,7 @@
               {{ $globals.icons.primary }}
             </v-icon>
           </span>
-          {{ $tc('shopping-list.linked-recipes-count', shoppingList.recipeReferences ?
+          {{ $t('shopping-list.linked-recipes-count', shoppingList.recipeReferences ?
             shoppingList.recipeReferences.length
             : 0) }}
         </div>

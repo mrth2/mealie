@@ -53,7 +53,7 @@
           <v-divider />
           <v-list-group @click.stop>
             <template #activator>
-              <v-list-item-title>{{ $tc("recipe.recipe-actions") }}</v-list-item-title>
+              <v-list-item-title>{{ $t("recipe.recipe-actions") }}</v-list-item-title>
             </template>
             <v-list dense class="ma-0 pa-0">
               <v-list-item v-for="(action, index) in recipeActions" :key="index" class="pl-6"

@@ -34,7 +34,7 @@
             :webhook="webhook"
             @save="actions.updateOne($event)"
             @delete="actions.deleteOne($event)"
-            @test="actions.testOne($event).then(() => alert.success($tc('events.test-message-sent')))"
+            @test="actions.testOne($event).then(() => alert.success($t('events.test-message-sent')))"
           />
         </v-expansion-panel-content>
       </v-expansion-panel>

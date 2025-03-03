@@ -19,7 +19,7 @@
               small
               hide-details
               class="my-auto"
-              :label="`${requireAll ? $tc('search.has-all') : $tc('search.has-any')}`"
+              :label="`${requireAll ? $t('search.has-all') : $t('search.has-any')}`"
             />
             <v-spacer />
             <v-btn
@@ -28,7 +28,7 @@
               class="mr-2 my-auto"
               @click="clearSelection"
             >
-              {{ $tc("search.clear-selection") }}
+              {{ $t("search.clear-selection") }}
             </v-btn>
           </div>
           <v-card v-if="filtered.length > 0" flat outlined>
@@ -50,7 +50,7 @@
             </v-radio-group>
           </v-card>
           <div v-else>
-            <v-alert type="info" text> {{ $tc('search.no-results') }} </v-alert>
+            <v-alert type="info" text> {{ $t('search.no-results') }} </v-alert>
           </div>
         </v-card-text>
       </v-card>

@@ -106,7 +106,7 @@
               <BaseButtonGroup :buttons="[
                 {
                   icon: $globals.icons.delete,
-                  text: $tc('general.delete'),
+                  text: $t('general.delete'),
                   event: 'delete',
                   disabled: fields.length === 1,
                 }

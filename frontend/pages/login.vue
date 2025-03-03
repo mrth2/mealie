@@ -5,12 +5,12 @@
     <v-alert v-if="isFirstLogin" class="my-4" type="info" icon="mdi-information">
       <div>
         <p class="mb-3">
-          {{ $tc('user.it-looks-like-this-is-your-first-time-logging-in') }}
+          {{ $t('user.it-looks-like-this-is-your-first-time-logging-in') }}
         </p>
-        <p class="mb-1"><strong>{{ $tc('user.username') }}:</strong> changeme@example.com</p>
-        <p class="mb-3"><strong>{{ $tc('user.password') }}:</strong> MyPassword</p>
+        <p class="mb-1"><strong>{{ $t('user.username') }}:</strong> changeme@example.com</p>
+        <p class="mb-3"><strong>{{ $t('user.password') }}:</strong> MyPassword</p>
         <p>
-          {{ $tc('user.dont-want-to-see-this-anymore-be-sure-to-change-your-email') }}
+          {{ $t('user.dont-want-to-see-this-anymore-be-sure-to-change-your-email') }}
         </p>
       </div>
     </v-alert>

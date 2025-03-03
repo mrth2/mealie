@@ -40,12 +40,12 @@
                   :buttons="[
                     {
                       icon: $globals.icons.edit,
-                      text: $tc('general.edit'),
+                      text: $t('general.edit'),
                       event: 'edit',
                     },
                     {
                       icon: $globals.icons.delete,
-                      text: $tc('general.delete'),
+                      text: $t('general.delete'),
                       event: 'delete',
                     },
                   ]"
@@ -67,7 +67,7 @@
                     small
                     dark
                   >
-                    {{ $tc("meal-plan.any-category") }}
+                    {{ $t("meal-plan.any-category") }}
                   </v-card-text>
                 </div>
 
@@ -82,7 +82,7 @@
                     small
                     dark
                   >
-                    {{ $tc("meal-plan.any-tag") }}
+                    {{ $t("meal-plan.any-tag") }}
                   </v-card-text>
                 </div>
                 <div v-if="rule.households">
@@ -108,7 +108,7 @@
                     small
                     dark
                   >
-                    {{ $tc("meal-plan.any-household") }}
+                    {{ $t("meal-plan.any-household") }}
                   </v-card-text>
                 </div>
               </template>

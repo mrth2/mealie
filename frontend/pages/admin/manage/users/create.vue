@@ -33,7 +33,7 @@
             :return-object="false"
             filled
             :label="$t('household.user-household')"
-            :hint="selectedGroupId ? '' : $tc('group.you-must-select-a-group-before-selecting-a-household')"
+            :hint="selectedGroupId ? '' : $t('group.you-must-select-a-group-before-selecting-a-household')"
             persistent-hint
             :rules="[validators.required]"
           />

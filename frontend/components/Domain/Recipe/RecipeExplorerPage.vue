@@ -69,7 +69,7 @@
                     }}
                   </v-icon>
                   <v-list-item-title>
-                    {{ state.orderDirection === "asc" ? $tc("general.sort-descending") : $tc("general.sort-ascending")
+                    {{ state.orderDirection === "asc" ? $t("general.sort-descending") : $t("general.sort-ascending")
                     }}
                   </v-list-item-title>
                 </v-list-item>
@@ -98,7 +98,7 @@
               <v-card-text>
                 <v-switch v-model="state.auto" :label="$t('search.auto-search')" single-line></v-switch>
                 <v-btn block color="primary" @click="reset">
-                  {{ $tc("general.reset") }}
+                  {{ $t("general.reset") }}
                 </v-btn>
               </v-card-text>
             </v-card>
@@ -109,7 +109,7 @@
             <v-icon left>
               {{ $globals.icons.search }}
             </v-icon>
-            {{ $tc("search.search") }}
+            {{ $t("search.search") }}
           </v-btn>
         </div>
       </form>

@@ -179,34 +179,34 @@
             :buttons="[
               {
                 icon: $globals.icons.diceMultiple,
-                text: $tc('meal-plan.random-meal'),
+                text: $t('meal-plan.random-meal'),
                 event: 'random',
                 children: [
                   {
                     icon: $globals.icons.diceMultiple,
-                    text: $tc('meal-plan.breakfast'),
+                    text: $t('meal-plan.breakfast'),
                     event: 'randomBreakfast',
                   },
                   {
                     icon: $globals.icons.diceMultiple,
-                    text: $tc('meal-plan.lunch'),
+                    text: $t('meal-plan.lunch'),
                     event: 'randomLunch',
                   },
                 ],
               },
               {
                 icon: $globals.icons.potSteam,
-                text: $tc('meal-plan.random-dinner'),
+                text: $t('meal-plan.random-dinner'),
                 event: 'randomDinner',
               },
               {
                 icon: $globals.icons.bowlMixOutline,
-                text: $tc('meal-plan.random-side'),
+                text: $t('meal-plan.random-side'),
                 event: 'randomSide',
               },
               {
                 icon: $globals.icons.createAlt,
-                text: $tc('general.new'),
+                text: $t('general.new'),
                 event: 'create',
               },
             ]"

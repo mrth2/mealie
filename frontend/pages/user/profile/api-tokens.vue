@@ -4,8 +4,8 @@
       <template #header>
         <v-img max-height="200px" max-width="200px" :src="require('~/static/svgs/manage-api-tokens.svg')"></v-img>
       </template>
-      <template #title> {{ $tc("settings.token.api-tokens") }} </template>
-      {{ $tc('settings.token.you-have-token-count', user.tokens.length) }}
+      <template #title> {{ $t("settings.token.api-tokens") }} </template>
+      {{ $t('settings.token.you-have-token-count', user.tokens.length) }}
     </BasePageTitle>
     <section class="d-flex justify-center">
       <v-card class="mt-4" width="500px">

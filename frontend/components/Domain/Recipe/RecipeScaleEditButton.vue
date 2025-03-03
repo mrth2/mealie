@@ -46,13 +46,13 @@
         :buttons="[
           {
             icon: $globals.icons.minus,
-            text: $tc('recipe.decrease-scale-label'),
+            text: $t('recipe.decrease-scale-label'),
             event: 'decrement',
             disabled: disableDecrement,
           },
           {
             icon: $globals.icons.createAlt,
-            text: $tc('recipe.increase-scale-label'),
+            text: $t('recipe.increase-scale-label'),
             event: 'increment',
           },
         ]"

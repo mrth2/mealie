@@ -59,7 +59,7 @@
       </v-menu>
       <ContextMenu v-if="!$vuetify.display.smAndDown" :items="[
         {
-          title: $tc('general.toggle-view'),
+          title: $t('general.toggle-view'),
           icon: $globals.icons.eye,
           event: 'toggle-dense-view',
         },

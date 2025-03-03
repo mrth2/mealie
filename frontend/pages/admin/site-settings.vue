@@ -81,7 +81,7 @@
           <template v-if="tested">
             <v-divider class="my-x mt-6"></v-divider>
             <v-card-text class="px-0">
-              <h4> {{ $tc("settings.email-test-results") }}</h4>
+              <h4> {{ $t("settings.email-test-results") }}</h4>
               <span class="pl-4">
                 {{ success ? $t('settings.succeeded') : $t('settings.failed') }}
               </span>

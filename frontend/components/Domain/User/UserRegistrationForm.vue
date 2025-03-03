@@ -62,7 +62,7 @@
             :label="$t('user.enable-advanced-content')"
           />
           <p class="text-caption mt-n4">
-            {{ $tc("user.enable-advanced-content-description") }}
+            {{ $t("user.enable-advanced-content-description") }}
           </p>
         </div>
       </v-form>

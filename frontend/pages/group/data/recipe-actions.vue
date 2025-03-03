@@ -100,7 +100,7 @@
       :table-config="tableConfig"
       :headers.sync="tableHeaders"
       :data="actions || []"
-      :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
+      :bulk-actions="[{icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected'}]"
       initial-sort="title"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"

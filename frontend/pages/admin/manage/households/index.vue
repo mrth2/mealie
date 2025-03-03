@@ -86,7 +86,7 @@
                 </v-btn>
               </div>
             </template>
-            <span>{{ $tc("admin.household-delete-note") }}</span>
+            <span>{{ $t("admin.household-delete-note") }}</span>
           </v-tooltip>
         </template>
       </v-data-table>

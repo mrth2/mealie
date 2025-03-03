@@ -8,7 +8,7 @@
       @delete="actions.deleteOne"
       @update="actions.updateOne"
     >
-      <template #title> {{ $tc("category.categories") }} </template>
+      <template #title> {{ $t("category.categories") }} </template>
     </RecipeOrganizerPage>
   </v-container>
 </template>

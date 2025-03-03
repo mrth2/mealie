@@ -1,13 +1,13 @@
 <template>
   <v-form ref="domUrlForm" @submit.prevent="createFromHtmlOrJson(newRecipeData, importKeywordsAsTags, stayInEditMode)">
     <div>
-      <v-card-title class="headline"> {{ $tc('recipe.import-from-html-or-json') }} </v-card-title>
+      <v-card-title class="headline"> {{ $t('recipe.import-from-html-or-json') }} </v-card-title>
       <v-card-text>
         <p>
-          {{ $tc("recipe.import-from-html-or-json-description") }}
+          {{ $t("recipe.import-from-html-or-json-description") }}
         </p>
         <p>
-          {{ $tc("recipe.json-import-format-description-colon") }}
+          {{ $t("recipe.json-import-format-description-colon") }}
           <a href="https://schema.org/Recipe" target="_blank">https://schema.org/Recipe</a>
         </p>
         <v-switch

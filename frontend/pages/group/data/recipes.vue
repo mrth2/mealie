@@ -61,7 +61,7 @@
           <RecipeSettingsSwitches v-model="recipeSettings" />
         </div>
         <p class="text-center mb-0">
-          <i>{{ $tc('data-pages.recipes.selected-length-recipe-s-settings-will-be-updated', selected.length) }}</i>
+          <i>{{ $t('data-pages.recipes.selected-length-recipe-s-settings-will-be-updated', selected.length) }}</i>
         </p>
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.changeOwner">
@@ -131,7 +131,7 @@
         >
         </BaseOverflowButton>
 
-        <p v-if="selected.length > 0" class="text-caption my-auto ml-5">{{ $tc('general.selected-count', selected.length) }}</p>
+        <p v-if="selected.length > 0" class="text-caption my-auto ml-5">{{ $t('general.selected-count', selected.length) }}</p>
       </v-card-actions>
       <v-card>
         <RecipeDataTable v-model="selected" :loading="loading" :recipes="allRecipes" :show-headers="headers" />
