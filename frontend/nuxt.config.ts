@@ -65,8 +65,7 @@ export default defineNuxtConfig({
   ],
 
   modules: [
-    // https://go.nuxtjs.dev/pwa
-    // ...(process.env.NODE_ENV === "production" ? ["@nuxtjs/pwa"] : []),
+    ...(process.env.NODE_ENV === "production" ? ["@vite-pwa/nuxt"] : []),
 
     // https://i18n.nuxtjs.org/setup
     "@nuxtjs/i18n",
@@ -280,6 +279,159 @@ export default defineNuxtConfig({
   }, */
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
+  pwa: {
+    useCredentials: true,
+    manifest: {
+      start_url: "/",
+      scope: "/",
+      lang: "en",
+      name: "Mealie",
+      short_name: "Mealie",
+      id: "mealie",
+      description: "Mealie is a recipe management and meal planning app",
+      theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
+      background_color: "#FFFFFF",
+      display: "standalone",
+      display_override: [
+        "standalone",
+        "minimal-ui",
+        "browser",
+        "window-controls-overlay"
+      ],
+      share_target: {
+        action: "/r/create/url",
+        method: "GET",
+        params: {
+          /* title and url are not currently used in Mealie. If there are issues
+              with sharing, uncommenting those lines might help solve the puzzle. */
+          // "title": "title",
+          "text": "recipe_import_url",
+          // "url": "url",
+        }
+      },
+      icons: [
+        {
+          src: "/icons/android-chrome-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+          purpose: "any",
+        },
+        {
+          src: "/icons/android-chrome-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "any",
+        },
+        {
+          src: "/icons/android-chrome-maskable-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+          purpose: "maskable",
+        },
+        {
+          src: "/icons/android-chrome-maskable-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "maskable",
+        },
+      ],
+      screenshots: [
+        {
+          "src": "/screenshots/home-narrow.png",
+          "sizes": "1600x2420",
+          "form_factor": "narrow",
+          "label": "Home Page"
+        },
+        {
+          "src": "/screenshots/recipe-narrow.png",
+          "sizes": "1600x2420",
+          "form_factor": "narrow",
+          "label": "Recipe Page"
+        },
+        {
+          "src": "/screenshots/editor-narrow.png",
+          "sizes": "1600x2420",
+          "form_factor": "narrow",
+          "label": "Editor Page"
+        },
+        {
+          "src": "/screenshots/parser-narrow.png",
+          "sizes": "1600x2420",
+          "form_factor": "narrow",
+          "label": "Parser Page"
+        },
+        {
+          "src": "/screenshots/home-wide.png",
+          "sizes": "2560x1460",
+          "form_factor": "wide",
+          "label": "Home Page"
+        },
+        {
+          "src": "/screenshots/recipe-wide.png",
+          "sizes": "2560x1460",
+          "form_factor": "wide",
+          "label": "Recipe Page"
+        },
+        {
+          "src": "/screenshots/editor-wide.png",
+          "sizes": "2560x1460",
+          "form_factor": "wide",
+          "label": "Editor Page"
+        },
+        {
+          "src": "/screenshots/parser-wide.png",
+          "sizes": "2560x1460",
+          "form_factor": "wide",
+          "label": "Parser Page"
+        }
+      ],
+      shortcuts: [
+        {
+          "name": "Shopping Lists",
+          "short_name": "Shopping Lists",
+          "description": "Open the shopping lists",
+          "url": "/shopping-lists",
+          "icons": [
+            {
+              "src": "/icons/mdiFormatListChecks-192x192.png",
+              "sizes": "192x192",
+            },
+            {
+              "src": "/icons/mdiFormatListChecks-96x96.png",
+              "sizes": "96x96",
+            }
+          ]
+        },
+        {
+          "name": "Meal Planner",
+          "short_name": "Meal Planner",
+          "description": "Open the meal planner",
+          "url": "/household/mealplan/planner/view",
+          "icons": [
+            {
+              "src": "/icons/mdiCalendarMultiselect-192x192.png",
+              "sizes": "192x192",
+            },
+            {
+              "src": "/icons/mdiCalendarMultiselect-96x96.png",
+              "sizes": "96x96",
+            }
+          ]
+        },
+      ],
+      prefer_related_applications: false,
+      handle_links: "preferred",
+      categories: [
+        "food"
+      ],
+      launch_handler: {
+        client_mode: ["focus-existing", "auto"]
+      },
+      edge_side_panel: {
+        preferred_width: 400
+      }
+    },
+  },
   // pwa: {
   //   meta: {
   //     /* meta options */
@@ -287,158 +439,6 @@ export default defineNuxtConfig({
   //     description: "Mealie is a recipe management and meal planning app",
   //     theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
   //     ogSiteName: "Mealie",
-  //   },
-  //   manifest: {
-  //     start_url: "/",
-  //     scope: "/",
-  //     lang: "en",
-  //     dir: "auto",
-  //     name: "Mealie",
-  //     short_name: "Mealie",
-  //     crossorigin: "use-credentials",
-  //     id: "mealie",
-  //     description: "Mealie is a recipe management and meal planning app",
-  //     theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
-  //     background_color: "#FFFFFF",
-  //     display: "standalone",
-  //     display_override: [
-  //       "standalone",
-  //       "minimal-ui",
-  //       "browser",
-  //       "window-controls-overlay"
-  //     ],
-  //     share_target: {
-  //       action: "/r/create/url",
-  //       method: "GET",
-  //       params: {
-  //         /* title and url are not currently used in Mealie. If there are issues
-  //            with sharing, uncommenting those lines might help solve the puzzle. */
-  //         // "title": "title",
-  //         "text": "recipe_import_url",
-  //         // "url": "url",
-  //       },
-  //     },
-  //     icons: [
-  //       {
-  //         src: "/icons/android-chrome-192x192.png",
-  //         sizes: "192x192",
-  //         type: "image/png",
-  //         purpose: "any",
-  //       },
-  //       {
-  //         src: "/icons/android-chrome-512x512.png",
-  //         sizes: "512x512",
-  //         type: "image/png",
-  //         purpose: "any",
-  //       },
-  //       {
-  //         src: "/icons/android-chrome-maskable-192x192.png",
-  //         sizes: "192x192",
-  //         type: "image/png",
-  //         purpose: "maskable",
-  //       },
-  //       {
-  //         src: "/icons/android-chrome-maskable-512x512.png",
-  //         sizes: "512x512",
-  //         type: "image/png",
-  //         purpose: "maskable",
-  //       },
-  //     ],
-  //     screenshots: [
-  //       {
-  //         "src": "/screenshots/home-narrow.png",
-  //         "sizes": "1600x2420",
-  //         "form_factor": "narrow",
-  //         "label": "Home Page"
-  //       },
-  //       {
-  //         "src": "/screenshots/recipe-narrow.png",
-  //         "sizes": "1600x2420",
-  //         "form_factor": "narrow",
-  //         "label": "Recipe Page"
-  //       },
-  //       {
-  //         "src": "/screenshots/editor-narrow.png",
-  //         "sizes": "1600x2420",
-  //         "form_factor": "narrow",
-  //         "label": "Editor Page"
-  //       },
-  //       {
-  //         "src": "/screenshots/parser-narrow.png",
-  //         "sizes": "1600x2420",
-  //         "form_factor": "narrow",
-  //         "label": "Parser Page"
-  //       },
-  //       {
-  //         "src": "/screenshots/home-wide.png",
-  //         "sizes": "2560x1460",
-  //         "form_factor": "wide",
-  //         "label": "Home Page"
-  //       },
-  //       {
-  //         "src": "/screenshots/recipe-wide.png",
-  //         "sizes": "2560x1460",
-  //         "form_factor": "wide",
-  //         "label": "Recipe Page"
-  //       },
-  //       {
-  //         "src": "/screenshots/editor-wide.png",
-  //         "sizes": "2560x1460",
-  //         "form_factor": "wide",
-  //         "label": "Editor Page"
-  //       },
-  //       {
-  //         "src": "/screenshots/parser-wide.png",
-  //         "sizes": "2560x1460",
-  //         "form_factor": "wide",
-  //         "label": "Parser Page"
-  //       }
-  //     ],
-  //     "shortcuts": [
-  //       {
-  //         "name": "Shopping Lists",
-  //         "short_name": "Shopping Lists",
-  //         "description": "Open the shopping lists",
-  //         "url": "/shopping-lists",
-  //         "icons": [
-  //           {
-  //             "src": "/icons/mdiFormatListChecks-192x192.png",
-  //             "sizes": "192x192",
-  //           },
-  //           {
-  //             "src": "/icons/mdiFormatListChecks-96x96.png",
-  //             "sizes": "96x96",
-  //           }
-  //         ]
-  //       },
-  //       {
-  //         "name": "Meal Planner",
-  //         "short_name": "Meal Planner",
-  //         "description": "Open the meal planner",
-  //         "url": "/household/mealplan/planner/view",
-  //         "icons": [
-  //           {
-  //             "src": "/icons/mdiCalendarMultiselect-192x192.png",
-  //             "sizes": "192x192",
-  //           },
-  //           {
-  //             "src": "/icons/mdiCalendarMultiselect-96x96.png",
-  //             "sizes": "96x96",
-  //           }
-  //         ]
-  //       },
-  //     ],
-  //     prefer_related_applications: false,
-  //     handle_links: "preferred",
-  //     categories: [
-  //       "food"
-  //     ],
-  //     launch_handler: {
-  //       "client_mode": ["focus-existing", "auto"]
-  //     },
-  //     edge_side_panel: {
-  //       "preferred_width": 400
-  //     }
   //   },
   //   icon: false, // disables the icon module
   // },
