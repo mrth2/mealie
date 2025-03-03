@@ -65,8 +65,7 @@ export default defineNuxtConfig({
   ],
 
   modules: [
-    ...(process.env.NODE_ENV === "production" ? ["@vite-pwa/nuxt"] : []),
-
+    "@vite-pwa/nuxt",
     // https://i18n.nuxtjs.org/setup
     "@nuxtjs/i18n",
     "@sidebase/nuxt-auth",
@@ -280,6 +279,7 @@ export default defineNuxtConfig({
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
+    mode: process.env.NODE_ENV === "production" ? "production" : "development",
     useCredentials: true,
     manifest: {
       start_url: "/",
