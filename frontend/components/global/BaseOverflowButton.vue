@@ -12,36 +12,32 @@
       </v-btn>
     </template>
     <!-- Model -->
-    <v-list v-if="mode === MODES.model" dense>
-      <v-list-item-group v-model="itemGroup">
-        <template v-for="(item, index) in items">
-          <div v-if="!item.hide" :key="index">
-            <v-list-item @click="setValue(item)">
-              <template v-if="item.icon" #prepend>
-                <v-icon>{{ item.icon }}</v-icon>
-              </template>
-              <v-list-item-title>{{ item.text }}</v-list-item-title>
-            </v-list-item>
-            <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1"></v-divider>
-          </div>
-        </template>
-      </v-list-item-group>
+    <v-list v-if="mode === MODES.model" v-model:selected="itemGroup" dense>
+      <template v-for="(item, index) in items">
+        <div v-if="!item.hide" :key="index">
+          <v-list-item @click="setValue(item)">
+            <template v-if="item.icon" #prepend>
+              <v-icon>{{ item.icon }}</v-icon>
+            </template>
+            <v-list-item-title>{{ item.text }}</v-list-item-title>
+          </v-list-item>
+          <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1"></v-divider>
+        </div>
+      </template>
     </v-list>
     <!-- Links -->
-    <v-list v-else-if="mode === MODES.link" dense>
-      <v-list-item-group v-model="itemGroup">
-        <template v-for="(item, index) in items">
-          <div v-if="!item.hide" :key="index">
-            <v-list-item :to="item.to">
-              <template v-if="item.icon" #prepend>
-                <v-icon>{{ item.icon }}</v-icon>
-              </template>
-              <v-list-item-title>{{ item.text }}</v-list-item-title>
-            </v-list-item>
-            <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1"></v-divider>
-          </div>
-        </template>
-      </v-list-item-group>
+    <v-list v-else-if="mode === MODES.link" v-model:selected="itemGroup" dense>
+      <template v-for="(item, index) in items">
+        <div v-if="!item.hide" :key="index">
+          <v-list-item :to="item.to">
+            <template v-if="item.icon" #prepend>
+              <v-icon>{{ item.icon }}</v-icon>
+            </template>
+            <v-list-item-title>{{ item.text }}</v-list-item-title>
+          </v-list-item>
+          <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1"></v-divider>
+        </div>
+      </template>
     </v-list>
     <!-- Event -->
     <v-list v-else-if="mode === MODES.event" dense>

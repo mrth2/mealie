@@ -22,7 +22,7 @@
 
     <!-- Primary Links -->
     <template v-if="topLink">
-      <v-list nav dense>
+      <v-list nav dense v-model:selected="secondarySelected">
         <template v-for="nav in topLink">
           <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
             <!-- Multi Items -->
@@ -42,15 +42,14 @@
             </v-list-group>
 
             <!-- Single Item -->
-            <v-list-item-group v-else :key="(nav.key || nav.title) + 'single-item'" v-model="secondarySelected"
-              color="primary">
+            <template v-else :key="(nav.key || nav.title) + 'single-item'">
               <v-list-item exact link :to="nav.to">
                 <template #prepend>
                   <v-icon>{{ nav.icon }}</v-icon>
                 </template>
                 <v-list-item-title>{{ nav.title }}</v-list-item-title>
               </v-list-item>
-            </v-list-item-group>
+            </template>
           </div>
         </template>
       </v-list>
@@ -59,7 +58,7 @@
     <!-- Secondary Links -->
     <template v-if="secondaryLinks.length > 0">
       <v-divider class="mt-2"></v-divider>
-      <v-list nav dense exact>
+      <v-list nav dense exact v-model:selected="secondarySelected">
         <template v-for="nav in secondaryLinks">
           <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
             <!-- Multi Items -->
@@ -79,15 +78,14 @@
             </v-list-group>
 
             <!-- Single Item -->
-            <v-list-item-group v-else :key="(nav.key || nav.title) + 'single-item'" v-model="secondarySelected"
-              color="primary">
+            <template v-else :key="(nav.key || nav.title) + 'single-item'">
               <v-list-item exact link :to="nav.to">
                 <template #prepend>
                   <v-icon>{{ nav.icon }}</v-icon>
                 </template>
                 <v-list-item-title>{{ nav.title }}</v-list-item-title>
               </v-list-item>
-            </v-list-item-group>
+            </template>
           </div>
         </template>
       </v-list>
@@ -95,20 +93,18 @@
 
     <!-- Bottom Navigation Links -->
     <template v-if="bottomLinks" #append>
-      <v-list nav dense>
-        <v-list-item-group v-model="bottomSelected" color="primary">
-          <template v-for="nav in bottomLinks">
-            <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
-              <v-list-item :key="nav.key || nav.title" exact link :to="nav.to || null" :href="nav.href || null"
-                :target="nav.href ? '_blank' : null">
-                <template #prepend>
-                  <v-icon>{{ nav.icon }}</v-icon>
-                </template>
-                <v-list-item-title>{{ nav.title }}</v-list-item-title>
-              </v-list-item>
-            </div>
-          </template>
-        </v-list-item-group>
+      <v-list nav dense v-model:selected="bottomSelected">
+        <template v-for="nav in bottomLinks">
+          <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
+            <v-list-item :key="nav.key || nav.title" exact link :to="nav.to || null" :href="nav.href || null"
+              :target="nav.href ? '_blank' : null">
+              <template #prepend>
+                <v-icon>{{ nav.icon }}</v-icon>
+              </template>
+              <v-list-item-title>{{ nav.title }}</v-list-item-title>
+            </v-list-item>
+          </div>
+        </template>
         <slot name="bottom"></slot>
       </v-list>
     </template>
