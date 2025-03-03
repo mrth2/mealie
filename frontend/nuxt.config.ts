@@ -69,27 +69,8 @@ export default defineNuxtConfig({
     // ...(process.env.NODE_ENV === "production" ? ["@nuxtjs/pwa"] : []),
 
     // https://i18n.nuxtjs.org/setup
-    "@nuxtjs/i18n", // https://github.com/nuxt-community/proxy-module
-
+    "@nuxtjs/i18n",
     "@sidebase/nuxt-auth",
-    /* [
-      "@nuxtjs/proxy",
-      {
-        logProvider: () => {
-          const provider = {
-            log: console.log,
-            debug: console.log,
-            info: console.info,
-            warn: console.warn,
-            error: console.error,
-          };
-
-          return provider;
-        },
-        logLevel: "debug",
-      },
-    ], */
-
     // https://google-fonts.nuxtjs.org/setup
     "@nuxtjs/google-fonts",
     "vuetify-nuxt-module",
@@ -252,6 +233,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     sessionPassword: process.env.SESSION_PASSWORD || "password-with-at-least-32-characters",
+    apiUrl: process.env.API_URL || "http://localhost:9000",
     public: {
       GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || undefined,
       SUB_PATH: process.env.SUB_PATH || "",
@@ -282,27 +264,15 @@ export default defineNuxtConfig({
     }
   },
 
+  nitro: {
+    //
+  },
   /* proxy: {
     // See Proxy section
     [`${process.env.SUB_PATH || ""}api`]: {
       pathRewrite: {
         [`${process.env.SUB_PATH || ""}api`]: "/api", // rewrite path
       },
-      changeOrigin: true,
-      target: process.env.API_URL || "http://localhost:9000",
-      xfwd: true,
-    },
-    "/api": {
-      changeOrigin: true,
-      target: process.env.API_URL || "http://localhost:9000",
-      xfwd: true,
-    },
-    "/docs": {
-      changeOrigin: true,
-      target: process.env.API_URL || "http://localhost:9000",
-      xfwd: true,
-    },
-    "/openapi.json": {
       changeOrigin: true,
       target: process.env.API_URL || "http://localhost:9000",
       xfwd: true,
