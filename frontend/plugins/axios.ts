@@ -3,7 +3,7 @@ import { alert } from "~/composables/use-toast";
 
 export default defineNuxtPlugin(() => {
   const axiosInstance = axios.create({
-    baseURL: '/api',
+    baseURL: '/', // api calls already pass with /api
     timeout: 10000,
     headers: {
       'Content-Type': 'application/json',
