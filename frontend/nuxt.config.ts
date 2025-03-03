@@ -8,6 +8,9 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 3,
   },
+  dir: {
+    static: 'static',
+  },
   app: {
     baseURL: process.env.SUB_PATH || "",
 
@@ -51,11 +54,7 @@ export default defineNuxtConfig({
     viewTransition: true,
   },
 
-
   css: ["~/assets/css/main.css", "~/assets/css/main.css", "~/assets/style-overrides.scss"],
-
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["~/plugins/globals.ts", "~/plugins/axios.ts", "~/plugins/theme.ts", "~/plugins/dark-mode.client.ts"],
 
   components: [
     {
