@@ -2,8 +2,8 @@
   <div>
     <v-menu v-model="state.menu" offset-y bottom nudge-bottom="3" :close-on-content-click="false">
       <template #activator="{ props }">
-        <v-badge :value="selected.length > 0" small overlap color="primary" :content="selected.length">
-          <v-btn small color="accent" dark v-bind="props">
+        <v-badge :value="selected.length > 0" size="small" overlap color="primary" :content="selected.length">
+          <v-btn size="small" color="accent" dark v-bind="props">
             <slot></slot>
           </v-btn>
         </v-badge>
@@ -12,10 +12,10 @@
         <v-card-text>
           <v-text-field v-model="state.search" class="mb-2" hide-details density="compact" :label="$t('search.search')" clearable />
           <div class="d-flex py-4">
-            <v-switch v-if="requireAll != undefined" v-model="requireAllValue" density="compact" small hide-details class="my-auto"
+            <v-switch v-if="requireAll != undefined" v-model="requireAllValue" density="compact" size="small" hide-details class="my-auto"
               :label="`${requireAll ? $t('search.has-all') : $t('search.has-any')}`" />
             <v-spacer />
-            <v-btn small color="accent" class="mr-2 my-auto" @click="clearSelection">
+            <v-btn size="small" color="accent" class="mr-2 my-auto" @click="clearSelection">
               {{ $t("search.clear-selection") }}
             </v-btn>
           </div>

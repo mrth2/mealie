@@ -72,14 +72,14 @@
             </v-list-item>
             <v-divider class="mx-2"></v-divider>
             <div class="py-2 px-2 d-flex" style="align-items: center">
-              <v-btn small icon :class="{ handle: !$vuetify.display.smAndUp }">
+              <v-btn size="small" icon :class="{ handle: !$vuetify.display.smAndUp }">
                 <v-icon>
                   {{ $globals.icons.arrowUpDown }}
                 </v-icon>
               </v-btn>
               <v-menu offset-y>
                 <template #activator="{ props }">
-                  <v-chip v-bind="props" label small color="accent" @click.prevent>
+                  <v-chip v-bind="props" label size="small" color="accent" @click.prevent>
                     <v-icon left>
                       {{ $globals.icons.tags }}
                     </v-icon>
@@ -93,7 +93,7 @@
                   </v-list-item>
                 </v-list>
               </v-menu>
-              <v-btn class="ml-auto" small icon @click="actions.deleteOne(mealplan.id)">
+              <v-btn class="ml-auto" size="small" icon @click="actions.deleteOne(mealplan.id)">
                 <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
             </div>

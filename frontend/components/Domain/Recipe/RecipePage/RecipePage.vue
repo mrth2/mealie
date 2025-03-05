@@ -122,7 +122,7 @@
     <v-btn
       v-if="isCookMode"
       fab
-      small
+      size="small"
       color="primary"
       style="position: fixed; right: 12px; top: 60px;"
       @click="toggleCookMode()"

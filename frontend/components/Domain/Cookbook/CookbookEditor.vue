@@ -7,7 +7,7 @@
       <v-switch v-model="cookbook.public" hide-details single-line>
         <template #label>
           {{ $t('cookbook.public-cookbook') }}
-          <HelpIcon small right class="ml-2">
+          <HelpIcon size="small" right class="ml-2">
             {{ $t('cookbook.public-cookbook-description') }}
           </HelpIcon>
         </template>

@@ -58,13 +58,13 @@
               <template v-if="!editState[rule.id]">
                 <div v-if="rule.categories">
                   <h4 class="py-1">{{ $t("category.categories") }}:</h4>
-                  <RecipeChips v-if="rule.categories.length" :items="rule.categories" small class="pb-3" />
+                  <RecipeChips v-if="rule.categories.length" :items="rule.categories" size="small" class="pb-3" />
                   <v-card-text
                     v-else
                     label
                     class="ma-0 px-0 pt-0 pb-3"
                     text-color="accent"
-                    small
+                    size="small"
                     dark
                   >
                     {{ $t("meal-plan.any-category") }}
@@ -73,13 +73,13 @@
 
                 <div v-if="rule.tags">
                   <h4 class="py-1">{{ $t("tag.tags") }}:</h4>
-                  <RecipeChips v-if="rule.tags.length" :items="rule.tags" url-prefix="tags" small class="pb-3" />
+                  <RecipeChips v-if="rule.tags.length" :items="rule.tags" url-prefix="tags" size="small" class="pb-3" />
                   <v-card-text
                     v-else
                     label
                     class="ma-0 px-0 pt-0 pb-3"
                     text-color="accent"
-                    small
+                    size="small"
                     dark
                   >
                     {{ $t("meal-plan.any-tag") }}
@@ -94,7 +94,7 @@
                       label
                       class="ma-1"
                       color="accent"
-                      small
+                      size="small"
                       dark
                     >
                       {{ household.name }}
@@ -105,7 +105,7 @@
                     label
                     class="ma-0 px-0 pt-0 pb-3"
                     text-color="accent"
-                    small
+                    size="small"
                     dark
                   >
                     {{ $t("meal-plan.any-household") }}

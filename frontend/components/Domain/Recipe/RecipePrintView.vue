@@ -15,7 +15,7 @@
               {{ recipe.name }}
             </v-card-title>
             <div v-if="recipeYield" class="d-flex justify-space-between align-center px-4 pb-2">
-              <v-chip :small="$vuetify.display.smAndDown" label>
+              <v-chip :size="$vuetify.display.smAndDown ? 'small' : undefined" label>
                 <v-icon left>
                   {{ $globals.icons.potSteam }}
                 </v-icon>

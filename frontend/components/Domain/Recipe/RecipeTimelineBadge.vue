@@ -2,14 +2,14 @@
   <v-tooltip bottom nudge-right="50" :color="buttonStyle ? 'info' : 'secondary'">
     <template #activator="{ props }">
       <v-btn
-        small
+        size="small"
         :color="buttonStyle ? 'info' : 'secondary'"
         :fab="buttonStyle"
         class="ml-1"
         v-bind="props"
         @click.prevent="toggleTimeline"
       >
-        <v-icon :small="!buttonStyle" :color="buttonStyle ? 'white' : 'secondary'">
+        <v-icon :size="!buttonStyle ? 'small' : undefined" :color="buttonStyle ? 'white' : 'secondary'">
           {{ $globals.icons.timelineText }}
         </v-icon>
       </v-btn>

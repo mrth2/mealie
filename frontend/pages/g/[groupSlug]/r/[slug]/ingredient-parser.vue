@@ -59,11 +59,11 @@
                 <v-card-actions>
                   <v-spacer />
                   <BaseButton v-if="errors[index].unitError && errors[index].unitErrorMessage !== ''" color="warning"
-                    small @click="createUnit(ing.ingredient.unit, index)">
+                    size="small" @click="createUnit(ing.ingredient.unit, index)">
                     {{ errors[index].unitErrorMessage }}
                   </BaseButton>
                   <BaseButton v-if="errors[index].foodError && errors[index].foodErrorMessage !== ''" color="warning"
-                    small @click="createFood(ing.ingredient.food, index)">
+                    size="small" @click="createFood(ing.ingredient.food, index)">
                     {{ errors[index].foodErrorMessage }}
                   </BaseButton>
                 </v-card-actions>

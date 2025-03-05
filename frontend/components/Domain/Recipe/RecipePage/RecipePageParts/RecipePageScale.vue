@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-space-between align-center pt-2 pb-3">
-    <v-tooltip v-if="!isEditMode" small top color="secondary darken-1">
+    <v-tooltip v-if="!isEditMode" size="small" top color="secondary darken-1">
       <template #activator="{ props }">
         <RecipeScaleEditButton
           v-model.number="scaleValue"

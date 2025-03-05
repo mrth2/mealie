@@ -4,7 +4,7 @@
         class="d-print-none d-flex px-2"
         :class="$vuetify.display.smAndDown ? 'justify-center' : 'justify-end'"
     >
-        <v-switch v-model="wakeLock" small :label="$t('recipe.screen-awake')" />
+        <v-switch v-model="wakeLock" size="small" :label="$t('recipe.screen-awake')" />
     </div>
 </template>
 

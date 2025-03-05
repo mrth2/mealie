@@ -21,7 +21,7 @@
         :key="data.index"
         class="ma-1"
         :input-value="data.selected"
-        small
+        size="small"
         close
         label
         color="accent"

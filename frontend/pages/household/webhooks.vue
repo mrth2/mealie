@@ -21,7 +21,7 @@
             {{ webhook.name }} - {{ $d(timeUTC(webhook.scheduledTime), "time") }}
           </div>
           <template #actions>
-            <v-btn small icon class="ml-2">
+            <v-btn size="small" icon class="ml-2">
               <v-icon>
                 {{ $globals.icons.edit }}
               </v-icon>

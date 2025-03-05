@@ -28,9 +28,9 @@
                   {{ $t("tool.tools") }}
                 </SearchFilter>
                 <div :class="attrs.searchFilter.filterClass">
-                  <v-badge :value="queryFilterJSON.parts && queryFilterJSON.parts.length" small overlap color="primary"
+                  <v-badge :value="queryFilterJSON.parts && queryFilterJSON.parts.length" size="small" overlap color="primary"
                     :content="(queryFilterJSON.parts || []).length">
-                    <v-btn small color="accent" dark @click="queryFilterMenu = !queryFilterMenu">
+                    <v-btn size="small" color="accent" dark @click="queryFilterMenu = !queryFilterMenu">
                       <v-icon left>
                         {{ $globals.icons.filter }}
                       </v-icon>
@@ -60,7 +60,7 @@
               <v-col cols="12" :class="attrs.settings.colClass">
                 <v-menu v-model="settingsMenu" offset-y nudge-bottom="3" :close-on-content-click="false">
                   <template #activator="{ props }">
-                    <v-btn small color="primary" dark v-bind="props">
+                    <v-btn size="small" color="primary" dark v-bind="props">
                       <v-icon left>
                         {{ $globals.icons.cog }}
                       </v-icon>
@@ -76,9 +76,9 @@
                           :label="$t('recipe-finder.max-missing-tools')" class="mt-4" />
                       </div>
                       <div class="mt-1">
-                        <v-checkbox v-if="isOwnGroup" v-model="settings.includeFoodsOnHand" density="compact" small hide-details
+                        <v-checkbox v-if="isOwnGroup" v-model="settings.includeFoodsOnHand" density="compact" size="small" hide-details
                           class="my-auto" :label="$t('recipe-finder.include-ingredients-on-hand')" />
-                        <v-checkbox v-if="isOwnGroup" v-model="settings.includeToolsOnHand" density="compact" small hide-details
+                        <v-checkbox v-if="isOwnGroup" v-model="settings.includeToolsOnHand" density="compact" size="small" hide-details
                           class="my-auto" :label="$t('recipe-finder.include-tools-on-hand')" />
                       </div>
                     </v-card-text>

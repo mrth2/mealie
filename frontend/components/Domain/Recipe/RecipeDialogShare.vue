@@ -14,7 +14,7 @@
         </v-menu>
       </v-card-text>
       <v-card-actions class="justify-end">
-        <BaseButton small @click="createNewToken"> {{ $t("general.new") }}</BaseButton>
+        <BaseButton size="small" @click="createNewToken"> {{ $t("general.new") }}</BaseButton>
       </v-card-actions>
 
       <v-list-item v-for="token in tokens" :key="token.id" @click="shareRecipe(token.id)">

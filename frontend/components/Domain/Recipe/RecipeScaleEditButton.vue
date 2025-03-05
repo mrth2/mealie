@@ -8,11 +8,11 @@
               class="pa-1 px-2"
               dark
               color="secondary darken-1"
-              small
+              size="small"
               v-bind="props"
               :style="{ cursor: canEditScale ? '' : 'default' }"
             >
-              <v-icon v-if="canEditScale" small class="mr-2">{{ $globals.icons.edit }}</v-icon>
+              <v-icon v-if="canEditScale" size="small" class="mr-2">{{ $globals.icons.edit }}</v-icon>
               <!-- eslint-disable-next-line vue/no-v-html -->
               <span v-html="yieldDisplay"></span>
             </v-card>
@@ -26,7 +26,7 @@
                 <v-text-field v-model="yieldQuantityEditorValue" type="number" :min="0" hide-spin-buttons @input="recalculateScale(yieldQuantityEditorValue)" />
                 <v-tooltip right color="secondary darken-1">
                   <template #activator="{ props }">
-                    <v-btn v-bind="props" icon class="mx-1" small @click="scale = 1">
+                    <v-btn v-bind="props" icon class="mx-1" size="small" @click="scale = 1">
                       <v-icon>
                         {{ $globals.icons.undo }}
                       </v-icon>

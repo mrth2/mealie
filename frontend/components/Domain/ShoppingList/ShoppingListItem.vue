@@ -20,7 +20,7 @@
       </v-col>
       <v-spacer />
       <v-col v-if="label && showLabel" cols="3" class="text-right">
-        <MultiPurposeLabel :label="label" small />
+        <MultiPurposeLabel :label="label" size="small" />
       </v-col>
       <v-col cols="auto" class="text-right">
         <div v-if="!listItem.checked" style="min-width: 72px">
@@ -69,7 +69,7 @@
     </v-row>
     <v-row v-if="!listItem.checked && recipeList && recipeList.length && displayRecipeRefs" no-gutters class="mb-2">
       <v-col cols="auto" style="width: 100%;">
-        <RecipeList :recipes="recipeList" :list-item="listItem" :disabled="$nuxt.isOffline" small tile />
+        <RecipeList :recipes="recipeList" :list-item="listItem" :disabled="$nuxt.isOffline" size="small" tile />
       </v-col>
     </v-row>
     <v-row v-if="listItem.checked" no-gutters class="mb-2">

@@ -86,7 +86,7 @@
                 <v-icon class="handle">
                   {{ $globals.icons.arrowUpDown }}
                 </v-icon>
-                <v-btn icon small class="ml-2">
+                <v-btn icon size="small" class="ml-2">
                   <v-icon>
                     {{ $globals.icons.edit }}
                   </v-icon>

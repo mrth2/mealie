@@ -71,7 +71,7 @@
           </div>
           <BaseButton
             v-if="listItem.labelId && listItem.food && listItem.labelId !== listItem.food.labelId"
-            small
+            size="small"
             color="info"
             :icon="$globals.icons.tagArrowRight"
             :text="$t('shopping-list.save-label')"

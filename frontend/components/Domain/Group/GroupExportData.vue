@@ -5,7 +5,7 @@
       {{ getTimeToExpire(item.expires) }}
     </template>
     <template #item.actions="{ item }">
-      <BaseButton download small :download-url="`/api/recipes/bulk-actions/export/download?path=${item.path}`">
+      <BaseButton download size="small" :download-url="`/api/recipes/bulk-actions/export/download?path=${item.path}`">
       </BaseButton>
     </template>
   </v-data-table>

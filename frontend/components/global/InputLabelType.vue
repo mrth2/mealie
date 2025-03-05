@@ -18,7 +18,7 @@
     </template>
     <template v-if="$listeners.create" #append-item>
       <div class="px-2">
-        <BaseButton block small @click="emitCreate"></BaseButton>
+        <BaseButton block size="small" @click="emitCreate"></BaseButton>
       </div>
     </template>
   </v-autocomplete>

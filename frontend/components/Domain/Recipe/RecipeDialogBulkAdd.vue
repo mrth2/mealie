@@ -34,7 +34,7 @@
                   {{ util.description }}
                 </v-list-item-subtitle>
               </v-list-item-title>
-              <BaseButton small color="info" @click="util.action">
+              <BaseButton size="small" color="info" @click="util.action">
                 <template #icon> {{ $globals.icons.robot }}</template>
                 {{ $t("general.run") }}
               </BaseButton>

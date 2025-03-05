@@ -22,7 +22,7 @@
           </template>
           <template #append-item>
             <div class="px-2">
-              <BaseButton block small @click="createAssignUnit()"></BaseButton>
+              <BaseButton block size="small" @click="createAssignUnit()"></BaseButton>
             </div>
           </template>
         </v-autocomplete>
@@ -38,7 +38,7 @@
           </template>
           <template #append-item>
             <div class="px-2">
-              <BaseButton block small @click="createAssignFood()"></BaseButton>
+              <BaseButton block size="small" @click="createAssignFood()"></BaseButton>
             </div>
           </template>
         </v-autocomplete>

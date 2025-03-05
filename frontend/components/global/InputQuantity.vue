@@ -8,8 +8,8 @@
       :max="max"
       type="number"
       class="rounded-xl"
-      small
-      text
+      size="small"
+      variant="plain"
     >
     </v-text-field>
   </div>

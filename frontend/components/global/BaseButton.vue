@@ -1,7 +1,7 @@
 <template>
   <v-btn
     :color="color || btnAttrs.color"
-    :small="small"
+    :size="small ? 'small' : 'default'"
     :x-small="xSmall"
     :loading="loading"
     :disabled="disabled"

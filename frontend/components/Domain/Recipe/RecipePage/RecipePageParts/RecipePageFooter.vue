@@ -3,7 +3,7 @@
     <v-card-actions class="justify-end">
       <v-text-field v-if="isEditForm" v-model="recipe.orgURL" class="mt-10"
         :label="$t('recipe.original-url')"></v-text-field>
-      <v-btn v-else-if="recipe.orgURL && !isCookMode" density="compact" small :hover="false" type="label"
+      <v-btn v-else-if="recipe.orgURL && !isCookMode" density="compact" size="small" :hover="false" type="label"
         :ripple="false" elevation="0" :href="recipe.orgURL" color="secondary darken-1" target="_blank"
         class="rounded-sm mr-n2">
         {{ $t("recipe.original-url") }}
@@ -31,7 +31,7 @@
           <div>
             <v-text-field v-model="apiNewKey" :label="$t('recipe.message-key')"></v-text-field>
           </div>
-          <BaseButton create small class="ml-5" @click="createApiExtra" />
+          <BaseButton create size="small" class="ml-5" @click="createApiExtra" />
         </v-card-actions>
       </v-card>
     </AdvancedOnly>

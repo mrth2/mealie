@@ -16,7 +16,7 @@
         </v-textarea>
       </div>
       <div class="ml-auto mt-1">
-        <BaseButton small :disabled="!comment" @click="submitComment">
+        <BaseButton size="small" :disabled="!comment" @click="submitComment">
           <template #icon>{{ $globals.icons.check }}</template>
           {{ $t("general.submit") }}
         </BaseButton>
@@ -30,7 +30,7 @@
           <SafeMarkdown :source="comment.text" />
         </v-card-text>
         <v-card-actions class="justify-end mt-0 pt-0">
-          <v-btn v-if="user.id == comment.user.id || user.admin" color="error" text x-small
+          <v-btn v-if="user.id == comment.user.id || user.admin" color="error" text size="x-small"
             @click="deleteComment(comment.id)">
             {{ $t("general.delete") }}
           </v-btn>
