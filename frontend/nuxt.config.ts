@@ -98,8 +98,12 @@ export default defineNuxtConfig({
         getSession: { path: '/users/self', method: 'get' },
       },
       token: {
+        signInResponseTokenPointer: '/access_token',
         type: 'Bearer',
       },
+      pages: {
+        login: '/login',
+      }
     },
     sessionRefresh: {
       enablePeriodically: true,

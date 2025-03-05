@@ -216,9 +216,9 @@ export default defineNuxtComponent({
       formData.append("remember_me", String(form.remember));
 
       try {
-        await $auth.signIn(formData.values());
-        // await $auth.loginWith("local", { data: formData });
+        await $auth.signIn(formData);
       } catch (error) {
+        console.log(error)
         alertOnError(error)
       }
       loggingIn.value = false;
