@@ -89,13 +89,13 @@ export default defineNuxtConfig({
     isEnabled: true,
     // disableServerSideAuth: true,
     originEnvKey: 'AUTH_ORIGIN',
-    baseURL: 'http://localhost:9000',
+    baseURL: 'http://localhost:9000/api',
     provider: {
       type: 'local',
       endpoints: {
-        signIn: { path: '/api/auth/token', method: 'post' },
-        signOut: { path: '/api/auth/logout', method: 'post' },
-        getSession: { path: '/api/users/self', method: 'get' },
+        signIn: { path: '/auth/token', method: 'post' },
+        signOut: { path: '/auth/logout', method: 'post' },
+        getSession: { path: '/users/self', method: 'get' },
       },
       token: {
         type: 'Bearer',
