@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card-title>
-      <v-icon large class="mr-3"> {{ $globals.icons.user }}</v-icon>
+      <v-icon size="large" class="mr-3"> {{ $globals.icons.user }}</v-icon>
       <span class="headline"> {{ $t("user-registration.account-details") }}</span>
     </v-card-title>
     <v-divider />

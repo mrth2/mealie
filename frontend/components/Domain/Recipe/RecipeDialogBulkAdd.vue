@@ -9,7 +9,7 @@
 
       <v-card>
         <v-app-bar density="compact" dark color="primary" class="mb-2">
-          <v-icon large left>
+          <v-icon size="large" left>
             {{ $globals.icons.createAlt }}
           </v-icon>
           <v-toolbar-title class="headline"> {{ $t("new-recipe.bulk-add") }}</v-toolbar-title>

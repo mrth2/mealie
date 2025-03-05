@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" width="500">
       <v-card>
         <v-app-bar density="compact" dark color="primary mb-2">
-          <v-icon large left class="mt-1">
+          <v-icon size="large" left class="mt-1">
             {{ itemType === Organizer.Tool ? $globals.icons.potSteam :
               itemType === Organizer.Category ? $globals.icons.categories :
                 $globals.icons.tags }}

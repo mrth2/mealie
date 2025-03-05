@@ -4,7 +4,7 @@
     <v-dialog v-if="dialog" v-model="dialog" width="600">
       <v-card :ripple="false">
         <v-app-bar dark color="primary" class="mt-n1 mb-3" density="compact">
-          <v-icon large left>
+          <v-icon size="large" left>
             {{ $globals.icons.link }}
           </v-icon>
           <v-toolbar-title class="headline"> {{ $t("recipe.ingredient-linker") }} </v-toolbar-title>

@@ -40,7 +40,7 @@
           <v-checkbox v-model="form.remember" class="ml-2 mt-n2" :label="$t('user.remember-me')"></v-checkbox>
           <v-card-actions class="justify-center pt-0">
             <div class="max-button">
-              <v-btn :loading="loggingIn" :disabled="oidcLoggingIn" color="primary" type="submit" large rounded
+              <v-btn :loading="loggingIn" :disabled="oidcLoggingIn" color="primary" type="submit" size="large" rounded
                 class="rounded-xl" block>
                 {{ $t("user.login") }}
               </v-btn>
@@ -58,7 +58,7 @@
           </div>
           <v-card-actions v-if="allowOidc" class="justify-center">
             <div class="max-button">
-              <v-btn :loading="oidcLoggingIn" color="primary" large rounded class="rounded-xl" block
+              <v-btn :loading="oidcLoggingIn" color="primary" size="large" rounded class="rounded-xl" block
                 @click.native="() => oidcAuthenticate()">
                 {{ $t("user.login-oidc") }} {{ oidcProviderName }}
               </v-btn>

@@ -18,7 +18,7 @@
           <p class="text-center">{{ $t('user.forgot-password-text') }}</p>
           <v-card-actions class="justify-center">
             <div class="max-button">
-              <v-btn :loading="loading" color="primary" type="submit" large rounded class="rounded-xl" block>
+              <v-btn :loading="loading" color="primary" type="submit" size="large" rounded class="rounded-xl" block>
                 <v-icon left>
                   {{ $globals.icons.email }}
                 </v-icon>

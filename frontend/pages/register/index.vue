@@ -32,13 +32,13 @@
             <div class="d-flex flex-wrap justify-center flex-md-nowrap pa-4" style="gap: 1em">
               <v-card color="primary" dark hover width="300px" outlined @click="initial.joinGroup">
                 <v-card-title class="justify-center">
-                  <v-icon large left> {{ $globals.icons.group }}</v-icon>
+                  <v-icon size="large" left> {{ $globals.icons.group }}</v-icon>
                   {{ $t("user-registration.join-a-group") }}
                 </v-card-title>
               </v-card>
               <v-card color="primary" dark hover width="300px" outlined @click="initial.createGroup">
                 <v-card-title class="justify-center">
-                  <v-icon large left> {{ $globals.icons.user }}</v-icon>
+                  <v-icon size="large" left> {{ $globals.icons.user }}</v-icon>
 
                   {{ $t("user-registration.create-a-new-group") }}
                 </v-card-title>
@@ -50,7 +50,7 @@
         <template v-else-if="state.ctx.state === States.ProvideToken">
           <div>
             <v-card-title>
-              <v-icon large class="mr-3"> {{ $globals.icons.group }}</v-icon>
+              <v-icon size="large" class="mr-3"> {{ $globals.icons.group }}</v-icon>
               <span class="headline"> {{ $t("user-registration.join-a-group") }} </span>
             </v-card-title>
             <v-divider />
@@ -78,7 +78,7 @@
         <template v-else-if="state.ctx.state === States.ProvideGroupDetails">
           <div class="preferred-width">
             <v-card-title>
-              <v-icon large class="mr-3"> {{ $globals.icons.group }}</v-icon>
+              <v-icon size="large" class="mr-3"> {{ $globals.icons.group }}</v-icon>
               <span class="headline"> {{ $t("user-registration.group-details") }}</span>
             </v-card-title>
             <v-card-text>
@@ -136,7 +136,7 @@
         <template v-else-if="state.ctx.state === States.Confirmation">
           <div class="preferred-width">
             <v-card-title class="mb-0 pb-0">
-              <v-icon large class="mr-3"> {{ $globals.icons.user }}</v-icon>
+              <v-icon size="large" class="mr-3"> {{ $globals.icons.user }}</v-icon>
               <span class="headline">{{ $t("general.confirm") }}</span>
             </v-card-title>
             <v-list>
@@ -166,7 +166,7 @@
 
       <v-card-actions class="justify-center flex-column py-8">
         <v-btn text class="mb-2" to="/login"> {{ $t("user.login") }} </v-btn>
-        <BaseButton large color="primary" @click="langDialog = true">
+        <BaseButton size="large" color="primary" @click="langDialog = true">
           <template #icon> {{ $globals.icons.translate }}</template>
           {{ $t("language-dialog.choose-language") }}
         </BaseButton>

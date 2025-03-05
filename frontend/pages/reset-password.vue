@@ -47,7 +47,7 @@
                 color="primary"
                 :disabled="token === ''"
                 type="submit"
-                large
+                size="large"
                 rounded
                 class="rounded-xl"
                 block

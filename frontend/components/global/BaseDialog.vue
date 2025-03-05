@@ -17,7 +17,7 @@
     >
       <v-card height="100%">
         <v-app-bar dark density="compact" :color="color" class="">
-          <v-icon large left>
+          <v-icon size="large" left>
             {{ icon }}
           </v-icon>
           <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>

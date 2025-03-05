@@ -12,7 +12,7 @@
     <!-- Page -->
     <v-container v-if="book" fluid>
       <v-app-bar color="transparent" flat class="mt-n1">
-        <v-icon large left> {{ $globals.icons.pages }} </v-icon>
+        <v-icon size="large" left> {{ $globals.icons.pages }} </v-icon>
         <v-toolbar-title class="headline"> {{ book.name }} </v-toolbar-title>
         <v-spacer></v-spacer>
         <BaseButton v-if="canEdit" class="mx-1" :edit="true" @click="handleEditCookbook" />

@@ -77,7 +77,7 @@
           <v-expansion-panel v-for="cookbook in myCookbooks" :key="cookbook.id" class="my-2 left-border rounded">
             <v-expansion-panel-header disable-icon-rotate class="headline">
               <div class="d-flex align-center">
-                <v-icon large left>
+                <v-icon size="large" left>
                   {{ $globals.icons.pages }}
                 </v-icon>
                 {{ cookbook.name }}

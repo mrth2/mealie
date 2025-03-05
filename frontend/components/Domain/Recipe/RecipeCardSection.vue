@@ -2,7 +2,7 @@
   <div>
     <v-app-bar v-if="!disableToolbar" color="transparent" flat class="mt-n1 flex-sm-wrap rounded">
       <slot name="title">
-        <v-icon v-if="title" large left>
+        <v-icon v-if="title" size="large" left>
           {{ displayTitleIcon }}
         </v-icon>
         <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
