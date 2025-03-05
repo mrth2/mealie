@@ -8,6 +8,9 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 3,
   },
+  devtools: {
+    enabled: true,
+  },
   dir: {
     static: 'static',
   },
@@ -84,7 +87,7 @@ export default defineNuxtConfig({
 
   auth: {
     isEnabled: true,
-    disableServerSideAuth: true,
+    // disableServerSideAuth: true,
     originEnvKey: 'AUTH_ORIGIN',
     baseURL: 'http://localhost:9000',
     provider: {
