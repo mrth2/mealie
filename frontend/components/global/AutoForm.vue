@@ -156,10 +156,9 @@
 </template>
 
 <script lang="ts">
-
 import { validators } from "@/composables/use-validators";
 import { fieldTypes } from "@/composables/forms";
-import { AutoFormItems } from "~/types/auto-forms";
+import type { AutoFormItems } from "~/types/auto-forms";
 
 const BLUR_EVENT = "blur";
 
