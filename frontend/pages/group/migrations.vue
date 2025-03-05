@@ -50,7 +50,7 @@
       </v-card>
     </v-container>
     <v-container>
-      <BaseCardSectionTitle :title="$i18n.t('migration.previous-migrations')"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle :title="$t('migration.previous-migrations')"> </BaseCardSectionTitle>
       <ReportTable :items="reports" @delete="deleteReport" />
     </v-container>
   </v-container>

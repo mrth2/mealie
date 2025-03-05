@@ -9,11 +9,11 @@
       :is-submitting="isSubmitting" @submit="handleSubmit">
       <v-container v-if="currentPage === Pages.LANDING" class="mb-12">
         <v-card-title class="text-h4 justify-center">
-          {{ $i18n.t('admin.setup.welcome-to-mealie-get-started') }}
+          {{ $t('admin.setup.welcome-to-mealie-get-started') }}
         </v-card-title>
         <v-btn :to="groupSlug ? `/g/${groupSlug}` : '/login'" rounded outlined text color="grey lighten-1"
           class="text-subtitle-2 d-flex mx-auto" style="width: fit-content;">
-          {{ $i18n.t('admin.setup.already-set-up-bring-to-homepage') }}
+          {{ $t('admin.setup.already-set-up-bring-to-homepage') }}
         </v-btn>
       </v-container>
       <v-container v-if="currentPage === Pages.USER_INFO">
@@ -21,7 +21,7 @@
       </v-container>
       <v-container v-if="currentPage === Pages.PAGE_2">
         <v-card-title class="headline justify-center">
-          {{ $i18n.t('admin.setup.common-settings-for-new-sites') }}
+          {{ $t('admin.setup.common-settings-for-new-sites') }}
         </v-card-title>
         <AutoForm v-model="commonSettings" :items="commonSettingsForm" />
       </v-container>
@@ -41,10 +41,10 @@
       </v-container>
       <v-container v-if="currentPage === Pages.END">
         <v-card-title class="text-h4 justify-center">
-          {{ $i18n.t('admin.setup.setup-complete') }}
+          {{ $t('admin.setup.setup-complete') }}
         </v-card-title>
         <v-card-title class="text-h6 justify-center">
-          {{ $i18n.t('admin.setup.here-are-a-few-things-to-help-you-get-started') }}
+          {{ $t('admin.setup.here-are-a-few-things-to-help-you-get-started') }}
         </v-card-title>
         <div v-for="link, idx in setupCompleteLinks" :key="idx" class="px-4 pt-4">
           <div v-if="link.section">

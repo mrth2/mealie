@@ -30,7 +30,7 @@
                   @click="clearImage"
                 >
                   <v-icon left>{{ $globals.icons.close }}</v-icon>
-                  {{ $i18n.t("recipe.remove-image") }}
+                  {{ $t("recipe.remove-image") }}
                 </v-btn>
               </v-col>
               <v-spacer />
