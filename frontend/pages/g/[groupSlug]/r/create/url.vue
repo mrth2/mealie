@@ -39,7 +39,7 @@
     <v-expand-transition>
       <v-alert v-show="error" color="error" class="mt-6 white--text">
         <v-card-title class="ma-0 pa-0">
-          <v-icon left color="white" x-large> {{ $globals.icons.robot }} </v-icon>
+          <v-icon left color="white" size="x-large"> {{ $globals.icons.robot }} </v-icon>
           {{ $t("new-recipe.error-title") }}
         </v-card-title>
         <v-divider class="my-3 mx-2"></v-divider>

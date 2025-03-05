@@ -1,7 +1,7 @@
 <template>
   <div v-if="scaledAmount" class="d-flex align-center">
     <v-row no-gutters class="d-flex flex-wrap align-center" style="font-size: larger;">
-      <v-icon x-large left color="primary">
+      <v-icon size="x-large" left color="primary">
         {{ $globals.icons.bread }}
       </v-icon>
       <p class="my-0">

@@ -105,7 +105,7 @@
           </v-menu>
         </div>
         <div v-if="!state.auto" class="search-button-container">
-          <v-btn x-large color="primary" type="submit" block>
+          <v-btn size="x-large" color="primary" type="submit" block>
             <v-icon left>
               {{ $globals.icons.search }}
             </v-icon>
