@@ -3,7 +3,7 @@
     <v-menu v-model="menu" offset-y top nudge-top="6" :close-on-content-click="false">
       <template #activator="{ props }">
         <v-btn color="accent" dark v-bind="props">
-          <v-icon left>
+          <v-icon start>
             {{ $globals.icons.fileImage }}
           </v-icon>
           {{ $t("general.image") }}

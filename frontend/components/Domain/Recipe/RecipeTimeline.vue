@@ -4,7 +4,7 @@
       <v-spacer />
       <v-col class="text-right">
         <!-- Filters -->
-        <v-menu offset-y bottom left nudge-bottom="3" :close-on-content-click="false">
+        <v-menu offset-y bottom start nudge-bottom="3" :close-on-content-click="false">
           <template #activator="{ props }">
             <v-badge :content="filterBadgeCount" :value="filterBadgeCount" bordered overlap>
               <v-btn fab size="small" color="info" v-bind="props">
@@ -15,7 +15,7 @@
           <v-card>
             <v-list>
               <v-list-item @click="reverseSort">
-                <v-icon left>
+                <v-icon start>
                   {{
                     preferences.orderDirection === "asc" ?
                       $globals.icons.sortCalendarDescending : $globals.icons.sortCalendarAscending
@@ -32,7 +32,7 @@
                   <v-list-item v-for="option, idx in eventTypeFilterState" :key="idx">
                     <v-checkbox :input-value="option.checked" readonly @click="toggleEventTypeOption(option.value)">
                       <template #label>
-                        <v-icon left>
+                        <v-icon start>
                           {{ option.icon }}
                         </v-icon>
                         {{ option.label }}

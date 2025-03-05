@@ -11,7 +11,7 @@
                 <AppButtonUpload v-if="!uploadedImage" class="ml-auto" url="none" file-name="image" accept="image/*"
                   :text="$t('recipe.upload-image')" :text-btn="false" :post="false" @uploaded="uploadImage" />
                 <v-btn v-if="!!uploadedImage" color="error" @click="clearImage">
-                  <v-icon left>{{ $globals.icons.close }}</v-icon>
+                  <v-icon start>{{ $globals.icons.close }}</v-icon>
                   {{ $t('recipe.remove-image') }}
                 </v-btn>
               </v-col>

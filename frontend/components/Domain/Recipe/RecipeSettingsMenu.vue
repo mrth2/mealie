@@ -3,7 +3,7 @@
     <v-menu offset-y top nudge-top="6" :close-on-content-click="false">
       <template #activator="{ props }">
         <v-btn color="accent" dark v-bind="props">
-          <v-icon left>
+          <v-icon start>
             {{ $globals.icons.cog }}
           </v-icon>
           {{ $t("general.settings") }}

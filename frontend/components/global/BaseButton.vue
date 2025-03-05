@@ -12,7 +12,7 @@
     v-on="$listeners"
     @click="download ? downloadFile() : undefined"
   >
-    <v-icon v-if="!iconRight" left>
+    <v-icon v-if="!iconRight" start>
       <slot name="icon">
         {{ icon || btnAttrs.icon }}
       </slot>
@@ -20,7 +20,7 @@
     <slot name="default">
       {{ text || btnAttrs.text }}
     </slot>
-    <v-icon v-if="iconRight" right>
+    <v-icon v-if="iconRight" end>
       <slot name="icon">
         {{ icon || btnAttrs.icon }}
       </slot>

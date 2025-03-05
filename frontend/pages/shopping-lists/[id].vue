@@ -193,7 +193,7 @@
       <section>
         <div>
           <span>
-            <v-icon left class="mb-1">
+            <v-icon start class="mb-1">
               {{ $globals.icons.primary }}
             </v-icon>
           </span>

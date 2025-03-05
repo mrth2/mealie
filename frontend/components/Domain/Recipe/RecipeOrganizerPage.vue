@@ -39,7 +39,7 @@
     </v-row>
 
     <v-app-bar color="transparent" flat class="mt-n1 rounded align-center">
-      <v-icon size="large" left>
+      <v-icon size="large" start>
         {{ icon }}
       </v-icon>
       <v-toolbar-title class="headline">

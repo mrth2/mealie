@@ -52,7 +52,7 @@
                 class="rounded-xl"
                 block
               >
-                <v-icon left>
+                <v-icon start>
                   {{ $globals.icons.lock }}
                 </v-icon>
                 {{ token === "" ? "Token Required" : $t("user.reset-password") }}

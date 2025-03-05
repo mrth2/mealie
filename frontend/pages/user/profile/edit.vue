@@ -15,11 +15,11 @@
       <ToggleState tag="article">
         <template #activator="{ toggle, state }">
           <v-btn v-if="!state" color="info" class="mt-2 mb-n3" @click="toggle">
-            <v-icon left>{{ $globals.icons.lock }}</v-icon>
+            <v-icon start>{{ $globals.icons.lock }}</v-icon>
             {{ $t("settings.change-password") }}
           </v-btn>
           <v-btn v-else color="info" class="mt-2 mb-n3" @click="toggle">
-            <v-icon left>{{ $globals.icons.user }}</v-icon>
+            <v-icon start>{{ $globals.icons.user }}</v-icon>
             {{ $t("settings.profile") }}
           </v-btn>
         </template>
@@ -85,7 +85,7 @@
         $t('profile.looking-for-privacy-settings') }} </nuxt-link>
       <div class="d-flex flex-wrap justify-center mt-5">
         <v-btn outlined class="rounded-xl my-1 mx-1" :to="`/user/profile`" nuxt exact>
-          <v-icon left>
+          <v-icon start>
             {{ $globals.icons.backArrow }}
           </v-icon>
           {{ $t('profile.back-to-profile') }}

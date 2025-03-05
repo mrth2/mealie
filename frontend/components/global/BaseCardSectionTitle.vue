@@ -8,7 +8,7 @@
     }"
   >
     <v-card-title class="headline pl-0 py-0">
-      <v-icon v-if="icon !== ''" left>
+      <v-icon v-if="icon !== ''" start>
         {{ icon }}
       </v-icon>
       {{ title }}

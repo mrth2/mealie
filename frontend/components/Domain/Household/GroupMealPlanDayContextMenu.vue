@@ -2,7 +2,7 @@
   <div class="text-center">
     <RecipeDialogAddToShoppingList v-if="shoppingLists" v-model="shoppingListDialog" :recipes="recipesWithScales"
       :shopping-lists="shoppingLists" />
-    <v-menu offset-y left :bottom="!menuTop" :nudge-bottom="!menuTop ? '5' : '0'" :top="menuTop"
+    <v-menu offset-y start :bottom="!menuTop" :nudge-bottom="!menuTop ? '5' : '0'" :top="menuTop"
       :nudge-top="menuTop ? '5' : '0'" allow-overflow close-delay="125" :open-on-hover="mdAndUp"
       content-class="d-print-none">
       <template #activator="{ props }">

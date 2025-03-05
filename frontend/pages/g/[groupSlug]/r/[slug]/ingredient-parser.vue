@@ -44,7 +44,7 @@
                   </v-fade-transition>
                 </template>
                 <template #actions>
-                  <v-icon left :color="isError(ing) ? 'error' : 'success'">
+                  <v-icon start :color="isError(ing) ? 'error' : 'success'">
                     {{ isError(ing) ? $globals.icons.alert : $globals.icons.check }}
                   </v-icon>
                   <div class="my-auto" :color="isError(ing) ? 'error-text' : 'success-text'">

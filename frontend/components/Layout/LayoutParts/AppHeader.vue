@@ -26,11 +26,11 @@
         <v-icon> {{ $globals.icons.search }}</v-icon>
       </v-btn>
       <v-btn v-if="loggedIn" :text="smAndUp" :icon="xs" @click="logout()">
-        <v-icon :left="smAndUp">{{ $globals.icons.logout }}</v-icon>
+        <v-icon :start="smAndUp">{{ $globals.icons.logout }}</v-icon>
         {{ smAndUp ? $t("user.logout") : "" }}
       </v-btn>
       <v-btn v-else text nuxt to="/login">
-        <v-icon left>{{ $globals.icons.user }}</v-icon>
+        <v-icon start>{{ $globals.icons.user }}</v-icon>
         {{ $t("user.login") }}
       </v-btn>
     </template>

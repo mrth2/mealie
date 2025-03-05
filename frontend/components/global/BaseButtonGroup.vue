@@ -1,7 +1,7 @@
 <template>
   <v-item-group>
     <template v-for="btn in buttons">
-      <v-menu v-if="btn.children" :key="'menu-' + btn.event" active-class="pa-0" offset-y top left
+      <v-menu v-if="btn.children" :key="'menu-' + btn.event" active-class="pa-0" offset-y top start
         :style="stretch ? 'width: 100%;' : ''">
         <template #activator="{ props }">
           <v-btn tile :large="large" icon v-bind="props">

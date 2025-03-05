@@ -24,7 +24,7 @@
       </v-col>
       <v-col cols="auto" class="text-right">
         <div v-if="!listItem.checked" style="min-width: 72px">
-          <v-menu offset-x left min-width="125px">
+          <v-menu offset-x start min-width="125px">
             <template #activator="{ props }">
               <v-tooltip
                 v-if="recipeList && recipeList.length"

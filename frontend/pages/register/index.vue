@@ -32,13 +32,13 @@
             <div class="d-flex flex-wrap justify-center flex-md-nowrap pa-4" style="gap: 1em">
               <v-card color="primary" dark hover width="300px" outlined @click="initial.joinGroup">
                 <v-card-title class="justify-center">
-                  <v-icon size="large" left> {{ $globals.icons.group }}</v-icon>
+                  <v-icon size="large" start> {{ $globals.icons.group }}</v-icon>
                   {{ $t("user-registration.join-a-group") }}
                 </v-card-title>
               </v-card>
               <v-card color="primary" dark hover width="300px" outlined @click="initial.createGroup">
                 <v-card-title class="justify-center">
-                  <v-icon size="large" left> {{ $globals.icons.user }}</v-icon>
+                  <v-icon size="large" start> {{ $globals.icons.user }}</v-icon>
 
                   {{ $t("user-registration.create-a-new-group") }}
                 </v-card-title>

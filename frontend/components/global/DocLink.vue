@@ -1,6 +1,6 @@
 <template>
   <v-btn size="x-small" :href="href" color="primary" target="_blank">
-    <v-icon left size="small">
+    <v-icon start size="small">
       {{ $globals.icons.folderOutline }}
     </v-icon>
     {{ $t("about.docs") }}

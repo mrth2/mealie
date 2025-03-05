@@ -15,14 +15,14 @@
               <v-col cols="12" no-gutters :class="attrs.searchFilter.colClass">
                 <SearchFilter v-if="foods" v-model="selectedFoods" :items="foods"
                   :class="attrs.searchFilter.filterClass">
-                  <v-icon left>
+                  <v-icon start>
                     {{ $globals.icons.foods }}
                   </v-icon>
                   {{ $t("general.foods") }}
                 </SearchFilter>
                 <SearchFilter v-if="tools" v-model="selectedTools" :items="tools"
                   :class="attrs.searchFilter.filterClass">
-                  <v-icon left>
+                  <v-icon start>
                     {{ $globals.icons.potSteam }}
                   </v-icon>
                   {{ $t("tool.tools") }}
@@ -31,7 +31,7 @@
                   <v-badge :value="queryFilterJSON.parts && queryFilterJSON.parts.length" size="small" overlap color="primary"
                     :content="(queryFilterJSON.parts || []).length">
                     <v-btn size="small" color="accent" dark @click="queryFilterMenu = !queryFilterMenu">
-                      <v-icon left>
+                      <v-icon start>
                         {{ $globals.icons.filter }}
                       </v-icon>
                       {{ $t("recipe-finder.other-filters") }}
@@ -61,7 +61,7 @@
                 <v-menu v-model="settingsMenu" offset-y nudge-bottom="3" :close-on-content-click="false">
                   <template #activator="{ props }">
                     <v-btn size="small" color="primary" dark v-bind="props">
-                      <v-icon left>
+                      <v-icon start>
                         {{ $globals.icons.cog }}
                       </v-icon>
                       {{ $t("general.settings") }}

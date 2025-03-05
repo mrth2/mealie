@@ -11,7 +11,7 @@
           <!-- Category Filter -->
           <SearchFilter v-if="categories" v-model="selectedCategories" :require-all.sync="state.requireAllCategories"
             :items="categories">
-            <v-icon left>
+            <v-icon start>
               {{ $globals.icons.categories }}
             </v-icon>
             {{ $t("category.categories") }}
@@ -19,7 +19,7 @@
 
           <!-- Tag Filter -->
           <SearchFilter v-if="tags" v-model="selectedTags" :require-all.sync="state.requireAllTags" :items="tags">
-            <v-icon left>
+            <v-icon start>
               {{ $globals.icons.tags }}
             </v-icon>
             {{ $t("tag.tags") }}
@@ -27,7 +27,7 @@
 
           <!-- Tool Filter -->
           <SearchFilter v-if="tools" v-model="selectedTools" :require-all.sync="state.requireAllTools" :items="tools">
-            <v-icon left>
+            <v-icon start>
               {{ $globals.icons.potSteam }}
             </v-icon>
             {{ $t("tool.tools") }}
@@ -35,7 +35,7 @@
 
           <!-- Food Filter -->
           <SearchFilter v-if="foods" v-model="selectedFoods" :require-all.sync="state.requireAllFoods" :items="foods">
-            <v-icon left>
+            <v-icon start>
               {{ $globals.icons.foods }}
             </v-icon>
             {{ $t("general.foods") }}
@@ -43,7 +43,7 @@
 
           <!-- Household Filter -->
           <SearchFilter v-if="households.length > 1" v-model="selectedHouseholds" :items="households" radio>
-            <v-icon left>
+            <v-icon start>
               {{ $globals.icons.household }}
             </v-icon>
             {{ $t("household.households") }}
@@ -53,7 +53,7 @@
           <v-menu offset-y nudge-bottom="3">
             <template #activator="{ props }">
               <v-btn class="ml-auto" size="small" color="accent" v-bind="props">
-                <v-icon :left="!$vuetify.display.xs">
+                <v-icon :start="!$vuetify.display.xs">
                   {{ state.orderDirection === "asc" ? $globals.icons.sortAscending : $globals.icons.sortDescending }}
                 </v-icon>
                 {{ $vuetify.display.xs ? null : sortText }}
@@ -62,7 +62,7 @@
             <v-card>
               <v-list>
                 <v-list-item @click="toggleOrderDirection()">
-                  <v-icon left>
+                  <v-icon start>
                     {{
                       state.orderDirection === "asc" ?
                         $globals.icons.sortDescending : $globals.icons.sortAscending
@@ -75,8 +75,8 @@
                 </v-list-item>
                 <v-divider />
                 <v-list-item v-for="v in sortable" :key="v.name" :input-value="state.orderBy === v.value"
-                  @click="state.orderBy = v.value">
-                  <v-icon left>
+                  @click="start.orderBy = v.value">
+                  <v-icon start>
                     {{ v.icon }}
                   </v-icon>
                   <v-list-item-title>{{ v.name }}</v-list-item-title>
@@ -86,7 +86,7 @@
           </v-menu>
 
           <!-- Settings -->
-          <v-menu offset-y bottom left nudge-bottom="3" :close-on-content-click="false">
+          <v-menu offset-y bottom start nudge-bottom="3" :close-on-content-click="false">
             <template #activator="{ props }">
               <v-btn size="small" color="accent" dark v-bind="props">
                 <v-icon size="small">
@@ -106,7 +106,7 @@
         </div>
         <div v-if="!state.auto" class="search-button-container">
           <v-btn size="x-large" color="primary" type="submit" block>
-            <v-icon left>
+            <v-icon start>
               {{ $globals.icons.search }}
             </v-icon>
             {{ $t("search.search") }}

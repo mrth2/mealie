@@ -18,7 +18,7 @@
       <v-spacer></v-spacer>
       <slot name="actions">
         <v-btn v-for="(button, index) in buttons" :key="index" nuxt :to="button.to" color="primary">
-          <v-icon left> {{ button.icon }} </v-icon>
+          <v-icon start> {{ button.icon }} </v-icon>
           {{ button.text }}
         </v-btn>
       </slot>

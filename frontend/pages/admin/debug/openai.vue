@@ -29,7 +29,7 @@
                   color="error"
                   @click="clearImage"
                 >
-                  <v-icon left>{{ $globals.icons.close }}</v-icon>
+                  <v-icon start>{{ $globals.icons.close }}</v-icon>
                   {{ $t("recipe.remove-image") }}
                 </v-btn>
               </v-col>

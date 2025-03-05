@@ -26,7 +26,7 @@
                     accept="image/*" :text="$t('recipe.upload-image')" :text-btn="false" :post="false"
                     @uploaded="uploadImage" />
                   <v-btn v-if="!!newTimelineEventImage" color="error" @click="clearImage">
-                    <v-icon left>{{ $globals.icons.close }}</v-icon>
+                    <v-icon start>{{ $globals.icons.close }}</v-icon>
                     {{ $t('recipe.remove-image') }}
                   </v-btn>
                 </v-col>
@@ -48,11 +48,11 @@
           <v-tooltip bottom>
             <template #activator="{ props }">
               <v-btn rounded outlined x-large color="primary" v-bind="props" @click="madeThisDialog = true">
-                <v-icon left size="large">{{ $globals.icons.calendar }}</v-icon>
+                <v-icon start size="large">{{ $globals.icons.calendar }}</v-icon>
                 <span class="text--secondary" style="letter-spacing: normal;"><b>{{ $t("general.last-made")
                     }}</b><br>{{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $t("general.never")
                   }}</span>
-                <v-icon right size="large">{{ $globals.icons.createAlt }}</v-icon>
+                <v-icon end size="large">{{ $globals.icons.createAlt }}</v-icon>
               </v-btn>
             </template>
             <span>{{ $t("recipe.made-this") }}</span>

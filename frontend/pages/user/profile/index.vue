@@ -10,7 +10,7 @@
       <v-card flat color="transparent" width="100%" max-width="600px">
         <v-card-actions class="d-flex justify-center my-4">
           <v-btn v-if="user.canInvite" outlined rounded @click="inviteDialog = true">
-            <v-icon left>
+            <v-icon start>
               {{ $globals.icons.createAlt }}
             </v-icon>
             {{ $t('profile.get-invite-link') }}

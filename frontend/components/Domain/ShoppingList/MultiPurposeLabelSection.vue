@@ -9,7 +9,7 @@
       {{ value.label.name }}
     </div>
     <div style="min-width: 72px" class="ml-auto text-right">
-      <v-menu offset-x left min-width="125px">
+      <v-menu offset-x start min-width="125px">
         <template #activator="{ props }">
           <v-btn size="small" class="ml-2 handle" icon v-bind="props">
             <v-icon>

@@ -19,7 +19,7 @@
           <v-card-actions class="justify-center">
             <div class="max-button">
               <v-btn :loading="loading" color="primary" type="submit" size="large" rounded class="rounded-xl" block>
-                <v-icon left>
+                <v-icon start>
                   {{ $globals.icons.email }}
                 </v-icon>
                 {{ $t("user.reset-password") }}

@@ -80,7 +80,7 @@
               <v-menu offset-y>
                 <template #activator="{ props }">
                   <v-chip v-bind="props" label size="small" color="accent" @click.prevent>
-                    <v-icon left>
+                    <v-icon start>
                       {{ $globals.icons.tags }}
                     </v-icon>
                     {{ getEntryTypeText(mealplan.entryType) }}

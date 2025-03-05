@@ -10,7 +10,7 @@
     >
       <template #activator="{ props }">
         <v-btn color="primary" class="mb-2" v-bind="props">
-          <v-icon left>
+          <v-icon start>
             {{ $globals.icons.calendar }}
           </v-icon>
           {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}

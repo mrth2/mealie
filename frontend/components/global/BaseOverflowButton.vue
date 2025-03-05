@@ -2,11 +2,11 @@
   <v-menu offset-y>
     <template #activator="{ props }">
       <v-btn color="primary" v-bind="{ ...props, ...$attrs }" :class="btnClass" :disabled="disabled">
-        <v-icon v-if="activeObj.icon" left>
+        <v-icon v-if="activeObj.icon" start>
           {{ activeObj.icon }}
         </v-icon>
         {{ mode === MODES.model ? activeObj.text : btnText }}
-        <v-icon right>
+        <v-icon end>
           {{ $globals.icons.chevronDown }}
         </v-icon>
       </v-btn>

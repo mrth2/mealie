@@ -15,7 +15,7 @@
       <v-expansion-panel v-for="(webhook, index) in webhooks" :key="index" class="my-2 left-border rounded">
         <v-expansion-panel-header disable-icon-rotate class="headline">
           <div class="d-flex align-center">
-            <v-icon size="large" left :color="webhook.enabled ? 'info' : null">
+            <v-icon size="large" start :color="webhook.enabled ? 'info' : null">
               {{ $globals.icons.webhook }}
             </v-icon>
             {{ webhook.name }} - {{ $d(timeUTC(webhook.scheduledTime), "time") }}

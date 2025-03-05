@@ -9,14 +9,14 @@
           </v-col>
           <v-col order=0>
             <v-card-title class="headline pl-0">
-              <v-icon left color="primary">
+              <v-icon start color="primary">
                 {{ $globals.icons.primary }}
               </v-icon>
               {{ recipe.name }}
             </v-card-title>
             <div v-if="recipeYield" class="d-flex justify-space-between align-center px-4 pb-2">
               <v-chip :size="$vuetify.display.smAndDown ? 'small' : undefined" label>
-                <v-icon left>
+                <v-icon start>
                   {{ $globals.icons.potSteam }}
                 </v-icon>
                 <!-- eslint-disable-next-line vue/no-v-html -->

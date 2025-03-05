@@ -54,7 +54,7 @@
               v-if="listItem.recipeReferences && listItem.recipeReferences.length > 0"
               open-on-hover
               offset-y
-              left
+              start
               top
             >
               <template #activator="{ props }">

@@ -72,7 +72,7 @@
         <v-menu offset-y bottom nudge-bottom="6" :close-on-content-click="false">
           <template #activator="{ props }">
             <v-btn color="accent" class="mr-2" dark v-bind="props">
-              <v-icon left>
+              <v-icon start>
                 {{ $globals.icons.cog }}
               </v-icon>
               {{ $t('data-pages.columns') }}

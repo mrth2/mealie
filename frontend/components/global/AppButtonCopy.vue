@@ -24,7 +24,7 @@
       </v-btn>
     </template>
     <span>
-      <v-icon left dark>
+      <v-icon start dark>
         {{ $globals.icons.clipboardCheck }}
       </v-icon>
       <slot v-if="!isSupported"> {{ $t("general.your-browser-does-not-support-clipboard") }} </slot>

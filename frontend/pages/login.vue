@@ -91,7 +91,7 @@
           },
         ]" :key="link.text" class="text-center">
           <v-btn text :href="link.href" target="_blank">
-            <v-icon left>
+            <v-icon start>
               {{ link.icon }}
             </v-icon>
             {{ link.text }}

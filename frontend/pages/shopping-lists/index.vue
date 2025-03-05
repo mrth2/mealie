@@ -42,7 +42,7 @@
       <v-card v-for="list in shoppingListChoices" :key="list.id" class="my-2 left-border"
         :to="`/shopping-lists/${list.id}`">
         <v-card-title>
-          <v-icon left>
+          <v-icon start>
             {{ $globals.icons.cartCheck }}
           </v-icon>
           <div class="flex-grow-1">

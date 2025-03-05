@@ -42,7 +42,7 @@
         @click:row="handleRowClick"
       >
         <template #item.admin="{ item }">
-          <v-icon right :color="item.admin ? 'success' : null">
+          <v-icon end :color="item.admin ? 'success' : null">
             {{ item.admin ? $globals.icons.checkboxMarkedCircle : $globals.icons.windowClose }}
           </v-icon>
         </template>
