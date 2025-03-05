@@ -25,7 +25,7 @@
 
 <script lang="ts">
 export default defineNuxtComponent({
-  middleware: ["auth", "can-organize-only"],
+  middleware: ["sidebase-auth", "can-organize-only"],
   props: {
     value: {
       type: Boolean,

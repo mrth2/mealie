@@ -74,7 +74,7 @@ import { useShoppingListPreferences } from "~/composables/use-users/preferences"
 import type { UserOut } from "~/lib/api/types/user";
 
 export default defineNuxtComponent({
-  middleware: "auth",
+  middleware: "sidebase-auth",
   setup() {
     const $auth = useMealieAuth();
     const i18n = useI18n();

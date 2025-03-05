@@ -62,7 +62,7 @@ import { useUserApi } from "~/composables/api";
 import type { VForm } from "~/types/vuetify";
 
 export default defineNuxtComponent({
-  middleware: ["auth", "advanced-only"],
+  middleware: ["sidebase-auth", "advanced-only"],
   setup() {
     const i18n = useI18n();
     const $auth = useMealieAuth();

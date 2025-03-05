@@ -33,7 +33,7 @@ import { useUserApi } from "~/composables/api";
 import type { ReportOut } from "~/lib/api/types/reports";
 
 export default defineNuxtComponent({
-  middleware: "auth",
+  middleware: "sidebase-auth",
   setup() {
     const route = useRoute();
     const id = route.params.id as string;

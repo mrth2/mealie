@@ -107,7 +107,7 @@ interface OptionSection {
 }
 
 export default defineNuxtComponent({
-  middleware: ["auth", "advanced-only"],
+  middleware: ["sidebase-auth", "advanced-only"],
   setup() {
     const api = useUserApi();
     const i18n = useI18n();

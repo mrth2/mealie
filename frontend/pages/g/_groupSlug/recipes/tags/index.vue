@@ -22,7 +22,7 @@ export default defineNuxtComponent({
   components: {
     RecipeOrganizerPage,
   },
-  middleware: ["auth", "group-only"],
+  middleware: ["sidebase-auth", "group-only"],
   setup() {
     const { store, actions } = useTagStore();
     const i18n = useI18n();

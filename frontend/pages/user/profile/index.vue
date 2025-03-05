@@ -167,7 +167,7 @@ export default defineNuxtComponent({
     UserAvatar,
     StatsCards,
   },
-  middleware: "auth",
+  middleware: "sidebase-auth",
   scrollToTop: true,
   async setup() {
     const i18n = useI18n();

@@ -63,7 +63,7 @@ export default defineNuxtComponent({
   components: {
     UserAvatar,
   },
-  middleware: ["auth"],
+  middleware: ["sidebase-auth"],
   setup() {
     const $auth = useMealieAuth();
     const api = useUserApi();

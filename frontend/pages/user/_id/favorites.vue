@@ -21,7 +21,7 @@ import { useLoggedInState } from "~/composables/use-logged-in-state";
 
 export default defineNuxtComponent({
   components: { RecipeCardSection },
-  middleware: "auth",
+  middleware: "sidebase-auth",
   setup() {
     const route = useRoute();
     const i18n = useI18n();

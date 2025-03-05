@@ -50,7 +50,7 @@ import { alert } from "~/composables/use-toast";
 
 export default defineNuxtComponent({
   components: { GroupWebhookEditor },
-  middleware: ["auth", "advanced-only"],
+  middleware: ["sidebase-auth", "advanced-only"],
   setup() {
     const i18n = useI18n();
     const { actions, webhooks } = useGroupWebhooks();

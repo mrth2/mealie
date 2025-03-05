@@ -259,7 +259,7 @@ export default defineNuxtComponent({
     RecipeList,
     ShoppingListItemEditor,
   },
-  middleware: "auth",
+  middleware: "sidebase-auth",
   setup() {
     const i18n = useI18n();
     const $auth = useMealieAuth();

@@ -60,7 +60,7 @@ import { useMealplans } from "~/composables/use-group-mealplan";
 import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
 
 export default defineNuxtComponent({
-  middleware: ["auth"],
+  middleware: ["sidebase-auth"],
   setup() {
     const route = useRoute();
     const router = useRouter();
