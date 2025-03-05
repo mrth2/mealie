@@ -7,7 +7,9 @@ export default defineNuxtPlugin(() => {
     timeout: 10000,
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + useCookie('mealie.auth.token').value,
     },
+    withCredentials: true,
   })
 
   // Add request interceptor

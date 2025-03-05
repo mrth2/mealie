@@ -100,13 +100,15 @@ export default defineNuxtConfig({
       token: {
         signInResponseTokenPointer: '/access_token',
         type: 'Bearer',
+        cookieName: 'mealie.auth.token',
+        maxAgeInSeconds: 604800, // 7 days
       },
       pages: {
         login: '/login',
       }
     },
     sessionRefresh: {
-      enablePeriodically: true,
+      enablePeriodically: 30000,
       enableOnWindowFocus: true,
     }
   },
