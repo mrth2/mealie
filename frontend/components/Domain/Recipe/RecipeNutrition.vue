@@ -7,9 +7,9 @@
       <v-divider class="mx-2 my-1"></v-divider>
       <v-card-text v-if="edit">
         <div v-for="(item, key, index) in value" :key="index">
-          <v-text-field
-            density="compact" :value="value[key]" :label="labels[key].label" :suffix="labels[key].suffix" type="number"
-            autocomplete="off" @input="updateValue(key, $event)"></v-text-field>
+          <v-text-field density="compact" :model-value="value[key]" :label="labels[key].label"
+            :suffix="labels[key].suffix" type="number" autocomplete="off"
+            @update:model-value="updateValue(key, $event)"></v-text-field>
         </div>
       </v-card-text>
       <v-list v-if="showViewer" density="compact" class="mt-0 pt-0">

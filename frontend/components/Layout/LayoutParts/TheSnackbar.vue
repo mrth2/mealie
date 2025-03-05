@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <v-snackbar v-model="toastAlert.open" top :color="toastAlert.color" timeout="2000" @input="toastAlert.open = false">
+    <v-snackbar v-model="toastAlert.open" top :color="toastAlert.color" timeout="2000">
       <v-icon dark left>
         {{ icon }}
       </v-icon>
@@ -8,20 +8,12 @@
       {{ toastAlert.title }}
       {{ toastAlert.text }}
 
-      <template #action="{ attrs }">
-        <v-btn text v-bind="attrs" @click="toastAlert.open = false"> {{ $t('general.close') }} </v-btn>
+      <template #actions>
+        <v-btn variant="text" @click="toastAlert.open = false"> {{ $t('general.close') }} </v-btn>
       </template>
     </v-snackbar>
-    <v-snackbar
-      content-class="py-2"
-      density="compact"
-      bottom
-      right
-      :value="toastLoading.open"
-      :timeout="-1"
-      :color="toastLoading.color"
-      @input="toastLoading.open = false"
-    >
+    <v-snackbar content-class="py-2" density="compact" bottom right v-model="toastLoading.open" :timeout="-1"
+      :color="toastLoading.color">
       <div class="d-flex flex-column align-center justify-start" @click="toastLoading.open = false">
         <div class="mb-2 mt-0 text-subtitle-1 text-center">
           {{ toastLoading.text }}

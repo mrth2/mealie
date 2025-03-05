@@ -1,42 +1,19 @@
 <template>
   <div>
-    <v-text-field
-      v-model="recipe.name"
-      class="my-3"
-      :label="$t('recipe.recipe-name')"
-      :rules="[validators.required]"
-      density="compact"
-    />
+    <v-text-field v-model="recipe.name" class="my-3" :label="$t('recipe.recipe-name')" :rules="[validators.required]"
+      density="compact" />
     <v-container class="ma-0 pa-0">
       <v-row>
         <v-col cols="3">
-          <v-text-field
-            v-model="recipeServings"
-            type="number"
-            :min="0"
-            hide-spin-buttons
-            density="compact"
-            :label="$t('recipe.servings')"
-            @input="validateInput($event, 'recipeServings')"
-          />
+          <v-text-field :model-value="recipeServings" type="number" :min="0" hide-spin-buttons density="compact"
+            :label="$t('recipe.servings')" @update:model-value="validateInput($event, 'recipeServings')" />
         </v-col>
         <v-col cols="3">
-          <v-text-field
-            v-model="recipeYieldQuantity"
-            type="number"
-            :min="0"
-            hide-spin-buttons
-            density="compact"
-            :label="$t('recipe.yield')"
-            @input="validateInput($event, 'recipeYieldQuantity')"
-          />
+          <v-text-field :model-value="recipeYieldQuantity" type="number" :min="0" hide-spin-buttons density="compact"
+            :label="$t('recipe.yield')" @update:model-value="validateInput($event, 'recipeYieldQuantity')" />
         </v-col>
         <v-col cols="6">
-          <v-text-field
-          v-model="recipe.recipeYield"
-          density="compact"
-          :label="$t('recipe.yield-text')"
-        />
+          <v-text-field v-model="recipe.recipeYield" density="compact" :label="$t('recipe.yield-text')" />
         </v-col>
       </v-row>
     </v-container>
@@ -46,15 +23,15 @@
       <v-text-field v-model="recipe.prepTime" :label="$t('recipe.prep-time')" density="compact" />
       <v-text-field v-model="recipe.performTime" :label="$t('recipe.perform-time')" density="compact" />
     </div>
-    <v-textarea v-model="recipe.description" auto-grow min-height="100" :label="$t('recipe.description')" density="compact" />
+    <v-textarea v-model="recipe.description" auto-grow min-height="100" :label="$t('recipe.description')"
+      density="compact" />
   </div>
 </template>
 
 <script lang="ts">
-
 import { validators } from "~/composables/use-validators";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { Recipe } from "~/lib/api/types/recipe";
 
 export default defineNuxtComponent({
   props: {

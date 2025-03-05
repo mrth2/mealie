@@ -1,37 +1,14 @@
 <template>
-  <v-autocomplete
-    v-model="selected"
-    :items="storeItem"
-    :value="value"
-    :label="label"
-    chips
-    deletable-chips
-    item-text="name"
-    multiple
-    :prepend-inner-icon="icon"
-    return-object
-    v-bind="inputAttrs"
-    auto-select-first
-    :search-input.sync="searchInput"
-    class="pa-0"
-    @change="resetSearchInput"
-  >
+  <v-autocomplete v-model="selected" :items="storeItem" :value="value" :label="label" chips deletable-chips
+    item-text="name" multiple :prepend-inner-icon="icon" return-object v-bind="inputAttrs" auto-select-first
+    :search-input.sync="searchInput" class="pa-0" @change="resetSearchInput">
     <template #selection="data">
-      <v-chip
-        :key="data.index"
-        class="ma-1"
-        :input-value="data.selected"
-        size="small"
-        close
-        label
-        color="accent"
-        dark
-        @click:close="removeByIndex(data.index)"
-      >
+      <v-chip :key="data.index" class="ma-1" :input-value="data.selected" size="small" close label color="accent" dark
+        @click:close="removeByIndex(data.index)">
         {{ data.item.name || data.item }}
       </v-chip>
     </template>
-    <template v-if="showAdd" #append-outer>
+    <template v-if="showAdd" #append>
       <v-btn icon @click="dialog = true">
         <v-icon>
           {{ $globals.icons.create }}
@@ -43,18 +20,12 @@
 </template>
 
 <script lang="ts">
-
-import RecipeOrganizerDialog from "./RecipeOrganizerDialog.vue";
-import { IngredientFood, RecipeCategory, RecipeTag } from "~/lib/api/types/recipe";
-import { RecipeTool } from "~/lib/api/types/admin";
-import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
-import { Organizer, RecipeOrganizer } from "~/lib/api/types/non-generated";
-import { HouseholdSummary } from "~/lib/api/types/household";
+import type { IngredientFood, RecipeCategory, RecipeTag } from "~/lib/api/types/recipe";
+import type { RecipeTool } from "~/lib/api/types/admin";
+import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
+import type { HouseholdSummary } from "~/lib/api/types/household";
 
 export default defineNuxtComponent({
-  components: {
-    RecipeOrganizerDialog,
-  },
   props: {
     value: {
       type: Array as () => (

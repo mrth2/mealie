@@ -243,6 +243,7 @@ import { useShoppingListItemActions } from "~/composables/use-shopping-list-item
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 import { getTextColor } from "~/composables/use-text-color";
 import { uuid4 } from "~/composables/use-utils";
+import type { PlanEntryType } from "~/lib/api/types/meal-plan";
 
 type CopyTypes = "plain" | "markdown";
 

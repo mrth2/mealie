@@ -1,7 +1,7 @@
 <template>
   <v-data-table v-model="selected" item-key="id" show-select sort-by="dateAdded" sort-desc :headers="headers"
     :items="recipes" :items-per-page="15" class="elevation-0" :loading="loading" @input="setValue(selected)">
-    <template #body.preappend>
+    <template #body.prepend>
       <tr>
         <td></td>
         <td>Hello</td>

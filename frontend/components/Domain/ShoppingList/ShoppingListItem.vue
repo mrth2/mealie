@@ -95,13 +95,12 @@
 </template>
 
 <script lang="ts">
-
 import RecipeIngredientListItem from "../Recipe/RecipeIngredientListItem.vue";
 import ShoppingListItemEditor from "./ShoppingListItemEditor.vue";
 import MultiPurposeLabel from "./MultiPurposeLabel.vue";
-import { ShoppingListItemOut } from "~/lib/api/types/household";
-import { MultiPurposeLabelOut, MultiPurposeLabelSummary } from "~/lib/api/types/labels";
-import { IngredientFood, IngredientUnit, RecipeSummary } from "~/lib/api/types/recipe";
+import type { ShoppingListItemOut } from "~/lib/api/types/household";
+import type { MultiPurposeLabelOut, MultiPurposeLabelSummary } from "~/lib/api/types/labels";
+import type { IngredientFood, IngredientUnit, RecipeSummary } from "~/lib/api/types/recipe";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 
 interface actions {

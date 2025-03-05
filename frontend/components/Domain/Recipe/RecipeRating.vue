@@ -1,33 +1,14 @@
 <template>
   <div @click.prevent>
     <!-- User Rating -->
-    <v-hover v-slot="{ hover }">
-      <v-rating
-        v-if="isOwnGroup && (userRating || hover || !ratingsLoaded)"
-        :value="userRating"
-        color="secondary"
-        background-color="secondary lighten-3"
-        length="5"
-        :dense="small ? true : undefined"
-        :size="small ? 15 : undefined"
-        hover
-        clearable
-        @input="updateRating"
-        @click="updateRating"
-      />
+    <v-hover v-slot="{ isHovering }">
+      <v-rating v-if="isOwnGroup && (userRating || isHovering || !ratingsLoaded)" :model-value="userRating"
+        color="secondary" background-color="secondary lighten-3" length="5" :dense="small ? true : undefined"
+        :size="small ? 15 : undefined" hover clearable @update:model-value="updateRating" @click="updateRating" />
       <!-- Group Rating -->
-      <v-rating
-        v-else
-        :value="groupRating"
-        :half-increments="true"
-        :readonly="true"
-        color="grey darken-1"
-        background-color="secondary lighten-3"
-        length="5"
-        :dense="small ? true : undefined"
-        :size="small ? 15 : undefined"
-        hover
-      />
+      <v-rating v-else :model-value="groupRating" :half-increments="true" readonly color="grey darken-1"
+        background-color="secondary lighten-3" length="5" :density="small ? 'compact' : 'default'"
+        :size="small ? 15 : undefined" hover />
     </v-hover>
   </div>
 </template>

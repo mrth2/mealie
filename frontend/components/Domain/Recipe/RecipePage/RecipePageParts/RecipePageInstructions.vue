@@ -70,8 +70,8 @@
     }" @input="updateIndex" @start="drag = true" @end="drag = false">
       <TransitionGroup type="transition" :name="!drag ? 'flip-list' : ''">
         <div v-for="(step, index) in value" :key="step.id" class="list-group-item">
-          <v-app-bar v-if="step.id && showTitleEditor[step.id]" class="primary mt-6" style="cursor: pointer" dark density="compact"
-            rounded @click="toggleCollapseSection(index)">
+          <v-app-bar v-if="step.id && showTitleEditor[step.id]" class="primary mt-6" style="cursor: pointer" dark
+            density="compact" rounded @click="toggleCollapseSection(index)">
             <v-toolbar-title v-if="!isEditForm" class="headline">
               <v-app-bar-title> {{ step.title }} </v-app-bar-title>
             </v-toolbar-title>
@@ -79,12 +79,12 @@
               :placeholder="$t('recipe.section-title')" background-color="primary">
             </v-text-field>
           </v-app-bar>
-          <v-hover v-slot="{ hover }">
-            <v-card class="my-3" :class="[{ 'on-hover': hover }, isChecked(index)]" :elevation="hover ? 12 : 2"
-              :ripple="false" @click="toggleDisabled(index)">
+          <v-hover v-slot="{ isHovering }">
+            <v-card class="my-3" :class="[{ 'on-hover': isHovering }, isChecked(index)]"
+              :elevation="isHovering ? 12 : 2" :ripple="false" @click="toggleDisabled(index)">
               <v-card-title :class="{ 'pb-0': !isChecked(index) }">
-                <v-text-field v-if="isEditForm" v-model="step.summary" class="headline handle" hide-details density="compact" solo
-                  flat :placeholder="$t('recipe.step-index', { step: index + 1 })">
+                <v-text-field v-if="isEditForm" v-model="step.summary" class="headline handle" hide-details
+                  density="compact" solo flat :placeholder="$t('recipe.step-index', { step: index + 1 })">
                   <template #prepend>
                     <v-icon size="26">{{ $globals.icons.arrowUpDown }}</v-icon>
                   </template>

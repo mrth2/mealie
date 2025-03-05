@@ -1,10 +1,10 @@
 <template>
   <v-lazy>
-    <v-hover v-slot="{ hover }" :open-delay="50">
+    <v-hover v-slot="{ isHovering }" :open-delay="50">
       <v-card
-        :class="{ 'on-hover': hover }"
+        :class="{ 'on-hover': isHovering }"
         :style="{ cursor }"
-        :elevation="hover ? 12 : 2"
+        :elevation="isHovering ? 12 : 2"
         :to="recipeRoute"
         :min-height="imageHeight + 75"
         @click.self="$emit('click')"
@@ -18,7 +18,7 @@
           :image-version="image"
         >
           <v-expand-transition v-if="description">
-            <div v-if="hover" class="d-flex transition-fast-in-fast-out secondary v-card--reveal" style="height: 100%">
+            <div v-if="isHovering" class="d-flex transition-fast-in-fast-out secondary v-card--reveal" style="height: 100%">
               <v-card-text class="v-card--text-show white--text">
                 <div class="descriptionWrapper">
                   <SafeMarkdown :source="description" />
