@@ -10,8 +10,7 @@
   </div>
 </template>
 <script lang="ts">
-
-import { RecipeIngredient } from "~/lib/api/types/household";
+import type { RecipeIngredient } from "~/lib/api/types/household";
 import { useParsedIngredientText } from "~/composables/recipes";
 
 export default defineNuxtComponent({

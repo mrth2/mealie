@@ -5,6 +5,7 @@
       class="my-3"
       :label="$t('recipe.recipe-name')"
       :rules="[validators.required]"
+      density="compact"
     />
     <v-container class="ma-0 pa-0">
       <v-row>
@@ -14,7 +15,7 @@
             type="number"
             :min="0"
             hide-spin-buttons
-            dense
+            density="compact"
             :label="$t('recipe.servings')"
             @input="validateInput($event, 'recipeServings')"
           />
@@ -25,7 +26,7 @@
             type="number"
             :min="0"
             hide-spin-buttons
-            dense
+            density="compact"
             :label="$t('recipe.yield')"
             @input="validateInput($event, 'recipeYieldQuantity')"
           />
@@ -33,7 +34,7 @@
         <v-col cols="6">
           <v-text-field
           v-model="recipe.recipeYield"
-          dense
+          density="compact"
           :label="$t('recipe.yield-text')"
         />
         </v-col>
@@ -41,11 +42,11 @@
     </v-container>
 
     <div class="d-flex flex-wrap" style="gap: 1rem">
-      <v-text-field v-model="recipe.totalTime" :label="$t('recipe.total-time')" />
-      <v-text-field v-model="recipe.prepTime" :label="$t('recipe.prep-time')" />
-      <v-text-field v-model="recipe.performTime" :label="$t('recipe.perform-time')" />
+      <v-text-field v-model="recipe.totalTime" :label="$t('recipe.total-time')" density="compact" />
+      <v-text-field v-model="recipe.prepTime" :label="$t('recipe.prep-time')" density="compact" />
+      <v-text-field v-model="recipe.performTime" :label="$t('recipe.perform-time')" density="compact" />
     </div>
-    <v-textarea v-model="recipe.description" auto-grow min-height="100" :label="$t('recipe.description')" />
+    <v-textarea v-model="recipe.description" auto-grow min-height="100" :label="$t('recipe.description')" density="compact" />
   </div>
 </template>
 

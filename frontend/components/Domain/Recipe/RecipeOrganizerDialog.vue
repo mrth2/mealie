@@ -2,7 +2,7 @@
   <div>
     <v-dialog v-model="dialog" width="500">
       <v-card>
-        <v-app-bar dense dark color="primary mb-2">
+        <v-app-bar density="compact" dark color="primary mb-2">
           <v-icon large left class="mt-1">
             {{ itemType === Organizer.Tool ? $globals.icons.potSteam :
               itemType === Organizer.Category ? $globals.icons.categories :
@@ -18,7 +18,7 @@
         <v-card-title> </v-card-title>
         <v-form @submit.prevent="select">
           <v-card-text>
-            <v-text-field v-model="name" dense :label="properties.label" :rules="[rules.required]"
+            <v-text-field v-model="name" density="compact" :label="properties.label" :rules="[rules.required]"
               autofocus></v-text-field>
             <v-checkbox v-if="itemType === Organizer.Tool" v-model="onHand" :label="$t('tool.on-hand')"></v-checkbox>
           </v-card-text>

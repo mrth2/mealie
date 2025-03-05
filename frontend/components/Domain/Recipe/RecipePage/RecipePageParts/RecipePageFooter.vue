@@ -1,25 +1,11 @@
 <template>
   <div>
     <v-card-actions class="justify-end">
-      <v-text-field
-        v-if="isEditForm"
-        v-model="recipe.orgURL"
-        class="mt-10"
-        :label="$t('recipe.original-url')"
-      ></v-text-field>
-      <v-btn
-        v-else-if="recipe.orgURL && !isCookMode"
-        dense
-        small
-        :hover="false"
-        type="label"
-        :ripple="false"
-        elevation="0"
-        :href="recipe.orgURL"
-        color="secondary darken-1"
-        target="_blank"
-        class="rounded-sm mr-n2"
-      >
+      <v-text-field v-if="isEditForm" v-model="recipe.orgURL" class="mt-10"
+        :label="$t('recipe.original-url')"></v-text-field>
+      <v-btn v-else-if="recipe.orgURL && !isCookMode" density="compact" small :hover="false" type="label"
+        :ripple="false" elevation="0" :href="recipe.orgURL" color="secondary darken-1" target="_blank"
+        class="rounded-sm mr-n2">
         {{ $t("recipe.original-url") }}
       </v-btn>
     </v-card-actions>
@@ -31,7 +17,7 @@
           {{ $t('recipe.api-extras-description') }}
           <v-row v-for="(_, key) in recipe.extras" :key="key" class="mt-1">
             <v-col style="max-width: 400px;">
-              <v-text-field v-model="recipe.extras[key]" dense :label="key">
+              <v-text-field v-model="recipe.extras[key]" density="compact" :label="key">
                 <template #prepend>
                   <v-btn color="error" icon class="mt-n4" @click="removeApiExtra(key)">
                     <v-icon> {{ $globals.icons.delete }} </v-icon>
@@ -53,10 +39,9 @@
 </template>
 
 <script lang="ts">
-
 import { usePageState } from "~/composables/recipe-page/shared-state";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { Recipe } from "~/lib/api/types/recipe";
 export default defineNuxtComponent({
   props: {
     recipe: {

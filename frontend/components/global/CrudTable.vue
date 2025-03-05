@@ -16,7 +16,7 @@
               :key="itemValue.text + itemValue.show"
               v-model="filteredHeaders"
               :value="itemValue.value"
-              dense
+              density="compact"
               flat
               inset
               :label="itemValue.text"

@@ -7,7 +7,7 @@
           class="mt-0"
           color="null"
           hide-details
-          dense
+          density="compact"
           :label="listItem.note"
           @change="$emit('checked', listItem)"
         >
@@ -30,12 +30,12 @@
                 v-if="recipeList && recipeList.length"
                 open-delay="200"
                 transition="slide-x-reverse-transition"
-                dense
+                density="compact"
                 right
                 content-class="text-caption"
               >
                 <template #activator="{ props }">
-                  <v-btn small class="ml-2" icon v-bind="props" @click="displayRecipeRefs = !displayRecipeRefs">
+                  <v-btn size="small" class="ml-2" icon v-bind="props" @click="displayRecipeRefs = !displayRecipeRefs">
                     <v-icon>
                       {{ $globals.icons.potSteam }}
                     </v-icon>
@@ -44,22 +44,22 @@
                 <span>Toggle Recipes</span>
               </v-tooltip>
               <!-- Dummy button so the spacing is consistent when labels are enabled -->
-              <v-btn v-else small class="ml-2" icon disabled>
+              <v-btn v-else size="small" class="ml-2" icon disabled>
               </v-btn>
 
-              <v-btn small class="ml-2 handle" icon v-bind="props">
+              <v-btn size="small" class="ml-2 handle" icon v-bind="props">
                 <v-icon>
                   {{ $globals.icons.arrowUpDown }}
                 </v-icon>
               </v-btn>
-              <v-btn small class="ml-2" icon @click="toggleEdit(true)">
+              <v-btn size="small" class="ml-2" icon @click="toggleEdit(true)">
                 <v-icon>
                   {{ $globals.icons.edit }}
                 </v-icon>
               </v-btn>
             </template>
-            <v-list dense>
-              <v-list-item v-for="action in contextMenu" :key="action.event" dense @click="contextHandler(action.event)">
+            <v-list density="compact">
+              <v-list-item v-for="action in contextMenu" :key="action.event" density="compact" @click="contextHandler(action.event)">
                 <v-list-item-title>{{ action.text }}</v-list-item-title>
               </v-list-item>
             </v-list>

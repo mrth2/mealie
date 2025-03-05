@@ -8,12 +8,12 @@
       <v-card-text v-if="edit">
         <div v-for="(item, key, index) in value" :key="index">
           <v-text-field
-dense :value="value[key]" :label="labels[key].label" :suffix="labels[key].suffix" type="number"
+            density="compact" :value="value[key]" :label="labels[key].label" :suffix="labels[key].suffix" type="number"
             autocomplete="off" @input="updateValue(key, $event)"></v-text-field>
         </div>
       </v-card-text>
-      <v-list v-if="showViewer" dense class="mt-0 pt-0">
-        <v-list-item v-for="(item, key, index) in renderedList" :key="index" style="min-height: 25px" dense>
+      <v-list v-if="showViewer" density="compact" class="mt-0 pt-0">
+        <v-list-item v-for="(item, key, index) in renderedList" :key="index" style="min-height: 25px">
           <div>
             <v-list-item-title class="pl-4 caption flex row">
               <div>{{ item.label }}</div>
@@ -28,10 +28,9 @@ dense :value="value[key]" :label="labels[key].label" :suffix="labels[key].suffix
 </template>
 
 <script lang="ts">
-
 import { useNutritionLabels } from "~/composables/recipes";
-import { Nutrition } from "~/lib/api/types/recipe";
-import { NutritionLabelType } from "~/composables/recipes/use-recipe-nutrition";
+import type { Nutrition } from "~/lib/api/types/recipe";
+import type { NutritionLabelType } from "~/composables/recipes/use-recipe-nutrition";
 export default defineNuxtComponent({
   props: {
     value: {

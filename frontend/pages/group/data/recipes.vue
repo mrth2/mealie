@@ -84,7 +84,7 @@
             </v-card-title>
             <v-divider class="mx-2"></v-divider>
             <v-card-text class="mt-n5">
-              <v-checkbox v-for="(_, key) in headers" :key="key" v-model="headers[key]" dense flat inset
+              <v-checkbox v-for="(_, key) in headers" :key="key" v-model="headers[key]" density="compact" flat inset
                 :label="headerLabels[key]" hide-details></v-checkbox>
             </v-card-text>
           </v-card>

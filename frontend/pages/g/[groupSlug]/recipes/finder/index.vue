@@ -76,9 +76,9 @@
                           :label="$t('recipe-finder.max-missing-tools')" class="mt-4" />
                       </div>
                       <div class="mt-1">
-                        <v-checkbox v-if="isOwnGroup" v-model="settings.includeFoodsOnHand" dense small hide-details
+                        <v-checkbox v-if="isOwnGroup" v-model="settings.includeFoodsOnHand" density="compact" small hide-details
                           class="my-auto" :label="$t('recipe-finder.include-ingredients-on-hand')" />
-                        <v-checkbox v-if="isOwnGroup" v-model="settings.includeToolsOnHand" dense small hide-details
+                        <v-checkbox v-if="isOwnGroup" v-model="settings.includeToolsOnHand" density="compact" small hide-details
                           class="my-auto" :label="$t('recipe-finder.include-tools-on-hand')" />
                       </div>
                     </v-card-text>
@@ -151,7 +151,7 @@
         <v-col :cols="useMobile ? 12 : 9" :style="useMobile ? '' : 'max-height: 70vh; overflow-y: auto'">
           <v-container v-if="recipeSuggestions.readyToMake.length || recipeSuggestions.missingItems.length"
             class="ma-0 pa-0">
-            <v-row v-if="recipeSuggestions.readyToMake.length" dense>
+            <v-row v-if="recipeSuggestions.readyToMake.length" density="compact">
               <v-col cols="12">
                 <v-card-title :class="attrs.title.class.readyToMake">
                   {{ $t("recipe-finder.ready-to-make") }}
@@ -165,7 +165,7 @@
                 </v-lazy>
               </v-col>
             </v-row>
-            <v-row v-if="recipeSuggestions.missingItems.length" dense>
+            <v-row v-if="recipeSuggestions.missingItems.length" density="compact">
               <v-col cols="12">
                 <v-card-title :class="attrs.title.class.missingItems">
                   {{ $t("recipe-finder.almost-ready-to-make") }}

@@ -14,7 +14,7 @@
     </v-snackbar>
     <v-snackbar
       content-class="py-2"
-      dense
+      density="compact"
       bottom
       right
       :value="toastLoading.open"

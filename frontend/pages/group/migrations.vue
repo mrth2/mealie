@@ -17,7 +17,7 @@
             <BaseOverflowButton v-model="migrationType" mode="model" :items="items" />
           </div>
           {{ content.text }}
-          <v-treeview v-if="content.tree" dense :items="content.tree">
+          <v-treeview v-if="content.tree" density="compact" :items="content.tree">
             <template #prepend="{ item }">
               <v-icon> {{ item.icon }}</v-icon>
             </template>

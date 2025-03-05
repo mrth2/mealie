@@ -11,16 +11,8 @@
       <div class="d-flex mt-3" style="gap: 10px">
         <UserAvatar :tooltip="false" size="40" :user-id="user.id" />
 
-        <v-textarea
-          v-model="comment"
-          hide-details=""
-          dense
-          single-line
-          outlined
-          auto-grow
-          rows="2"
-          :placeholder="$t('recipe.join-the-conversation')"
-        >
+        <v-textarea v-model="comment" hide-details density="compact" single-line outlined auto-grow rows="2"
+          :placeholder="$t('recipe.join-the-conversation')">
         </v-textarea>
       </div>
       <div class="ml-auto mt-1">
@@ -38,13 +30,8 @@
           <SafeMarkdown :source="comment.text" />
         </v-card-text>
         <v-card-actions class="justify-end mt-0 pt-0">
-          <v-btn
-            v-if="user.id == comment.user.id || user.admin"
-            color="error"
-            text
-            x-small
-            @click="deleteComment(comment.id)"
-          >
+          <v-btn v-if="user.id == comment.user.id || user.admin" color="error" text x-small
+            @click="deleteComment(comment.id)">
             {{ $t("general.delete") }}
           </v-btn>
         </v-card-actions>
@@ -54,11 +41,10 @@
 </template>
 
 <script lang="ts">
-
 import { useUserApi } from "~/composables/api";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { Recipe } from "~/lib/api/types/recipe";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { usePageUser } from "~/composables/recipe-page/shared-state";
 import SafeMarkdown from "~/components/global/SafeMarkdown.vue";
 
@@ -66,7 +52,7 @@ export default defineNuxtComponent({
   components: {
     UserAvatar,
     SafeMarkdown
-},
+  },
   props: {
     recipe: {
       type: Object as () => NoUndefinedField<Recipe>,

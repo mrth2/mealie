@@ -13,7 +13,7 @@
             {{ $t("general.create") }}
           </v-btn>
         </template>
-        <v-list dense class="my-0 py-0">
+        <v-list density="compact" class="my-0 py-0">
           <template v-for="(item, index) in createLinks">
             <div v-if="!item.hide" :key="item.title">
               <v-divider v-if="item.insertDivider" :key="index" class="mx-2"></v-divider>

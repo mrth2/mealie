@@ -8,7 +8,7 @@
       </template>
 
       <v-card>
-        <v-app-bar dense dark color="primary" class="mb-2">
+        <v-app-bar density="compact" dark color="primary" class="mb-2">
           <v-icon large left>
             {{ $globals.icons.createAlt }}
           </v-icon>
@@ -28,7 +28,7 @@
 
           <v-divider></v-divider>
           <template v-for="(util, idx) in utilities">
-            <v-list-item :key="util.id" dense class="py-1">
+            <v-list-item :key="util.id" density="compact" class="py-1">
               <v-list-item-title>
                 <v-list-item-subtitle class="wrap-word">
                   {{ util.description }}

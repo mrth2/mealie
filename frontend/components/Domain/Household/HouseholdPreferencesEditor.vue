@@ -2,7 +2,7 @@
   <div v-if="preferences">
     <BaseCardSectionTitle class="mt-10" :title="$t('household.household-preferences')"></BaseCardSectionTitle>
     <div class="mb-6">
-      <v-checkbox v-model="preferences.privateHousehold" hide-details dense
+      <v-checkbox v-model="preferences.privateHousehold" hide-details density="compact"
         :label="$t('household.private-household')" />
       <div class="ml-8">
         <p class="text-subtitle-2 my-0 py-0">
@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="mb-6">
-      <v-checkbox v-model="preferences.lockRecipeEditsFromOtherHouseholds" hide-details dense
+      <v-checkbox v-model="preferences.lockRecipeEditsFromOtherHouseholds" hide-details density="compact"
         :label="$t('household.lock-recipe-edits-from-other-households')" />
       <div class="ml-8">
         <p class="text-subtitle-2 my-0 py-0">
@@ -26,7 +26,7 @@
     <BaseCardSectionTitle class="mt-5" :title="$t('household.household-recipe-preferences')"></BaseCardSectionTitle>
     <div class="preference-container">
       <div v-for="p in recipePreferences" :key="p.key">
-        <v-checkbox v-model="preferences[p.key]" hide-details dense :label="p.label" />
+        <v-checkbox v-model="preferences[p.key]" hide-details density="compact" :label="p.label" />
         <p class="ml-8 text-subtitle-2 my-0 py-0">
           {{ p.description }}
         </p>

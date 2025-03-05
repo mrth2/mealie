@@ -76,7 +76,7 @@
             </v-lazy>
           </v-col>
         </v-row>
-        <v-row v-else dense>
+        <v-row v-else density="compact">
           <v-col v-for="recipe in recipes" :key="recipe.name" cols="12" :sm="singleColumn ? '12' : '12'"
             :md="singleColumn ? '12' : '6'" :lg="singleColumn ? '12' : '4'" :xl="singleColumn ? '12' : '3'">
             <v-lazy>

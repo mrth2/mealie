@@ -10,7 +10,7 @@
           <h3 v-if="showTitleEditor[index]" class="mt-2">{{ ingredient.title }}</h3>
           <v-divider v-if="showTitleEditor[index]"></v-divider>
         </template>
-        <v-list-item dense @click.stop="toggleChecked(index)">
+        <v-list-item density="compact" @click.stop="toggleChecked(index)">
           <v-checkbox hide-details :value="checked[index]" class="pt-0 my-auto py-auto" color="secondary" />
           <div :key="ingredient.quantity">
             <RecipeIngredientListItem :ingredient="ingredient" :disable-amount="disableAmount" :scale="scale" />
@@ -22,10 +22,9 @@
 </template>
 
 <script lang="ts">
-
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import { parseIngredientText } from "~/composables/recipes";
-import { RecipeIngredient } from "~/lib/api/types/recipe";
+import type { RecipeIngredient } from "~/lib/api/types/recipe";
 
 export default defineNuxtComponent({
   components: { RecipeIngredientListItem },

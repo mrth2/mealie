@@ -10,9 +10,9 @@
       </template>
       <v-card width="400">
         <v-card-text>
-          <v-text-field v-model="state.search" class="mb-2" hide-details dense :label="$t('search.search')" clearable />
+          <v-text-field v-model="state.search" class="mb-2" hide-details density="compact" :label="$t('search.search')" clearable />
           <div class="d-flex py-4">
-            <v-switch v-if="requireAll != undefined" v-model="requireAllValue" dense small hide-details class="my-auto"
+            <v-switch v-if="requireAll != undefined" v-model="requireAllValue" density="compact" small hide-details class="my-auto"
               :label="`${requireAll ? $t('search.has-all') : $t('search.has-any')}`" />
             <v-spacer />
             <v-btn small color="accent" class="mr-2 my-auto" @click="clearSelection">
@@ -23,7 +23,7 @@
             <v-radio-group v-model="selectedRadio" class="ma-0 pa-0">
               <v-virtual-scroll :items="filtered" height="300" item-height="51">
                 <template #default="{ item }">
-                  <v-list-item :key="item.id" dense :value="item">
+                  <v-list-item :key="item.id" density="compact" :value="item">
                     <v-list-item-action>
                       <v-radio v-if="radio" :value="item" @click="handleRadioClick(item)" />
                       <v-checkbox v-else v-model="selected" :value="item" />

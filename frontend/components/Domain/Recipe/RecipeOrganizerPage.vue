@@ -23,7 +23,7 @@
       </v-card-text>
     </BaseDialog>
 
-    <v-row dense>
+    <v-row density="compact">
       <v-col>
         <v-text-field
           v-model="searchString"

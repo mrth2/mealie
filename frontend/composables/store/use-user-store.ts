@@ -1,7 +1,7 @@
 
 import { useReadOnlyStore } from "../partials/use-store-factory";
 import { useRequests } from "../api/api-client";
-import { UserSummary } from "~/lib/api/types/user";
+import type { UserSummary } from "~/lib/api/types/user";
 import { BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
 
 const store: Ref<UserSummary[]> = ref([]);

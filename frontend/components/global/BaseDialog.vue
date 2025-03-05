@@ -16,7 +16,7 @@
       @keydown.esc="$emit('cancel')"
     >
       <v-card height="100%">
-        <v-app-bar dark dense :color="color" class="">
+        <v-app-bar dark density="compact" :color="color" class="">
           <v-icon large left>
             {{ icon }}
           </v-icon>

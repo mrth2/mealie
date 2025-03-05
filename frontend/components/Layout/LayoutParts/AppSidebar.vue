@@ -7,8 +7,8 @@
 
         <v-list-item-title class="pr-2"> {{ sessionUser.fullName }}</v-list-item-title>
         <v-list-item-subtitle>
-          <v-btn v-if="isOwnGroup" class="px-2 pa-0" text :to="userFavoritesLink" small>
-            <v-icon left small>
+          <v-btn v-if="isOwnGroup" class="px-2 pa-0" text :to="userFavoritesLink" size="small">
+            <v-icon left size="small">
               {{ $globals.icons.heart }}
             </v-icon>
             {{ $t("user.favorite-recipes") }}
@@ -22,7 +22,7 @@
 
     <!-- Primary Links -->
     <template v-if="topLink">
-      <v-list nav dense v-model:selected="secondarySelected">
+      <v-list nav density="compact" v-model:selected="secondarySelected">
         <template v-for="nav in topLink">
           <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
             <!-- Multi Items -->
@@ -58,7 +58,7 @@
     <!-- Secondary Links -->
     <template v-if="secondaryLinks.length > 0">
       <v-divider class="mt-2"></v-divider>
-      <v-list nav dense exact v-model:selected="secondarySelected">
+      <v-list nav density="compact" exact v-model:selected="secondarySelected">
         <template v-for="nav in secondaryLinks">
           <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
             <!-- Multi Items -->
@@ -93,7 +93,7 @@
 
     <!-- Bottom Navigation Links -->
     <template v-if="bottomLinks" #append>
-      <v-list nav dense v-model:selected="bottomSelected">
+      <v-list nav density="compact" v-model:selected="bottomSelected">
         <template v-for="nav in bottomLinks">
           <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
             <v-list-item :key="nav.key || nav.title" exact link :to="nav.to || null" :href="nav.href || null"

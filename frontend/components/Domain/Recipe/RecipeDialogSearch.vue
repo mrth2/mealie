@@ -12,7 +12,7 @@
           autocomplete="off"
           background-color="primary lighten-1"
           color="white"
-          dense
+          density="compact"
           class="mx-2 arrow-search"
           hide-details
           single-line

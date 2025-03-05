@@ -5,7 +5,7 @@
       :key="key"
       v-model="value[key]"
       xs
-      dense
+      density="compact"
       :disabled="key == 'locked' && !isOwner"
       class="my-1"
       :label="labels[key]"

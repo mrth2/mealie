@@ -10,7 +10,7 @@
           <v-icon>{{ icon }}</v-icon>
         </v-btn>
       </template>
-      <v-list dense>
+      <v-list density="compact">
         <v-list-item v-for="(item, index) in menuItems" :key="index" @click="contextMenuEventHandler(item.event)">
           <template #prepend>
             <v-icon :color="item.color"> {{ item.icon }} </v-icon>

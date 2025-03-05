@@ -12,7 +12,7 @@
     <BaseDialog v-model="recipeDuplicateDialog" :title="$t('recipe.duplicate')" color="primary"
       :icon="$globals.icons.duplicate" @confirm="duplicateRecipe()">
       <v-card-text>
-        <v-text-field v-model="recipeName" dense :label="$t('recipe.recipe-name')" autofocus
+        <v-text-field v-model="recipeName" density="compact" :label="$t('recipe.recipe-name')" autofocus
           @keyup.enter="duplicateRecipe()"></v-text-field>
       </v-card-text>
     </BaseDialog>
@@ -42,7 +42,7 @@
           <v-icon>{{ icon }}</v-icon>
         </v-btn>
       </template>
-      <v-list dense>
+      <v-list density="compact">
         <v-list-item v-for="(item, index) in menuItems" :key="index" @click="contextMenuEventHandler(item.event)">
           <template #prepend>
             <v-icon :color="item.color"> {{ item.icon }} </v-icon>
@@ -55,7 +55,7 @@
             <template #activator>
               <v-list-item-title>{{ $t("recipe.recipe-actions") }}</v-list-item-title>
             </template>
-            <v-list dense class="ma-0 pa-0">
+            <v-list density="compact" class="ma-0 pa-0">
               <v-list-item v-for="(action, index) in recipeActions" :key="index" class="pl-6"
                 @click="executeRecipeAction(action)">
                 <v-list-item-title>

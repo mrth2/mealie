@@ -12,7 +12,7 @@
       </v-btn>
     </template>
     <!-- Model -->
-    <v-list v-if="mode === MODES.model" v-model:selected="itemGroup" dense>
+    <v-list v-if="mode === MODES.model" v-model:selected="itemGroup" density="compact">
       <template v-for="(item, index) in items">
         <div v-if="!item.hide" :key="index">
           <v-list-item @click="setValue(item)">
@@ -26,7 +26,7 @@
       </template>
     </v-list>
     <!-- Links -->
-    <v-list v-else-if="mode === MODES.link" v-model:selected="itemGroup" dense>
+    <v-list v-else-if="mode === MODES.link" v-model:selected="itemGroup" density="compact">
       <template v-for="(item, index) in items">
         <div v-if="!item.hide" :key="index">
           <v-list-item :to="item.to">
@@ -40,7 +40,7 @@
       </template>
     </v-list>
     <!-- Event -->
-    <v-list v-else-if="mode === MODES.event" dense>
+    <v-list v-else-if="mode === MODES.event" density="compact">
       <template v-for="(item, index) in items">
         <div v-if="!item.hide" :key="index">
           <v-list-item @click="$emit(item.event)">

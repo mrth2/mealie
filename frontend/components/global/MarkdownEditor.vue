@@ -19,7 +19,7 @@
       :class="label == '' ? '' : 'mt-5'"
       :label="label"
       auto-grow
-      dense
+      density="compact"
       rows="4"
     />
     <SafeMarkdown v-else :source="value" />

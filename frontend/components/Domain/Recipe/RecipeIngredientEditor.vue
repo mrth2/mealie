@@ -1,12 +1,12 @@
 <template>
   <div>
-    <v-text-field v-if="value.title || showTitle" v-model="value.title" dense hide-details class="mx-1 mt-3 mb-4"
+    <v-text-field v-if="value.title || showTitle" v-model="value.title" density="compact" hide-details class="mx-1 mt-3 mb-4"
       :placeholder="$t('recipe.section-title')" style="max-width: 500px"
       @click="$emit('clickIngredientField', 'title')">
     </v-text-field>
-    <v-row :no-gutters="mdAndUp" dense class="d-flex flex-wrap my-1">
+    <v-row :no-gutters="mdAndUp" density="compact" class="d-flex flex-wrap my-1">
       <v-col v-if="!disableAmount" sm="12" md="2" cols="12" class="flex-grow-0 flex-shrink-0">
-        <v-text-field v-model="value.quantity" solo hide-details dense type="number"
+        <v-text-field v-model="value.quantity" solo hide-details density="compact" type="number"
           :placeholder="$t('recipe.quantity')" @keypress="quantityFilter">
           <v-icon v-if="$listeners && $listeners.delete" slot="prepend" class="mr-n1 handle">
             {{ $globals.icons.arrowUpDown }}
@@ -15,7 +15,7 @@
       </v-col>
       <v-col v-if="!disableAmount" sm="12" md="3" cols="12">
         <v-autocomplete ref="unitAutocomplete" v-model="value.unit" :search-input.sync="unitSearch" auto-select-first
-          hide-details dense solo return-object :items="units || []" item-text="name" class="mx-1"
+          hide-details density="compact" solo return-object :items="units || []" item-text="name" class="mx-1"
           :placeholder="$t('recipe.choose-unit')" clearable @keyup.enter="handleUnitEnter">
           <template #no-data>
             <div class="caption text-center pb-2">{{ $t("recipe.press-enter-to-create") }}</div>
@@ -31,7 +31,7 @@
       <!-- Foods Input -->
       <v-col v-if="!disableAmount" m="12" md="3" cols="12" class="">
         <v-autocomplete ref="foodAutocomplete" v-model="value.food" :search-input.sync="foodSearch" auto-select-first
-          hide-details dense solo return-object :items="foods || []" item-text="name" class="mx-1 py-0"
+          hide-details density="compact" solo return-object :items="foods || []" item-text="name" class="mx-1 py-0"
           :placeholder="$t('recipe.choose-food')" clearable @keyup.enter="handleFoodEnter">
           <template #no-data>
             <div class="caption text-center pb-2">{{ $t("recipe.press-enter-to-create") }}</div>
@@ -45,7 +45,7 @@
       </v-col>
       <v-col sm="12" md="" cols="12">
         <div class="d-flex">
-          <v-text-field v-model="value.note" hide-details dense solo :placeholder="$t('recipe.notes')"
+          <v-text-field v-model="value.note" hide-details density="compact" solo :placeholder="$t('recipe.notes')"
             @click="$emit('clickIngredientField', 'note')">
             <v-icon v-if="disableAmount && $listeners && $listeners.delete" slot="prepend" class="mr-n1 handle">
               {{ $globals.icons.arrowUpDown }}

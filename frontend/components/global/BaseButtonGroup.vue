@@ -10,16 +10,16 @@
             </v-icon>
           </v-btn>
         </template>
-        <v-list dense>
+        <v-list density="compact">
           <template v-for="(child, idx) in btn.children" :key="idx">
-            <v-list-item dense @click="$emit(child.event)">
+            <v-list-item density="compact" @click="$emit(child.event)">
               <v-list-item-title>{{ child.text }}</v-list-item-title>
             </v-list-item>
             <v-divider v-if="child.divider" :key="`divider-${idx}`" class="my-1"></v-divider>
           </template>
         </v-list>
       </v-menu>
-      <v-tooltip v-else :key="'btn-' + btn.event" open-delay="200" transition="slide-y-reverse-transition" dense bottom
+      <v-tooltip v-else :key="'btn-' + btn.event" open-delay="200" transition="slide-y-reverse-transition" density="compact" bottom
         content-class="text-caption">
         <template #activator="{ props }">
           <v-btn tile icon :color="btn.color" :large="large" :disabled="btn.disabled"

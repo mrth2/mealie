@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar clipped-left dense app color="primary" dark class="d-print-none">
+  <v-app-bar clipped-left density="compact" app color="primary" dark class="d-print-none">
     <slot />
     <router-link :to="routerLink">
       <v-btn icon>
@@ -17,7 +17,7 @@
     <!-- Navigation Menu -->
     <template v-if="menu">
       <div v-if="!xs" style="max-width: 500px" @click="activateSearch">
-        <v-text-field readonly class="mt-6 rounded-xl" rounded dark solo dense flat
+        <v-text-field readonly class="mt-6 rounded-xl" rounded dark solo density="compact" flat
           :prepend-inner-icon="$globals.icons.search" background-color="primary darken-1" color="white"
           :placeholder="$t('search.search-hint')">
         </v-text-field>

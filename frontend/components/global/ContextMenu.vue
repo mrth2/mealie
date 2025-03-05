@@ -6,7 +6,7 @@
         <v-icon>{{ $globals.icons.dotsVertical }}</v-icon>
       </v-btn>
     </template>
-    <v-list dense>
+    <v-list density="compact">
       <v-list-item v-for="(item, index) in items" :key="index" @click="$emit(item.event)">
         <template #prepend>
           <v-icon :color="item.color ? item.color : undefined">

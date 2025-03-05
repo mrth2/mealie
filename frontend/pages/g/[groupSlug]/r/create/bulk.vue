@@ -7,12 +7,12 @@
       </v-card-text>
     </div>
     <section class="mt-2">
-      <v-row v-for="(_, idx) in bulkUrls" :key="'bulk-url' + idx" class="my-1" dense>
+      <v-row v-for="(_, idx) in bulkUrls" :key="'bulk-url' + idx" class="my-1" density="compact">
         <v-col cols="12" xs="12" sm="12" md="12">
           <v-text-field
             v-model="bulkUrls[idx].url"
             :label="$t('new-recipe.recipe-url')"
-            dense
+            density="compact"
             single-line
             validate-on-blur
             autofocus
@@ -24,7 +24,7 @@
             class="rounded-lg"
           >
             <template #append>
-              <v-btn style="margin-top: -2px" icon small @click="bulkUrls.splice(idx, 1)">
+              <v-btn style="margin-top: -2px" icon size="small" @click="bulkUrls.splice(idx, 1)">
                 <v-icon>
                   {{ $globals.icons.delete }}
                 </v-icon>
@@ -40,7 +40,7 @@
               :input-attrs="{
                 filled: true,
                 singleLine: true,
-                dense: true,
+                density: 'compact',
                 rounded: true,
                 class: 'rounded-lg',
                 hideDetails: true,
@@ -55,7 +55,7 @@
               :input-attrs="{
                 filled: true,
                 singleLine: true,
-                dense: true,
+                density: 'compact',
                 rounded: true,
                 class: 'rounded-lg',
                 hideDetails: true,

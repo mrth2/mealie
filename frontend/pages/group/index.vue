@@ -14,7 +14,7 @@
         <v-checkbox
           v-model="group.preferences.privateGroup"
           hide-details
-          dense
+          density="compact"
           :label="$t('group.private-group')"
           @change="groupActions.updatePreferences()"
         />

@@ -43,7 +43,7 @@
           rounded
           class="rounded-lg"
           :autofocus="index === 0"
-          dense
+          density="compact"
           :label="inputField.label"
           :name="inputField.varName"
           :hint="inputField.hint || ''"
@@ -63,7 +63,7 @@
           class="rounded-lg"
           rows="3"
           auto-grow
-          dense
+          density="compact"
           :label="inputField.label"
           :name="inputField.varName"
           :hint="inputField.hint || ''"
@@ -89,6 +89,7 @@
           :item-value="inputField.itemValue"
           :return-object="false"
           :hint="inputField.hint"
+          density="compact"
           persistent-hint
           lazy-validation
           @blur="emitBlur"

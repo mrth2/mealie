@@ -1,6 +1,6 @@
 <template>
   <v-footer color="primary" padless app>
-    <v-row justify="center" align="center" dense no-gutters>
+    <v-row justify="center" align="center" density="compact" no-gutters>
       <v-col class="py-2 text-center white--text" cols="12">
         <v-btn color="white" icon href="https://github.com/hay-kot/mealie" target="_blank">
           <v-icon>

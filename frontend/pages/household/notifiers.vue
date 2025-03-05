@@ -51,7 +51,7 @@
           <v-text-field v-model="notifiers[index].name" :label="$t('general.name')"></v-text-field>
           <v-text-field v-model="notifiers[index].appriseUrl"
             :label="$t('events.apprise-url-skipped-if-blank')"></v-text-field>
-          <v-checkbox v-model="notifiers[index].enabled" :label="$t('events.enable-notifier')" dense></v-checkbox>
+          <v-checkbox v-model="notifiers[index].enabled" :label="$t('events.enable-notifier')" density="compact"></v-checkbox>
 
           <v-divider></v-divider>
           <p class="pt-4">{{ $t("events.what-events") }}</p>
@@ -61,7 +61,7 @@
                 {{ sec.text }}
               </h4>
               <v-checkbox v-for="opt in sec.options" :key="opt.key" v-model="notifiers[index].options[opt.key]"
-                hide-details dense :label="opt.text" />
+                hide-details density="compact" :label="opt.text" />
             </section>
           </div>
           <v-card-actions class="py-0">

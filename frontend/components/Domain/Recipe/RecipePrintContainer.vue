@@ -1,13 +1,12 @@
 <template>
 <div class="print-container">
-  <RecipePrintView :recipe="recipe" :scale="scale" dense />
+  <RecipePrintView :recipe="recipe" :scale="scale" :density="'compact'" />
 </div>
 </template>
 
 <script lang="ts">
-
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { Recipe } from "~/lib/api/types/recipe";
 
 export default defineNuxtComponent({
   components: {
