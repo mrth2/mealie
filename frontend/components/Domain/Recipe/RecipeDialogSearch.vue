@@ -20,7 +20,7 @@
           :prepend-inner-icon="$globals.icons.search"
         ></v-text-field>
 
-        <v-btn v-if="$vuetify.display.xs" x-small fab light @click="dialog = false">
+        <v-btn v-if="$vuetify.display.xs" size="x-small" fab light @click="dialog = false">
           <v-icon>
             {{ $globals.icons.close }}
           </v-icon>
