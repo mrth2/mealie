@@ -76,7 +76,7 @@
               <v-app-bar-title> {{ step.title }} </v-app-bar-title>
             </v-toolbar-title>
             <v-text-field v-if="isEditForm" v-model="step.title" class="headline pa-0 mt-5" density="compact" solo flat
-              :placeholder="$t('recipe.section-title')" background-color="primary">
+              :placeholder="$t('recipe.section-title')" bg-color="primary">
             </v-text-field>
           </v-app-bar>
           <v-hover v-slot="{ isHovering }">

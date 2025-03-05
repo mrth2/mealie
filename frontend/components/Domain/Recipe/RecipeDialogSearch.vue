@@ -10,7 +10,7 @@
           solo
           flat
           autocomplete="off"
-          background-color="primary lighten-1"
+          bg-color="primary lighten-1"
           color="white"
           density="compact"
           class="mx-2 arrow-search"
