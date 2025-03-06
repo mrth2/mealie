@@ -31,7 +31,7 @@
           persistent-hint
         />
         <v-spacer></v-spacer>
-        <v-btn text color="primary" @click="state.picker = false">
+        <v-btn variant="text" color="primary" @click="state.picker = false">
           {{ $t("general.ok") }}
         </v-btn>
       </v-date-picker>

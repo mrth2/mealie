@@ -16,7 +16,7 @@
         </v-card>
       </v-card-text>
       <template #card-actions>
-        <v-btn text color="grey" @click="dialog = false">
+        <v-btn variant="text" color="grey" @click="dialog = false">
           {{ $t("general.cancel") }}
         </v-btn>
         <div class="d-flex justify-end" style="width: 100%;">

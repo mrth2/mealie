@@ -165,7 +165,7 @@
       </div>
 
       <v-card-actions class="justify-center flex-column py-8">
-        <v-btn text class="mb-2" to="/login"> {{ $t("user.login") }} </v-btn>
+        <v-btn variant="text" class="mb-2" to="/login"> {{ $t("user.login") }} </v-btn>
         <BaseButton size="large" color="primary" @click="langDialog = true">
           <template #icon> {{ $globals.icons.translate }}</template>
           {{ $t("language-dialog.choose-language") }}

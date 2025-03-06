@@ -8,7 +8,7 @@
         <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
       </slot>
       <v-spacer></v-spacer>
-      <v-btn :icon="$vuetify.display.xs" text :disabled="recipes.length === 0" @click="navigateRandom">
+      <v-btn :icon="$vuetify.display.xs" variant="text" :disabled="recipes.length === 0" @click="navigateRandom">
         <v-icon :start="!$vuetify.display.xs">
           {{ $globals.icons.diceMultiple }}
         </v-icon>
@@ -17,7 +17,7 @@
 
       <v-menu v-if="$listeners.sortRecipes" offset-y start>
         <template #activator="{ props }">
-          <v-btn text :icon="$vuetify.display.xs" v-bind="props" :loading="sortLoading">
+          <v-btn variant="text" :icon="$vuetify.display.xs" v-bind="props" :loading="sortLoading">
             <v-icon :start="!$vuetify.display.xs">
               {{ preferences.sortIcon }}
             </v-icon>

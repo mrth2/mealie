@@ -67,9 +67,9 @@
         </v-form>
       </v-card-text>
       <v-card-actions class="d-flex justify-center flex-column flex-sm-row">
-        <v-btn v-if="allowSignup" text to="/register"> {{ $t("user.register") }} </v-btn>
-        <v-btn v-else text disabled> {{ $t("user.invite-only") }} </v-btn>
-        <v-btn class="mr-auto" text to="/forgot-password"> {{ $t("user.reset-password") }} </v-btn>
+        <v-btn v-if="allowSignup" variant="text" to="/register"> {{ $t("user.register") }} </v-btn>
+        <v-btn v-else variant="text" disabled> {{ $t("user.invite-only") }} </v-btn>
+        <v-btn class="mr-auto" variant="text" to="/forgot-password"> {{ $t("user.reset-password") }} </v-btn>
       </v-card-actions>
 
       <v-card-text class="d-flex justify-center flex-column flex-sm-row">
@@ -90,7 +90,7 @@
             href: 'https://docs.mealie.io/',
           },
         ]" :key="link.text" class="text-center">
-          <v-btn text :href="link.href" target="_blank">
+          <v-btn variant="text" :href="link.href" target="_blank">
             <v-icon start>
               {{ link.icon }}
             </v-icon>

@@ -25,11 +25,11 @@
       <v-btn v-else icon @click="activateSearch">
         <v-icon> {{ $globals.icons.search }}</v-icon>
       </v-btn>
-      <v-btn v-if="loggedIn" :text="smAndUp" :icon="xs" @click="logout()">
+      <v-btn v-if="loggedIn" :variant="smAndUp ? 'text' : undefined" :icon="xs" @click="logout()">
         <v-icon :start="smAndUp">{{ $globals.icons.logout }}</v-icon>
         {{ smAndUp ? $t("user.logout") : "" }}
       </v-btn>
-      <v-btn v-else text nuxt to="/login">
+      <v-btn v-else variant="text" nuxt to="/login">
         <v-icon start>{{ $globals.icons.user }}</v-icon>
         {{ $t("user.login") }}
       </v-btn>

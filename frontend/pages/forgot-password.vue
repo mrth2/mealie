@@ -28,7 +28,7 @@
           </v-card-actions>
         </v-form>
       </v-card-text>
-      <v-btn class="mx-auto" text nuxt to="/login"> {{ $t("user.login") }} </v-btn>
+      <v-btn class="mx-auto" variant="text" nuxt to="/login"> {{ $t("user.login") }} </v-btn>
     </v-card>
   </v-container>
 </template>

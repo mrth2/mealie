@@ -20,7 +20,7 @@
     </div>
     <v-divider class="mt-auto"></v-divider>
     <v-card-actions>
-      <v-btn text color="info" :to="link.to">
+      <v-btn variant="text" color="info" :to="link.to">
         {{ link.text }}
       </v-btn>
     </v-card-actions>

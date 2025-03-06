@@ -2,7 +2,8 @@
   <v-form ref="file">
     <input ref="uploader" class="d-none" type="file" :accept="accept" @change="onFileChanged" />
     <slot v-bind="{ isSelecting, onButtonClick }">
-      <v-btn :loading="isSelecting" :small="small" :color="color" :text="textBtn" :disabled="disabled" @click="onButtonClick">
+      <v-btn :loading="isSelecting" :small="small" :color="color" :variant="textBtn ? 'text' : undefined"
+        :disabled="disabled" @click="onButtonClick">
         <v-icon start> {{ effIcon }}</v-icon>
         {{ text ? text : defaultText }}
       </v-btn>
