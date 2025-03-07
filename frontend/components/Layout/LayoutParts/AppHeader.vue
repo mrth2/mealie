@@ -99,3 +99,9 @@ export default defineNuxtComponent({
   },
 });
 </script>
+
+<style scoped>
+.v-toolbar {
+  z-index: 1010 !important;
+}
+</style>

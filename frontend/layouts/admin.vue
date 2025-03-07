@@ -29,7 +29,6 @@ import type { SidebarLinks } from "~/types/application-types";
 export default defineNuxtComponent({
   components: { AppHeader, AppSidebar, TheSnackbar },
   middleware: ["sidebase-auth", "admin-only"],
-  auth: true,
   setup() {
     const i18n = useI18n();
     const { $globals, $vuetify } = useNuxtApp();

@@ -17,5 +17,6 @@ export const useMealieAuth = function () {
     signIn,
     signOut: auth.signOut,
     signUp: auth.signUp,
+    refresh: auth.refresh,
   }
 };
