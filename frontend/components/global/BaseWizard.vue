@@ -59,10 +59,12 @@
 </template>
 
 <script lang="ts">
-import { defineModel } from 'vue';
-
 export default defineNuxtComponent({
   props: {
+    modelValue: {
+      type: Number,
+      required: true,
+    },
     minPageNumber: {
       type: Number,
       default: 0,
@@ -146,7 +148,10 @@ export default defineNuxtComponent({
     const ready = ref(false);
     const langDialog = ref(false);
 
-    const wizardPage = defineModel<number>({ required: true, default: 0 });
+    const wizardPage = computed({
+      get: () => props.modelValue,
+      set: (value) => context.emit("update:modelValue", value),
+    });
 
     const prevButtonTextRef = computed(() => props.prevButtonText || i18n.t("general.back"));
     const prevButtonIconRef = computed(() => props.prevButtonIcon || $globals.icons.back);

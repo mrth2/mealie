@@ -489,11 +489,5 @@ export default defineNuxtConfig({
     plugins: [
       commonjs(),
     ],
-    vue: {
-      script: {
-        defineModel: true,
-        propsDestructure: true,
-      }
-    }
   }
 });

@@ -112,7 +112,6 @@
 </template>
 
 <script lang="ts">
-import { defineModel } from "vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { SidebarLinks } from "~/types/application-types";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
@@ -123,6 +122,11 @@ export default defineNuxtComponent({
     UserAvatar,
   },
   props: {
+    modelValue: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     user: {
       type: Object,
       default: null,
@@ -157,9 +161,9 @@ export default defineNuxtComponent({
       hasOpenedBefore: false as boolean,
     });
     // model to control the drawer
-    const showDrawer = defineModel<boolean>('drawer', {
-      required: false,
-      default: false,
+    const showDrawer = computed({
+      get: () => props.modelValue,
+      set: (value) => context.emit("update:modelValue", value),
     });
     watch(showDrawer, () => {
       if (window.innerWidth < 760 && state.hasOpenedBefore === false) {

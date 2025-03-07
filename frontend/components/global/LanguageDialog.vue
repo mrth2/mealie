@@ -23,13 +23,19 @@
 </template>
 
 <script lang="ts">
-import { defineModel } from "vue";
 import { useLocales } from "~/composables/use-locales";
 
 export default defineNuxtComponent({
-  setup() {
-    const dialog = defineModel<boolean>({
-      default: false,
+  props: {
+    modelValue: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  setup(props, { emit }) {
+    const dialog = computed({
+      get: () => props.modelValue,
+      set: (value) => emit("update:modelValue", value),
     });
 
     const { locales: LOCALES, locale, i18n } = useLocales();

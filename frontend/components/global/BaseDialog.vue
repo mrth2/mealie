@@ -1,20 +1,11 @@
 <template>
   <div>
     <slot name="activator" v-bind="{ open }" />
-    <v-dialog
-      v-model="dialog"
-      absolute
-      :width="width"
-      :max-width="maxWidth ?? undefined"
-      :content-class="top ? 'top-dialog' : undefined"
-      :fullscreen="$vuetify.display.xs"
-      @keydown.enter="
+    <v-dialog v-model="dialog" absolute :width="width" :max-width="maxWidth ?? undefined"
+      :content-class="top ? 'top-dialog' : undefined" :fullscreen="$vuetify.display.xs" @keydown.enter="
         emit('submit');
-        dialog = false;
-      "
-      @click:outside="emit('cancel')"
-      @keydown.esc="emit('cancel')"
-    >
+      dialog = false;
+      " @click:outside="emit('cancel')" @keydown.esc="emit('cancel')">
       <v-card height="100%">
         <v-app-bar dark density="comfortable" :color="color" class="px-3">
           <v-icon size="large">
@@ -33,41 +24,26 @@
 
         <v-card-actions>
           <slot name="card-actions">
-            <v-btn
-              variant="text"
-              color="grey"
-              @click="
-                dialog = false;
-                emit('cancel');
-              "
-            >
+            <v-btn variant="text" color="grey" @click="
+              dialog = false;
+            emit('cancel');
+            ">
               {{ $t("general.cancel") }}
             </v-btn>
             <v-spacer></v-spacer>
 
             <slot name="custom-card-action"></slot>
             <BaseButton v-if="$attrs.delete" delete secondary @click="deleteEvent" />
-            <BaseButton
-              v-if="$attrs.confirm"
-              :color="color"
-              type="submit"
-              :disabled="submitDisabled"
-              @click="
-                emit('confirm');
-                dialog = false;
-              "
-            >
+            <BaseButton v-if="$attrs.confirm" :color="color" type="submit" :disabled="submitDisabled" @click="
+              emit('confirm');
+            dialog = false;
+            ">
               <template #icon>
                 {{ $globals.icons.check }}
               </template>
               {{ $t("general.confirm") }}
             </BaseButton>
-            <BaseButton
-              v-if="$attrs.submit"
-              type="submit"
-              :disabled="submitDisabled"
-              @click="submitEvent"
-            >
+            <BaseButton v-if="$attrs.submit" type="submit" :disabled="submitDisabled" @click="submitEvent">
               {{ submitText }}
               <template v-if="submitIcon" #icon>
                 {{ submitIcon }}
@@ -85,10 +61,10 @@
 </template>
 
 <script setup lang="ts">
-import { defineModel, ref, computed, watch } from 'vue';
 import { useNuxtApp } from '#app';
 
 interface DialogProps {
+  modelValue: boolean;
   color?: string;
   title?: string;
   icon?: string | null;
@@ -103,6 +79,7 @@ interface DialogProps {
 }
 
 interface DialogEmits {
+  (e: 'update:modelValue', value: boolean): void;
   (e: 'submit'): void;
   (e: 'cancel'): void;
   (e: 'confirm'): void;
@@ -124,13 +101,12 @@ const props = withDefaults(defineProps<DialogProps>(), {
   submitDisabled: false,
   keepOpen: false,
 });
-
-const dialog = defineModel<boolean>({
-  required: true,
-  default: false,
-});
-
 const emit = defineEmits<DialogEmits>();
+
+const dialog = computed({
+  get: () => props.modelValue,
+  set: (val) => emit('update:modelValue', val),
+});
 
 const submitted = ref(false);
 
