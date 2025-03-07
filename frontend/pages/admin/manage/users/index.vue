@@ -1,18 +1,13 @@
 <template>
   <v-container fluid>
     <UserInviteDialog v-model="inviteDialog" />
-    <BaseDialog
-      v-model="deleteDialog"
-      :title="$t('general.confirm')"
-      color="error"
-      @confirm="deleteUser(deleteTargetId)"
-    >
+    <BaseDialog v-model="deleteDialog" :title="$t('general.confirm')" color="error"
+      @confirm="deleteUser(deleteTargetId)">
       <template #activator> </template>
 
       <v-card-text>
-        <v-alert v-if="isUserOwnAccount" type="warning" text variant="outlined">
-          {{ $t("general.confirm-delete-own-admin-account") }}
-        </v-alert>
+        <v-alert v-if="isUserOwnAccount" type="warning" :text="$t('general.confirm-delete-own-admin-account')"
+          variant="outlined" />
         {{ $t("general.confirm-delete-generic") }}
       </v-card-text>
     </BaseDialog>
@@ -30,32 +25,18 @@
         <BaseOverflowButton mode="event" :items="ACTIONS_OPTIONS" @unlock-all-users="unlockAllUsers">
         </BaseOverflowButton>
       </v-toolbar>
-      <v-data-table
-        :headers="headers"
-        :items="users || []"
-        item-key="id"
-        class="elevation-0"
-        elevation="0"
-        hide-default-footer
-        disable-pagination
-        :search="search"
-        @click:row="handleRowClick"
-      >
+      <v-data-table :headers="headers" :items="users || []" item-key="id" class="elevation-0" elevation="0"
+        hide-default-footer disable-pagination :search="search" @click:row="handleRowClick">
         <template #item.admin="{ item }">
           <v-icon end :color="item.admin ? 'success' : null">
             {{ item.admin ? $globals.icons.checkboxMarkedCircle : $globals.icons.windowClose }}
           </v-icon>
         </template>
         <template #item.actions="{ item }">
-          <v-btn
-            icon
-            :disabled="item.id == 1"
-            color="error"
-            @click.stop="
-              deleteDialog = true;
-              deleteTargetId = item.id;
-            "
-          >
+          <v-btn icon :disabled="item.id == 1" color="error" @click.stop="
+            deleteDialog = true;
+          deleteTargetId = item.id;
+          ">
             <v-icon>
               {{ $globals.icons.delete }}
             </v-icon>

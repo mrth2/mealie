@@ -36,7 +36,7 @@
             </v-radio-group>
           </v-card>
           <div v-else>
-            <v-alert type="info" variant="text"> {{ $t('search.no-results') }} </v-alert>
+            <v-alert type="info" :text="$t('search.no-results')" />
           </div>
         </v-card-text>
       </v-card>
