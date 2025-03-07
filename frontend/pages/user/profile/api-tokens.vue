@@ -18,13 +18,13 @@
             <v-textarea v-model="createdToken" class="mb-0 pb-0" :label="$t('settings.token.api-token')" readonly
               rows="3">
             </v-textarea>
-            <v-subheader class="text-center">
+            <v-list-subheader class="text-center">
               {{
                 $t(
                   "settings.token.copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again"
                 )
               }}
-            </v-subheader>
+            </v-list-subheader>
           </template>
         </v-card-text>
         <v-card-actions>

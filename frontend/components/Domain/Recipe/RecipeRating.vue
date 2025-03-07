@@ -6,7 +6,7 @@
         color="secondary" bg-color="secondary lighten-3" length="5" :dense="small ? true : undefined"
         :size="small ? 15 : undefined" hover clearable @update:model-value="updateRating(+$event)" @click="updateRating" />
       <!-- Group Rating -->
-      <v-rating v-else :model-value="groupRating" :half-increments="true" readonly color="grey darken-1"
+      <v-rating v-else :model-value="groupRating" :half-increments="true" readonly active-color="grey darken-1"
       bg-color="secondary lighten-3" length="5" :density="small ? 'compact' : 'default'"
         :size="small ? 15 : undefined" hover />
     </v-hover>
@@ -14,7 +14,6 @@
 </template>
 
 <script lang="ts">
-
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserSelfRatings } from "~/composables/use-users";
 export default defineNuxtComponent({

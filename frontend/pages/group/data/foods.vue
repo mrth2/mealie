@@ -7,9 +7,9 @@
         <div>
           {{ $t("data-pages.foods.merge-dialog-text") }}
         </div>
-        <v-autocomplete v-model="fromFood" return-object :items="foods" item-text="name"
+        <v-autocomplete v-model="fromFood" return-object :items="foods" item-title="name"
           :label="$t('data-pages.foods.source-food')" />
-        <v-autocomplete v-model="toFood" return-object :items="foods" item-text="name"
+        <v-autocomplete v-model="toFood" return-object :items="foods" item-title="name"
           :label="$t('data-pages.foods.target-food')" />
 
         <template v-if="canMerge && fromFood && toFood">
@@ -27,7 +27,7 @@
         <div class="pb-2">
           {{ $t("data-pages.foods.seed-dialog-text") }}
         </div>
-        <v-autocomplete v-model="locale" :items="locales" item-text="name" :label="$t('data-pages.select-language')"
+        <v-autocomplete v-model="locale" :items="locales" item-title="name" :label="$t('data-pages.select-language')"
           class="my-3" hide-details variant="outlined" offset>
           <template #item="{ item }">
             <v-list-item-title> {{ item.name }} </v-list-item-title>
@@ -53,7 +53,7 @@
           <v-text-field v-model="createTarget.pluralName" :label="$t('general.plural-name')"
             :hint="$t('data-pages.foods.example-food-plural')"></v-text-field>
           <v-text-field v-model="createTarget.description" :label="$t('recipe.description')"></v-text-field>
-          <v-autocomplete v-model="createTarget.labelId" clearable :items="allLabels" item-value="id" item-text="name"
+          <v-autocomplete v-model="createTarget.labelId" clearable :items="allLabels" item-value="id" item-title="name"
             :label="$t('data-pages.foods.food-label')">
           </v-autocomplete>
           <v-checkbox v-model="createTarget.onHand" hide-details :label="$t('tool.on-hand')" />
@@ -77,7 +77,7 @@
           <v-text-field v-model="editTarget.pluralName" :label="$t('general.plural-name')"
             :hint="$t('data-pages.foods.example-food-plural')"></v-text-field>
           <v-text-field v-model="editTarget.description" :label="$t('recipe.description')"></v-text-field>
-          <v-autocomplete v-model="editTarget.labelId" clearable :items="allLabels" item-value="id" item-text="name"
+          <v-autocomplete v-model="editTarget.labelId" clearable :items="allLabels" item-value="id" item-title="name"
             :label="$t('data-pages.foods.food-label')">
           </v-autocomplete>
           <v-checkbox v-model="editTarget.onHand" hide-details :label="$t('tool.on-hand')" />
@@ -126,7 +126,7 @@
           <v-card-text>{{ $t("data-pages.foods.label-overwrite-warning") }}</v-card-text>
         </v-card>
 
-        <v-autocomplete v-model="bulkAssignLabelId" clearable :items="allLabels" item-value="id" item-text="name"
+        <v-autocomplete v-model="bulkAssignLabelId" clearable :items="allLabels" item-value="id" item-title="name"
           :label="$t('data-pages.foods.food-label')" />
         <v-card variant="outlined">
           <v-virtual-scroll height="400" item-height="25" :items="bulkAssignTarget">

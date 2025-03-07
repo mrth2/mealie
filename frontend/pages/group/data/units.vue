@@ -10,12 +10,12 @@
           </template>
         </i18n-t>
 
-        <v-autocomplete v-model="fromUnit" return-object :items="store" item-text="id"
+        <v-autocomplete v-model="fromUnit" return-object :items="store" item-title="id"
           :label="$t('data-pages.units.source-unit')">
           <template #selection="{ item }"> {{ item.name }}</template>
           <template #item="{ item }"> {{ item.name }} </template>
         </v-autocomplete>
-        <v-autocomplete v-model="toUnit" return-object :items="store" item-text="id"
+        <v-autocomplete v-model="toUnit" return-object :items="store" item-title="id"
           :label="$t('data-pages.units.target-unit')">
           <template #selection="{ item }"> {{ item.name }}</template>
           <template #item="{ item }"> {{ item.name }} </template>
@@ -112,7 +112,7 @@
         <div class="pb-2">
           {{ $t("data-pages.units.seed-dialog-text") }}
         </div>
-        <v-autocomplete v-model="locale" :items="locales" item-text="name" :label="$t('data-pages.select-language')"
+        <v-autocomplete v-model="locale" :items="locales" item-title="name" :label="$t('data-pages.select-language')"
           class="my-3" hide-details variant="outlined" offset>
           <template #item="{ item }">
             <v-list-item-title> {{ item.name }} </v-list-item-title>

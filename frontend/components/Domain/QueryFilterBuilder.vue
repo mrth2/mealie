@@ -37,7 +37,7 @@
               </v-select>
             </v-col>
             <v-col :cols="attrs.fields.fieldName.cols" :class="attrs.col.class" :style="attrs.fields.fieldName.style">
-              <v-select v-model="field.label" :items="fieldDefs" item-text="label" @change="setField(index, $event)">
+              <v-select v-model="field.label" :items="fieldDefs" item-title="label" @change="setField(index, $event)">
                 <template #selection="{ item }">
                   <span :class="attrs.select.textClass" style="width: 100%;">
                     {{ item.label }}

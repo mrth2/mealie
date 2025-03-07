@@ -10,7 +10,7 @@
     <BaseDialog v-model="ownerDialog" :icon="$globals.icons.admin" :title="$t('user.edit-user')" @confirm="updateOwner">
       <v-container>
         <v-form>
-          <v-select v-model="updateUserId" :items="allUsers" item-text="fullName" item-value="id"
+          <v-select v-model="updateUserId" :items="allUsers" item-title="fullName" item-value="id"
             :label="$t('general.owner')" :prepend-icon="$globals.icons.user" />
         </v-form>
       </v-container>

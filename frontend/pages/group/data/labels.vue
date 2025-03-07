@@ -60,7 +60,7 @@
         <div class="pb-2">
           {{ $t("data-pages.labels.seed-dialog-text") }}
         </div>
-        <v-autocomplete v-model="locale" :items="locales" item-text="name" :label="$t('data-pages.select-language')"
+        <v-autocomplete v-model="locale" :items="locales" item-title="name" :label="$t('data-pages.select-language')"
           class="my-3" hide-details variant="outlined" offset>
           <template #item="{ item }">
               <v-list-item-title> {{ item.name }} </v-list-item-title>

@@ -51,7 +51,7 @@
         </p>
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.changeOwner">
-        <v-select v-model="selectedOwner" :items="allUsers" item-text="fullName" item-value="id"
+        <v-select v-model="selectedOwner" :items="allUsers" item-title="fullName" item-value="id"
           :label="$t('general.owner')" hide-details>
           <template #prepend>
             <UserAvatar :user-id="selectedOwner" :tooltip="false" />

@@ -3,7 +3,7 @@
     color="primary">
     <v-container>
       <v-form class="mt-5">
-        <v-select v-if="groups && groups.length" v-model="selectedGroup" :items="groups" item-text="name"
+        <v-select v-if="groups && groups.length" v-model="selectedGroup" :items="groups" item-title="name"
           item-value="id" :return-object="false" variant="filled" :label="$t('group.user-group')"
           :rules="[validators.required]" />
         <v-select v-if="households && households.length" v-model="selectedHousehold" :items="filteredHouseholds"
