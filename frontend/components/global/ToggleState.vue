@@ -6,11 +6,9 @@
 </template>
 
 <script lang="ts">
-
-
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
@@ -19,7 +17,8 @@ export default defineNuxtComponent({
       default: "div",
     },
   },
-  setup(_, context) {
+  emits: ["update:modelValue"],
+  setup(props, context) {
     const state = ref(false);
 
     const toggle = () => {
@@ -27,7 +26,7 @@ export default defineNuxtComponent({
     };
 
     watch(state, () => {
-      context.emit("input", state);
+      context.emit("update:modelValue", state);
     });
 
     return {

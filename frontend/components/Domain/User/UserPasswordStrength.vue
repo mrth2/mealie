@@ -17,13 +17,13 @@ import { usePasswordStrength } from "~/composables/use-passwords";
 
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: String,
       default: "",
     },
   },
   setup(props) {
-    const asRef = toRef(props, "value");
+    const asRef = toRef(props, "modelValue");
     const i18n = useI18n();
 
     const pwStrength = usePasswordStrength(asRef, i18n);

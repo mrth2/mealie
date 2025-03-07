@@ -52,7 +52,7 @@ export default defineNuxtComponent({
     BaseButton,
   },
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
@@ -82,10 +82,10 @@ export default defineNuxtComponent({
 
     const inviteDialog = computed<boolean>({
       get() {
-        return props.value;
+        return props.modelValue;
       },
       set(val) {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 
@@ -167,7 +167,7 @@ export default defineNuxtComponent({
     };
   },
   watch: {
-    value: {
+    modelValue: {
       immediate: false,
       handler(val) {
         if (val && !this.isAdmin) {

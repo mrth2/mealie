@@ -63,13 +63,13 @@
         {{ $t("recipe.cook-mode") }}
       </BaseButton>
     </div>
-    <draggable :disabled="!isEditForm" :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" v-bind="{
+    <draggable :disabled="!isEditForm" :value="modelValue" handle=".handle" delay="250" :delay-on-touch-only="true" v-bind="{
       animation: 200,
       group: 'recipe-instructions',
       ghostClass: 'ghost',
     }" @input="updateIndex" @start="drag = true" @end="drag = false">
       <TransitionGroup type="transition" :name="!drag ? 'flip-list' : ''">
-        <div v-for="(step, index) in value" :key="step.id" class="list-group-item">
+        <div v-for="(step, index) in modelValue" :key="step.id" class="list-group-item">
           <v-app-bar v-if="step.id && showTitleEditor[step.id]" class="primary mt-6" style="cursor: pointer" dark
             density="compact" rounded @click="toggleCollapseSection(index)">
             <v-toolbar-title v-if="!isEditForm" class="headline">
@@ -150,7 +150,7 @@
                       @insert-below="insert(index + 1)" @toggle-section="toggleShowTitle(step.id)"
                       @link-ingredients="openDialog(index, step.text, step.ingredientReferences)"
                       @preview-step="togglePreviewState(index)" @upload-image="openImageUpload(index)"
-                      @delete="value.splice(index, 1)" />
+                      @delete="modelValue.splice(index, 1)" />
                   </div>
                 </template>
                 <v-fade-transition>
@@ -165,7 +165,7 @@
               <!-- Content -->
               <DropZone @drop="(f) => handleImageDrop(index, f)">
                 <v-card-text v-if="isEditForm" @click="$emit('click-instruction-field', `${index}.text`)">
-                  <MarkdownEditor v-model="value[index]['text']" class="mb-2" :preview.sync="previewStates[index]"
+                  <MarkdownEditor v-model="modelValue[index]['text']" class="mb-2" :preview.sync="previewStates[index]"
                     :display-preview="false" :textarea="{
                       hint: $t('recipe.attach-images-hint'),
                       persistentHint: true,
@@ -236,7 +236,7 @@ export default defineNuxtComponent({
     RecipeIngredients
   },
   props: {
-    value: {
+    modelValue: {
       type: Array as () => RecipeStep[],
       required: false,
       default: () => [],
@@ -293,7 +293,7 @@ export default defineNuxtComponent({
       return !(title === null || title === "" || title === undefined);
     }
 
-    watch(props.value, (v) => {
+    watch(props.modelValue, (v) => {
       state.disabledSteps = [];
 
       v.forEach((element: RecipeStep) => {
@@ -307,7 +307,7 @@ export default defineNuxtComponent({
 
     // Eliminate state with an eager call to watcher?
     onMounted(() => {
-      props.value.forEach((element: RecipeStep) => {
+      props.modelValue.forEach((element: RecipeStep) => {
         if (element.id !== undefined) {
           showTitleEditor.value[element.id] = hasSectionTitle(element.title);
         }
@@ -353,7 +353,7 @@ export default defineNuxtComponent({
     }
 
     function updateIndex(data: RecipeStep) {
-      context.emit("input", data);
+      context.emit("update:modelValue", data);
     }
 
     // ===============================================================
@@ -364,8 +364,8 @@ export default defineNuxtComponent({
 
     function openDialog(idx: number, text: string, refs?: IngredientReferences[]) {
       if (!refs) {
-        props.value[idx].ingredientReferences = [];
-        refs = props.value[idx].ingredientReferences as IngredientReferences[];
+        props.modelValue[idx].ingredientReferences = [];
+        refs = props.modelValue[idx].ingredientReferences as IngredientReferences[];
       }
 
       setUsedIngredients();
@@ -375,10 +375,10 @@ export default defineNuxtComponent({
       activeRefs.value = refs.map((ref) => ref.referenceId ?? "");
     }
 
-    const availableNextStep = computed(() => activeIndex.value < props.value.length - 1);
+    const availableNextStep = computed(() => activeIndex.value < props.modelValue.length - 1);
 
     function setIngredientIds() {
-      const instruction = props.value[activeIndex.value];
+      const instruction = props.modelValue[activeIndex.value];
       instruction.ingredientReferences = activeRefs.value.map((ref) => {
         return {
           referenceId: ref,
@@ -387,7 +387,7 @@ export default defineNuxtComponent({
 
       // Update the visibility of the cook mode button
       showCookMode.value = false;
-      props.value.forEach((element) => {
+      props.modelValue.forEach((element) => {
         if (showCookMode.value === false && element.ingredientReferences && element.ingredientReferences.length > 0) {
           showCookMode.value = true;
         }
@@ -403,7 +403,7 @@ export default defineNuxtComponent({
       }
 
       setIngredientIds();
-      const nextStep = props.value[currentStepIndex + 1];
+      const nextStep = props.modelValue[currentStepIndex + 1];
       // close dialog before opening to reset the scroll position
       nextTick(() => openDialog(currentStepIndex + 1, nextStep.text, nextStep.ingredientReferences));
 
@@ -412,7 +412,7 @@ export default defineNuxtComponent({
     function setUsedIngredients() {
       const usedRefs: { [key: string]: boolean } = {};
 
-      props.value.forEach((element) => {
+      props.modelValue.forEach((element) => {
         element.ingredientReferences?.forEach((ref) => {
           if (ref.referenceId !== undefined) {
             usedRefs[ref.referenceId] = true;
@@ -473,12 +473,12 @@ export default defineNuxtComponent({
       mergeHistory.value.push({
         target,
         source,
-        targetText: props.value[target].text,
-        sourceText: props.value[source].text,
+        targetText: props.modelValue[target].text,
+        sourceText: props.modelValue[source].text,
       });
 
-      props.value[target].text += " " + props.value[source].text;
-      props.value.splice(source, 1);
+      props.modelValue[target].text += " " + props.modelValue[source].text;
+      props.modelValue.splice(source, 1);
     }
 
     function undoMerge(event: KeyboardEvent) {
@@ -492,8 +492,8 @@ export default defineNuxtComponent({
           return;
         }
 
-        props.value[lastMerge.target].text = lastMerge.targetText;
-        props.value.splice(lastMerge.source, 0, {
+        props.modelValue[lastMerge.target].text = lastMerge.targetText;
+        props.modelValue.splice(lastMerge.source, 0, {
           id: uuid4(),
           title: "",
           text: lastMerge.sourceText,
@@ -504,14 +504,14 @@ export default defineNuxtComponent({
 
     function moveTo(dest: string, source: number) {
       if (dest === "top") {
-        props.value.unshift(props.value.splice(source, 1)[0]);
+        props.modelValue.unshift(props.modelValue.splice(source, 1)[0]);
       } else {
-        props.value.push(props.value.splice(source, 1)[0]);
+        props.modelValue.push(props.modelValue.splice(source, 1)[0]);
       }
     }
 
     function insert(dest: number) {
-      props.value.splice(dest, 0, { id: uuid4(), text: "", title: "", ingredientReferences: [] });
+      props.modelValue.splice(dest, 0, { id: uuid4(), text: "", title: "", ingredientReferences: [] });
     }
 
     const previewStates = ref<boolean[]>([]);
@@ -525,8 +525,8 @@ export default defineNuxtComponent({
     function toggleCollapseSection(index: number) {
       const sectionSteps: number[] = [];
 
-      for (let i = index; i < props.value.length; i++) {
-        if (!(i === index) && hasSectionTitle(props.value[i].title)) {
+      for (let i = index; i < props.modelValue.length; i++) {
+        if (!(i === index) && hasSectionTitle(props.modelValue[i].title)) {
           break;
         } else {
           sectionSteps.push(i);
@@ -593,7 +593,7 @@ export default defineNuxtComponent({
       context.emit("update:assets", [...props.assets, data]);
       const assetUrl = BASE_URL + recipeAssetPath(props.recipe.id, data.fileName as string);
       const text = `<img src="${assetUrl}" height="100%" width="100%"/>`;
-      props.value[index].text += text;
+      props.modelValue[index].text += text;
     }
 
     function openImageUpload(index: number) {

@@ -45,12 +45,12 @@
  * using the .sync syntax `item-id.sync="item.labelId"`
  */
 
-import { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
-import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
+import type { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
+import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Object as () => MultiPurposeLabelSummary | IngredientFood | IngredientUnit,
       required: false,
       default: () => {
@@ -71,6 +71,7 @@ export default defineNuxtComponent({
       default: undefined,
     },
   },
+  emits: ["update:modelValue", "update:item-id", "create"],
   setup(props, context) {
     const autocompleteRef = ref<HTMLInputElement>();
     const searchInput = ref("");
@@ -85,11 +86,11 @@ export default defineNuxtComponent({
 
     const itemVal = computed({
       get: () => {
-        return props.value;
+        return props.modelValue;
       },
       set: (val) => {
         itemIdVal.value = val?.id || undefined;
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 

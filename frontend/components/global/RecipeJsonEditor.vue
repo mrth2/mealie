@@ -1,10 +1,10 @@
 <template>
   <VJsoneditor
-    :value="value"
+    :value="modelValue"
     :height="height"
     :options="options"
     :attrs="$attrs"
-    @input="$emit('input', $event)"
+    @input="$emit('update:modelValue', $event)"
   ></VJsoneditor>
 </template>
 
@@ -12,11 +12,10 @@
 // @ts-ignore v-jsoneditor has no types
 import VJsoneditor from "v-jsoneditor";
 
-
 export default defineNuxtComponent({
   components: { VJsoneditor },
   props: {
-    value: {
+    modelValue: {
       type: Object,
       default: () => ({}),
     },
@@ -29,5 +28,6 @@ export default defineNuxtComponent({
       default: () => ({}),
     },
   },
+  emits: ["update:modelValue"],
 });
 </script>

@@ -40,7 +40,7 @@ import type { ReadHouseholdPreferences } from "~/lib/api/types/household";
 
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Object,
       required: true,
     },
@@ -120,10 +120,10 @@ export default defineNuxtComponent({
 
     const preferences = computed({
       get() {
-        return props.value;
+        return props.modelValue;
       },
       set(val) {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 

@@ -36,7 +36,7 @@
             </v-radio-group>
           </v-card>
           <div v-else>
-            <v-alert type="info" text> {{ $t('search.no-results') }} </v-alert>
+            <v-alert type="info" variant="text"> {{ $t('search.no-results') }} </v-alert>
           </div>
         </v-card-text>
       </v-card>
@@ -56,7 +56,7 @@ export default defineNuxtComponent({
       type: Array as () => SelectableItem[],
       required: true,
     },
-    value: {
+    modelValue: {
       type: Array as () => any[],
       required: true,
     },
@@ -83,16 +83,16 @@ export default defineNuxtComponent({
     });
 
     const selected = computed({
-      get: () => props.value as SelectableItem[],
+      get: () => props.modelValue as SelectableItem[],
       set: (value) => {
-        context.emit("input", value);
+        context.emit("update:modelValue", value);
       },
     });
 
     const selectedRadio = computed({
       get: () => (selected.value.length > 0 ? selected.value[0] : null),
       set: (value) => {
-        context.emit("input", value ? [value] : []);
+        context.emit("update:modelValue", value ? [value] : []);
       },
     });
 

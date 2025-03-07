@@ -1,10 +1,10 @@
 <template>
   <v-select v-model="selected" :items="households" :label="label" :hint="description" :persistent-hint="!!description"
-    item-text="name" :multiple="multiselect" :prepend-inner-icon="$globals.icons.household" return-object>
+    item-title="name" :multiple="multiselect" :prepend-inner-icon="$globals.icons.household" return-object>
     <template #selection="data">
-      <v-chip :key="data.index" class="ma-1" :input-value="data.selected" size="small" close label color="accent" dark
+      <v-chip :key="data.index" class="ma-1" :input-value="data.item" size="small" close label color="accent" dark
         @click:close="removeByIndex(data.index)">
-        {{ data.item.name || data.item }}
+        {{ data.item.raw.name || data.item }}
       </v-chip>
     </template>
   </v-select>
@@ -20,7 +20,7 @@ interface HouseholdLike {
 
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Array as () => HouseholdLike[],
       required: true,
     },
@@ -35,9 +35,9 @@ export default defineNuxtComponent({
   },
   setup(props, context) {
     const selected = computed({
-      get: () => props.value,
+      get: () => props.modelValue,
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 

@@ -22,17 +22,15 @@
       density="compact"
       rows="4"
     />
-    <SafeMarkdown v-else :source="value" />
+    <SafeMarkdown v-else :source="modelValue" />
   </div>
 </template>
 
 <script lang="ts">
-
-
 export default defineNuxtComponent({
   name: "MarkdownEditor",
   props: {
-    value: {
+    modelValue: {
       type: String,
       required: true,
     },
@@ -53,6 +51,7 @@ export default defineNuxtComponent({
       default: () => ({}),
     },
   },
+  emits: ["update:modelValue", "input:preview"],
   setup(props, context) {
     const fallbackPreview = ref(false);
     const previewState = computed({
@@ -70,10 +69,10 @@ export default defineNuxtComponent({
 
     const inputVal = computed({
       get: () => {
-        return props.value;
+        return props.modelValue;
       },
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
     return {

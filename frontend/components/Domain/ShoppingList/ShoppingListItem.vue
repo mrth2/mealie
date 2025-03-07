@@ -111,7 +111,7 @@ interface actions {
 export default defineNuxtComponent({
   components: { ShoppingListItemEditor, MultiPurposeLabel, RecipeList, RecipeIngredientListItem },
   props: {
-    value: {
+    modelValue: {
       type: Object as () => ShoppingListItemOut,
       required: true,
     },
@@ -139,7 +139,7 @@ export default defineNuxtComponent({
   setup(props, context) {
     const i18n = useI18n();
     const displayRecipeRefs = ref(false);
-    const itemLabelCols = ref<string>(props.value.checked ? "auto" : props.showLabel ? "4" : "6");
+    const itemLabelCols = ref<string>(props.modelValue.checked ? "auto" : props.showLabel ? "4" : "6");
 
     const contextMenu: actions[] = [
       {
@@ -153,15 +153,15 @@ export default defineNuxtComponent({
     ];
 
     // copy prop value so a refresh doesn't interrupt the user
-    const localListItem = ref(Object.assign({}, props.value));
+    const localListItem = ref(Object.assign({}, props.modelValue));
     const listItem = computed({
       get: () => {
-        return props.value;
+        return props.modelValue;
       },
       set: (val) => {
         // keep local copy in sync
         localListItem.value = val;
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
     const edit = ref(false);
@@ -172,7 +172,7 @@ export default defineNuxtComponent({
 
       if (val) {
         // update local copy of item with the current value
-        localListItem.value = props.value;
+        localListItem.value = props.modelValue;
       }
 
       edit.value = val;

@@ -69,7 +69,7 @@ import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Number,
       required: true,
     },
@@ -88,10 +88,10 @@ export default defineNuxtComponent({
     const canEditScale = computed(() => props.editScale && props.recipeServings > 0);
 
     const scale = computed({
-      get: () => props.value,
+      get: () => props.modelValue,
       set: (value) => {
         const newScaleNumber = parseFloat(`${value}`);
-        emit("input", isNaN(newScaleNumber) ? 0 : newScaleNumber);
+        emit("update:modelValue", isNaN(newScaleNumber) ? 0 : newScaleNumber);
       },
     });
 

@@ -82,7 +82,7 @@ export default defineNuxtComponent({
       type: String,
       required: true,
     },
-    value: {
+    modelValue: {
       type: Array as () => RecipeAsset[],
       required: true,
     },
@@ -170,7 +170,7 @@ export default defineNuxtComponent({
         extension: state.fileObject.name.split(".").pop() || "",
       });
 
-      context.emit("input", [...props.value, data]);
+      context.emit("update:modelValue", [...props.modelValue, data]);
       state.newAsset = { name: "", icon: "mdi-file" };
       state.fileObject = {} as File;
     }

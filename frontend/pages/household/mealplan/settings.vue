@@ -146,12 +146,12 @@ export default defineNuxtComponent({
   },
   middleware: ["sidebase-auth"],
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
   },
-  setup() {
+  setup(props, { emit }) {
     const api = useUserApi();
     const i18n = useI18n();
 

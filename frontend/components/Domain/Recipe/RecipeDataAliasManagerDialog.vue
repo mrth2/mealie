@@ -46,10 +46,9 @@
 </template>
 
 <script lang="ts">
-
 import { whenever } from "@vueuse/core";
 import { validators } from "~/composables/use-validators";
-import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
+import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 
 export interface GenericAlias {
   name: string;
@@ -57,7 +56,7 @@ export interface GenericAlias {
 
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
@@ -70,10 +69,10 @@ export default defineNuxtComponent({
     // V-Model Support
     const dialog = computed({
       get: () => {
-        return props.value;
+        return props.modelValue;
       },
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 
@@ -97,7 +96,7 @@ export default defineNuxtComponent({
 
     initAliases();
     whenever(
-      () => props.value,
+      () => props.modelValue,
       () => {
         initAliases();
       },

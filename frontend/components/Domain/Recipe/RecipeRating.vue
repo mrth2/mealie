@@ -4,7 +4,7 @@
     <v-hover v-slot="{ isHovering }">
       <v-rating v-if="isOwnGroup && (userRating || isHovering || !ratingsLoaded)" :model-value="userRating"
         color="secondary" bg-color="secondary lighten-3" length="5" :dense="small ? true : undefined"
-        :size="small ? 15 : undefined" hover clearable @update:model-value="updateRating" @click="updateRating" />
+        :size="small ? 15 : undefined" hover clearable @update:model-value="updateRating(+$event)" @click="updateRating" />
       <!-- Group Rating -->
       <v-rating v-else :model-value="groupRating" :half-increments="true" readonly color="grey darken-1"
       bg-color="secondary lighten-3" length="5" :density="small ? 'compact' : 'default'"
@@ -31,7 +31,7 @@ export default defineNuxtComponent({
       type: String,
       default: "",
     },
-    value: {
+    modelValue: {
       type: Number,
       default: 0,
     },
@@ -45,7 +45,7 @@ export default defineNuxtComponent({
     const { userRatings, setRating, ready: ratingsLoaded } = useUserSelfRatings();
 
     const userRating = computed(() => {
-      return userRatings.value.find((r) => r.recipeId === props.recipeId)?.rating;
+      return userRatings.value.find((r) => r.recipeId === props.recipeId)?.rating ?? undefined;
     });
 
     // if a user unsets their rating, we don't want to fall back to the group rating since it's out of sync
@@ -60,10 +60,10 @@ export default defineNuxtComponent({
     )
 
     const groupRating = computed(() => {
-      return hideGroupRating.value ? 0 : props.value;
+      return hideGroupRating.value ? 0 : props.modelValue;
     });
 
-    function updateRating(val: number | null) {
+    function updateRating(val?: number) {
       if (!isOwnGroup.value) {
         return;
       }
@@ -71,7 +71,7 @@ export default defineNuxtComponent({
       if (!props.emitOnly) {
         setRating(props.slug, val || 0, null);
       }
-      context.emit("input", val);
+      context.emit("update:modelValue", val);
     }
 
     return {

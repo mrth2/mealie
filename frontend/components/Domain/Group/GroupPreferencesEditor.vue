@@ -8,7 +8,7 @@
 <script lang="ts">
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Object,
       required: true,
     },
@@ -16,10 +16,10 @@ export default defineNuxtComponent({
   setup(props, context) {
     const preferences = computed({
       get() {
-        return props.value;
+        return props.modelValue;
       },
       set(val) {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 
@@ -30,5 +30,4 @@ export default defineNuxtComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

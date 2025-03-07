@@ -6,8 +6,8 @@
       </v-card-title>
       <v-divider class="mx-2 my-1"></v-divider>
       <v-card-text v-if="edit">
-        <div v-for="(item, key, index) in value" :key="index">
-          <v-text-field density="compact" :model-value="value[key]" :label="labels[key].label"
+        <div v-for="(item, key, index) in modelValue" :key="index">
+          <v-text-field density="compact" :model-value="modelValue[key]" :label="labels[key].label"
             :suffix="labels[key].suffix" type="number" autocomplete="off"
             @update:model-value="updateValue(key, $event)"></v-text-field>
         </div>
@@ -33,7 +33,7 @@ import type { Nutrition } from "~/lib/api/types/recipe";
 import type { NutritionLabelType } from "~/composables/recipes/use-recipe-nutrition";
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Object as () => Nutrition,
       required: true,
     },
@@ -46,8 +46,8 @@ export default defineNuxtComponent({
     const { labels } = useNutritionLabels();
     const valueNotNull = computed(() => {
       let key: keyof Nutrition;
-      for (key in props.value) {
-        if (props.value[key] !== null) {
+      for (key in props.modelValue) {
+        if (props.modelValue[key] !== null) {
           return true;
         }
       }
@@ -57,16 +57,16 @@ export default defineNuxtComponent({
     const showViewer = computed(() => !props.edit && valueNotNull.value);
 
     function updateValue(key: number | string, event: Event) {
-      context.emit("input", { ...props.value, [key]: event });
+      context.emit("update:modelValue", { ...props.modelValue, [key]: event });
     }
 
     // Build a new list that only contains nutritional information that has a value
     const renderedList = computed(() => {
       return Object.entries(labels).reduce((item: NutritionLabelType, [key, label]) => {
-        if (props.value[key]?.trim()) {
+        if (props.modelValue[key]?.trim()) {
           item[key] = {
             ...label,
-            value: props.value[key],
+            value: props.modelValue[key],
           };
         }
         return item;

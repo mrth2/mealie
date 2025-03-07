@@ -1,12 +1,12 @@
 <template>
   <div>
-    <v-text-field v-if="value.title || showTitle" v-model="value.title" density="compact" hide-details class="mx-1 mt-3 mb-4"
+    <v-text-field v-if="modelValue.title || showTitle" v-model="modelValue.title" density="compact" hide-details class="mx-1 mt-3 mb-4"
       :placeholder="$t('recipe.section-title')" style="max-width: 500px"
       @click="$emit('clickIngredientField', 'title')">
     </v-text-field>
     <v-row :no-gutters="mdAndUp" density="compact" class="d-flex flex-wrap my-1">
       <v-col v-if="!disableAmount" sm="12" md="2" cols="12" class="flex-grow-0 flex-shrink-0">
-        <v-text-field v-model="value.quantity" solo hide-details density="compact" type="number"
+        <v-text-field v-model="modelValue.quantity" solo hide-details density="compact" type="number"
           :placeholder="$t('recipe.quantity')" @keypress="quantityFilter">
           <v-icon v-if="$attrs && $attrs.delete" slot="prepend" class="mr-n1 handle">
             {{ $globals.icons.arrowUpDown }}
@@ -14,7 +14,7 @@
         </v-text-field>
       </v-col>
       <v-col v-if="!disableAmount" sm="12" md="3" cols="12">
-        <v-autocomplete ref="unitAutocomplete" v-model="value.unit" :search-input.sync="unitSearch" auto-select-first
+        <v-autocomplete ref="unitAutocomplete" v-model="modelValue.unit" :search-input.sync="unitSearch" auto-select-first
           hide-details density="compact" solo return-object :items="units || []" item-text="name" class="mx-1"
           :placeholder="$t('recipe.choose-unit')" clearable @keyup.enter="handleUnitEnter">
           <template #no-data>
@@ -30,7 +30,7 @@
 
       <!-- Foods Input -->
       <v-col v-if="!disableAmount" m="12" md="3" cols="12" class="">
-        <v-autocomplete ref="foodAutocomplete" v-model="value.food" :search-input.sync="foodSearch" auto-select-first
+        <v-autocomplete ref="foodAutocomplete" v-model="modelValue.food" :search-input.sync="foodSearch" auto-select-first
           hide-details density="compact" solo return-object :items="foods || []" item-text="name" class="mx-1 py-0"
           :placeholder="$t('recipe.choose-food')" clearable @keyup.enter="handleFoodEnter">
           <template #no-data>
@@ -45,7 +45,7 @@
       </v-col>
       <v-col sm="12" md="" cols="12">
         <div class="d-flex">
-          <v-text-field v-model="value.note" hide-details density="compact" solo :placeholder="$t('recipe.notes')"
+          <v-text-field v-model="modelValue.note" hide-details density="compact" solo :placeholder="$t('recipe.notes')"
             @click="$emit('clickIngredientField', 'note')">
             <v-icon v-if="disableAmount && $attrs && $attrs.delete" slot="prepend" class="mr-n1 handle">
               {{ $globals.icons.arrowUpDown }}
@@ -59,7 +59,7 @@
       </v-col>
     </v-row>
     <p v-if="showOriginalText" class="text-caption">
-      {{ $t("recipe.original-text-with-value", { originalText: value.originalText }) }}
+      {{ $t("recipe.original-text-with-value", { originalText: modelValue.originalText }) }}
     </p>
 
     <v-divider v-if="!mdAndUp" class="my-4"></v-divider>
@@ -73,7 +73,7 @@ import type { RecipeIngredient } from "~/lib/api/types/recipe";
 
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Object as () => RecipeIngredient,
       required: true,
     },
@@ -86,7 +86,7 @@ export default defineNuxtComponent({
       default: false,
     }
   },
-  setup(props, { attrs: listeners }) {
+  setup(props, { attrs: listeners, emit }) {
     const { mdAndUp } = useDisplay();
     const i18n = useI18n();
     const { $globals } = useNuxtApp();
@@ -122,7 +122,7 @@ export default defineNuxtComponent({
       //   });
       // }
 
-      if (props.value.originalText) {
+      if (props.modelValue.originalText) {
         options.push({
           text: i18n.t("recipe.see-original-text"),
           event: "toggle-original",
@@ -163,7 +163,7 @@ export default defineNuxtComponent({
 
     async function createAssignFood() {
       foodData.data.name = foodSearch.value;
-      props.value.food = await foodStore.actions.createOne(foodData.data) || undefined;
+      props.modelValue.food = await foodStore.actions.createOne(foodData.data) || undefined;
       foodData.reset();
       foodAutocomplete.value?.blur();
     }
@@ -177,7 +177,7 @@ export default defineNuxtComponent({
 
     async function createAssignUnit() {
       unitsData.data.name = unitSearch.value;
-      props.value.unit = await unitStore.actions.createOne(unitsData.data) || undefined;
+      props.modelValue.unit = await unitStore.actions.createOne(unitsData.data) || undefined;
       unitsData.reset();
       unitAutocomplete.value?.blur();
     }
@@ -189,7 +189,7 @@ export default defineNuxtComponent({
 
     function toggleTitle() {
       if (state.showTitle) {
-        props.value.title = "";
+        props.modelValue.title = "";
       }
       state.showTitle = !state.showTitle;
     }
@@ -200,9 +200,9 @@ export default defineNuxtComponent({
 
     function handleUnitEnter() {
       if (
-        props.value.unit === undefined ||
-        props.value.unit === null ||
-        !props.value.unit.name.includes(unitSearch.value)
+        props.modelValue.unit === undefined ||
+        props.modelValue.unit === null ||
+        !props.modelValue.unit.name.includes(unitSearch.value)
       ) {
         createAssignUnit();
       }
@@ -210,9 +210,9 @@ export default defineNuxtComponent({
 
     function handleFoodEnter() {
       if (
-        props.value.food === undefined ||
-        props.value.food === null ||
-        !props.value.food.name.includes(foodSearch.value)
+        props.modelValue.food === undefined ||
+        props.modelValue.food === null ||
+        !props.modelValue.food.name.includes(foodSearch.value)
       ) {
         createAssignFood();
       }

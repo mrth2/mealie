@@ -74,8 +74,8 @@
                   </v-list-item-title>
                 </v-list-item>
                 <v-divider />
-                <v-list-item v-for="v in sortable" :key="v.name" :input-value="state.orderBy === v.value"
-                  @click="start.orderBy = v.value">
+                <v-list-item v-for="v in sortable" :key="v.name" :active="state.orderBy === v.value"
+                  @click="state.orderBy = v.value">
                   <v-icon start>
                     {{ v.icon }}
                   </v-icon>

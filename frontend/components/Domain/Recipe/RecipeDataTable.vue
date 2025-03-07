@@ -1,6 +1,6 @@
 <template>
   <v-data-table v-model="selected" item-key="id" show-select sort-by="dateAdded" sort-desc :headers="headers"
-    :items="recipes" :items-per-page="15" class="elevation-0" :loading="loading" @input="setValue(selected)">
+    :items="recipes" :items-per-page="15" class="elevation-0" :loading="loading">
     <template #body.prepend>
       <tr>
         <td></td>
@@ -13,26 +13,26 @@
         @click="$emit('click')">{{ item.name }}</a>
     </template>
     <template #item.tags="{ item }">
-      <RecipeChip size="small" :items="item.tags" :is-category="false" url-prefix="tags" @item-selected="filterItems" />
+      <RecipeChip size="small" :items="item.tags!" :is-category="false" url-prefix="tags" @item-selected="filterItems" />
     </template>
     <template #item.recipeCategory="{ item }">
-      <RecipeChip size="small" :items="item.recipeCategory" @item-selected="filterItems" />
+      <RecipeChip size="small" :items="item.recipeCategory!" @item-selected="filterItems" />
     </template>
     <template #item.tools="{ item }">
       <RecipeChip size="small" :items="item.tools" url-prefix="tools" @item-selected="filterItems" />
     </template>
     <template #item.userId="{ item }">
       <v-list-item class="justify-start">
-        <UserAvatar :user-id="item.userId" :tooltip="false" size="40" />
+        <UserAvatar :user-id="item.userId!" :tooltip="false" size="40" />
         <div class="pl-2">
           <v-list-item-title class="text-left">
-            {{ getMember(item.userId) }}
+            {{ getMember(item.userId!) }}
           </v-list-item-title>
         </div>
       </v-list-item>
     </template>
     <template #item.dateAdded="{ item }">
-      {{ formatDate(item.dateAdded) }}
+      {{ formatDate(item.dateAdded!) }}
     </template>
   </v-data-table>
 </template>
@@ -45,7 +45,7 @@ import { useUserApi } from "~/composables/api";
 import type { UserSummary } from "~/lib/api/types/user";
 import type { RecipeTag } from "~/lib/api/types/household";
 
-const INPUT_EVENT = "input";
+const INPUT_EVENT = "update:modelValue";
 
 interface ShowHeaders {
   id: boolean;
@@ -62,8 +62,8 @@ interface ShowHeaders {
 export default defineNuxtComponent({
   components: { RecipeChip, UserAvatar },
   props: {
-    value: {
-      type: Array,
+    modelValue: {
+      type: Array as PropType<Recipe[]>,
       required: false,
       default: () => [],
     },
@@ -98,9 +98,10 @@ export default defineNuxtComponent({
     const $auth = useMealieAuth();
     const groupSlug = $auth.user.value?.groupSlug;
     const router = useRouter();
-    function setValue(value: Recipe[]) {
-      context.emit(INPUT_EVENT, value);
-    }
+    const selected = computed({
+      get: () => props.modelValue,
+      set: (value) => context.emit(INPUT_EVENT, value),
+    });
 
     const headers = computed(() => {
       const hdrs: Array<{ text: string, value: string, align?: string }> = [];
@@ -178,25 +179,14 @@ export default defineNuxtComponent({
     }
 
     return {
+      selected,
       groupSlug,
-      setValue,
       headers,
       formatDate,
       members,
       getMember,
       filterItems,
     };
-  },
-
-  data() {
-    return {
-      selected: [],
-    };
-  },
-  watch: {
-    value(val) {
-      this.selected = val;
-    },
   },
 });
 </script>

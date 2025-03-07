@@ -20,13 +20,11 @@
 </template>
 
 <script lang="ts">
-
-
 type SelectionValue = "include" | "exclude" | "any";
 
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: String as () => SelectionValue,
       default: "include",
     },
@@ -39,7 +37,7 @@ export default defineNuxtComponent({
   },
   methods: {
     emitChange() {
-      this.$emit("input", this.selected);
+      this.$emit("update:modelValue", this.selected);
     },
     emitMulti() {
       const updateData = {

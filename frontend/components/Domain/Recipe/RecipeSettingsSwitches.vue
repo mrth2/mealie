@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-switch
-      v-for="(_, key) in value"
+      v-for="(_, key) in modelValue"
       :key="key"
-      v-model="value[key]"
+      v-model="modelValue[key]"
       xs
       density="compact"
       :disabled="key == 'locked' && !isOwner"
@@ -19,7 +19,7 @@ import type { RecipeSettings } from "~/lib/api/types/recipe";
 
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Object as () => RecipeSettings,
       required: true,
     },

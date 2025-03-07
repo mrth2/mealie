@@ -6,7 +6,7 @@
           {{ $globals.icons.tags }}
         </v-icon>
       </span>
-      {{ value.label.name }}
+      {{ modelValue.label.name }}
     </div>
     <div style="min-width: 72px" class="ml-auto text-right">
       <v-menu offset-x start min-width="125px">
@@ -27,7 +27,7 @@ import type { ShoppingListMultiPurposeLabelOut } from "~/lib/api/types/household
 
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Object as () => ShoppingListMultiPurposeLabelOut,
       required: true,
     },
@@ -37,7 +37,7 @@ export default defineNuxtComponent({
     }
   },
   setup(props, context) {
-    const labelColor = ref<string | undefined>(props.useColor ? props.value.label.color : undefined);
+    const labelColor = ref<string | undefined>(props.useColor ? props.modelValue.label.color : undefined);
 
     function contextHandler(event: string) {
       context.emit(event);

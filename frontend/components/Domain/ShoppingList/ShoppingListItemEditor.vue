@@ -6,57 +6,29 @@
           <div>
             <InputQuantity v-model="listItem.quantity" />
           </div>
-          <InputLabelType
-            v-model="listItem.unit"
-            :items="units"
-            :item-id.sync="listItem.unitId"
-            :label="$t('general.units')"
-            :icon="$globals.icons.units"
-            @create="createAssignUnit"
-          />
-          <InputLabelType
-            v-model="listItem.food"
-            :items="foods"
-            :item-id.sync="listItem.foodId"
-            :label="$t('shopping-list.food')"
-            :icon="$globals.icons.foods"
-            @create="createAssignFood"
-          />
+          <InputLabelType v-model="listItem.unit" :items="units" :item-id.sync="listItem.unitId"
+            :label="$t('general.units')" :icon="$globals.icons.units" @create="createAssignUnit" />
+          <InputLabelType v-model="listItem.food" :items="foods" :item-id.sync="listItem.foodId"
+            :label="$t('shopping-list.food')" :icon="$globals.icons.foods" @create="createAssignFood" />
 
         </div>
         <div class="d-md-flex align-center" style="gap: 20px">
           <div v-if="!listItem.isFood">
-              <InputQuantity v-model="listItem.quantity" />
-            </div>
-          <v-textarea
-            v-model="listItem.note"
-            hide-details
-            :label="$t('shopping-list.note')"
-            rows="1"
-            auto-grow
-            autofocus
-            @keypress="handleNoteKeyPress"
-          ></v-textarea>
+            <InputQuantity v-model="listItem.quantity" />
+          </div>
+          <v-textarea v-model="listItem.note" hide-details :label="$t('shopping-list.note')" rows="1" auto-grow
+            autofocus @keypress="handleNoteKeyPress"></v-textarea>
         </div>
         <div class="d-flex flex-wrap align-end" style="gap: 20px">
           <div class="d-flex align-end">
 
             <div style="max-width: 300px" class="mt-3 mr-auto">
-              <InputLabelType
-                v-model="listItem.label"
-                :items="labels"
-                :item-id.sync="listItem.labelId"
-                :label="$t('shopping-list.label')"
-              />
+              <InputLabelType v-model="listItem.label" :items="labels" :item-id.sync="listItem.labelId"
+                :label="$t('shopping-list.label')" />
             </div>
 
-            <v-menu
-              v-if="listItem.recipeReferences && listItem.recipeReferences.length > 0"
-              open-on-hover
-              offset-y
-              start
-              top
-            >
+            <v-menu v-if="listItem.recipeReferences && listItem.recipeReferences.length > 0" open-on-hover offset-y
+              start top>
               <template #activator="{ props }">
                 <v-icon class="mt-auto" :icon="$globals.icons.alert" v-bind="props" color="warning">
                   {{ $globals.icons.alert }}
@@ -69,62 +41,50 @@
               </v-card>
             </v-menu>
           </div>
-          <BaseButton
-            v-if="listItem.labelId && listItem.food && listItem.labelId !== listItem.food.labelId"
-            size="small"
-            color="info"
-            :icon="$globals.icons.tagArrowRight"
-            :text="$t('shopping-list.save-label')"
-            class="mt-2 align-items-flex-start"
-            @click="assignLabelToFood"
-          />
+          <BaseButton v-if="listItem.labelId && listItem.food && listItem.labelId !== listItem.food.labelId"
+            size="small" color="info" :icon="$globals.icons.tagArrowRight" :text="$t('shopping-list.save-label')"
+            class="mt-2 align-items-flex-start" @click="assignLabelToFood" />
           <v-spacer />
         </div>
       </v-card-text>
       <v-card-actions class="ma-0 pt-0 pb-1 justify-end">
-        <BaseButtonGroup
-          :buttons="[
-            ...(allowDelete ? [{
-              icon: $globals.icons.delete,
-              text: $t('general.delete'),
-              event: 'delete',
-            }] : []),
-            {
-              icon: $globals.icons.close,
-              text: $t('general.cancel'),
-              event: 'cancel',
-            },
-            {
-              icon: $globals.icons.foods,
-              text: $t('shopping-list.toggle-food'),
-              event: 'toggle-foods',
-            },
-            {
-              icon: $globals.icons.save,
-              text: $t('general.save'),
-              event: 'save',
-            },
-          ]"
-          @save="$emit('save')"
-          @cancel="$emit('cancel')"
-          @delete="$emit('delete')"
-          @toggle-foods="listItem.isFood = !listItem.isFood"
-        />
+        <BaseButtonGroup :buttons="[
+          ...(allowDelete ? [{
+            icon: $globals.icons.delete,
+            text: $t('general.delete'),
+            event: 'delete',
+          }] : []),
+          {
+            icon: $globals.icons.close,
+            text: $t('general.cancel'),
+            event: 'cancel',
+          },
+          {
+            icon: $globals.icons.foods,
+            text: $t('shopping-list.toggle-food'),
+            event: 'toggle-foods',
+          },
+          {
+            icon: $globals.icons.save,
+            text: $t('general.save'),
+            event: 'save',
+          },
+        ]" @save="$emit('save')" @cancel="$emit('cancel')" @delete="$emit('delete')"
+          @toggle-foods="listItem.isFood = !listItem.isFood" />
       </v-card-actions>
     </v-card>
   </div>
 </template>
 
 <script lang="ts">
-
-import { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/household";
-import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
-import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
+import type { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/household";
+import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
+import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
 
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Object as () => ShoppingListItemCreate | ShoppingListItemOut,
       required: true,
     },
@@ -155,15 +115,15 @@ export default defineNuxtComponent({
 
     const listItem = computed({
       get: () => {
-        return props.value;
+        return props.modelValue;
       },
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 
     watch(
-      () => props.value.food,
+      () => props.modelValue.food,
       (newFood) => {
         // @ts-ignore our logic already assumes there's a label attribute, even if TS doesn't think there is
         listItem.value.label = newFood?.label || null;

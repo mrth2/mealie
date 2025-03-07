@@ -25,24 +25,23 @@
 </template>
 
 <script lang="ts">
-
-
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: String,
       required: true,
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     const menu = ref(false);
 
     const inputVal = computed({
       get: () => {
-        return props.value;
+        return props.modelValue;
       },
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 

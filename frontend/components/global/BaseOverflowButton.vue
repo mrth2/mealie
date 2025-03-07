@@ -57,17 +57,13 @@
 </template>
 
 <script lang="ts">
-
-
-const INPUT_EVENT = "input";
-
-type modes = "model" | "link" | "event";
-
 const MODES = {
   model: "model",
   link: "link",
   event: "event",
 };
+
+type modes = "model" | "link" | "event";
 
 export interface MenuItem {
   text: string;
@@ -94,7 +90,7 @@ export default defineNuxtComponent({
       required: false,
       default: false,
     },
-    value: {
+    modelValue: {
       type: String,
       required: false,
       default: "",
@@ -112,6 +108,7 @@ export default defineNuxtComponent({
       }
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     const activeObj = ref<MenuItem>({
       text: "DEFAULT",
@@ -120,7 +117,7 @@ export default defineNuxtComponent({
 
     let startIndex = 0;
     props.items.forEach((item, index) => {
-      if (item.value === props.value) {
+      if (item.value === props.modelValue) {
         startIndex = index;
 
         activeObj.value = item;
@@ -129,7 +126,7 @@ export default defineNuxtComponent({
     const itemGroup = ref(startIndex);
 
     function setValue(v: MenuItem) {
-      context.emit(INPUT_EVENT, v.value);
+      context.emit("update:modelValue", v.value);
       activeObj.value = v;
     }
 

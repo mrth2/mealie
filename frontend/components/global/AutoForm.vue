@@ -167,7 +167,7 @@ type ValidatorKey = keyof typeof validators;
 export default defineNuxtComponent({
   name: "AutoForm",
   props: {
-    value: {
+    modelValue: {
       default: null,
       type: [Object, Array],
     },
@@ -204,6 +204,7 @@ export default defineNuxtComponent({
       type: Array as () => string[],
     },
   },
+  emits: ["blur", "update:modelValue"],
   setup(props, context) {
     function rulesByKey(keys?: ValidatorKey[] | null) {
       if (keys === undefined || keys === null) {
@@ -245,7 +246,7 @@ export default defineNuxtComponent({
     }
 
     function emitBlur() {
-      context.emit(BLUR_EVENT, props.value);
+      context.emit(BLUR_EVENT, props.modelValue);
     }
 
     return {

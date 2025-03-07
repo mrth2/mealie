@@ -16,8 +16,6 @@
 </template>
 
 <script lang="ts">
-
-
 export default defineNuxtComponent({
   name: "VInputNumber",
   props: {
@@ -37,18 +35,19 @@ export default defineNuxtComponent({
       type: Number,
       default: 1,
     },
-    value: {
+    modelValue: {
       type: Number,
       default: 0,
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     const quantity = computed({
       get: () => {
-        return Number(props.value);
+        return Number(props.modelValue);
       },
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 

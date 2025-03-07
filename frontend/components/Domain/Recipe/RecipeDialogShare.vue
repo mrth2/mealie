@@ -25,7 +25,7 @@
         <div>
           <v-list-item-title> {{ $t("recipe-share.expires-at") }} </v-list-item-title>
 
-          <v-list-item-subtitle>{{ $d(new Date(token.expiresAt), "long") }}</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ $d(new Date(token.expiresAt!), "long") }}</v-list-item-subtitle>
         </div>
 
         <v-list-item-action>
@@ -52,7 +52,7 @@ import { alert } from "~/composables/use-toast";
 
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
@@ -69,10 +69,10 @@ export default defineNuxtComponent({
     // V-Model Support
     const dialog = computed({
       get: () => {
-        return props.value;
+        return props.modelValue;
       },
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 
@@ -83,7 +83,7 @@ export default defineNuxtComponent({
     });
 
     whenever(
-      () => props.value,
+      () => props.modelValue,
       () => {
         // Set expiration date to today + 30 Days
         const today = new Date();

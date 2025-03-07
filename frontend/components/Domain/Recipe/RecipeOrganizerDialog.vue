@@ -42,7 +42,7 @@ const CREATED_ITEM_EVENT = "created-item";
 
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
@@ -69,15 +69,15 @@ export default defineNuxtComponent({
 
     const dialog = computed({
       get() {
-        return props.value;
+        return props.modelValue;
       },
       set(value) {
-        context.emit("input", value);
+        context.emit("update:modelValue", value);
       },
     });
 
     watch(
-      () => props.value,
+      () => props.modelValue,
       (val: boolean) => {
         if (!val) state.name = "";
       }

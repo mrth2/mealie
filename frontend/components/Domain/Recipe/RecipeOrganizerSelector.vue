@@ -1,5 +1,5 @@
 <template>
-  <v-autocomplete v-model="selected" :items="storeItem" :value="value" :label="label" chips deletable-chips
+  <v-autocomplete v-model="selected" :items="storeItem" :value="modelValue" :label="label" chips deletable-chips
     item-text="name" multiple :prepend-inner-icon="icon" return-object v-bind="inputAttrs" auto-select-first
     :search-input.sync="searchInput" class="pa-0" @change="resetSearchInput">
     <template #selection="data">
@@ -27,7 +27,7 @@ import type { HouseholdSummary } from "~/lib/api/types/household";
 
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Array as () => (
         | HouseholdSummary
         | RecipeTag
@@ -69,9 +69,9 @@ export default defineNuxtComponent({
 
   setup(props, context) {
     const selected = computed({
-      get: () => props.value,
+      get: () => props.modelValue,
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 

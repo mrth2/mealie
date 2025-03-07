@@ -129,7 +129,7 @@ export default defineNuxtComponent({
     RecipeIngredientListItem,
   },
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
@@ -152,10 +152,10 @@ export default defineNuxtComponent({
     // v-model support
     const dialog = computed({
       get: () => {
-        return props.value;
+        return props.modelValue;
       },
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
         initState();
       },
     });

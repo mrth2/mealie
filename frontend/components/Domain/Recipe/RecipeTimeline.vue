@@ -80,7 +80,7 @@ export default defineNuxtComponent({
   components: { RecipeTimelineItem },
 
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
@@ -142,7 +142,7 @@ export default defineNuxtComponent({
     };
 
     whenever(
-      () => props.value,
+      () => props.modelValue,
       () => {
         initializeTimelineEvents();
       }

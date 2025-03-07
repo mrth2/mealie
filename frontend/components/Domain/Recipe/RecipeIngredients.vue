@@ -1,18 +1,18 @@
 <template>
-  <div v-if="value && value.length > 0">
+  <div v-if="modelValue && modelValue.length > 0">
     <div v-if="!isCookMode" class="d-flex justify-start" >
       <h2 class="mb-2 mt-1">{{ $t("recipe.ingredients") }}</h2>
       <AppButtonCopy btn-class="ml-auto" :copy-text="ingredientCopyText" />
     </div>
     <div>
-      <div v-for="(ingredient, index) in value" :key="'ingredient' + index">
+      <div v-for="(ingredient, index) in modelValue" :key="'ingredient' + index">
         <template v-if="!isCookMode">
           <h3 v-if="showTitleEditor[index]" class="mt-2">{{ ingredient.title }}</h3>
           <v-divider v-if="showTitleEditor[index]"></v-divider>
         </template>
         <v-list-item density="compact" @click.stop="toggleChecked(index)">
           <v-checkbox hide-details :value="checked[index]" class="pt-0 my-auto py-auto" color="secondary" />
-          <div :key="ingredient.quantity">
+          <div :key="ingredient.quantity!">
             <RecipeIngredientListItem :ingredient="ingredient" :disable-amount="disableAmount" :scale="scale" />
           </div>
         </v-list-item>
@@ -29,7 +29,7 @@ import type { RecipeIngredient } from "~/lib/api/types/recipe";
 export default defineNuxtComponent({
   components: { RecipeIngredientListItem },
   props: {
-    value: {
+    modelValue: {
       type: Array as () => RecipeIngredient[],
       default: () => [],
     },
@@ -52,13 +52,13 @@ export default defineNuxtComponent({
     }
 
     const state = reactive({
-      checked: props.value.map(() => false),
-      showTitleEditor: computed(() => props.value.map((x) => validateTitle(x.title))),
+      checked: props.modelValue.map(() => false),
+      showTitleEditor: computed(() => props.modelValue.map((x) => validateTitle(x.title))),
     });
 
     const ingredientCopyText = computed(() => {
       const components: string[] = [];
-      props.value.forEach((ingredient) => {
+      props.modelValue.forEach((ingredient) => {
         if (ingredient.title) {
           if (components.length) {
             components.push("");

@@ -1,16 +1,16 @@
 <template>
-  <div v-if="value.length > 0 || edit" class="mt-8">
+  <div v-if="modelValue.length > 0 || edit" class="mt-8">
     <h2 class="my-4">{{ $t("recipe.note") }}</h2>
-    <div v-for="(note, index) in value" :id="'note' + index" :key="'note' + index" class="mt-1">
+    <div v-for="(note, index) in modelValue" :id="'note' + index" :key="'note' + index" class="mt-1">
       <v-card v-if="edit">
         <v-card-text>
           <div class="d-flex align-center">
-            <v-text-field v-model="value[index]['title']" :label="$t('recipe.title')" />
-            <v-btn icon class="mr-2" elevation="0" @click="removeByIndex(value, index)">
+            <v-text-field v-model="modelValue[index]['title']" :label="$t('recipe.title')" />
+            <v-btn icon class="mr-2" elevation="0" @click="removeByIndex(modelValue, index)">
               <v-icon>{{ $globals.icons.delete }}</v-icon>
             </v-btn>
           </div>
-          <v-textarea v-model="value[index]['text']" auto-grow :placeholder="$t('recipe.note')" />
+          <v-textarea v-model="modelValue[index]['text']" auto-grow :placeholder="$t('recipe.note')" />
         </v-card-text>
       </v-card>
       <div v-else>
@@ -30,12 +30,11 @@
 </template>
 
 <script lang="ts">
-
-import { RecipeNote } from "~/lib/api/types/recipe";
+import type { RecipeNote } from "~/lib/api/types/recipe";
 
 export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Array as () => RecipeNote[],
       required: false,
       default: () => [],
@@ -46,13 +45,16 @@ export default defineNuxtComponent({
       default: true,
     },
   },
-  setup(props) {
+  setup(props, { emit }) {
     function addNote() {
-      props.value.push({ title: "", text: "" });
+      const newNotes = [...props.modelValue, { title: "", text: "" }];
+      emit('update:modelValue', newNotes);
     }
 
-    function removeByIndex(list: unknown[], index: number) {
-      list.splice(index, 1);
+    function removeByIndex(list: RecipeNote[], index: number) {
+      const newNotes = [...props.modelValue];
+      newNotes.splice(index, 1);
+      emit('update:modelValue', newNotes);
     }
 
     return {
