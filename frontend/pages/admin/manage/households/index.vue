@@ -105,8 +105,11 @@ import type { HouseholdInDB } from "~/lib/api/types/household";
 import type { VForm } from "~/types/vuetify";
 
 export default defineNuxtComponent({
-  layout: "admin",
   setup() {
+    definePageMeta({
+      layout: "admin",
+    });
+
     const i18n = useI18n();
 
     // Set page title

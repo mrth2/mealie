@@ -54,11 +54,14 @@ import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
-import { VForm } from "~/types/vuetify";
+import type { VForm } from "~/types/vuetify";
 
 export default defineNuxtComponent({
-  layout: "admin",
   setup() {
+    definePageMeta({
+      layout: "admin",
+    });
+
     const { userForm } = useUserForm();
     const { groups } = useGroups();
     const { useHouseholdsInGroup } = useAdminHouseholds();

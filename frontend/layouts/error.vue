@@ -29,7 +29,6 @@
 
 <script lang="ts">
 export default defineNuxtComponent({
-  layout: "basic",
   props: {
     error: {
       type: Object,
@@ -37,6 +36,10 @@ export default defineNuxtComponent({
     },
   },
   setup(props) {
+    definePageMeta({
+      layout: "basic",
+    });
+
     const i18n = useI18n();
     const $auth = useMealieAuth();
     const { $globals } = useNuxtApp();

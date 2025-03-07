@@ -485,6 +485,12 @@ export default defineNuxtConfig({
   vite: {
     plugins: [
       commonjs(),
-    ]
+    ],
+    vue: {
+      script: {
+        defineModel: true,
+        propsDestructure: true,
+      }
+    }
   }
 });

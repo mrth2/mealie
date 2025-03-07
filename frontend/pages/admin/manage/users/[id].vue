@@ -67,8 +67,11 @@ import type { VForm } from "~/types/vuetify";
 import type { UserOut } from "~/lib/api/types/user";
 
 export default defineNuxtComponent({
-  layout: "admin",
   setup() {
+    definePageMeta({
+      layout: "admin",
+    });
+
     const { userForm } = useUserForm();
     const { groups } = useGroups();
     const { useHouseholdsInGroup } = useAdminHouseholds();

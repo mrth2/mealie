@@ -81,8 +81,11 @@ import { useGroups } from "~/composables/use-groups";
 import type { GroupInDB } from "~/lib/api/types/user";
 
 export default defineNuxtComponent({
-  layout: "admin",
   setup() {
+    definePageMeta({
+      layout: "admin",
+    });
+
     const i18n = useI18n();
 
     // Set page title

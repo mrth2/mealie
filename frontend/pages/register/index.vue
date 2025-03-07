@@ -199,8 +199,11 @@ const inputAttrs = {
 
 export default defineNuxtComponent({
   components: { UserRegistrationForm },
-  layout: "blank",
   setup() {
+    definePageMeta({
+      layout: "blank",
+    });
+
     const i18n = useI18n();
     const isDark = useDark();
 

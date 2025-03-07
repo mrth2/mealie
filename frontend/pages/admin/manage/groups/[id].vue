@@ -35,8 +35,11 @@ export default defineNuxtComponent({
   components: {
     GroupPreferencesEditor,
   },
-  layout: "admin",
   setup() {
+    definePageMeta({
+      layout: "admin",
+    });
+
     const route = useRoute();
 
     const i18n = useI18n();

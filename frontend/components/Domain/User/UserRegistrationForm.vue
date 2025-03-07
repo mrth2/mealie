@@ -7,60 +7,27 @@
     <v-divider />
     <v-card-text>
       <v-form ref="domAccountForm" @submit.prevent>
-        <v-text-field
-          v-model="accountDetails.username.value"
-          autofocus
-          v-bind="inputAttrs"
-          :label="$t('user.username')"
-          :prepend-icon="$globals.icons.user"
-          :rules="[validators.required]"
-          :error-messages="usernameErrorMessages"
-          @blur="validateUsername"
-        />
-        <v-text-field
-          v-model="accountDetails.fullName.value"
-          v-bind="inputAttrs"
-          :label="$t('user.full-name')"
-          :prepend-icon="$globals.icons.user"
-          :rules="[validators.required]"
-        />
-        <v-text-field
-          v-model="accountDetails.email.value"
-          v-bind="inputAttrs"
-          :prepend-icon="$globals.icons.email"
-          :label="$t('user.email')"
-          :rules="[validators.required, validators.email]"
-          :error-messages="emailErrorMessages"
-          @blur="validateEmail"
-        />
-        <v-text-field
-          v-model="credentials.password1.value"
-          v-bind="inputAttrs"
-          :type="pwFields.inputType.value"
-          :append-icon="pwFields.passwordIcon.value"
-          :prepend-icon="$globals.icons.lock"
-          :label="$t('user.password')"
+        <v-text-field v-model="accountDetails.username.value" autofocus v-bind="inputAttrs" :label="$t('user.username')"
+          :prepend-icon="$globals.icons.user" :rules="[validators.required]" :error-messages="usernameErrorMessages"
+          @blur="validateUsername" />
+        <v-text-field v-model="accountDetails.fullName.value" v-bind="inputAttrs" :label="$t('user.full-name')"
+          :prepend-icon="$globals.icons.user" :rules="[validators.required]" />
+        <v-text-field v-model="accountDetails.email.value" v-bind="inputAttrs" :prepend-icon="$globals.icons.email"
+          :label="$t('user.email')" :rules="[validators.required, validators.email]"
+          :error-messages="emailErrorMessages" @blur="validateEmail" />
+        <v-text-field v-model="credentials.password1.value" v-bind="inputAttrs" :type="pwFields.inputType.value"
+          :append-icon="pwFields.passwordIcon.value" :prepend-icon="$globals.icons.lock" :label="$t('user.password')"
           :rules="[validators.required, validators.minLength(8), validators.maxLength(258)]"
-          @click:append="pwFields.togglePasswordShow"
-        />
+          @click:append="pwFields.togglePasswordShow" />
 
         <UserPasswordStrength :value="credentials.password1.value" />
 
-        <v-text-field
-          v-model="credentials.password2.value"
-          v-bind="inputAttrs"
-          :type="pwFields.inputType.value"
-          :append-icon="pwFields.passwordIcon.value"
-          :prepend-icon="$globals.icons.lock"
-          :label="$t('user.confirm-password')"
-          :rules="[validators.required, credentials.passwordMatch]"
-          @click:append="pwFields.togglePasswordShow"
-        />
+        <v-text-field v-model="credentials.password2.value" v-bind="inputAttrs" :type="pwFields.inputType.value"
+          :append-icon="pwFields.passwordIcon.value" :prepend-icon="$globals.icons.lock"
+          :label="$t('user.confirm-password')" :rules="[validators.required, credentials.passwordMatch]"
+          @click:append="pwFields.togglePasswordShow" />
         <div class="px-2">
-          <v-checkbox
-            v-model="accountDetails.advancedOptions.value"
-            :label="$t('user.enable-advanced-content')"
-          />
+          <v-checkbox v-model="accountDetails.advancedOptions.value" :label="$t('user.enable-advanced-content')" />
           <p class="text-caption mt-n4">
             {{ $t("user.enable-advanced-content-description") }}
           </p>
@@ -87,8 +54,11 @@ const inputAttrs = {
 
 export default defineNuxtComponent({
   components: { UserPasswordStrength },
-  layout: "blank",
   setup() {
+    definePageMeta({
+      layout: "blank",
+    });
+
     const isDark = useDark();
     const langDialog = ref(false);
 

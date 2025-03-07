@@ -169,8 +169,11 @@ interface CheckApp extends CheckAppConfig {
 
 export default defineNuxtComponent({
   components: { AppLoader },
-  layout: "admin",
   setup() {
+    definePageMeta({
+      layout: "admin",
+    });
+
     const { $globals } = useNuxtApp();
     const i18n = useI18n();
 

@@ -98,8 +98,11 @@ import type { AllBackups } from "~/lib/api/types/admin";
 import { alert } from "~/composables/use-toast";
 
 export default defineNuxtComponent({
-  layout: "admin",
   setup() {
+    definePageMeta({
+      layout: "admin",
+    });
+
     const i18n = useI18n();
     const $auth = useMealieAuth();
     const route = useRoute();

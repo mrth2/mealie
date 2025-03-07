@@ -5,16 +5,8 @@
       <BaseDivider />
       <v-card-text>
         <v-form @submit.prevent="requestLink()">
-          <v-text-field
-            v-model="email"
-            filled
-            rounded
-            autofocus
-            class="rounded-lg"
-            name="login"
-            :label="$t('user.email')"
-            type="text"
-          />
+          <v-text-field v-model="email" filled rounded autofocus class="rounded-lg" name="login"
+            :label="$t('user.email')" type="text" />
           <p class="text-center">{{ $t('user.forgot-password-text') }}</p>
           <v-card-actions class="justify-center">
             <div class="max-button">
@@ -38,9 +30,11 @@
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 export default defineNuxtComponent({
-  layout: "basic",
-
   setup() {
+    definePageMeta({
+      layout: "basic",
+    });
+
     const state = reactive({
       email: "",
       loading: false,

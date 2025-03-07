@@ -78,8 +78,11 @@ export default defineNuxtComponent({
   components: {
     UserInviteDialog,
   },
-  layout: "admin",
   setup() {
+    definePageMeta({
+      layout: "admin",
+    });
+
     const api = useAdminApi();
     const refUserDialog = ref();
     const inviteDialog = ref();

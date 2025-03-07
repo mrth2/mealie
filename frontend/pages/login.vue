@@ -112,9 +112,10 @@ import { useAsyncKey } from "~/composables/use-utils";
 import type { AppStartupInfo } from "~/lib/api/types/admin";
 
 export default defineNuxtComponent({
-  layout: "blank",
-
   setup() {
+    definePageMeta({
+      layout: "blank",
+    })
     const isDark = useDark();
 
     const router = useRouter();

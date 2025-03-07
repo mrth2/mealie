@@ -40,8 +40,11 @@ export default defineNuxtComponent({
   components: {
     HouseholdPreferencesEditor,
   },
-  layout: "admin",
   setup() {
+    definePageMeta({
+      layout: "admin",
+    });
+
     const route = useRoute();
     const i18n = useI18n();
 

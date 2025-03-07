@@ -73,9 +73,11 @@ import { alert } from "~/composables/use-toast";
 import { validators } from "@/composables/use-validators";
 import { useRouteQuery } from "~/composables/use-router";
 export default defineNuxtComponent({
-  layout: "basic",
-
   setup() {
+    definePageMeta({
+      layout: "basic",
+    });
+
     const state = reactive({
       email: "",
       password: "",

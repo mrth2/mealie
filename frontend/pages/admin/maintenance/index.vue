@@ -86,8 +86,11 @@ import { useAdminApi } from "~/composables/api";
 import type { MaintenanceStorageDetails, MaintenanceSummary } from "~/lib/api/types/admin";
 
 export default defineNuxtComponent({
-  layout: "admin",
   setup() {
+    definePageMeta({
+      layout: "admin",
+    });
+
     const state = reactive({
       storageDetails: false,
       storageDetailsLoading: false,

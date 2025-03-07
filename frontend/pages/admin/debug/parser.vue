@@ -72,8 +72,11 @@ import type { Parser } from "~/lib/api/user/recipes/recipe";
 type ConfidenceAttribute = "average" | "comment" | "name" | "unit" | "quantity" | "food";
 
 export default defineNuxtComponent({
-  layout: "admin",
   setup() {
+    definePageMeta({
+      layout: "admin",
+    });
+
     const api = useUserApi();
 
     const state = reactive({

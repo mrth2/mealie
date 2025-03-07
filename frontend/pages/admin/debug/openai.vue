@@ -69,8 +69,11 @@ import { alert } from "~/composables/use-toast";
 import type { VForm } from "~/types/vuetify";
 
 export default defineNuxtComponent({
-  layout: "admin",
   setup() {
+    definePageMeta({
+      layout: "admin",
+    });
+
     const api = useAdminApi();
     const i18n = useI18n();
 

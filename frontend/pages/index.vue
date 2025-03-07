@@ -7,8 +7,11 @@ import { useAsyncKey } from "~/composables/use-utils";
 import type { AppInfo, AppStartupInfo } from "~/lib/api/types/admin";
 
 export default defineNuxtComponent({
-  layout: "blank",
   setup() {
+    definePageMeta({
+      layout: "blank",
+    });
+
     const $auth = useMealieAuth();
     const { $axios } = useNuxtApp();
     const router = useRouter();

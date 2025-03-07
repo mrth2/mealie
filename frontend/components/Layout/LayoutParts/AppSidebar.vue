@@ -96,7 +96,7 @@
       <v-list nav density="compact" v-model:selected="bottomSelected">
         <template v-for="nav in bottomLinks">
           <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
-            <v-list-item :key="nav.key || nav.title" exact link :to="nav.to || null" :href="nav.href || null"
+            <v-list-item :key="nav.key || nav.title" exact link :to="nav.to" :href="nav.href"
               :target="nav.href ? '_blank' : null">
               <template #prepend>
                 <v-icon>{{ nav.icon }}</v-icon>
@@ -112,6 +112,7 @@
 </template>
 
 <script lang="ts">
+import { defineModel } from "vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { SidebarLinks } from "~/types/application-types";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
@@ -141,26 +142,10 @@ export default defineNuxtComponent({
     bottomLinks: {
       type: Array as () => SidebarLinks,
       required: false,
-      default: null,
+      default: [],
     },
   },
   setup(props, context) {
-    // V-Model Support
-    const drawer = computed({
-      get: () => {
-        return props.value;
-      },
-      set: (val) => {
-        if (window.innerWidth < 760 && state.hasOpenedBefore === false) {
-          state.hasOpenedBefore = true;
-          val = false;
-          context.emit("input", val);
-        } else {
-          context.emit("input", val);
-        }
-      },
-    });
-
     const $auth = useMealieAuth();
     const { loggedIn, isOwnGroup } = useLoggedInState();
 
@@ -174,6 +159,16 @@ export default defineNuxtComponent({
       bottomSelected: null as string[] | null,
       hasOpenedBefore: false as boolean,
     });
+    // model to control the drawer
+    const drawer = defineModel<boolean>('drawer', {
+      required: false,
+      default: false,
+    });
+    watch(drawer, () => {
+      if (window.innerWidth < 760 && state.hasOpenedBefore === false) {
+        state.hasOpenedBefore = true;
+      }
+    })
 
     const allLinks = computed(() => [...props.topLink, ...(props.secondaryLinks || []), ...(props.bottomLinks || [])]);
     function initDropdowns() {

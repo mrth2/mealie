@@ -75,8 +75,11 @@ import UserRegistrationForm from "~/components/Domain/User/UserRegistrationForm.
 
 export default defineNuxtComponent({
   components: { UserRegistrationForm },
-  layout: "blank",
   setup() {
+    definePageMeta({
+      layout: "admin",
+    });
+
     // ================================================================
     // Setup
     const i18n = useI18n();
