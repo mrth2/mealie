@@ -30,7 +30,7 @@
               <v-list-item class="pa-0">
                 <v-list class="py-0" style="width: 100%;">
                   <v-list-item v-for="option, idx in eventTypeFilterState" :key="idx">
-                    <v-checkbox :input-value="option.checked" readonly @click="toggleEventTypeOption(option.value)">
+                    <v-checkbox :model-value="option.checked" readonly @click="toggleEventTypeOption(option.value)">
                       <template #label>
                         <v-icon start>
                           {{ option.icon }}

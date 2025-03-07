@@ -63,7 +63,7 @@
                       .ingredientSections[ingredientSectionIndex]
                       .ingredients[i]
                       .checked">
-                  <v-checkbox hide-details :input-value="ingredientData.checked" class="pt-0 my-auto py-auto"
+                  <v-checkbox hide-details :model-value="ingredientData.checked" class="pt-0 my-auto py-auto"
                     color="secondary" density="compact" />
                   <div :key="ingredientData.ingredient.quantity">
                     <RecipeIngredientListItem :ingredient="ingredientData.ingredient"
