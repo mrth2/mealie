@@ -111,8 +111,7 @@ export default defineNuxtComponent({
 
     const languageDialog = ref<boolean>(false);
 
-    const sidebar = ref<boolean | null>(null);
-
+    const sidebar = ref<boolean>(false);
     onMounted(() => {
       sidebar.value = !$vuetify.display.md;
     });
