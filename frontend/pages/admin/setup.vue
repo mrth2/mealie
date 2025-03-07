@@ -11,7 +11,7 @@
         <v-card-title class="text-h4 justify-center text-center">
           {{ $t('admin.setup.welcome-to-mealie-get-started') }}
         </v-card-title>
-        <v-btn :to="groupSlug ? `/g/${groupSlug}` : '/login'" rounded variant="outlined"variant="text" color="grey lighten-1"
+        <v-btn :to="groupSlug ? `/g/${groupSlug}` : '/login'" rounded variant="outlined" color="grey lighten-1"
           class="text-subtitle-2 d-flex mx-auto" style="width: fit-content;">
           {{ $t('admin.setup.already-set-up-bring-to-homepage') }}
         </v-btn>

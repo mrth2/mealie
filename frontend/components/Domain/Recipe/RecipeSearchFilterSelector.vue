@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-center align-center">
-    <v-btn-toggle v-model="selected" tile group color="primary accent-3" mandatory @change="emitMulti">
+    <v-btn-toggle v-model="selected" tile group color="primary accent-3" mandatory="force" @change="emitMulti">
       <v-btn size="small" :value="false">
         {{ $t("search.include") }}
       </v-btn>
@@ -8,7 +8,7 @@
         {{ $t("search.exclude") }}
       </v-btn>
     </v-btn-toggle>
-    <v-btn-toggle v-model="match" tile group color="primary accent-3" mandatory @change="emitMulti">
+    <v-btn-toggle v-model="match" tile group color="primary accent-3" mandatory="force" @change="emitMulti">
       <v-btn size="small" :value="false" class="text-uppercase">
         {{ $t("search.and") }}
       </v-btn>

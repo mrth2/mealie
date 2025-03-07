@@ -6,7 +6,7 @@
         <v-row>
           <v-col cols="auto" align-self="center" class="text-center">
             <div class="text-subtitle-2" style="text-align: center;">{{ $t('recipe.recipe-image') }}</div>
-            <v-btn-toggle v-model="preferences.imagePosition" mandatory style="width: fit-content;">
+            <v-btn-toggle v-model="preferences.imagePosition" mandatory="force" style="width: fit-content;">
               <v-btn :value="ImagePosition.left">
                 <v-icon>{{ $globals.icons.dockLeft }}</v-icon>
               </v-btn>
