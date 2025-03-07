@@ -6,8 +6,8 @@
         <!-- Filters -->
         <v-menu offset-y bottom start nudge-bottom="3" :close-on-content-click="false">
           <template #activator="{ props }">
-            <v-badge :content="filterBadgeCount" :value="filterBadgeCount" bordered overlap>
-              <v-btn fab size="small" color="info" v-bind="props">
+            <v-badge :content="filterBadgeCount" :value="filterBadgeCount" bordered>
+              <v-btn class="rounded-circle" size="small" color="info" v-bind="props">
                 <v-icon> {{ $globals.icons.filter }} </v-icon>
               </v-btn>
             </v-badge>

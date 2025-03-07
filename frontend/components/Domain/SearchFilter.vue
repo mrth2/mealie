@@ -2,7 +2,7 @@
   <div>
     <v-menu v-model="state.menu" offset-y bottom nudge-bottom="3" :close-on-content-click="false">
       <template #activator="{ props }">
-        <v-badge :value="selected.length > 0" size="small" overlap color="primary" :content="selected.length">
+        <v-badge :value="selected.length > 0" size="small" color="primary" :content="selected.length">
           <v-btn size="small" color="accent" dark v-bind="props">
             <slot></slot>
           </v-btn>

@@ -15,7 +15,8 @@
       <div v-if="loggedIn">
         <v-tooltip v-if="canEdit" bottom color="info">
           <template #activator="{ props }">
-            <v-btn fab size="small" class="ml-1" color="info" v-bind="props" @click="$emit('edit', true)">
+            <v-btn class="rounded-circle" size="small" class="ml-1" color="info" v-bind="props"
+              @click="$emit('edit', true)">
               <v-icon> {{ $globals.icons.edit }} </v-icon>
             </v-btn>
           </template>
@@ -39,8 +40,8 @@
         }" class="ml-1" @print="$emit('print')" />
     </div>
     <div v-if="open" class="custom-btn-group gapped">
-      <v-btn v-for="(btn, index) in editorButtons" :key="index" :fab="$vuetify.display.xs" :size="$vuetify.display.xs ? 'small' : undefined"
-        :color="btn.color" @click="emitHandler(btn.event)">
+      <v-btn v-for="(btn, index) in editorButtons" :key="index" :class="{ 'rounded-circle': $vuetify.display.xs }"
+        :size="$vuetify.display.xs ? 'small' : undefined" :color="btn.color" @click="emitHandler(btn.event)">
         <v-icon :left="!$vuetify.display.xs">{{ btn.icon }}</v-icon>
         {{ $vuetify.display.xs ? "" : btn.text }}
       </v-btn>
