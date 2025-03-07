@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="drawer" class="d-flex flex-column d-print-none" clipped app width="240px">
+  <v-navigation-drawer v-model="showDrawer" class="d-flex flex-column d-print-none" clipped app :expand-on-hover="false" width="240px">
     <!-- User Profile -->
     <template v-if="loggedIn">
       <v-list-item two-line :to="userProfileLink" exact>
@@ -22,7 +22,7 @@
 
     <!-- Primary Links -->
     <template v-if="topLink">
-      <v-list nav density="compact" v-model:selected="secondarySelected">
+      <v-list nav density="comfortable" v-model:selected="secondarySelected">
         <template v-for="nav in topLink">
           <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
             <!-- Multi Items -->
@@ -116,16 +116,13 @@ import { defineModel } from "vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { SidebarLinks } from "~/types/application-types";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
+import { useWindowSize } from "@vueuse/core";
 
 export default defineNuxtComponent({
   components: {
     UserAvatar,
   },
   props: {
-    value: {
-      type: Boolean,
-      default: null,
-    },
     user: {
       type: Object,
       default: null,
@@ -160,15 +157,25 @@ export default defineNuxtComponent({
       hasOpenedBefore: false as boolean,
     });
     // model to control the drawer
-    const drawer = defineModel<boolean>('drawer', {
+    const showDrawer = defineModel<boolean>('drawer', {
       required: false,
       default: false,
     });
-    watch(drawer, () => {
+    watch(showDrawer, () => {
       if (window.innerWidth < 760 && state.hasOpenedBefore === false) {
         state.hasOpenedBefore = true;
       }
     })
+    const { width: wWidth } = useWindowSize();
+    watch(wWidth, (w) => {
+      if (w > 760) {
+        showDrawer.value = true;
+      }
+      else {
+        showDrawer.value = false;
+      }
+    });
+
 
     const allLinks = computed(() => [...props.topLink, ...(props.secondaryLinks || []), ...(props.bottomLinks || [])]);
     function initDropdowns() {
@@ -190,7 +197,7 @@ export default defineNuxtComponent({
       ...toRefs(state),
       userFavoritesLink,
       userProfileLink,
-      drawer,
+      showDrawer,
       loggedIn,
       isOwnGroup,
       sessionUser: $auth.user,
