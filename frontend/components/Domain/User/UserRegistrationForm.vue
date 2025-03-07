@@ -38,7 +38,6 @@
 </template>
 
 <script lang="ts">
-
 import { useDark } from "@vueuse/core";
 import { validators } from "~/composables/use-validators";
 import { useUserRegistrationForm } from "~/composables/use-users/user-registration-form";
@@ -49,7 +48,8 @@ const inputAttrs = {
   filled: true,
   rounded: true,
   validateOnBlur: true,
-  class: "rounded-lg",
+  class: "rounded-lg pb-1",
+  variant: 'solo-filled' as any
 };
 
 export default defineNuxtComponent({
