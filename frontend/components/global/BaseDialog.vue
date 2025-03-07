@@ -5,19 +5,19 @@
       v-model="dialog"
       absolute
       :width="width"
-      :max-width="maxWidth"
+      :max-width="maxWidth ?? undefined"
       :content-class="top ? 'top-dialog' : undefined"
       :fullscreen="$vuetify.display.xs"
       @keydown.enter="
-        $emit('submit');
+        emit('submit');
         dialog = false;
       "
-      @click:outside="$emit('cancel')"
-      @keydown.esc="$emit('cancel')"
+      @click:outside="emit('cancel')"
+      @keydown.esc="emit('cancel')"
     >
       <v-card height="100%">
-        <v-app-bar dark density="compact" :color="color" class="">
-          <v-icon size="large" start>
+        <v-app-bar dark density="comfortable" :color="color" class="px-3">
+          <v-icon size="large">
             {{ icon }}
           </v-icon>
           <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
@@ -34,11 +34,11 @@
         <v-card-actions>
           <slot name="card-actions">
             <v-btn
-              text
+              variant="text"
               color="grey"
               @click="
                 dialog = false;
-                $emit('cancel');
+                emit('cancel');
               "
             >
               {{ $t("general.cancel") }}
@@ -53,7 +53,7 @@
               type="submit"
               :disabled="submitDisabled"
               @click="
-                $emit('confirm');
+                emit('confirm');
                 dialog = false;
               "
             >
@@ -84,120 +84,97 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { defineModel, ref, computed, watch } from 'vue';
+import { useNuxtApp } from '#app';
 
-export default defineNuxtComponent({
-  name: "BaseDialog",
-  props: {
-    value: {
-      type: Boolean,
-      default: false,
-    },
-    color: {
-      type: String,
-      default: "primary",
-    },
-    title: {
-      type: String,
-      default: "Modal Title",
-    },
-    icon: {
-      type: String,
-      default: null,
-    },
-    width: {
-      type: [Number, String],
-      default: "500",
-    },
-    maxWidth: {
-      type: [Number, String],
-      default: null,
-    },
-    loading: {
-      type: Boolean,
-      default: false,
-    },
-    top: {
-      default: null,
-      type: Boolean,
-    },
-    submitIcon: {
-      type: String,
-      default: null,
-    },
-    submitText: {
-      type: String,
-      default: function () {
-        return useNuxtApp().$i18n.t("general.create");
-      },
-    },
-    submitDisabled: {
-      type: Boolean,
-      default: false,
-    },
-    keepOpen: {
-      default: false,
-      type: Boolean,
-    },
-  },
-  setup(props, context) {
-    const dialog = computed<boolean>({
-      get() {
-        return props.value;
-      },
-      set(val) {
-        context.emit("input", val);
-      },
-    });
+interface DialogProps {
+  color?: string;
+  title?: string;
+  icon?: string | null;
+  width?: number | string;
+  maxWidth?: number | string | null;
+  loading?: boolean;
+  top?: boolean | null;
+  submitIcon?: string | null;
+  submitText?: string;
+  submitDisabled?: boolean;
+  keepOpen?: boolean;
+}
 
-    return {
-      dialog,
-    };
-  },
-  data() {
-    return {
-      submitted: false,
-    };
-  },
-  computed: {
-    determineClose(): boolean {
-      return this.submitted && !this.loading && !this.keepOpen;
-    },
-  },
-  watch: {
-    determineClose() {
-      this.submitted = false;
-      this.dialog = false;
-    },
-    dialog(val) {
-      if (val) this.submitted = false;
-      if (!val) this.$emit("close");
-    },
-  },
-  methods: {
-    submitEvent() {
-      this.$emit("submit");
-      this.submitted = true;
-    },
-    deleteEvent() {
-      this.$emit("delete");
-      this.submitted = true;
-    },
-    open() {
-      this.dialog = true;
-      this.logDeprecatedProp("open");
-    },
-    close() {
-      this.dialog = false;
-      this.logDeprecatedProp("close");
-    },
-    logDeprecatedProp(val: string) {
-      console.warn(
-        `[BaseDialog] The method '${val}' is deprecated. Please use v-model="value" to manage state instead.`
-      );
-    },
-  },
+interface DialogEmits {
+  (e: 'submit'): void;
+  (e: 'cancel'): void;
+  (e: 'confirm'): void;
+  (e: 'delete'): void;
+  (e: 'close'): void;
+}
+
+// Using TypeScript interface with withDefaults for props
+const props = withDefaults(defineProps<DialogProps>(), {
+  color: "primary",
+  title: "Modal Title",
+  icon: null,
+  width: "500",
+  maxWidth: null,
+  loading: false,
+  top: null,
+  submitIcon: null,
+  submitText: () => useNuxtApp().$i18n.t("general.create"),
+  submitDisabled: false,
+  keepOpen: false,
 });
+
+const dialog = defineModel<boolean>({
+  required: true,
+  default: false,
+});
+
+const emit = defineEmits<DialogEmits>();
+
+const submitted = ref(false);
+
+const determineClose = computed(() => {
+  return submitted.value && !props.loading && !props.keepOpen;
+});
+
+watch(determineClose, (shouldClose) => {
+  if (shouldClose) {
+    submitted.value = false;
+    dialog.value = false;
+  }
+});
+
+watch(dialog, (val) => {
+  if (val) submitted.value = false;
+  if (!val) emit('close');
+});
+
+function submitEvent() {
+  emit('submit');
+  submitted.value = true;
+}
+
+function deleteEvent() {
+  emit('delete');
+  submitted.value = true;
+}
+
+function open() {
+  dialog.value = true;
+  logDeprecatedProp('open');
+}
+
+function close() {
+  dialog.value = false;
+  logDeprecatedProp('close');
+}
+
+function logDeprecatedProp(val: string) {
+  console.warn(
+    `[BaseDialog] The method '${val}' is deprecated. Please use v-model="value" to manage state instead.`
+  );
+}
 </script>
 
 <style>

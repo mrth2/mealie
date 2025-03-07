@@ -12,8 +12,7 @@
           <v-avatar class="pa-2 icon-avatar" color="primary" size="75">
             <svg class="icon-white" style="width: 75" viewBox="0 0 24 24">
               <path
-                d="M8.1,13.34L3.91,9.16C2.35,7.59 2.35,5.06 3.91,3.5L10.93,10.5L8.1,13.34M13.41,13L20.29,19.88L18.88,21.29L12,14.41L5.12,21.29L3.71,19.88L13.36,10.22L13.16,10C12.38,9.23 12.38,7.97 13.16,7.19L17.5,2.82L18.43,3.74L15.19,7L16.15,7.94L19.39,4.69L20.31,5.61L17.06,8.85L18,9.81L21.26,6.56L22.18,7.5L17.81,11.84C17.03,12.62 15.77,12.62 15,11.84L14.78,11.64L13.41,13Z"
-              />
+                d="M8.1,13.34L3.91,9.16C2.35,7.59 2.35,5.06 3.91,3.5L10.93,10.5L8.1,13.34M13.41,13L20.29,19.88L18.88,21.29L12,14.41L5.12,21.29L3.71,19.88L13.36,10.22L13.16,10C12.38,9.23 12.38,7.97 13.16,7.19L17.5,2.82L18.43,3.74L15.19,7L16.15,7.94L19.39,4.69L20.31,5.61L17.06,8.85L18,9.81L21.26,6.56L22.18,7.5L17.81,11.84C17.03,12.62 15.77,12.62 15,11.84L14.78,11.64L13.41,13Z" />
             </svg>
           </v-avatar>
         </div>
@@ -22,33 +21,19 @@
         <slot :width="pageWidth"></slot>
       </div>
       <div class="mx-2 my-4">
-        <v-progress-linear
-          v-if="value > 0"
-          :value="Math.ceil((value/maxPageNumber)*100)"
-          striped
-          height="10"
-        />
+        <v-progress-linear v-if="wizardPage > 0" :value="Math.ceil((wizardPage / maxPageNumber) * 100)" striped
+          height="10" />
       </div>
       <v-divider class="ma-2" />
       <v-card-actions width="100%">
-        <v-btn
-          v-if="prevButtonShow"
-          :disabled="!prevButtonEnable"
-          :color="prevButtonColor"
-          @click="decrementPage"
-        >
+        <v-btn v-if="prevButtonShow" :disabled="!prevButtonEnable" :color="prevButtonColor" @click="decrementPage">
           <v-icon v-if="prevButtonIconRef">
             {{ prevButtonIconRef }}
           </v-icon>
           {{ prevButtonTextRef }}
         </v-btn>
         <v-spacer />
-        <v-btn
-          v-if="nextButtonShow"
-          :disabled="!nextButtonEnable"
-          :color="nextButtonColorRef"
-          @click="incrementPage"
-        >
+        <v-btn v-if="nextButtonShow" variant="elevated" :disabled="!nextButtonEnable" :color="nextButtonColorRef" @click="incrementPage">
           <div v-if="isSubmitting">
             <v-progress-circular indeterminate color="white" size="24" />
           </div>
@@ -74,14 +59,10 @@
 </template>
 
 <script lang="ts">
-
+import { defineModel } from 'vue';
 
 export default defineNuxtComponent({
   props: {
-    value: {
-      type: Number,
-      required: true,
-    },
     minPageNumber: {
       type: Number,
       default: 0,
@@ -165,16 +146,18 @@ export default defineNuxtComponent({
     const ready = ref(false);
     const langDialog = ref(false);
 
+    const wizardPage = defineModel<number>({ required: true, default: 0 });
+
     const prevButtonTextRef = computed(() => props.prevButtonText || i18n.t("general.back"));
     const prevButtonIconRef = computed(() => props.prevButtonIcon || $globals.icons.back);
     const nextButtonTextRef = computed(
       () => props.nextButtonText || (
-          props.nextButtonIsSubmit ? i18n.t("general.submit") : i18n.t("general.next")
-        )
-      );
+        props.nextButtonIsSubmit ? i18n.t("general.submit") : i18n.t("general.next")
+      )
+    );
     const nextButtonIconRef = computed(
       () => props.nextButtonIcon || (
-          props.nextButtonIsSubmit ? $globals.icons.createAlt : $globals.icons.forward
+        props.nextButtonIsSubmit ? $globals.icons.createAlt : $globals.icons.forward
       )
     );
     const nextButtonColorRef = computed(
@@ -189,25 +172,25 @@ export default defineNuxtComponent({
         goToPage(props.maxPageNumber);
         return;
       }
-
-      context.emit("input", page);
+      wizardPage.value = page;
     }
 
     function decrementPage() {
-      goToPage(props.value - 1);
+      goToPage(wizardPage.value - 1);
     }
 
     function incrementPage() {
       if (props.nextButtonIsSubmit) {
-        context.emit("submit", props.value);
+        context.emit("submit", wizardPage.value);
       } else {
-        goToPage(props.value + 1);
+        goToPage(wizardPage.value + 1);
       }
     }
 
     ready.value = true;
 
     return {
+      wizardPage,
       ready,
       langDialog,
       prevButtonTextRef,
