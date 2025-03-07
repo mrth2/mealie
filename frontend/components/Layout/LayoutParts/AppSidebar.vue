@@ -2,7 +2,7 @@
   <v-navigation-drawer v-model="showDrawer" class="d-flex flex-column d-print-none" clipped app :expand-on-hover="false" width="240px">
     <!-- User Profile -->
     <template v-if="loggedIn">
-      <v-list-item two-line :to="userProfileLink" exact>
+      <v-list-item lines="two" :to="userProfileLink" exact>
         <UserAvatar list :user-id="sessionUser.id" :tooltip="false" />
 
         <v-list-item-title class="pr-2"> {{ sessionUser.fullName }}</v-list-item-title>

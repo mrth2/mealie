@@ -19,7 +19,7 @@
             :image-version="image"
           />
         </v-img>
-        <v-list-item three-line :class="vertical ? 'px-2' : 'px-0'">
+        <v-list-item lines="three" :class="vertical ? 'px-2' : 'px-0'">
           <slot v-if="!vertical" name="avatar">
             <v-avatar tile :height="height" width="125" class="v-mobile-img rounded-sm my-0">
               <RecipeCardImage
