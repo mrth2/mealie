@@ -5,10 +5,10 @@
       {{ capitalize(item.category) }}
     </template>
     <template #item.timestamp="{ item }">
-      {{ $d(Date.parse(item.timestamp), "long") }}
+      {{ $d(Date.parse(item.timestamp!), "long") }}
     </template>
     <template #item.status="{ item }">
-      {{ capitalize(item.status) }}
+      {{ capitalize(item.status!) }}
     </template>
     <template #item.actions="{ item }">
       <v-btn icon @click.stop="deleteReport(item.id)">

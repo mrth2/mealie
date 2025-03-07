@@ -35,7 +35,7 @@
     <BaseButton create @click="createDialog = true" />
     <v-expansion-panels v-if="notifiers" class="mt-2">
       <v-expansion-panel v-for="(notifier, index) in notifiers" :key="index" class="my-2 left-border rounded">
-        <v-expansion-panel-header disable-icon-rotate class="headline">
+        <v-expansion-panel-title disable-icon-rotate class="headline">
           <div class="d-flex align-center">
             {{ notifier.name }}
           </div>
@@ -46,8 +46,8 @@
               </v-icon>
             </v-btn>
           </template>
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        </v-expansion-panel-title>
+        <v-expansion-panel-text>
           <v-text-field v-model="notifiers[index].name" :label="$t('general.name')"></v-text-field>
           <v-text-field v-model="notifiers[index].appriseUrl"
             :label="$t('events.apprise-url-skipped-if-blank')"></v-text-field>
@@ -84,7 +84,7 @@
               },
             ]" @delete="openDelete(notifier)" @save="saveNotifier(notifier)" @test="testNotifier(notifier)" />
           </v-card-actions>
-        </v-expansion-panel-content>
+        </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
   </v-container>

@@ -75,7 +75,7 @@
           @change="actions.updateOrder(myCookbooks)"
         >
           <v-expansion-panel v-for="cookbook in myCookbooks" :key="cookbook.id" class="my-2 left-border rounded">
-            <v-expansion-panel-header disable-icon-rotate class="headline">
+            <v-expansion-panel-title disable-icon-rotate class="headline">
               <div class="d-flex align-center">
                 <v-icon size="large" start>
                   {{ $globals.icons.pages }}
@@ -92,8 +92,8 @@
                   </v-icon>
                 </v-btn>
               </template>
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
+            </v-expansion-panel-title>
+            <v-expansion-panel-text>
               <CookbookEditor :cookbook="cookbook" :actions="actions" :collapsable="false" @delete="deleteEventHandler" />
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -113,7 +113,7 @@
                 @delete="deleteEventHandler(cookbook)"
                 @save="actions.updateOne(cookbook)" />
               </v-card-actions>
-            </v-expansion-panel-content>
+            </v-expansion-panel-text>
           </v-expansion-panel>
         </draggable>
       </v-expansion-panels>

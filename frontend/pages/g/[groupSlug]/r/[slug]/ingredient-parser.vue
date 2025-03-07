@@ -37,7 +37,7 @@
           <draggable v-if="parsedIng.length > 0" v-model="parsedIng" handle=".handle" delay="250"
             :delay-on-touch-only="true" :style="{ width: '100%' }" ghost-class="ghost">
             <v-expansion-panel v-for="(ing, index) in parsedIng" :key="index">
-              <v-expansion-panel-header class="my-0 py-0" disable-icon-rotate>
+              <v-expansion-panel-title class="my-0 py-0" disable-icon-rotate>
                 <template #default="{ open }">
                   <v-fade-transition>
                     <span v-if="!open" key="0"> {{ ing.input }} </span>
@@ -51,8 +51,8 @@
                     {{ ing.confidence ? asPercentage(ing.confidence.average) : "" }}
                   </div>
                 </template>
-              </v-expansion-panel-header>
-              <v-expansion-panel-content class="pb-0 mb-0">
+              </v-expansion-panel-title>
+              <v-expansion-panel-text class="pb-0 mb-0">
                 <RecipeIngredientEditor v-model="parsedIng[index].ingredient" allow-insert-ingredient
                   @insert-ingredient="insertIngredient(index)" @delete="deleteIngredient(index)" />
                 {{ ing.input }}
@@ -67,7 +67,7 @@
                     {{ errors[index].foodErrorMessage }}
                   </BaseButton>
                 </v-card-actions>
-              </v-expansion-panel-content>
+              </v-expansion-panel-text>
             </v-expansion-panel>
           </draggable>
         </v-expansion-panels>

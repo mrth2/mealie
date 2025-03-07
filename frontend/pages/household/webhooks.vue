@@ -13,7 +13,7 @@
     <BaseButton create @click="actions.createOne()" />
     <v-expansion-panels class="mt-2">
       <v-expansion-panel v-for="(webhook, index) in webhooks" :key="index" class="my-2 left-border rounded">
-        <v-expansion-panel-header disable-icon-rotate class="headline">
+        <v-expansion-panel-title disable-icon-rotate class="headline">
           <div class="d-flex align-center">
             <v-icon size="large" start :color="webhook.enabled ? 'info' : null">
               {{ $globals.icons.webhook }}
@@ -27,8 +27,8 @@
               </v-icon>
             </v-btn>
           </template>
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        </v-expansion-panel-title>
+        <v-expansion-panel-text>
           <GroupWebhookEditor
             :key="webhook.id"
             :webhook="webhook"
@@ -36,7 +36,7 @@
             @delete="actions.deleteOne($event)"
             @test="actions.testOne($event).then(() => alert.success($t('events.test-message-sent')))"
           />
-        </v-expansion-panel-content>
+        </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
   </v-container>
