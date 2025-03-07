@@ -75,7 +75,7 @@
             <v-toolbar-title v-if="!isEditForm" class="headline">
               <v-app-bar-title> {{ step.title }} </v-app-bar-title>
             </v-toolbar-title>
-            <v-text-field v-if="isEditForm" v-model="step.title" class="headline pa-0 mt-5" density="compact" solo flat
+            <v-text-field v-if="isEditForm" v-model="step.title" class="headline pa-0 mt-5" density="compact" variant="solo" flat
               :placeholder="$t('recipe.section-title')" bg-color="primary">
             </v-text-field>
           </v-app-bar>
@@ -84,7 +84,7 @@
               :elevation="isHovering ? 12 : 2" :ripple="false" @click="toggleDisabled(index)">
               <v-card-title :class="{ 'pb-0': !isChecked(index) }">
                 <v-text-field v-if="isEditForm" v-model="step.summary" class="headline handle" hide-details
-                  density="compact" solo flat :placeholder="$t('recipe.step-index', { step: index + 1 })">
+                  density="compact" variant="solo" flat :placeholder="$t('recipe.step-index', { step: index + 1 })">
                   <template #prepend>
                     <v-icon size="26">{{ $globals.icons.arrowUpDown }}</v-icon>
                   </template>
