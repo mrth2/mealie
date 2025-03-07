@@ -63,7 +63,7 @@
     <!-- Email -->
     <section>
       <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.email" :title="$t('user.email')" />
-      <v-alert border="start" colored-border :type="appConfig.emailReady ? 'success' : 'error'" elevation="2">
+      <v-alert border="start" border-color :type="appConfig.emailReady ? 'success' : 'error'" elevation="2">
         <div class="font-weight-medium">{{ $t('settings.email-configuration-status') }}</div>
         <div>
           {{ appConfig.emailReady ? $t('settings.ready') : $t('settings.not-ready') }}
