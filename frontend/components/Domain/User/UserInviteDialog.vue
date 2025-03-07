@@ -7,7 +7,7 @@
           item-value="id" :return-object="false" variant="filled" :label="$t('group.user-group')"
           :rules="[validators.required]" />
         <v-select v-if="households && households.length" v-model="selectedHousehold" :items="filteredHouseholds"
-          item-text="name" item-value="id" :return-object="false" variant="filled" :label="$t('household.user-household')"
+          item-title="name" item-value="id" :return-object="false" variant="filled" :label="$t('household.user-household')"
           :rules="[validators.required]" />
         <v-row>
           <v-col cols="9">

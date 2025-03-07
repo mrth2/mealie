@@ -1,7 +1,7 @@
 <template>
   <v-select v-model="selected" :items="households" :label="label" :hint="description" :persistent-hint="!!description"
     item-title="name" :multiple="multiselect" :prepend-inner-icon="$globals.icons.household" return-object>
-    <template #selection="data">
+    <template #chip="data">
       <v-chip :key="data.index" class="ma-1" :input-value="data.item" size="small" close label color="accent" dark
         @click:close="removeByIndex(data.index)">
         {{ data.item.raw.name || data.item }}

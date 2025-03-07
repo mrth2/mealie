@@ -16,10 +16,10 @@
           </div>
           <!-- This is disabled since we can't properly handle changing the user's group in most scenarios -->
           <v-select v-if="groups" v-model="user.group" disabled :items="groups" rounded class="rounded-lg"
-            item-text="name" item-value="name" :return-object="false"variant="filled" :label="$t('group.user-group')"
+            item-title="name" item-value="name" :return-object="false"variant="filled" :label="$t('group.user-group')"
             :rules="[validators.required]" />
           <v-select v-if="households" v-model="user.household" :items="households" rounded class="rounded-lg"
-            item-text="name" item-value="name" :return-object="false"variant="filled" :label="$t('household.user-household')"
+            item-title="name" item-value="name" :return-object="false"variant="filled" :label="$t('household.user-household')"
             :rules="[validators.required]" />
           <div class="d-flex py-2 pr-2">
             <BaseButton type="button" :loading="generatingToken" create @click.prevent="handlePasswordReset">

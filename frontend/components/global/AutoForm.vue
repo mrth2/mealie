@@ -13,7 +13,7 @@
         <!-- Check Box -->
         <v-checkbox
           v-if="inputField.type === fieldTypes.BOOLEAN"
-          v-model="value[inputField.varName]"
+          v-model="modelValue[inputField.varName]"
           class="my-0 py-0"
           :name="inputField.varName"
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
@@ -35,7 +35,7 @@
         <!-- Text Field -->
         <v-text-field
           v-else-if="inputField.type === fieldTypes.TEXT || inputField.type === fieldTypes.PASSWORD"
-          v-model="value[inputField.varName]"
+          v-model="modelValue[inputField.varName]"
           :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
           variant="filled"
@@ -55,7 +55,7 @@
         <!-- Text Area -->
         <v-textarea
           v-else-if="inputField.type === fieldTypes.TEXT_AREA"
-          v-model="value[inputField.varName]"
+          v-model="modelValue[inputField.varName]"
           :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
           variant="filled"
@@ -75,17 +75,17 @@
         <!-- Option Select -->
         <v-select
           v-else-if="inputField.type === fieldTypes.SELECT"
-          v-model="value[inputField.varName]"
+          v-model="modelValue[inputField.varName]"
           :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
           variant="filled"
           rounded
           class="rounded-lg"
-          :prepend-icon="inputField.icons ? value[inputField.varName] : null"
+          :prepend-icon="inputField.icons ? modelValue[inputField.varName] : null"
           :label="inputField.label"
           :name="inputField.varName"
           :items="inputField.options"
-          :item-text="inputField.itemText"
+          :item-title="inputField.itemText"
           :item-value="inputField.itemValue"
           :return-object="false"
           :hint="inputField.hint"
@@ -96,8 +96,8 @@
         >
           <template #item="{ item }">
             <div>
-              <v-list-item-title>{{ item.text }}</v-list-item-title>
-              <v-list-item-subtitle>{{ item.description }}</v-list-item-subtitle>
+              <v-list-item-title>{{ item.raw.text }}</v-list-item-title>
+              <v-list-item-subtitle>{{ item.raw.description }}</v-list-item-subtitle>
             </div>
           </template>
         </v-select>
@@ -106,12 +106,12 @@
         <div v-else-if="inputField.type === fieldTypes.COLOR" class="d-flex" style="width: 100%">
           <v-menu offset-y>
             <template #activator="{ props }">
-              <v-btn class="my-2 ml-auto" style="min-width: 200px" :color="value[inputField.varName]" dark v-bind="props">
+              <v-btn class="my-2 ml-auto" style="min-width: 200px" :color="modelValue[inputField.varName]" dark v-bind="props">
                 {{ inputField.label }}
               </v-btn>
             </template>
             <v-color-picker
-              v-model="value[inputField.varName]"
+              v-model="modelValue[inputField.varName]"
               value="#7417BE"
               hide-canvas
               hide-inputs
@@ -123,21 +123,21 @@
         </div>
 
         <div v-else-if="inputField.type === fieldTypes.OBJECT">
-          <auto-form v-model="value[inputField.varName]" :color="color" :items="inputField.items" @blur="emitBlur" />
+          <auto-form v-model="modelValue[inputField.varName]" :color="color" :items="inputField.items" @blur="emitBlur" />
         </div>
 
         <!-- List Type -->
         <div v-else-if="inputField.type === fieldTypes.LIST">
-          <div v-for="(item, idx) in value[inputField.varName]" :key="idx">
+          <div v-for="(item, idx) in modelValue[inputField.varName]" :key="idx">
             <p>
               {{ inputField.label }} {{ idx + 1 }}
               <span>
-                <BaseButton class="ml-5" x-small delete @click="removeByIndex(value[inputField.varName], idx)" />
+                <BaseButton class="ml-5" x-small delete @click="removeByIndex(modelValue[inputField.varName], idx)" />
               </span>
             </p>
             <v-divider class="mb-5 mx-2" />
             <auto-form
-              v-model="value[inputField.varName][idx]"
+              v-model="modelValue[inputField.varName][idx]"
               :color="color"
               :items="inputField.items"
               @blur="emitBlur"
@@ -145,7 +145,7 @@
           </div>
           <v-card-actions>
             <v-spacer />
-            <BaseButton small @click="value[inputField.varName].push(getTemplate(inputField.items))">
+            <BaseButton small @click="modelValue[inputField.varName].push(getTemplate(inputField.items))">
               {{ $t("general.new") }}
             </BaseButton>
           </v-card-actions>

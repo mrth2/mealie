@@ -51,7 +51,7 @@
               <template #item="{ item }">
                 <v-avatar>
                   <v-icon class="mr-auto">
-                    {{ item.icon }}
+                    {{ item.raw.icon }}
                   </v-icon>
                 </v-avatar>
                 {{ item.title }}

@@ -12,7 +12,7 @@
       <v-select
         v-model="recipe.userId"
         :items="allUsers"
-        item-text="fullName"
+        item-title="fullName"
         item-value="id"
         :label="$t('general.owner')"
         hide-details

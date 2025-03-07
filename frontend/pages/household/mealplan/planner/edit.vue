@@ -31,7 +31,7 @@
             :label="$t('recipe.entry-type')" />
           <v-autocomplete v-if="!dialog.note" v-model="newMeal.recipeId" :label="$t('meal-plan.meal-recipe')"
             :items="search.data.value" :loading="search.loading.value" :search-input.sync="search.query.value"
-            cache-items item-text="name" item-value="id" :return-object="false" :rules="[requiredRule]" />
+            cache-items item-title="name" item-value="id" :return-object="false" :rules="[requiredRule]" />
           <template v-else>
             <v-text-field v-model="newMeal.title" :rules="[requiredRule]" :label="$t('meal-plan.meal-title')" />
             <v-textarea v-model="newMeal.text" rows="2" :label="$t('meal-plan.meal-note')" />

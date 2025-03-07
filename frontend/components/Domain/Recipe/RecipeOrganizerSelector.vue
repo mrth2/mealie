@@ -1,11 +1,11 @@
 <template>
   <v-autocomplete v-model="selected" :items="storeItem" :value="modelValue" :label="label" chips deletable-chips
-    item-text="name" multiple :prepend-inner-icon="icon" return-object v-bind="inputAttrs" auto-select-first
+    item-title="name" multiple :prepend-inner-icon="icon" return-object v-bind="inputAttrs" auto-select-first
     :search-input.sync="searchInput" class="pa-0" @change="resetSearchInput">
-    <template #selection="data">
-      <v-chip :key="data.index" class="ma-1" :input-value="data.selected" size="small" close label color="accent" dark
+    <template #chip="data">
+      <v-chip :key="data.index" class="ma-1" :input-value="data.item.raw.selected" size="small" close label color="accent" dark
         @click:close="removeByIndex(data.index)">
-        {{ data.item.name || data.item }}
+        {{ data.item.raw.name || data.item }}
       </v-chip>
     </template>
     <template v-if="showAdd" #append>
@@ -24,6 +24,7 @@ import type { IngredientFood, RecipeCategory, RecipeTag } from "~/lib/api/types/
 import type { RecipeTool } from "~/lib/api/types/admin";
 import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
 import type { HouseholdSummary } from "~/lib/api/types/household";
+import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
 
 export default defineNuxtComponent({
   props: {
@@ -66,6 +67,7 @@ export default defineNuxtComponent({
       default: true,
     },
   },
+  emits: ["update:modelValue"],
 
   setup(props, context) {
     const selected = computed({

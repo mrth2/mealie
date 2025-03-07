@@ -1,8 +1,8 @@
 
 import { useReadOnlyActions, useStoreActions } from "./use-actions-factory";
-import { BoundT } from "./types";
+import type { BoundT } from "./types";
 import { BaseCRUDAPI, BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
-import { QueryValue } from "~/lib/api/base/route";
+import type { QueryValue } from "~/lib/api/base/route";
 
 export const useData = function <T extends BoundT>(defaultObject: T) {
   const data = reactive({ ...defaultObject });

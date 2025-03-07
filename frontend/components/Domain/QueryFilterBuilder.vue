@@ -16,11 +16,11 @@
             <v-col :cols="attrs.fields.logicalOperator.cols" :class="attrs.col.class"
               :style="attrs.fields.logicalOperator.style">
               <v-select v-if="index" :model-value="field.logicalOperator" :items="[logOps.AND, logOps.OR]"
-                item-text="label" item-value="value"
+                item-title="label" item-value="value"
                 @update:model-value="setLogicalOperatorValue(field, index, $event)">
-                <template #selection="{ item }">
+                <template #chip="{ item }">
                   <span :class="attrs.select.textClass" style="width: 100%;">
-                    {{ item.label }}
+                    {{ item.raw.label }}
                   </span>
                 </template>
               </v-select>
@@ -29,7 +29,7 @@
               :style="attrs.fields.leftParens.style">
               <v-select :model-value="field.leftParenthesis" :items="['', '(', '((', '(((']"
                 @update:model-value="setLeftParenthesisValue(field, index, $event)">
-                <template #selection="{ item }">
+                <template #chip="{ item }">
                   <span :class="attrs.select.textClass" style="width: 100%;">
                     {{ item }}
                   </span>
@@ -38,9 +38,9 @@
             </v-col>
             <v-col :cols="attrs.fields.fieldName.cols" :class="attrs.col.class" :style="attrs.fields.fieldName.style">
               <v-select v-model="field.label" :items="fieldDefs" item-title="label" @change="setField(index, $event)">
-                <template #selection="{ item }">
+                <template #chip="{ item }">
                   <span :class="attrs.select.textClass" style="width: 100%;">
-                    {{ item.label }}
+                    {{ item.raw.label }}
                   </span>
                 </template>
               </v-select>
@@ -48,18 +48,18 @@
             <v-col :cols="attrs.fields.relationalOperator.cols" :class="attrs.col.class"
               :style="attrs.fields.relationalOperator.style">
               <v-select v-if="field.type !== 'boolean'" :model-value="field.relationalOperatorValue"
-                :items="field.relationalOperatorOptions" item-text="label" item-value="value"
+                :items="field.relationalOperatorOptions" item-title="label" item-value="value"
                 @update:model-value="setRelationalOperatorValue(field, index, $event)">
-                <template #selection="{ item }">
+                <template #chip="{ item }">
                   <span :class="attrs.select.textClass" style="width: 100%;">
-                    {{ item.label }}
+                    {{ item.raw.label }}
                   </span>
                 </template>
               </v-select>
             </v-col>
             <v-col :cols="attrs.fields.fieldValue.cols" :class="attrs.col.class" :style="attrs.fields.fieldValue.style">
               <v-select v-if="field.fieldOptions" :model-value="field.values" :items="field.fieldOptions"
-                item-text="label" item-value="value" multiple
+                item-title="label" item-value="value" multiple
                 @update:model-value="setFieldValues(field, index, $event)" />
               <v-text-field v-else-if="field.type === 'string'" :model-value="field.value"
                 @update:model-value="setFieldValue(field, index, $event)" />
@@ -76,27 +76,27 @@
                 <v-date-picker :model-value="field.value" no-title :first-day-of-week="firstDayOfWeek" :local="$i18n.locale"
                   @update:model-value="setFieldValue(field, index, $event)" />
               </v-menu>
-              <RecipeOrganizerSelector v-else-if="field.type === Organizer.Category" :value="field.organizers"
+              <RecipeOrganizerSelector v-else-if="field.type === Organizer.Category" :model-value="field.organizers"
                 :selector-type="Organizer.Category" :show-add="false" :show-label="false" :show-icon="false"
-                @input="setOrganizerValues(field, index, $event)" />
-              <RecipeOrganizerSelector v-else-if="field.type === Organizer.Tag" :value="field.organizers"
+                @update:model-value="setOrganizerValues(field, index, $event)" />
+              <RecipeOrganizerSelector v-else-if="field.type === Organizer.Tag" :model-value="field.organizers"
                 :selector-type="Organizer.Tag" :show-add="false" :show-label="false" :show-icon="false"
-                @input="setOrganizerValues(field, index, $event)" />
-              <RecipeOrganizerSelector v-else-if="field.type === Organizer.Tool" :value="field.organizers"
+                @update:model-value="setOrganizerValues(field, index, $event)" />
+              <RecipeOrganizerSelector v-else-if="field.type === Organizer.Tool" :model-value="field.organizers"
                 :selector-type="Organizer.Tool" :show-add="false" :show-label="false" :show-icon="false"
-                @input="setOrganizerValues(field, index, $event)" />
-              <RecipeOrganizerSelector v-else-if="field.type === Organizer.Food" :value="field.organizers"
+                @update:model-value="setOrganizerValues(field, index, $event)" />
+              <RecipeOrganizerSelector v-else-if="field.type === Organizer.Food" :model-value="field.organizers"
                 :selector-type="Organizer.Food" :show-add="false" :show-label="false" :show-icon="false"
-                @input="setOrganizerValues(field, index, $event)" />
-              <RecipeOrganizerSelector v-else-if="field.type === Organizer.Household" :value="field.organizers"
+                @update:model-value="setOrganizerValues(field, index, $event)" />
+              <RecipeOrganizerSelector v-else-if="field.type === Organizer.Household" :model-value="field.organizers"
                 :selector-type="Organizer.Household" :show-add="false" :show-label="false" :show-icon="false"
-                @input="setOrganizerValues(field, index, $event)" />
+                @update:model-value="setOrganizerValues(field, index, $event)" />
             </v-col>
             <v-col v-if="showAdvanced" :cols="attrs.fields.rightParens.cols" :class="attrs.col.class"
               :style="attrs.fields.rightParens.style">
               <v-select :model-value="field.rightParenthesis" :items="['', ')', '))', ')))']"
                 @update:model-value="setRightParenthesisValue(field, index, $event)">
-                <template #selection="{ item }">
+                <template #chip="{ item }">
                   <span :class="attrs.select.textClass" style="width: 100%;">
                     {{ item }}
                   </span>

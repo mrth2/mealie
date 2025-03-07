@@ -15,7 +15,7 @@
             :items="groups"
             rounded
             class="rounded-lg"
-            item-text="name"
+            item-title="name"
             item-value="id"
             :return-object="false"
            variant="filled"
@@ -28,7 +28,7 @@
             :items="households"
             rounded
             class="rounded-lg"
-            item-text="name"
+            item-title="name"
             item-value="name"
             :return-object="false"
            variant="filled"

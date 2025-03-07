@@ -63,9 +63,9 @@
         <v-autocomplete v-model="locale" :items="locales" item-title="name" :label="$t('data-pages.select-language')"
           class="my-3" hide-details variant="outlined" offset>
           <template #item="{ item }">
-              <v-list-item-title> {{ item.name }} </v-list-item-title>
+              <v-list-item-title> {{ item.raw.name }} </v-list-item-title>
               <v-list-item-subtitle>
-                {{ item.progress }}% {{ $t("language-dialog.translated") }}
+                {{ item.raw.progress }}% {{ $t("language-dialog.translated") }}
               </v-list-item-subtitle>
           </template>
         </v-autocomplete>

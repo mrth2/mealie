@@ -12,13 +12,13 @@
 
         <v-autocomplete v-model="fromUnit" return-object :items="store" item-title="id"
           :label="$t('data-pages.units.source-unit')">
-          <template #selection="{ item }"> {{ item.name }}</template>
-          <template #item="{ item }"> {{ item.name }} </template>
+          <template #chip="{ item }"> {{ item.raw.name }}</template>
+          <template #item="{ item }"> {{ item.raw.name }} </template>
         </v-autocomplete>
         <v-autocomplete v-model="toUnit" return-object :items="store" item-title="id"
           :label="$t('data-pages.units.target-unit')">
-          <template #selection="{ item }"> {{ item.name }}</template>
-          <template #item="{ item }"> {{ item.name }} </template>
+          <template #chip="{ item }"> {{ item.raw.name }}</template>
+          <template #item="{ item }"> {{ item.raw.name }} </template>
         </v-autocomplete>
 
         <template v-if="canMerge && fromUnit && toUnit">
@@ -115,9 +115,9 @@
         <v-autocomplete v-model="locale" :items="locales" item-title="name" :label="$t('data-pages.select-language')"
           class="my-3" hide-details variant="outlined" offset>
           <template #item="{ item }">
-            <v-list-item-title> {{ item.name }} </v-list-item-title>
+            <v-list-item-title> {{ item.raw.name }} </v-list-item-title>
             <v-list-item-subtitle>
-              {{ item.progress }}% {{ $t("language-dialog.translated") }}
+              {{ item.raw.progress }}% {{ $t("language-dialog.translated") }}
             </v-list-item-subtitle>
           </template>
         </v-autocomplete>

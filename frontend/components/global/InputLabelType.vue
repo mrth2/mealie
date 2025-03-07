@@ -4,7 +4,7 @@
     v-model="itemVal"
     v-bind="$attrs"
     :search-input.sync="searchInput"
-    item-text="name"
+    item-title="name"
     return-object
     :items="items"
     :prepend-icon="icon || $globals.icons.tags"

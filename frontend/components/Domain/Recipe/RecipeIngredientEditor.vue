@@ -15,7 +15,7 @@
       </v-col>
       <v-col v-if="!disableAmount" sm="12" md="3" cols="12">
         <v-autocomplete ref="unitAutocomplete" v-model="modelValue.unit" :search-input.sync="unitSearch" auto-select-first
-          hide-details density="compact" variant="solo" return-object :items="units || []" item-text="name" class="mx-1"
+          hide-details density="compact" variant="solo" return-object :items="units || []" item-title="name" class="mx-1"
           :placeholder="$t('recipe.choose-unit')" clearable @keyup.enter="handleUnitEnter">
           <template #no-data>
             <div class="caption text-center pb-2">{{ $t("recipe.press-enter-to-create") }}</div>
@@ -31,7 +31,7 @@
       <!-- Foods Input -->
       <v-col v-if="!disableAmount" m="12" md="3" cols="12" class="">
         <v-autocomplete ref="foodAutocomplete" v-model="modelValue.food" :search-input.sync="foodSearch" auto-select-first
-          hide-details density="compact" variant="solo" return-object :items="foods || []" item-text="name" class="mx-1 py-0"
+          hide-details density="compact" variant="solo" return-object :items="foods || []" item-title="name" class="mx-1 py-0"
           :placeholder="$t('recipe.choose-food')" clearable @keyup.enter="handleFoodEnter">
           <template #no-data>
             <div class="caption text-center pb-2">{{ $t("recipe.press-enter-to-create") }}</div>

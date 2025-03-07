@@ -1,26 +1,12 @@
 <template>
   <v-container fluid>
-    <BaseDialog
-      v-model="createDialog"
-      :title="$t('household.create-household')"
-      :icon="$globals.icons.household"
-    >
+    <BaseDialog v-model="createDialog" :title="$t('household.create-household')" :icon="$globals.icons.household">
       <template #activator> </template>
       <v-card-text>
         <v-form ref="refNewHouseholdForm">
-          <v-select
-            v-if="groups"
-            v-model="createHouseholdForm.data.groupId"
-            :items="groups"
-            rounded
-            class="rounded-lg"
-            item-text="name"
-            item-value="id"
-            :return-object="false"
-           variant="filled"
-            :label="$t('household.household-group')"
-            :rules="[validators.required]"
-          />
+          <v-select v-if="groups" v-model="createHouseholdForm.data.groupId" :items="groups" rounded class="rounded-lg"
+            item-title="name" item-value="id" :return-object="false" variant="filled"
+            :label="$t('household.household-group')" :rules="[validators.required]" />
           <AutoForm v-model="createHouseholdForm.data" :update-mode="updateMode" :items="createHouseholdForm.items" />
         </v-form>
       </v-card-text>
@@ -29,12 +15,8 @@
       </template>
     </BaseDialog>
 
-    <BaseDialog
-      v-model="confirmDialog"
-      :title="$t('general.confirm')"
-      color="error"
-      @confirm="deleteHousehold(deleteTarget)"
-    >
+    <BaseDialog v-model="confirmDialog" :title="$t('general.confirm')" color="error"
+      @confirm="deleteHousehold(deleteTarget)">
       <template #activator> </template>
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
@@ -47,16 +29,8 @@
         <BaseButton @click="openDialog"> {{ $t("general.create") }} </BaseButton>
       </v-toolbar>
 
-      <v-data-table
-        :headers="headers"
-        :items="households || []"
-        item-key="id"
-        class="elevation-0"
-        hide-default-footer
-        disable-pagination
-        :search="search"
-        @click:row="handleRowClick"
-      >
+      <v-data-table :headers="headers" :items="households || []" item-key="id" class="elevation-0" hide-default-footer
+        disable-pagination :search="search" @click:row="handleRowClick">
         <template #item.users="{ item }">
           {{ item.users.length }}
         </template>
@@ -70,16 +44,10 @@
           <v-tooltip bottom :disabled="!(item && item.users.length > 0)">
             <template #activator="{ props }">
               <div v-bind="props">
-                <v-btn
-                  :disabled="item && item.users.length > 0"
-                  class="mr-1"
-                  icon
-                  color="error"
-                  @click.stop="
-                    confirmDialog = true;
-                    deleteTarget = item.id;
-                  "
-                >
+                <v-btn :disabled="item && item.users.length > 0" class="mr-1" icon color="error" @click.stop="
+                  confirmDialog = true;
+                deleteTarget = item.id;
+                ">
                   <v-icon>
                     {{ $globals.icons.delete }}
                   </v-icon>
@@ -179,16 +147,16 @@ export default defineNuxtComponent({
     }
 
     return {
-        ...toRefs(state),
-        refNewHouseholdForm,
-        groups,
-        households,
-        validators,
-        refreshAllHouseholds,
-        deleteHousehold,
-        handleCreateSubmit,
-        openDialog,
-        handleRowClick,
+      ...toRefs(state),
+      refNewHouseholdForm,
+      groups,
+      households,
+      validators,
+      refreshAllHouseholds,
+      deleteHousehold,
+      handleCreateSubmit,
+      openDialog,
+      handleRowClick,
     };
   },
 });
