@@ -41,7 +41,7 @@
       :icon="$globals.icons.alertCircle" color="error" @confirm="deleteSelected">
       <v-card-text>
         <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
-        <v-card outlined>
+        <v-card variant="outlined">
           <v-virtual-scroll height="400" item-height="25" :items="bulkDeleteTarget">
             <template #default="{ item }">
               <v-list-item class="pb-2">
@@ -61,7 +61,7 @@
           {{ $t("data-pages.labels.seed-dialog-text") }}
         </div>
         <v-autocomplete v-model="locale" :items="locales" item-text="name" :label="$t('data-pages.select-language')"
-          class="my-3" hide-details outlined offset>
+          class="my-3" hide-details variant="outlined" offset>
           <template #item="{ item }">
               <v-list-item-title> {{ item.name }} </v-list-item-title>
               <v-list-item-subtitle>

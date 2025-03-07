@@ -27,7 +27,7 @@
           <v-slide-x-transition leave-absolute hide-on-leave>
             <div v-if="!state" key="personal-info">
               <BaseCardSectionTitle class="mt-10" :title="$t('profile.personal-information')"> </BaseCardSectionTitle>
-              <v-card tag="article" outlined>
+              <v-card tag="article" variant="outlined">
                 <v-card-text class="pb-0">
                   <v-form ref="userUpdate">
                     <v-text-field v-model="userCopy.username" :label="$t('user.username')" required validate-on-blur>
@@ -46,7 +46,7 @@
             </div>
             <div v-else key="change-password">
               <BaseCardSectionTitle class="mt-10" :title="$t('settings.change-password')"> </BaseCardSectionTitle>
-              <v-card outlined>
+              <v-card variant="outlined">
                 <v-card-text class="pb-0">
                   <v-form ref="passChange">
                     <v-text-field v-model="password.current" :prepend-icon="$globals.icons.lock"
@@ -84,7 +84,7 @@
       <nuxt-link class="mt-5 d-flex flex-column justify-center text-center" :to="`/group`"> {{
         $t('profile.looking-for-privacy-settings') }} </nuxt-link>
       <div class="d-flex flex-wrap justify-center mt-5">
-        <v-btn outlined class="rounded-xl my-1 mx-1" :to="`/user/profile`" nuxt exact>
+        <v-btn variant="outlined" class="rounded-xl my-1 mx-1" :to="`/user/profile`" nuxt exact>
           <v-icon start>
             {{ $globals.icons.backArrow }}
           </v-icon>

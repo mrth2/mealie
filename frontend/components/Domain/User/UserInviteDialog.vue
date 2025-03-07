@@ -19,7 +19,7 @@
               :disabled="generatedSignupLink" />
           </v-col>
         </v-row>
-        <v-text-field v-model="sendTo" :label="$t('user.email')" :rules="[validators.email]" outlined
+        <v-text-field v-model="sendTo" :label="$t('user.email')" :rules="[validators.email]" variant="outlined"
           @keydown.enter="sendInvite" />
       </v-form>
     </v-container>

@@ -10,7 +10,7 @@
     <AppToolbar back> </AppToolbar>
     <v-card-text> {{ $t('household.household-id-value', [household.id]) }} </v-card-text>
     <v-form v-if="!userError" ref="refHouseholdEditForm" @submit.prevent="handleSubmit">
-      <v-card outlined>
+      <v-card variant="outlined"
         <v-card-text>
           <v-select v-if="groups" v-model="household.groupId" disabled :items="groups" rounded class="rounded-lg"
             item-text="name" item-value="id" :return-object="false"variant="filled" :label="$t('group.user-group')"

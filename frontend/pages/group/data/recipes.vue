@@ -17,7 +17,7 @@
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.delete">
         <p class="h4">{{ $t('data-pages.recipes.confirm-delete-recipes') }}</p>
-        <v-card outlined>
+        <v-card variant="outlined">
           <v-virtual-scroll height="400" item-height="25" :items="selected">
             <template #default="{ item }">
               <v-list-item class="pb-2">
@@ -31,7 +31,7 @@
         <p class="h4">{{ $t('data-pages.recipes.the-following-recipes-selected-length-will-be-exported',
           [selected.length]) }}
         </p>
-        <v-card outlined>
+        <v-card variant="outlined">
           <v-virtual-scroll height="400" item-height="25" :items="selected">
             <template #default="{ item }">
               <v-list-item class="pb-2">

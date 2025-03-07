@@ -8,7 +8,7 @@
     </BasePageTitle>
     <AppToolbar back> </AppToolbar>
     <v-form ref="refNewUserForm" @submit.prevent="handleSubmit">
-      <v-card outlined>
+      <v-card variant="outlined">
         <v-card-text>
           <v-select
             v-model="selectedGroupId"

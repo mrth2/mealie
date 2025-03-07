@@ -10,7 +10,7 @@
     </BasePageTitle>
     <v-container>
       <BaseCardSectionTitle :title="$t('migration.new-migration')"> </BaseCardSectionTitle>
-      <v-card outlined :loading="loading">
+      <v-card variant="outlined" :loading="loading">
         <v-card-title> {{ $t('migration.choose-migration-type') }} </v-card-title>
         <v-card-text v-if="content" class="pb-0">
           <div class="mb-2">

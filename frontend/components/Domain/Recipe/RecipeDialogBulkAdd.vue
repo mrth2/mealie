@@ -19,7 +19,7 @@
         <v-card-text>
           <v-textarea
             v-model="inputText"
-            outlined
+            variant="outlined"
             rows="12"
             hide-details
             :placeholder="$t('new-recipe.paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list')"

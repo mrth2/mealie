@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card outlined>
+    <v-card variant="outlined">
       <v-card-text class="pb-3 pt-1">
         <div v-if="listItem.isFood" class="d-md-flex align-center mb-2" style="gap: 20px">
           <div>

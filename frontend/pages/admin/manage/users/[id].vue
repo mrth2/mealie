@@ -9,7 +9,7 @@
     </BasePageTitle>
     <AppToolbar back> </AppToolbar>
     <v-form v-if="!userError" ref="refNewUserForm" @submit.prevent="handleSubmit">
-      <v-card outlined>
+      <v-card variant="outlined"
         <v-card-text>
           <div class="d-flex">
             <p> {{ $t("user.user-id-with-value", { id: user.id }) }}</p>

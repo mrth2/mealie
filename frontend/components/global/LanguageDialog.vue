@@ -2,7 +2,7 @@
   <BaseDialog v-model="dialog" :icon="$globals.icons.translate" :title="$t('language-dialog.choose-language')">
     <v-card-text>
       {{ $t("language-dialog.select-description") }}
-      <v-autocomplete v-model="locale" :items="locales" item-title="name" class="my-3" hide-details outlined offset>
+      <v-autocomplete v-model="locale" :items="locales" item-title="name" class="my-3" hide-details variant="outlined"offset>
         <template #item="{ item, props }">
           <div v-bind="props" class="px-2 py-2">
             <v-list-item-title> {{ item.raw.name }} </v-list-item-title>

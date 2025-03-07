@@ -19,7 +19,7 @@
               {{ $t("search.clear-selection") }}
             </v-btn>
           </div>
-          <v-card v-if="filtered.length > 0" flat outlined>
+          <v-card v-if="filtered.length > 0" flat variant="outlined">
             <v-radio-group v-model="selectedRadio" class="ma-0 pa-0">
               <v-virtual-scroll :items="filtered" height="300" item-height="51">
                 <template #default="{ item }">

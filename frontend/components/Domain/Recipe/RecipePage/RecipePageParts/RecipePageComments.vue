@@ -11,7 +11,7 @@
       <div class="d-flex mt-3" style="gap: 10px">
         <UserAvatar :tooltip="false" size="40" :user-id="user.id" />
 
-        <v-textarea v-model="comment" hide-details density="compact" single-line outlined auto-grow rows="2"
+        <v-textarea v-model="comment" hide-details density="compact" single-line variant="outlined" auto-grow rows="2"
           :placeholder="$t('recipe.join-the-conversation')">
         </v-textarea>
       </div>
@@ -24,7 +24,7 @@
     </div>
     <div v-for="comment in recipe.comments" :key="comment.id" class="d-flex my-2" style="gap: 10px">
       <UserAvatar :tooltip="false" size="40" :user-id="comment.userId" />
-      <v-card outlined class="flex-grow-1">
+      <v-card variant="outlined" class="flex-grow-1">
         <v-card-text class="pa-3 pb-0">
           <p class="">{{ comment.user.fullName }} • {{ $d(Date.parse(comment.createdAt), "medium") }}</p>
           <SafeMarkdown :source="comment.text" />

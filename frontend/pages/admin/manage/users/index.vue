@@ -10,7 +10,7 @@
       <template #activator> </template>
 
       <v-card-text>
-        <v-alert v-if="isUserOwnAccount" type="warning" text outlined>
+        <v-alert v-if="isUserOwnAccount" type="warning" text variant="outlined">
           {{ $t("general.confirm-delete-own-admin-account") }}
         </v-alert>
         {{ $t("general.confirm-delete-generic") }}

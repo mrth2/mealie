@@ -40,7 +40,7 @@
     <BaseCardSectionTitle class="mt-10" :title="$t('settings.token.active-tokens')"> </BaseCardSectionTitle>
     <section class="d-flex flex-column">
       <div v-for="(token, index) in $auth.user.value.tokens" :key="index">
-        <v-card outlined class="mb-2">
+        <v-card variant="outlined" class="mb-2">
           <v-list-item>
             <v-list-item-title>
               {{ token.name }}

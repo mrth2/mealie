@@ -3,7 +3,7 @@
     <div class="search-container py-8">
       <form class="search-box pa-2" @submit.prevent="search">
         <div class="d-flex justify-center my-2">
-          <v-text-field ref="input" v-model="state.search" outlined hide-details clearable color="primary"
+          <v-text-field ref="input" v-model="state.search" variant="outlined" hide-details clearable color="primary"
             :placeholder="$t('search.search-placeholder')" :prepend-inner-icon="$globals.icons.search"
             @keyup.enter="hideKeyboard" />
         </div>

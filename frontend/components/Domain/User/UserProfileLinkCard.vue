@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined nuxt :to="link.to" height="100%" class="d-flex flex-column">
+  <v-card variant="outlined" nuxt :to="link.to" height="100%" class="d-flex flex-column">
     <div v-if="$vuetify.display.smAndDown" class="pa-2 mx-auto">
       <v-img max-width="150px" max-height="125" :src="image" />
     </div>

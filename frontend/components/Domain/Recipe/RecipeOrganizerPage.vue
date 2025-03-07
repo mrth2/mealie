@@ -27,7 +27,7 @@
       <v-col>
         <v-text-field
           v-model="searchString"
-          outlined
+          variant="outlined"
           autofocus
           color="primary accent-3"
           :placeholder="$t('search.search-placeholder')"

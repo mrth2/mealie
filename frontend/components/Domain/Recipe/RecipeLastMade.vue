@@ -47,7 +47,7 @@
         <v-row no-gutters class="d-flex flex-wrap align-center" style="font-size: larger;">
           <v-tooltip bottom>
             <template #activator="{ props }">
-              <v-btn rounded outlined x-large color="primary" v-bind="props" @click="madeThisDialog = true">
+              <v-btn rounded variant="outlined" x-large color="primary" v-bind="props" @click="madeThisDialog = true">
                 <v-icon start size="large">{{ $globals.icons.calendar }}</v-icon>
                 <span class="text--secondary" style="letter-spacing: normal;"><b>{{ $t("general.last-made")
                     }}</b><br>{{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $t("general.never")
