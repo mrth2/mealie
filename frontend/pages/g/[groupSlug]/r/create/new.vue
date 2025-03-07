@@ -10,7 +10,7 @@
           :prepend-inner-icon="$globals.icons.primary"
           validate-on-blur
           autofocus
-          filled
+         variant="filled"
           clearable
           class="rounded-lg mt-2"
           rounded

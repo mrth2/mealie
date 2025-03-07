@@ -191,7 +191,7 @@ import { useLocales } from "~/composables/use-locales";
 import UserRegistrationForm from "~/components/Domain/User/UserRegistrationForm.vue";
 
 const inputAttrs = {
-  filled: true,
+  variant: 'filled',
   rounded: true,
   validateOnBlur: true,
   class: "rounded-lg",

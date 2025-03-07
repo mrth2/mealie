@@ -5,7 +5,7 @@
       <BaseDivider />
       <v-card-text>
         <v-form @submit.prevent="requestLink()">
-          <v-text-field v-model="email" filled rounded autofocus class="rounded-lg" name="login"
+          <v-text-field v-model="email" variant="filled" rounded autofocus class="rounded-lg" name="login"
             :label="$t('user.email')" type="text" />
           <p class="text-center">{{ $t('user.forgot-password-text') }}</p>
           <v-card-actions class="justify-center">

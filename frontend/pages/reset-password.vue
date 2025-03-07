@@ -8,7 +8,7 @@
           <v-text-field
             v-model="email"
             :prepend-icon="$globals.icons.email"
-            filled
+           variant="filled"="filled"
             rounded
             autofocus
             class="rounded-lg"
@@ -18,7 +18,7 @@
           />
           <v-text-field
             v-model="password"
-            filled
+           variant="filled"
             rounded
             class="rounded-lg"
             :prepend-icon="$globals.icons.lock"
@@ -29,7 +29,7 @@
           />
           <v-text-field
             v-model="passwordConfirm"
-            filled
+           variant="filled"
             rounded
             validate-on-blur
             class="rounded-lg"

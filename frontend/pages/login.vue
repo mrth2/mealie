@@ -32,10 +32,10 @@
       <v-card-title class="headline justify-center pb-3"> {{ $t('user.sign-in') }} </v-card-title>
       <v-card-text>
         <v-form @submit.prevent="authenticate">
-          <v-text-field v-model="form.email" :prepend-inner-icon="$globals.icons.email" filled rounded autofocus
+          <v-text-field v-model="form.email" :prepend-inner-icon="$globals.icons.email" variant="filled" rounded autofocus
             autocomplete="username" class="rounded-lg" name="login" :label="$t('user.email-or-username')" type="text" />
           <v-text-field id="password" v-model="form.password" :prepend-inner-icon="$globals.icons.lock"
-            :append-icon="passwordIcon" filled rounded autocomplete="current-password" class="rounded-lg"
+            :append-icon="passwordIcon"variant="filled" rounded autocomplete="current-password" class="rounded-lg"
             name="password" :label="$t('user.password')" :type="inputType" @click:append="togglePasswordShow" />
           <v-checkbox v-model="form.remember" class="ml-2 mt-n2" :label="$t('user.remember-me')"></v-checkbox>
           <v-card-actions class="justify-center pt-0">

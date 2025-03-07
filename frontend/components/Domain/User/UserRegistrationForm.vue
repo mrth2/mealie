@@ -45,7 +45,6 @@ import { usePasswordField } from "~/composables/use-passwords";
 import UserPasswordStrength from "~/components/Domain/User/UserPasswordStrength.vue";
 
 const inputAttrs = {
-  filled: true,
   rounded: true,
   validateOnBlur: true,
   class: "rounded-lg pb-1",

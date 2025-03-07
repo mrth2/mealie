@@ -16,7 +16,7 @@
             single-line
             validate-on-blur
             autofocus
-            filled
+           variant="filled"
             hide-details
             clearable
             :prepend-inner-icon="$globals.icons.link"
@@ -38,7 +38,7 @@
               v-model="bulkUrls[idx].categories"
               selector-type="categories"
               :input-attrs="{
-                filled: true,
+                variant: 'filled',
                 singleLine: true,
                 density: 'compact',
                 rounded: true,
@@ -53,7 +53,7 @@
               v-model="bulkUrls[idx].tags"
               selector-type="tags"
               :input-attrs="{
-                filled: true,
+                variant: 'filled',
                 singleLine: true,
                 density: 'compact',
                 rounded: true,

@@ -17,7 +17,7 @@
             item-text="name"
             item-value="id"
             :return-object="false"
-            filled
+           variant="filled"
             :label="$t('household.household-group')"
             :rules="[validators.required]"
           />

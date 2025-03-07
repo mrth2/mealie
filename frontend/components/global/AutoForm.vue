@@ -38,7 +38,7 @@
           v-model="value[inputField.varName]"
           :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
-          filled
+          variant="filled"
           :type="inputField.type === fieldTypes.PASSWORD ? 'password' : 'text'"
           rounded
           class="rounded-lg"
@@ -58,7 +58,7 @@
           v-model="value[inputField.varName]"
           :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
-          filled
+          variant="filled"
           rounded
           class="rounded-lg"
           rows="3"
@@ -78,7 +78,7 @@
           v-model="value[inputField.varName]"
           :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
-          filled
+          variant="filled"
           rounded
           class="rounded-lg"
           :prepend-icon="inputField.icons ? value[inputField.varName] : null"

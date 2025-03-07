@@ -18,7 +18,7 @@
             item-text="name"
             item-value="id"
             :return-object="false"
-            filled
+           variant="filled"
             :label="$t('group.user-group')"
             :rules="[validators.required]"
           />
@@ -31,7 +31,7 @@
             item-text="name"
             item-value="name"
             :return-object="false"
-            filled
+           variant="filled"
             :label="$t('household.user-household')"
             :hint="selectedGroupId ? '' : $t('group.you-must-select-a-group-before-selecting-a-household')"
             persistent-hint
