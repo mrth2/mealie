@@ -9,7 +9,7 @@
     :text="btnStyle.text"
     :to="to"
     v-bind="$attrs"
-    v-on="$listeners"
+    v-on="$attrs"
     @click="download ? downloadFile() : undefined"
   >
     <v-icon v-if="!iconRight" start>

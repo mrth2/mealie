@@ -13,10 +13,10 @@
     hide-details
     @keyup.enter="emitCreate"
   >
-    <template v-if="$listeners.create" #no-data>
+    <template v-if="$attrs.create" #no-data>
       <div class="caption text-center pb-2">{{ $t("recipe.press-enter-to-create") }}</div>
     </template>
-    <template v-if="$listeners.create" #append-item>
+    <template v-if="$attrs.create" #append-item>
       <div class="px-2">
         <BaseButton block size="small" @click="emitCreate"></BaseButton>
       </div>

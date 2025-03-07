@@ -45,7 +45,7 @@
           :rating="recipe.rating"
           :image="recipe.image"
           :recipe-id="recipe.id"
-          v-on="$listeners.selected ? { selected: () => handleSelect(recipe) } : {}"
+          v-on="$attrs.selected ? { selected: () => handleSelect(recipe) } : {}"
         />
       </v-card>
     </v-dialog>

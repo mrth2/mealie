@@ -15,7 +15,7 @@
         {{ $vuetify.display.xs ? null : $t("general.random") }}
       </v-btn>
 
-      <v-menu v-if="$listeners.sortRecipes" offset-y start>
+      <v-menu v-if="$attrs.sortRecipes" offset-y start>
         <template #activator="{ props }">
           <v-btn variant="text" :icon="$vuetify.display.xs" v-bind="props" :loading="sortLoading">
             <v-icon :start="!$vuetify.display.xs">
@@ -72,7 +72,7 @@
             <v-lazy>
               <RecipeCard :name="recipe.name" :description="recipe.description" :slug="recipe.slug"
                 :rating="recipe.rating" :image="recipe.image" :tags="recipe.tags" :recipe-id="recipe.id"
-                v-on="$listeners" />
+                v-on="$attrs" />
             </v-lazy>
           </v-col>
         </v-row>
@@ -82,7 +82,7 @@
             <v-lazy>
               <RecipeCardMobile :name="recipe.name" :description="recipe.description" :slug="recipe.slug"
                 :rating="recipe.rating" :image="recipe.image" :tags="recipe.tags" :recipe-id="recipe.id"
-                v-on="$listeners" />
+                v-on="$attrs" />
             </v-lazy>
           </v-col>
         </v-row>

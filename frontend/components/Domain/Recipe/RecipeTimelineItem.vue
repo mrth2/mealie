@@ -6,7 +6,7 @@
         {{ new Date(event.timestamp).toLocaleDateString($i18n.locale) }}
       </v-chip>
     </template>
-    <v-card hover :to="$listeners.selected || !recipe ? undefined : `/g/${groupSlug}/r/${recipe.slug}`"
+    <v-card hover :to="$attrs.selected || !recipe ? undefined : `/g/${groupSlug}/r/${recipe.slug}`"
       class="elevation-12" @click="$emit('selected')">
       <v-card-title class="background">
         <v-row>

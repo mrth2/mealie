@@ -46,9 +46,9 @@
             <v-spacer></v-spacer>
 
             <slot name="custom-card-action"></slot>
-            <BaseButton v-if="$listeners.delete" delete secondary @click="deleteEvent" />
+            <BaseButton v-if="$attrs.delete" delete secondary @click="deleteEvent" />
             <BaseButton
-              v-if="$listeners.confirm"
+              v-if="$attrs.confirm"
               :color="color"
               type="submit"
               :disabled="submitDisabled"
@@ -63,7 +63,7 @@
               {{ $t("general.confirm") }}
             </BaseButton>
             <BaseButton
-              v-if="$listeners.submit"
+              v-if="$attrs.submit"
               type="submit"
               :disabled="submitDisabled"
               @click="submitEvent"

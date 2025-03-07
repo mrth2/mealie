@@ -8,7 +8,7 @@
       <v-col v-if="!disableAmount" sm="12" md="2" cols="12" class="flex-grow-0 flex-shrink-0">
         <v-text-field v-model="value.quantity" solo hide-details density="compact" type="number"
           :placeholder="$t('recipe.quantity')" @keypress="quantityFilter">
-          <v-icon v-if="$listeners && $listeners.delete" slot="prepend" class="mr-n1 handle">
+          <v-icon v-if="$attrs && $attrs.delete" slot="prepend" class="mr-n1 handle">
             {{ $globals.icons.arrowUpDown }}
           </v-icon>
         </v-text-field>
@@ -47,7 +47,7 @@
         <div class="d-flex">
           <v-text-field v-model="value.note" hide-details density="compact" solo :placeholder="$t('recipe.notes')"
             @click="$emit('clickIngredientField', 'note')">
-            <v-icon v-if="disableAmount && $listeners && $listeners.delete" slot="prepend" class="mr-n1 handle">
+            <v-icon v-if="disableAmount && $attrs && $attrs.delete" slot="prepend" class="mr-n1 handle">
               {{ $globals.icons.arrowUpDown }}
             </v-icon>
           </v-text-field>
