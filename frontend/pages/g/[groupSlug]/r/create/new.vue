@@ -8,7 +8,7 @@
           v-model="newRecipeName"
           :label="$t('recipe.recipe-name')"
           :prepend-inner-icon="$globals.icons.primary"
-          validate-on-blur
+          validate-on="blur"
           autofocus
          variant="filled"
           clearable

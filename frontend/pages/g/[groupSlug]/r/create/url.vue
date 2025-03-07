@@ -16,7 +16,7 @@
             v-model="recipeUrl"
             :label="$t('new-recipe.recipe-url')"
             :prepend-inner-icon="$globals.icons.link"
-            validate-on-blur
+            validate-on="blur"
             autofocus
            variant="filled"
             clearable

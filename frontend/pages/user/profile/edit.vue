@@ -30,11 +30,11 @@
               <v-card tag="article" variant="outlined">
                 <v-card-text class="pb-0">
                   <v-form ref="userUpdate">
-                    <v-text-field v-model="userCopy.username" :label="$t('user.username')" required validate-on-blur>
+                    <v-text-field v-model="userCopy.username" :label="$t('user.username')" required validate-on="blur">
                     </v-text-field>
-                    <v-text-field v-model="userCopy.fullName" :label="$t('user.full-name')" required validate-on-blur>
+                    <v-text-field v-model="userCopy.fullName" :label="$t('user.full-name')" required validate-on="blur">
                     </v-text-field>
-                    <v-text-field v-model="userCopy.email" :label="$t('user.email')" validate-on-blur required>
+                    <v-text-field v-model="userCopy.email" :label="$t('user.email')" validate-on="blur" required>
                     </v-text-field>
                   </v-form>
                 </v-card-text>
@@ -50,7 +50,7 @@
                 <v-card-text class="pb-0">
                   <v-form ref="passChange">
                     <v-text-field v-model="password.current" :prepend-icon="$globals.icons.lock"
-                      :label="$t('user.current-password')" validate-on-blur :type="showPassword ? 'text' : 'password'"
+                      :label="$t('user.current-password')" validate-on="blur" :type="showPassword ? 'text' : 'password'"
                       :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
                       :rules="[validators.minLength(1)]" @click:append="showPassword = !showPassword" />
                     <v-text-field v-model="password.newOne" :prepend-icon="$globals.icons.lock"
@@ -59,7 +59,7 @@
                       :rules="[validators.minLength(8)]" @click:append="showPassword = !showPassword" />
                     <v-text-field v-model="password.newTwo" :prepend-icon="$globals.icons.lock"
                       :label="$t('user.confirm-password')"
-                      :rules="[password.newOne === password.newTwo || $t('user.password-must-match')]" validate-on-blur
+                      :rules="[password.newOne === password.newTwo || $t('user.password-must-match')]" validate-on="blur"
                       :type="showPassword ? 'text' : 'password'"
                       :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
                       @click:append="showPassword = !showPassword" />

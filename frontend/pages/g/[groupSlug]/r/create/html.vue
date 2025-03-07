@@ -28,7 +28,7 @@
           v-model="newRecipeData"
           :label="$t('new-recipe.recipe-html-or-json')"
           :prepend-inner-icon="$globals.icons.codeTags"
-          validate-on-blur
+          validate-on="blur"
           autofocus
          variant="filled"
           clearable

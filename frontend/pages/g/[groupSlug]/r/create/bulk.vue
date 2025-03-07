@@ -14,7 +14,7 @@
             :label="$t('new-recipe.recipe-url')"
             density="compact"
             single-line
-            validate-on-blur
+            validate-on="blur"
             autofocus
            variant="filled"
             hide-details

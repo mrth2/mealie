@@ -8,7 +8,7 @@
           <v-text-field
             v-model="recipeUrl"
             :label="$t('new-recipe.recipe-url')"
-            validate-on-blur
+            validate-on="blur"
             :prepend-inner-icon="$globals.icons.link"
             autofocus
            variant="filled"
