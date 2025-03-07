@@ -2,12 +2,13 @@ import axios from 'axios'
 import { alert } from "~/composables/use-toast";
 
 export default defineNuxtPlugin(() => {
+  const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
   const axiosInstance = axios.create({
     baseURL: '/', // api calls already pass with /api
     timeout: 10000,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + useCookie('mealie.auth.token').value,
+      'Authorization': 'Bearer ' + useCookie(tokenName).value,
     },
     withCredentials: true,
   })

@@ -1,6 +1,8 @@
 import { defineNuxtConfig } from "nuxt/config";
 import commonjs from 'vite-plugin-commonjs';
 
+const AUTH_TOKEN = 'mealie.auth.token';
+
 export default defineNuxtConfig({
   // Global page headers: https://go.nuxtjs.dev/config-head
   // target: "static",
@@ -100,7 +102,7 @@ export default defineNuxtConfig({
       token: {
         signInResponseTokenPointer: '/access_token',
         type: 'Bearer',
-        cookieName: 'mealie.auth.token',
+        cookieName: AUTH_TOKEN,
         maxAgeInSeconds: 604800, // 7 days
       },
       pages: {
@@ -241,6 +243,7 @@ export default defineNuxtConfig({
     sessionPassword: process.env.SESSION_PASSWORD || "password-with-at-least-32-characters",
     apiUrl: process.env.API_URL || "http://localhost:9000",
     public: {
+      AUTH_TOKEN,
       GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || undefined,
       SUB_PATH: process.env.SUB_PATH || "",
       // ==============================================

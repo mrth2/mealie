@@ -193,7 +193,7 @@ export default defineNuxtComponent({
       if (callback) {
         oidcLoggingIn.value = true
         try {
-          await $auth.loginWith("oidc", { params: new URLSearchParams(window.location.search) })
+          await $auth.signIn("oidc", { params: new URLSearchParams(window.location.search) })
         } catch (error) {
           await router.replace("/login?direct=1")
           alertOnError(error)
@@ -217,7 +217,7 @@ export default defineNuxtComponent({
       formData.append("remember_me", String(form.remember));
 
       try {
-        await $auth.signIn(formData);
+        await $auth.signIn(formData, { callbackUrl: '/' });
       } catch (error) {
         console.log(error)
         alertOnError(error)

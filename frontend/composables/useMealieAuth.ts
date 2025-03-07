@@ -6,10 +6,15 @@ export const useMealieAuth = function () {
   const user = computed(() => auth.data.value as UserOut);
   const loggedIn = computed(() => auth.status.value === "authenticated");
 
+  async function signIn(...params: Parameters<typeof auth.signIn>) {
+    await auth.signIn(...params);
+    refreshCookie(useRuntimeConfig().public.AUTH_TOKEN); // refresh token after login
+  }
+
   return {
     user,
     loggedIn,
-    signIn: auth.signIn,
+    signIn,
     signOut: auth.signOut,
     signUp: auth.signUp,
   }

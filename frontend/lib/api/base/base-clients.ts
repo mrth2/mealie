@@ -1,6 +1,6 @@
-import { Recipe } from "../types/recipe";
-import { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
-import { QueryValue, route } from "~/lib/api/base/route";
+import type { Recipe } from "../types/recipe";
+import type { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
+import { type QueryValue, route } from "~/lib/api/base/route";
 
 export interface CrudAPIInterface {
   requests: ApiRequestInstance;
