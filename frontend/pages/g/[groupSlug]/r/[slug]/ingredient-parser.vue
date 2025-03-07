@@ -1,7 +1,7 @@
 <template>
   <v-container v-if="recipe">
     <v-container>
-      <v-alert dismissible border="left" colored-border type="warning" elevation="2" :icon="$globals.icons.alert">
+      <v-alert dismissible border="start" colored-border type="warning" elevation="2" :icon="$globals.icons.alert">
         <b>{{ $t("banner-experimental.title") }}</b>
         <div>
           {{ $t("recipe.parser.experimental-alert-text") }}
