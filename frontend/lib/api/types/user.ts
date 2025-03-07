@@ -197,6 +197,7 @@ export interface UserBase {
   canManage?: boolean;
   canManageHousehold?: boolean;
   canOrganize?: boolean;
+  advancedOptions?: boolean;
 }
 export interface UserIn {
   id?: string | null;
