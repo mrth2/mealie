@@ -8,7 +8,7 @@
       :next-button-color="activeConfig.nextButtonColor" :next-button-is-submit="activeConfig.isSubmit"
       :is-submitting="isSubmitting" @submit="handleSubmit">
       <v-container v-if="currentPage === Pages.LANDING" class="mb-12">
-        <v-card-title class="text-h4 justify-center">
+        <v-card-title class="text-h4 justify-center text-center">
           {{ $t('admin.setup.welcome-to-mealie-get-started') }}
         </v-card-title>
         <v-btn :to="groupSlug ? `/g/${groupSlug}` : '/login'" rounded outlined variant="text" color="grey lighten-1"
@@ -77,7 +77,7 @@ export default defineNuxtComponent({
   components: { UserRegistrationForm },
   setup() {
     definePageMeta({
-      layout: "admin",
+      layout: "blank",
     });
 
     // ================================================================
@@ -256,12 +256,13 @@ export default defineNuxtComponent({
       if (!response || response.status !== 200) {
         alert.error(i18n.t("events.something-went-wrong"));
       } else {
-        $auth.setUser({
+        $auth.refresh();
+        /* $auth.setUser({
           ...$auth.user.value,
           email: accountDetails.email.value,
           username: accountDetails.username.value,
           fullName: accountDetails.fullName.value,
-        })
+        }) */
       }
     }
 
