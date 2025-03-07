@@ -1,4 +1,5 @@
 
+import type { LocaleObject } from "@nuxtjs/i18n";
 import { LOCALES } from "./available-locales";
 
 export const useLocales = () => {
@@ -11,7 +12,7 @@ export const useLocales = () => {
   const { isRtl } = useRtl();
   const { current } = useLocale();
 
-  const locale = computed<string>({
+  const locale = computed<LocaleObject['code']>({
     get() {
       // dirty hack
       const currentLocale = getLocale(current.value);
