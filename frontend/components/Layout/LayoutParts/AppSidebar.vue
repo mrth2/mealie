@@ -29,8 +29,8 @@
             <!-- Multi Items -->
             <v-list-group v-if="nav.children" :key="(nav.key || nav.title) + 'multi-item'"
               v-model="dropDowns[nav.title]" color="primary" :prepend-icon="nav.icon">
-              <template #activator>
-                <v-list-item exact>
+              <template #activator="{ props }">
+                <v-list-item v-bind="props">
                   <template #prepend>
                     <v-icon>{{ nav.icon }}</v-icon>
                   </template>
@@ -70,8 +70,8 @@
             <!-- Multi Items -->
             <v-list-group v-if="nav.children" :key="(nav.key || nav.title) + 'multi-item'"
               v-model="dropDowns[nav.title]" color="primary" :prepend-icon="nav.icon">
-              <template #activator>
-                <v-list-item-title>{{ nav.title }}</v-list-item-title>
+              <template #activator="{ props }">
+                <v-list-item-title v-bind="props">{{ nav.title }}</v-list-item-title>
               </template>
 
               <v-list-item v-for="child in nav.children" :key="child.key || child.title" exact :to="child.to"

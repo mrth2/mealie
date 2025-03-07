@@ -46,8 +46,9 @@
         <v-card-text class="pt-4">
           <v-text-field v-model="state.newAsset.name" density="compact" :label="$t('general.name')"></v-text-field>
           <div class="d-flex justify-space-between">
-            <v-select v-model="state.newAsset.icon" density="compact" :prepend-icon="getIconDefinition(state.newAsset.icon).icon"
-              :items="iconOptions" item-text="title" item-value="name" class="mr-2">
+            <v-select v-model="state.newAsset.icon" density="compact"
+              :prepend-icon="getIconDefinition(state.newAsset.icon).icon" :items="iconOptions" item-text="title"
+              item-value="name" class="mr-2">
               <template #item="{ item }">
                 <v-avatar>
                   <v-icon class="mr-auto">
