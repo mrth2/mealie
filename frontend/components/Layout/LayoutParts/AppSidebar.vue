@@ -1,5 +1,6 @@
 <template>
-  <v-navigation-drawer v-model="showDrawer" class="d-flex flex-column d-print-none" clipped app :expand-on-hover="false" width="240px">
+  <v-navigation-drawer v-model="showDrawer" class="d-flex flex-column d-print-none" clipped app :expand-on-hover="false"
+    width="240px">
     <!-- User Profile -->
     <template v-if="loggedIn">
       <v-list-item lines="two" :to="userProfileLink" exact>
@@ -29,7 +30,12 @@
             <v-list-group v-if="nav.children" :key="(nav.key || nav.title) + 'multi-item'"
               v-model="dropDowns[nav.title]" color="primary" :prepend-icon="nav.icon">
               <template #activator>
-                <v-list-item-title>{{ nav.title }}</v-list-item-title>
+                <v-list-item exact>
+                  <template #prepend>
+                    <v-icon>{{ nav.icon }}</v-icon>
+                  </template>
+                  <v-list-item-title>{{ nav.title }}</v-list-item-title>
+                </v-list-item>
               </template>
 
               <v-list-item v-for="child in nav.children" :key="child.key || child.title" exact :to="child.to"
