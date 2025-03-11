@@ -2,10 +2,9 @@
   <div>
     <slot name="activator" v-bind="{ open }" />
     <v-dialog v-model="dialog" absolute :width="width" :max-width="maxWidth ?? undefined"
-      :content-class="top ? 'top-dialog' : undefined" :fullscreen="$vuetify.display.xs" @keydown.enter="
-        emit('submit');
-      dialog = false;
-      " @click:outside="emit('cancel')" @keydown.esc="emit('cancel')">
+      :content-class="top ? 'top-dialog' : undefined" :fullscreen="$vuetify.display.xs" @keydown.enter="() => {
+        emit('submit'); dialog = false;
+      }" @click:outside="emit('cancel')" @keydown.esc="emit('cancel')">
       <v-card height="100%">
         <v-app-bar dark density="comfortable" :color="color" class="px-3">
           <v-icon size="large">
