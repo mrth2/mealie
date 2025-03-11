@@ -1,5 +1,5 @@
 <template>
-  <v-container fill-height fluid class="d-flex justify-center align-center flex-column" :class="{
+  <v-container fill-height fluid class="d-flex fill-height justify-center align-center flex-column" :class="{
     'bg-off-white': !$vuetify.theme.current.dark && !isDark,
   }">
     <v-alert v-if="isFirstLogin" class="my-4" type="info" icon="mdi-information">
@@ -16,7 +16,7 @@
     </v-alert>
     <v-card tag="section" class="d-flex flex-column align-center" width="600px">
       <v-toolbar width="100%" color="primary" class="d-flex justify-center mb-4" dark>
-        <v-toolbar-title class="headline text-h4"> Mealie </v-toolbar-title>
+        <v-toolbar-title class="headline text-h4 text-center"> Mealie </v-toolbar-title>
       </v-toolbar>
 
       <div class="icon-container">
@@ -30,17 +30,17 @@
       </div>
 
       <v-card-title class="headline justify-center pb-3"> {{ $t('user.sign-in') }} </v-card-title>
-      <v-card-text>
+      <v-card-text class="w-100">
         <v-form @submit.prevent="authenticate">
-          <v-text-field v-model="form.email" :prepend-inner-icon="$globals.icons.email" variant="filled" rounded autofocus
+          <v-text-field v-model="form.email" :prepend-inner-icon="$globals.icons.email" variant="solo-filled" width="100%" rounded autofocus
             autocomplete="username" class="rounded-lg" name="login" :label="$t('user.email-or-username')" type="text" />
           <v-text-field id="password" v-model="form.password" :prepend-inner-icon="$globals.icons.lock"
-            :append-icon="passwordIcon"variant="filled" rounded autocomplete="current-password" class="rounded-lg"
-            name="password" :label="$t('user.password')" :type="inputType" @click:append="togglePasswordShow" />
+            :append-inner-icon="passwordIcon" variant="solo-filled" rounded autocomplete="current-password" class="rounded-lg"
+            name="password" :label="$t('user.password')" :type="inputType" @click:append-inner="togglePasswordShow" />
           <v-checkbox v-model="form.remember" class="ml-2 mt-n2" :label="$t('user.remember-me')"></v-checkbox>
           <v-card-actions class="justify-center pt-0">
             <div class="max-button">
-              <v-btn :loading="loggingIn" :disabled="oidcLoggingIn" color="primary" type="submit" size="large" rounded
+              <v-btn :loading="loggingIn" :disabled="oidcLoggingIn" variant="elevated" color="primary" type="submit" size="large" rounded
                 class="rounded-xl" block>
                 {{ $t("user.login") }}
               </v-btn>
@@ -168,7 +168,7 @@ export default defineNuxtComponent({
     const oidcProviderName = computed(() => appInfo.value?.oidcProviderName || "OAuth")
 
     whenever(
-      () => allowOidc.value && oidcRedirect.value && !isCallback() && !isDirectLogin() && !$auth.check().valid,
+      () => allowOidc.value && oidcRedirect.value && !isCallback() && !isDirectLogin() /* && !$auth.check().valid */,
       () => oidcAuthenticate(),
       { immediate: true }
     )
