@@ -2,7 +2,7 @@
   <BaseDialog v-model="dialog" :icon="$globals.icons.translate" :title="$t('language-dialog.choose-language')">
     <v-card-text>
       {{ $t("language-dialog.select-description") }}
-      <v-autocomplete v-model="locale" :items="locales" item-title="name" class="my-3" hide-details variant="outlined"offset>
+      <v-autocomplete v-model="locale" :items="locales" item-title="name" class="my-3" hide-details variant="outlined" offset>
         <template #item="{ item, props }">
           <div v-bind="props" class="px-2 py-2">
             <v-list-item-title> {{ item.raw.name }} </v-list-item-title>
@@ -32,6 +32,7 @@ export default defineNuxtComponent({
       required: true,
     },
   },
+  emits: ["update:modelValue"],
   setup(props, { emit }) {
     const dialog = computed({
       get: () => props.modelValue,
@@ -39,6 +40,9 @@ export default defineNuxtComponent({
     });
 
     const { locales: LOCALES, locale, i18n } = useLocales();
+    watch(locale, () => {
+      dialog.value = false; // Close dialog when locale changes
+    })
 
     const locales = LOCALES.filter((lc) =>
       i18n.locales.value.map((i18nLocale) => i18nLocale.code).includes(lc.value as any)
