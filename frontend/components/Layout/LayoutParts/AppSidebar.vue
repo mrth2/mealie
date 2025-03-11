@@ -23,7 +23,7 @@
 
     <!-- Primary Links -->
     <template v-if="topLink">
-      <v-list nav density="comfortable" v-model:selected="secondarySelected">
+      <v-list v-model:selected="secondarySelected" nav density="comfortable" color="primary">
         <template v-for="nav in topLink">
           <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
             <!-- Multi Items -->
