@@ -16,16 +16,16 @@
           :label="$t('user.email')" :rules="[validators.required, validators.email]"
           :error-messages="emailErrorMessages" @blur="validateEmail" />
         <v-text-field v-model="credentials.password1.value" v-bind="inputAttrs" :type="pwFields.inputType.value"
-          :append-icon="pwFields.passwordIcon.value" :prepend-icon="$globals.icons.lock" :label="$t('user.password')"
+          :append-inner-icon="pwFields.passwordIcon.value" :prepend-icon="$globals.icons.lock" :label="$t('user.password')"
           :rules="[validators.required, validators.minLength(8), validators.maxLength(258)]"
-          @click:append="pwFields.togglePasswordShow" />
+          @click:append-inner="pwFields.togglePasswordShow" />
 
         <UserPasswordStrength :value="credentials.password1.value" />
 
         <v-text-field v-model="credentials.password2.value" v-bind="inputAttrs" :type="pwFields.inputType.value"
-          :append-icon="pwFields.passwordIcon.value" :prepend-icon="$globals.icons.lock"
+          :append-inner-icon="pwFields.passwordIcon.value" :prepend-icon="$globals.icons.lock"
           :label="$t('user.confirm-password')" :rules="[validators.required, credentials.passwordMatch]"
-          @click:append="pwFields.togglePasswordShow" />
+          @click:append-inner="pwFields.togglePasswordShow" />
         <div class="px-2">
           <v-checkbox v-model="accountDetails.advancedOptions.value" :label="$t('user.enable-advanced-content')" />
           <p class="text-caption mt-n4">
