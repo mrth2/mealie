@@ -15,7 +15,7 @@
       <div v-if="loggedIn">
         <v-tooltip v-if="canEdit" bottom color="info">
           <template #activator="{ props }">
-            <v-btn class="rounded-circle" size="small" class="ml-1" color="info" v-bind="props"
+            <v-btn class="rounded-circle ml-1" size="small" color="info" v-bind="props"
               @click="$emit('edit', true)">
               <v-icon> {{ $globals.icons.edit }} </v-icon>
             </v-btn>

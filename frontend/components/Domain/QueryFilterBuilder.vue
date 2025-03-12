@@ -17,7 +17,7 @@
               :style="attrs.fields.logicalOperator.style">
               <v-select v-if="index" :model-value="field.logicalOperator" :items="[logOps.AND, logOps.OR]"
                 item-title="label" item-value="value"
-                @update:model-value="setLogicalOperatorValue(field, index, $event)">
+                @update:model-value="setLogicalOperatorValue(field, index, $event.value)">
                 <template #chip="{ item }">
                   <span :class="attrs.select.textClass" style="width: 100%;">
                     {{ item.raw.label }}
@@ -49,7 +49,7 @@
               :style="attrs.fields.relationalOperator.style">
               <v-select v-if="field.type !== 'boolean'" :model-value="field.relationalOperatorValue"
                 :items="field.relationalOperatorOptions" item-title="label" item-value="value"
-                @update:model-value="setRelationalOperatorValue(field, index, $event)">
+                @update:model-value="setRelationalOperatorValue(field, index, $event.value)">
                 <template #chip="{ item }">
                   <span :class="attrs.select.textClass" style="width: 100%;">
                     {{ item.raw.label }}

@@ -315,6 +315,7 @@ export default defineNuxtComponent({
     const groupRecipeActionsStore = useGroupRecipeActions();
 
     async function executeRecipeAction(action: GroupRecipeActionOut) {
+      if (!props.recipe) return;
       const response = await groupRecipeActionsStore.execute(action, props.recipe, props.recipeScale);
 
       if (action.actionType === "post") {
