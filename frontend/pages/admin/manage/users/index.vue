@@ -117,18 +117,18 @@ export default defineNuxtComponent({
 
     const headers = [
       {
-        text: i18n.t("user.user-id"),
+        title: i18n.t("user.user-id"),
         align: "start",
         value: "id",
       },
-      { text: i18n.t("user.username"), value: "username" },
-      { text: i18n.t("user.full-name"), value: "fullName" },
-      { text: i18n.t("user.email"), value: "email" },
-      { text: i18n.t("group.group"), value: "group" },
-      { text: i18n.t("household.household"), value: "household" },
-      { text: i18n.t("user.auth-method"), value: "authMethod" },
-      { text: i18n.t("user.admin"), value: "admin" },
-      { text: i18n.t("general.delete"), value: "actions", sortable: false, align: "center" },
+      { title: i18n.t("user.username"), value: "username" },
+      { title: i18n.t("user.full-name"), value: "fullName" },
+      { title: i18n.t("user.email"), value: "email" },
+      { title: i18n.t("group.group"), value: "group" },
+      { title: i18n.t("household.household"), value: "household" },
+      { title: i18n.t("user.auth-method"), value: "authMethod" },
+      { title: i18n.t("user.admin"), value: "admin" },
+      { title: i18n.t("general.delete"), value: "actions", sortable: false, align: "center" },
     ];
 
     async function unlockAllUsers(): Promise<void> {

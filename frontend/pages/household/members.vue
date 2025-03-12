@@ -76,14 +76,14 @@ export default defineNuxtComponent({
     const members = ref<UserOut[] | null[]>([]);
 
     const headers = [
-      { text: "", value: "avatar", sortable: false, align: "center" },
-      { text: i18n.t("user.username"), value: "username" },
-      { text: i18n.t("user.full-name"), value: "fullName" },
-      { text: i18n.t("user.admin"), value: "admin" },
-      { text: i18n.t("group.manage"), value: "manage", sortable: false, align: "center" },
-      { text: i18n.t("settings.organize"), value: "organize", sortable: false, align: "center" },
-      { text: i18n.t("group.invite"), value: "invite", sortable: false, align: "center" },
-      { text: i18n.t("group.manage-household"), value: "manageHousehold", sortable: false, align: "center" },
+      { title: "", value: "avatar", sortable: false, align: "center" },
+      { title: i18n.t("user.username"), value: "username" },
+      { title: i18n.t("user.full-name"), value: "fullName" },
+      { title: i18n.t("user.admin"), value: "admin" },
+      { title: i18n.t("group.manage"), value: "manage", sortable: false, align: "center" },
+      { title: i18n.t("settings.organize"), value: "organize", sortable: false, align: "center" },
+      { title: i18n.t("group.invite"), value: "invite", sortable: false, align: "center" },
+      { title: i18n.t("group.manage-household"), value: "manageHousehold", sortable: false, align: "center" },
     ];
 
     async function refreshMembers() {

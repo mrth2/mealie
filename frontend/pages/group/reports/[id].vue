@@ -52,9 +52,9 @@ export default defineNuxtComponent({
     });
 
     const itemHeaders = [
-      { text: "Success", value: "success" },
-      { text: "Message", value: "message" },
-      { text: "Timestamp", value: "timestamp" },
+      { title: "Success", value: "success" },
+      { title: "Message", value: "message" },
+      { title: "Timestamp", value: "timestamp" },
     ];
 
     return {

@@ -102,15 +102,15 @@ export default defineNuxtComponent({
       search: "",
       headers: [
         {
-          text: i18n.t("group.group"),
+          title: i18n.t("group.group"),
           align: "start",
           sortable: false,
           value: "id",
         },
-        { text: i18n.t("general.name"), value: "name" },
-        { text: i18n.t("group.total-households"), value: "households" },
-        { text: i18n.t("user.total-users"), value: "users" },
-        { text: i18n.t("general.delete"), value: "actions" },
+        { title: i18n.t("general.name"), value: "name" },
+        { title: i18n.t("group.total-households"), value: "households" },
+        { title: i18n.t("user.total-users"), value: "users" },
+        { title: i18n.t("general.delete"), value: "actions" },
       ],
       updateMode: false,
       createGroupForm: {

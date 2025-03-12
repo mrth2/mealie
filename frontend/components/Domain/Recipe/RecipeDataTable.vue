@@ -104,36 +104,36 @@ export default defineNuxtComponent({
     });
 
     const headers = computed(() => {
-      const hdrs: Array<{ text: string, value: string, align?: string }> = [];
+      const hdrs: Array<{ title: string, value: string, align?: string }> = [];
 
       if (props.showHeaders.id) {
-        hdrs.push({ text: i18n.t("general.id"), value: "id" });
+        hdrs.push({ title: i18n.t("general.id"), value: "id" });
       }
       if (props.showHeaders.owner) {
-        hdrs.push({ text: i18n.t("general.owner"), value: "userId", align: "center" });
+        hdrs.push({ title: i18n.t("general.owner"), value: "userId", align: "center" });
       }
-      hdrs.push({ text: i18n.t("general.name"), value: "name" });
+      hdrs.push({ title: i18n.t("general.name"), value: "name" });
       if (props.showHeaders.categories) {
-        hdrs.push({ text: i18n.t("recipe.categories"), value: "recipeCategory" });
+        hdrs.push({ title: i18n.t("recipe.categories"), value: "recipeCategory" });
       }
 
       if (props.showHeaders.tags) {
-        hdrs.push({ text: i18n.t("tag.tags"), value: "tags" });
+        hdrs.push({ title: i18n.t("tag.tags"), value: "tags" });
       }
       if (props.showHeaders.tools) {
-        hdrs.push({ text: i18n.t("tool.tools"), value: "tools" });
+        hdrs.push({ title: i18n.t("tool.tools"), value: "tools" });
       }
       if (props.showHeaders.recipeServings) {
-        hdrs.push({ text: i18n.t("recipe.servings"), value: "recipeServings" });
+        hdrs.push({ title: i18n.t("recipe.servings"), value: "recipeServings" });
       }
       if (props.showHeaders.recipeYieldQuantity) {
-        hdrs.push({ text: i18n.t("recipe.yield"), value: "recipeYieldQuantity" });
+        hdrs.push({ title: i18n.t("recipe.yield"), value: "recipeYieldQuantity" });
       }
       if (props.showHeaders.recipeYield) {
-        hdrs.push({ text: i18n.t("recipe.yield-text"), value: "recipeYield" });
+        hdrs.push({ title: i18n.t("recipe.yield-text"), value: "recipeYield" });
       }
       if (props.showHeaders.dateAdded) {
-        hdrs.push({ text: i18n.t("general.date-added"), value: "dateAdded" });
+        hdrs.push({ title: i18n.t("general.date-added"), value: "dateAdded" });
       }
 
       return hdrs;

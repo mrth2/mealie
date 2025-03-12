@@ -11,66 +11,38 @@
         </template>
         <v-card>
           <v-card-text>
-            <v-checkbox
-              v-for="itemValue in headers"
-              :key="itemValue.text + itemValue.show"
-              v-model="filteredHeaders"
-              :value="itemValue.value"
-              density="compact"
-              flat
-              inset
-              :label="itemValue.text"
-              hide-details
-            ></v-checkbox>
+            <v-checkbox v-for="itemValue in headers" :key="itemValue.text + itemValue.show" v-model="filteredHeaders"
+              :value="itemValue.value" density="compact" flat inset :label="itemValue.text" hide-details></v-checkbox>
           </v-card-text>
         </v-card>
       </v-menu>
-      <BaseOverflowButton
-        v-if="bulkActions.length > 0"
-        :disabled="selected.length < 1"
-        mode="event"
-        color="info"
-        :items="bulkActions"
-        v-on="bulkActionListener"
-      >
+      <BaseOverflowButton v-if="bulkActions.length > 0" :disabled="selected.length < 1" mode="event" color="info"
+        :items="bulkActions" v-on="bulkActionListener">
       </BaseOverflowButton>
       <slot name="button-row"> </slot>
     </v-card-actions>
     <div class="mx-2 clip-width">
       <v-text-field v-model="search" :label="$t('search.search')"></v-text-field>
     </div>
-    <v-data-table
-      v-model="selected"
-      item-key="id"
-      :show-select="bulkActions.length > 0"
-      :headers="activeHeaders"
-      :sort-by="initialSort"
-      :sort-desc="initialSortDesc"
-      :items="data || []"
-      :items-per-page="15"
-      :search="search"
-      class="elevation-2"
-    >
+    <v-data-table v-model="selected" item-key="id" :show-select="bulkActions.length > 0" :headers="activeHeaders"
+      :sort-by="initialSort" :sort-desc="initialSortDesc" :items="data || []" :items-per-page="15" :search="search"
+      class="elevation-2">
       <template v-for="header in activeHeaders" #[`item.${header.value}`]="{ item }">
         <slot :name="'item.' + header.value" v-bind="{ item }"> {{ item[header.value] }}</slot>
       </template>
       <template #item.actions="{ item }">
-        <BaseButtonGroup
-          :buttons="[
-            {
-              icon: $globals.icons.edit,
-              text: $t('general.edit'),
-              event: 'edit',
-            },
-            {
-              icon: $globals.icons.delete,
-              text: $t('general.delete'),
-              event: 'delete',
-            },
-          ]"
-          @delete="$emit('delete-one', item)"
-          @edit="$emit('edit-one', item)"
-        />
+        <BaseButtonGroup :buttons="[
+          {
+            icon: $globals.icons.edit,
+            text: $t('general.edit'),
+            event: 'edit',
+          },
+          {
+            icon: $globals.icons.delete,
+            text: $t('general.delete'),
+            event: 'delete',
+          },
+        ]" @delete="$emit('delete-one', item)" @edit="$emit('edit-one', item)" />
       </template>
     </v-data-table>
     <v-card-actions class="justify-end">
@@ -140,6 +112,7 @@ export default defineNuxtComponent({
     },
   },
   setup(props, context) {
+    const i18n = useI18n();
     // ===========================================================
     // Reactive Headers
     const filteredHeaders = ref<string[]>([]);
@@ -156,8 +129,11 @@ export default defineNuxtComponent({
     })();
 
     const activeHeaders = computed(() => {
-      const filtered = props.headers.filter((header) => filteredHeaders.value.includes(header.value));
-      filtered.push({ text: "", value: "actions", show: true, align: "right" });
+      const filtered = props.headers.filter((header) => filteredHeaders.value.includes(header.value)).map(h => {
+        const { text, ...rest } = h;
+        return { ...rest, title: i18n.t(text) };
+      });
+      filtered.push({ title: "", value: "actions", show: true, align: "right" });
       return filtered;
     });
 

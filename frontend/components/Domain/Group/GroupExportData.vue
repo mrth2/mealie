@@ -25,11 +25,11 @@ export default defineNuxtComponent({
     const i18n = useI18n();
 
     const headers = [
-      { text: i18n.t("export.export"), value: "name" },
-      { text: i18n.t("export.file-name"), value: "filename" },
-      { text: i18n.t("export.size"), value: "size" },
-      { text: i18n.t("export.link-expires"), value: "expires" },
-      { text: "", value: "actions" },
+      { title: i18n.t("export.export"), value: "name" },
+      { title: i18n.t("export.file-name"), value: "filename" },
+      { title: i18n.t("export.size"), value: "size" },
+      { title: i18n.t("export.link-expires"), value: "expires" },
+      { title: "", value: "actions" },
     ];
 
     function getTimeToExpire(timeString: string) {

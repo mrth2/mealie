@@ -97,16 +97,16 @@ export default defineNuxtComponent({
       search: "",
       headers: [
         {
-          text: i18n.t("household.household"),
+          title: i18n.t("household.household"),
           align: "start",
           sortable: false,
           value: "id",
         },
-        { text: i18n.t("general.name"), value: "name" },
-        { text: i18n.t("group.group"), value: "group" },
-        { text: i18n.t("user.total-users"), value: "users" },
-        { text: i18n.t("user.webhooks-enabled"), value: "webhookEnable" },
-        { text: i18n.t("general.delete"), value: "actions" },
+        { title: i18n.t("general.name"), value: "name" },
+        { title: i18n.t("group.group"), value: "group" },
+        { title: i18n.t("user.total-users"), value: "users" },
+        { title: i18n.t("user.webhooks-enabled"), value: "webhookEnable" },
+        { title: i18n.t("general.delete"), value: "actions" },
       ],
       updateMode: false,
       createHouseholdForm: {

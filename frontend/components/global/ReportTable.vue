@@ -1,6 +1,5 @@
 <template>
-  <v-data-table :headers="headers" :items="items" item-key="id" class="elevation-0" :items-per-page="50"
-    @click:row="handleRowClick">
+  <v-data-table :headers="headers" :items="items" item-key="id" class="elevation-0" :items-per-page="50" @click:row="handleRowClick">
     <template #item.category="{ item }">
       {{ capitalize(item.category) }}
     </template>
@@ -34,11 +33,11 @@ export default defineNuxtComponent({
     const router = useRouter();
 
     const headers = [
-      { text: i18n.t("category.category"), value: "category" },
-      { text: i18n.t("general.name"), value: "name" },
-      { text: i18n.t("general.timestamp"), value: "timestamp" },
-      { text: i18n.t("general.status"), value: "status" },
-      { text: i18n.t("general.delete"), value: "actions" },
+      { title: i18n.t("category.category"), value: "category", key: 'category' },
+      { title: i18n.t("general.name"), value: "name", key: 'name' },
+      { title: i18n.t("general.timestamp"), value: "timestamp", key: 'timestamp' },
+      { title: i18n.t("general.status"), value: "status", key: 'status' },
+      { title: i18n.t("general.delete"), value: "actions", key: 'actions' },
     ];
 
     function handleRowClick(item: ReportSummary) {
