@@ -58,7 +58,7 @@
               <template v-if="!editState[rule.id]">
                 <div v-if="rule.categories">
                   <h4 class="py-1">{{ $t("category.categories") }}:</h4>
-                  <RecipeChips v-if="rule.categories.length" :items="rule.categories" size="small" class="pb-3" />
+                  <RecipeChips v-if="rule.categories.length" :items="rule.categories" small class="pb-3" />
                   <v-card-text
                     v-else
                     label
@@ -73,7 +73,7 @@
 
                 <div v-if="rule.tags">
                   <h4 class="py-1">{{ $t("tag.tags") }}:</h4>
-                  <RecipeChips v-if="rule.tags.length" :items="rule.tags" url-prefix="tags" size="small" class="pb-3" />
+                  <RecipeChips v-if="rule.tags.length" :items="rule.tags" url-prefix="tags" small class="pb-3" />
                   <v-card-text
                     v-else
                     label

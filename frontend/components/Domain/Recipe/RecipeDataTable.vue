@@ -13,13 +13,13 @@
         @click="$emit('click')">{{ item.name }}</a>
     </template>
     <template #item.tags="{ item }">
-      <RecipeChip size="small" :items="item.tags!" :is-category="false" url-prefix="tags" @item-selected="filterItems" />
+      <RecipeChip small :items="item.tags!" :is-category="false" url-prefix="tags" @item-selected="filterItems" />
     </template>
     <template #item.recipeCategory="{ item }">
-      <RecipeChip size="small" :items="item.recipeCategory!" @item-selected="filterItems" />
+      <RecipeChip small :items="item.recipeCategory!" @item-selected="filterItems" />
     </template>
     <template #item.tools="{ item }">
-      <RecipeChip size="small" :items="item.tools" url-prefix="tools" @item-selected="filterItems" />
+      <RecipeChip small :items="item.tools" url-prefix="tools" @item-selected="filterItems" />
     </template>
     <template #item.userId="{ item }">
       <v-list-item class="justify-start">
