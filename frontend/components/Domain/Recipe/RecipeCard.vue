@@ -37,7 +37,7 @@
           <v-card-actions v-if="showRecipeContent" class="px-1">
             <RecipeFavoriteBadge v-if="isOwnGroup" class="absolute" :recipe-id="recipeId" show-always />
 
-            <RecipeRating class="pb-1" :value="rating" :recipe-id="recipeId" :slug="slug" size="small" />
+            <RecipeRating class="pb-1" :value="rating" :recipe-id="recipeId" :slug="slug" small />
             <v-spacer></v-spacer>
             <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" size="small" url-prefix="tags" v-on="$attrs" />
 

@@ -49,7 +49,7 @@
                   :value="rating"
                   :recipe-id="recipeId"
                   :slug="slug"
-                  size="small"
+                  small
                 />
                 <v-spacer></v-spacer>
 
