@@ -155,7 +155,7 @@
             </v-row>
           </v-container>
         </v-col>
-        <v-col :cols="!useMobile ? 12 : 9" :style="useMobile ? '' : 'max-height: 70vh; overflow-y: auto'">
+        <v-col :cols="useMobile ? 12 : 9" :style="useMobile ? '' : 'max-height: 70vh; overflow-y: auto'">
           <v-container v-if="recipeSuggestions.readyToMake.length || recipeSuggestions.missingItems.length"
             class="ma-0 pa-0">
             <v-row v-if="recipeSuggestions.readyToMake.length" density="compact">
@@ -198,7 +198,7 @@
           </v-container>
           <v-container v-else>
             <v-row>
-              <v-col cols="12" class="d-flex flex-row flex-wrap justify-center">
+              <v-col cols="12" class="d-flex flex-column justify-center align-center ga-1">
                 <v-card-title class="ma-0 pa-0">{{ $t("recipe-finder.no-recipes-found") }}</v-card-title>
                 <v-card-text class="ma-0 pa-0 text-center">
                   {{ $t("recipe-finder.no-recipes-found-description") }}
