@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar v-if="!disableToolbar" color="transparent" flat class="mt-n1 flex-sm-wrap rounded">
+    <v-app-bar v-if="!disableToolbar" color="transparent" :absolute="false" flat class="mt-n1 flex-sm-wrap rounded position-relative w-100 left-0 top-0">
       <slot name="title">
         <v-icon v-if="title" size="large" start>
           {{ displayTitleIcon }}
