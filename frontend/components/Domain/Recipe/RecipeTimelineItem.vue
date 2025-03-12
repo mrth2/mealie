@@ -98,7 +98,7 @@ export default defineNuxtComponent({
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user?.value?.groupSlug || "");
 
     const useMobileFormat = computed(() => {
-      return $vuetify.display.smAndDown;
+      return $vuetify.display.smAndDown.value;
     });
 
     const attrs = computed(() => {

@@ -44,7 +44,7 @@ export default defineNuxtComponent({
 
     const hideImage = ref(false);
     const imageHeight = computed(() => {
-      return $vuetify.display.xs ? "200" : "400";
+      return $vuetify.display.xs.value ? "200" : "400";
     });
 
     const recipeImageUrl = computed(() => {

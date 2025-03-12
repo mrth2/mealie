@@ -157,7 +157,7 @@ export default defineNuxtComponent({
     const { $globals } = useNuxtApp();
     const { isOwnGroup } = useLoggedInState();
     const useMobileCards = computed(() => {
-      return $vuetify.display.smAndDown || preferences.value.useMobileCards;
+      return $vuetify.display.smAndDown.value || preferences.value.useMobileCards;
     });
 
     const displayTitleIcon = computed(() => {

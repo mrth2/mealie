@@ -283,7 +283,7 @@ export default defineNuxtComponent({
      */
     const landscape = computed(() => {
       const preferLandscape = props.recipe.settings.landscapeView;
-      const smallScreen = !$vuetify.display.smAndUp;
+      const smallScreen = !$vuetify.display.smAndUp.value;
 
       if (preferLandscape) {
         return true;

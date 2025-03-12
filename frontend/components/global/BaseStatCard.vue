@@ -71,7 +71,7 @@ export default defineNuxtComponent({
     const classes = computed(() => {
       return {
         "v-card--material--has-heading": hasHeading,
-        "mt-3": $vuetify.display.name === "xs" || $vuetify.display.name === "sm",
+        "mt-3": $vuetify.display.name.value === "xs" || $vuetify.display.name.value === "sm",
       };
     });
 

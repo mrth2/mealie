@@ -35,7 +35,7 @@ export default defineNuxtComponent({
 
     const sidebar = ref<boolean>(false);
     onMounted(() => {
-      sidebar.value = !$vuetify.display.md;
+      sidebar.value = !$vuetify.display.md.value;
     });
 
     const topLinks: SidebarLinks = [

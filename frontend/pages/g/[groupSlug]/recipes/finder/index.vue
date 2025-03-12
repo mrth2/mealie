@@ -2,10 +2,14 @@
   <v-container>
     <BasePageTitle divider>
       <template #header>
-        <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
+        <v-img width="100" max-height="100" max-width="100"
+          :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
       </template>
       <template #title> {{ $t('recipe-finder.recipe-finder') }} </template>
-      {{ $t('recipe-finder.recipe-finder-description') }}
+
+      <template #content>
+        {{ $t('recipe-finder.recipe-finder-description') }}
+      </template>
     </BasePageTitle>
     <v-container v-if="ready">
       <v-row>
@@ -78,10 +82,11 @@
                       <div class="mt-1">
                         <v-checkbox v-if="isOwnGroup" v-model="settings.includeFoodsOnHand" density="compact"
                           size="small" hide-details class="my-auto"
-                          :label="$t('recipe-finder.include-ingredients-on-hand')" />
+                          :label="$t('recipe-finder.include-ingredients-on-hand')">
+                        </v-checkbox>
                         <v-checkbox v-if="isOwnGroup" v-model="settings.includeToolsOnHand" density="compact"
-                          size="small" hide-details class="my-auto"
-                          :label="$t('recipe-finder.include-tools-on-hand')" />
+                          size="small" hide-details class="my-auto" :label="$t('recipe-finder.include-tools-on-hand')">
+                        </v-checkbox>
                       </div>
                     </v-card-text>
                   </v-card>
@@ -150,7 +155,7 @@
             </v-row>
           </v-container>
         </v-col>
-        <v-col :cols="useMobile ? 12 : 9" :style="useMobile ? '' : 'max-height: 70vh; overflow-y: auto'">
+        <v-col :cols="!useMobile ? 12 : 9" :style="useMobile ? '' : 'max-height: 70vh; overflow-y: auto'">
           <v-container v-if="recipeSuggestions.readyToMake.length || recipeSuggestions.missingItems.length"
             class="ma-0 pa-0">
             <v-row v-if="recipeSuggestions.readyToMake.length" density="compact">
@@ -248,9 +253,9 @@ export default defineNuxtComponent({
       title: i18n.t("recipe-finder.recipe-finder"),
     });
 
-    const useMobile = computed(() => $vuetify.display.smAndDown);
+    const useMobile = computed(() => $vuetify.display.smAndDown.value);
 
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
     const { isOwnGroup } = useLoggedInState();
     const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
 
