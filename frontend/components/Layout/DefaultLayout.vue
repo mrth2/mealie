@@ -2,6 +2,12 @@
   <v-app dark>
     <TheSnackbar />
 
+    <AppHeader>
+      <v-btn icon @click.stop="sidebar = !sidebar">
+        <v-icon> {{ $globals.icons.menu }}</v-icon>
+      </v-btn>
+    </AppHeader>
+
     <AppSidebar v-model="sidebar" absolute :top-link="topLinks" :secondary-links="cookbookLinks || []"
       :bottom-links="isAdmin ? bottomLinks : []">
       <v-menu offset-y nudge-bottom="5" close-delay="50" nudge-right="15">
@@ -56,12 +62,6 @@
         </v-list-item>
       </template>
     </AppSidebar>
-
-    <AppHeader>
-      <v-btn icon @click.stop="sidebar = !sidebar">
-        <v-icon> {{ $globals.icons.menu }}</v-icon>
-      </v-btn>
-    </AppHeader>
     <v-main>
       <v-scroll-x-transition>
         <div>
@@ -113,7 +113,7 @@ export default defineNuxtComponent({
 
     const sidebar = ref<boolean>(false);
     onMounted(() => {
-      sidebar.value = !$vuetify.display.md;
+      sidebar.value = $vuetify.display.mdAndUp.value;
     });
 
     function cookbookAsLink(cookbook: ReadCookBook): SideBarLink {
