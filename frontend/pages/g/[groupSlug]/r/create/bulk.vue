@@ -16,7 +16,7 @@
             single-line
             validate-on="blur"
             autofocus
-           variant="filled"
+            variant="solo-filled"
             hide-details
             clearable
             :prepend-inner-icon="$globals.icons.link"
@@ -100,7 +100,6 @@
 </template>
 
 <script lang="ts">
-
 import { whenever } from "@vueuse/shared";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";

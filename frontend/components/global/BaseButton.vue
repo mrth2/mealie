@@ -1,6 +1,7 @@
 <template>
   <v-btn :color="color || btnAttrs.color" :size="small ? 'small' : 'default'" :x-small="xSmall" :loading="loading"
-    :disabled="disabled" :variant="btnStyle.outlined ? 'outlined' : btnStyle.text ? 'text' : 'elevated'" :to="to"
+    :disabled="disabled"
+    :variant="disabled ? 'tonal' : btnStyle.outlined ? 'outlined' : btnStyle.text ? 'text' : 'elevated'" :to="to"
     v-bind="$attrs" v-on="$attrs" @click="download ? downloadFile() : undefined">
     <v-icon v-if="!iconRight" start>
       <slot name="icon">

@@ -3,7 +3,8 @@
     <v-container class="flex-column">
       <BasePageTitle divider>
         <template #header>
-          <v-img width="100%" max-height="175" max-width="175" :src="require('~/static/svgs/recipes-create.svg')"></v-img>
+          <v-img width="100%" max-height="175" max-width="175"
+            :src="require('~/static/svgs/recipes-create.svg')"></v-img>
         </template>
         <template #title> {{ $t('recipe.recipe-creation') }} </template>
         <template #content>
@@ -16,7 +17,7 @@
         </template>
       </BasePageTitle>
       <section>
-        <NuxtChild />
+        <NuxtPage />
       </section>
     </v-container>
 

@@ -10,9 +10,10 @@
           :prepend-inner-icon="$globals.icons.primary"
           validate-on="blur"
           autofocus
-         variant="filled"
+          variant="filled"
           clearable
           class="rounded-lg mt-2"
+          color="primary"
           rounded
           :rules="[validators.required]"
           :hint="$t('recipe.new-recipe-names-must-be-unique')"

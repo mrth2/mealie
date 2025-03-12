@@ -18,7 +18,7 @@
             :prepend-inner-icon="$globals.icons.link"
             validate-on="blur"
             autofocus
-            variant="filled"
+            variant="solo-filled"
             clearable
             class="rounded-lg mt-2"
             rounded
@@ -26,9 +26,9 @@
             :hint="$t('new-recipe.url-form-hint')"
             persistent-hint
           ></v-text-field>
-          <v-checkbox v-model="importKeywordsAsTags" hide-details :label="$t('recipe.import-original-keywords-as-tags')" />
-          <v-checkbox v-model="stayInEditMode" hide-details :label="$t('recipe.stay-in-edit-mode')" />
         </v-card-text>
+        <v-checkbox v-model="importKeywordsAsTags" color="primary" hide-details :label="$t('recipe.import-original-keywords-as-tags')" />
+        <v-checkbox v-model="stayInEditMode" color="primary" hide-details :label="$t('recipe.stay-in-edit-mode')" />
         <v-card-actions class="justify-center">
           <div style="width: 250px">
             <BaseButton :disabled="recipeUrl === null" rounded block type="submit" :loading="loading" />
@@ -77,6 +77,9 @@ import type { VForm } from "~/types/vuetify";
 
 export default defineNuxtComponent({
   setup() {
+    definePageMeta({
+      key: route => route.path,
+    });
     const state = reactive({
       error: false,
       loading: false,

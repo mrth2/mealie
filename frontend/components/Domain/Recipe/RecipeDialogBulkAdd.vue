@@ -27,8 +27,8 @@
           </v-textarea>
 
           <v-divider></v-divider>
-          <template v-for="(util, idx) in utilities">
-            <v-list-item :key="util.id" density="compact" class="py-1">
+          <template v-for="(util, idx) in utilities" :key="util.id">
+            <v-list-item density="compact" class="py-1">
               <v-list-item-title>
                 <v-list-item-subtitle class="wrap-word">
                   {{ util.description }}
@@ -39,7 +39,7 @@
                 {{ $t("general.run") }}
               </BaseButton>
             </v-list-item>
-            <v-divider :key="`divider-${idx}`" class="mx-2"></v-divider>
+            <v-divider class="mx-2"></v-divider>
           </template>
         </v-card-text>
 
