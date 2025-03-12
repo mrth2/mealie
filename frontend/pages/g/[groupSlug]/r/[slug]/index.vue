@@ -25,9 +25,11 @@ const slug = route.params.slug as string;
 let recipe = ref<Recipe | null>(null);
 if (isOwnGroup.value) {
   const { recipe: data } = useRecipe(slug);
-  recipe.value = data.value;
+  watch(data, (value) => {
+    recipe.value = value;
+  });
 } else {
-  const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "")
+  const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "")
   const api = usePublicExploreApi(groupSlug.value);
   const { data } = await useAsyncData(useAsyncKey(), async () => {
     const { data, error } = await api.explore.recipes.getOne(slug);
