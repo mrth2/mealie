@@ -1,5 +1,5 @@
 <template>
-  <v-tooltip bottom nudge-right="50" :color="buttonStyle ? 'info' : 'secondary'">
+  <v-tooltip location="bottom" nudge-right="50" :color="buttonStyle ? 'info' : 'secondary'">
     <template #activator="{ props }">
       <v-btn v-if="isFavorite || showAlways" size="small" :color="buttonStyle ? 'info' : 'secondary'" :icon="!buttonStyle"
         :fab="buttonStyle" v-bind="props" @click.prevent="toggleFavorite">

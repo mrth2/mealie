@@ -1,15 +1,15 @@
 <template>
   <div @click.prevent>
     <!-- User Rating -->
-    <v-hover v-slot="{ isHovering }">
-      <v-rating v-if="isOwnGroup && (userRating || isHovering || !ratingsLoaded)" :model-value="userRating"
-        color="secondary" bg-color="secondary lighten-3" length="5" :density="small ? 'compact' : 'default'"
-        :size="small ? 15 : undefined" hover clearable @update:model-value="updateRating(+$event)"
-        @click="updateRating" />
+    <v-hover v-slot="{ isHovering, props }">
+      <v-rating v-if="isOwnGroup && (userRating || isHovering || !ratingsLoaded)" v-bind="props"
+        :model-value="userRating" active-color="secondary" color="secondary lighten-3" length="5"
+        :density="small ? 'compact' : 'default'" :size="small ? 20 : undefined" hover clearable
+        @update:model-value="updateRating(+$event)" @click="updateRating" />
       <!-- Group Rating -->
-      <v-rating v-else :model-value="groupRating" :half-increments="true" readonly active-color="grey darken-1"
-        color="secondary" bg-color="secondary lighten-3" length="5" :density="small ? 'comfortable' : 'default'"
-        :size="small ? 15 : undefined" hover />
+      <v-rating v-else v-bind="props" :model-value="groupRating" :half-increments="true" active-color="grey darken-1"
+        color="secondary lighten-3" length="5" :density="small ? 'compact' : 'default'" :size="small ? 20 : undefined"
+        hover />
     </v-hover>
   </div>
 </template>
@@ -42,6 +42,7 @@ export default defineNuxtComponent({
   },
   setup(props, context) {
     const { isOwnGroup } = useLoggedInState();
+    console.log("isOwnGroup", isOwnGroup);
     const { userRatings, setRating, ready: ratingsLoaded } = useUserSelfRatings();
 
     const userRating = computed(() => {

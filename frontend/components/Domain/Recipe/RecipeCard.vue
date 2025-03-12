@@ -1,7 +1,8 @@
 <template>
   <v-lazy>
-    <v-hover v-slot="{ isHovering }" :open-delay="50">
+    <v-hover v-slot="{ isHovering, props }" :open-delay="50">
       <v-card
+        v-bind="props"
         :class="{ 'on-hover': isHovering }"
         :style="{ cursor }"
         :elevation="isHovering ? 12 : 2"
@@ -18,7 +19,7 @@
           :image-version="image"
         >
           <v-expand-transition v-if="description">
-            <div v-if="isHovering" class="d-flex transition-fast-in-fast-out secondary v-card--reveal" style="height: 100%">
+            <div v-if="isHovering" class="d-flex transition-fast-in-fast-out bg-secondary v-card--reveal" style="height: 100%">
               <v-card-text class="v-card--text-show white--text">
                 <div class="descriptionWrapper">
                   <SafeMarkdown :source="description" />
@@ -27,7 +28,7 @@
             </div>
           </v-expand-transition>
         </RecipeCardImage>
-        <v-card-title class="my-n3 px-2 mb-n6">
+        <v-card-title class="my-n3 px-4">
           <div class="headerClass">
             {{ name }}
           </div>
