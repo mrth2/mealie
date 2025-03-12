@@ -10,8 +10,8 @@
       </template>
       <v-card width="400">
         <v-card-text>
-          <v-text-field v-model="state.search" class="mb-2" hide-details density="compact" :label="$t('search.search')" clearable />
-          <div class="d-flex py-4">
+          <v-text-field v-model="state.search" class="mb-2" hide-details density="comfortable" :variant="'underlined'" :label="$t('search.search')" clearable />
+          <div class="d-flex py-4 px-1">
             <v-switch v-if="requireAll != undefined" v-model="requireAllValue" density="compact" size="small" hide-details class="my-auto"
               :label="`${requireAll ? $t('search.has-all') : $t('search.has-any')}`" />
             <v-spacer />
