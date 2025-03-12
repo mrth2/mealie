@@ -12,31 +12,19 @@
       :bottom-links="isAdmin ? bottomLinks : []">
       <v-menu offset-y nudge-bottom="5" close-delay="50" nudge-right="15">
         <template #activator="{ props }">
-          <v-btn v-if="isOwnGroup" rounded large class="ml-2 mt-3" v-bind="props">
+          <v-btn v-if="isOwnGroup" rounded large class="ml-2 mt-3" v-bind="props" variant="tonal">
             <v-icon start large color="primary">
               {{ $globals.icons.createAlt }}
             </v-icon>
             {{ $t("general.create") }}
           </v-btn>
         </template>
-        <v-list density="compact" class="my-0 py-0">
+        <v-list density="comfortable" class="mb-0 mt-1 py-0" variant="flat">
           <template v-for="(item, index) in createLinks">
             <div v-if="!item.hide" :key="item.title">
               <v-divider v-if="item.insertDivider" :key="index" class="mx-2"></v-divider>
-              <v-list-item v-if="!item.restricted || isOwnGroup" :key="item.title" :to="item.to" exact>
-                <v-avatar>
-                  <v-icon>
-                    {{ item.icon }}
-                  </v-icon>
-                </v-avatar>
-                <div>
-                  <v-list-item-title>
-                    {{ item.title }}
-                  </v-list-item-title>
-                  <v-list-item-subtitle v-if="item.subtitle">
-                    {{ item.subtitle }}
-                  </v-list-item-subtitle>
-                </div>
+              <v-list-item v-if="!item.restricted || isOwnGroup" :key="item.title" :to="item.to" exact
+                :prepend-icon="item.icon" :title="item.title" :subtitle="item.subtitle">
               </v-list-item>
             </div>
           </template>
