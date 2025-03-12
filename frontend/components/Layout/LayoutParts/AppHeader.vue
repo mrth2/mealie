@@ -2,7 +2,7 @@
   <v-app-bar clipped-left density="compact" app color="primary" dark class="d-print-none">
     <slot />
     <router-link :to="routerLink">
-      <v-btn icon>
+      <v-btn icon color="white">
         <v-icon size="40"> {{ $globals.icons.primary }} </v-icon>
       </v-btn>
     </router-link>
