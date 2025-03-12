@@ -56,3 +56,7 @@
   text-overflow: ellipsis;
   max-width: 100%;
 }
+
+a {
+  color: rgb(var(--v-theme-primary));
+}
