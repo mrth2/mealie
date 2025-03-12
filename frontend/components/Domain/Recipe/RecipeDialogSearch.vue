@@ -2,7 +2,7 @@
   <div>
     <slot v-bind="{ open, close }"> </slot>
     <v-dialog v-model="dialog" max-width="988px" content-class="top-dialog" :scrollable="false">
-      <v-app-bar sticky dark color="primary lighten-1 top-0 position-relative" :rounded="!$vuetify.display.xs">
+      <v-app-bar sticky dark color="primary lighten-1 top-0 position-relative left-0" :rounded="!$vuetify.display.xs">
         <v-text-field
           id="arrow-search"
           v-model="search.query.value"

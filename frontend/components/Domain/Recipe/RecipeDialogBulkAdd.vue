@@ -8,7 +8,7 @@
       </template>
 
       <v-card>
-        <v-app-bar density="compact" dark color="primary" class="mb-2">
+        <v-app-bar density="compact" dark color="primary" class="mb-2 position-relative left-0 top-0 w-100">
           <v-icon size="large" start>
             {{ $globals.icons.createAlt }}
           </v-icon>

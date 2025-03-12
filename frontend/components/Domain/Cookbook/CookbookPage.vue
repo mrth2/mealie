@@ -11,7 +11,7 @@
 
     <!-- Page -->
     <v-container v-if="book" fluid>
-      <v-app-bar color="transparent" flat class="mt-n1">
+      <v-app-bar color="transparent" flat class="mt-n1 position-relative left-0 top-0 w-100">
         <v-icon size="large" start> {{ $globals.icons.pages }} </v-icon>
         <v-toolbar-title class="headline"> {{ book.name }} </v-toolbar-title>
         <v-spacer></v-spacer>
