@@ -1,6 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="showDrawer" class="d-flex flex-column d-print-none" clipped app :expand-on-hover="false"
-    width="240px">
+  <v-navigation-drawer v-model="showDrawer" class="d-flex flex-column d-print-none">
     <!-- User Profile -->
     <template v-if="loggedIn">
       <v-list-item lines="two" :to="userProfileLink" exact>
