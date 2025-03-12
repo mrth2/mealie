@@ -3,17 +3,21 @@
     <!-- User Profile -->
     <template v-if="loggedIn">
       <v-list-item lines="two" :to="userProfileLink" exact>
-        <UserAvatar list :user-id="sessionUser.id" :tooltip="false" />
+        <div class="d-flex align-center ga-2">
+          <UserAvatar list :user-id="sessionUser.id" :tooltip="false" />
 
-        <v-list-item-title class="pr-2"> {{ sessionUser.fullName }}</v-list-item-title>
-        <v-list-item-subtitle>
-          <v-btn v-if="isOwnGroup" class="px-2 pa-0" variant="text" :to="userFavoritesLink" size="small">
-            <v-icon start size="small">
-              {{ $globals.icons.heart }}
-            </v-icon>
-            {{ $t("user.favorite-recipes") }}
-          </v-btn>
-        </v-list-item-subtitle>
+          <div class="d-flex flex-column justify-start">
+            <v-list-item-title class="pr-2 pl-1"> {{ sessionUser.fullName }}</v-list-item-title>
+            <v-list-item-subtitle>
+              <v-btn v-if="isOwnGroup" class="px-2 pa-0" :variant="'tonal'" :to="userFavoritesLink" size="small">
+                <v-icon start size="small">
+                  {{ $globals.icons.heart }}
+                </v-icon>
+                {{ $t("user.favorite-recipes") }}
+              </v-btn>
+            </v-list-item-subtitle>
+          </div>
+        </div>
       </v-list-item>
       <v-divider></v-divider>
     </template>
