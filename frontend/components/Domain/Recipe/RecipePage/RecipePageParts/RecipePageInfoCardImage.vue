@@ -3,6 +3,7 @@
     :key="imageKey"
     :max-width="maxWidth"
     min-height="50"
+    width="100%"
     :height="hideImage ? undefined : imageHeight"
     :src="recipeImageUrl"
     class="d-print-none"

@@ -4,13 +4,13 @@
       <RecipePageInfoCardImage v-if="landscape" :recipe="recipe" />
       <v-card :width="landscape ? '100%' : '50%'" flat class="d-flex flex-column justify-center align-center">
         <v-card-text>
-          <v-card-title class="headline pa-0 flex-column align-center">
+          <v-card-title class="headline pa-0 d-flex flex-column align-center justify-center">
             {{ recipe.name }}
             <RecipeRating :key="recipe.slug" :value="recipe.rating" :recipe-id="recipe.id" :slug="recipe.slug" />
           </v-card-title>
           <v-divider class="my-2" />
           <SafeMarkdown :source="recipe.description" />
-          <v-divider v-if="recipe.description" />
+          <v-divider v-if="recipe.description" class="mt-2" />
           <v-container class="d-flex flex-row flex-wrap justify-center align-center">
             <div class="mx-6">
               <v-row no-gutters class="mb-1">

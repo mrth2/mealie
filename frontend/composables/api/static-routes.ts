@@ -1,15 +1,13 @@
 
-import { detectServerBaseUrl } from "../use-utils";
-
 function UnknownToString(ukn: string | unknown) {
   return typeof ukn === "string" ? ukn : "";
 }
 
 export const useStaticRoutes = () => {
-  const { $config, req } = useNuxtApp();
-  const serverBase = detectServerBaseUrl(req);
+  const { $config } = useNuxtApp();
+  const serverBase = useRequestURL().origin;
 
-  const prefix = `${$config.SUB_PATH as string}/api`.replace("//", "/");
+  const prefix = `${$config.public.SUB_PATH}/api`.replace("//", "/");
 
   const fullBase = serverBase + prefix;
 

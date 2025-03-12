@@ -70,7 +70,6 @@
 <script lang="ts">
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-import { detectServerBaseUrl } from "~/composables/use-utils";
 import type { RecipeAsset } from "~/lib/api/types/recipe";
 
 export default defineNuxtComponent({
@@ -135,7 +134,7 @@ export default defineNuxtComponent({
       },
     ];
 
-    const serverBase = detectServerBaseUrl(req);
+    const serverBase = useRequestURL().origin;
 
     function getIconDefinition(icon: string) {
       return iconOptions.find((item) => item.name === icon) || iconOptions[0];
