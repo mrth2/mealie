@@ -61,25 +61,14 @@
             </template>
             <v-card>
               <v-list>
-                <v-list-item @click="toggleOrderDirection()">
-                  <v-icon start>
-                    {{
-                      state.orderDirection === "asc" ?
-                        $globals.icons.sortDescending : $globals.icons.sortAscending
-                    }}
-                  </v-icon>
-                  <v-list-item-title>
-                    {{ state.orderDirection === "asc" ? $t("general.sort-descending") : $t("general.sort-ascending")
-                    }}
-                  </v-list-item-title>
+                <v-list-item slim density="comfortable"
+                  :prepend-icon="state.orderDirection === 'asc' ? $globals.icons.sortDescending : $globals.icons.sortAscending"
+                  :title="state.orderDirection === 'asc' ? $t('general.sort-descending') : $t('general.sort-ascending')"
+                  @click="toggleOrderDirection()">
                 </v-list-item>
                 <v-divider />
-                <v-list-item v-for="v in sortable" :key="v.name" :active="state.orderBy === v.value"
-                  @click="state.orderBy = v.value">
-                  <v-icon start>
-                    {{ v.icon }}
-                  </v-icon>
-                  <v-list-item-title>{{ v.name }}</v-list-item-title>
+                <v-list-item v-for="v in sortable" :key="v.name" :active="state.orderBy === v.value" slim
+                  density="comfortable" :prepend-icon="v.icon" :title="v.name" @click="state.orderBy = v.value">
                 </v-list-item>
               </v-list>
             </v-card>
