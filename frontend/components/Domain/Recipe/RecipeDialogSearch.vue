@@ -2,12 +2,12 @@
   <div>
     <slot v-bind="{ open, close }"> </slot>
     <v-dialog v-model="dialog" max-width="988px" content-class="top-dialog" :scrollable="false">
-      <v-app-bar sticky dark color="primary lighten-1" :rounded="!$vuetify.display.xs">
+      <v-app-bar sticky dark color="primary lighten-1 top-0 position-relative" :rounded="!$vuetify.display.xs">
         <v-text-field
           id="arrow-search"
           v-model="search.query.value"
           autofocus
-          variant="solo"
+          variant="solo-filled"
           flat
           autocomplete="off"
           bg-color="primary lighten-1"
@@ -26,12 +26,12 @@
           </v-icon>
         </v-btn>
       </v-app-bar>
-      <v-card class="mt-1 pa-1 scroll" max-height="700px" relative :loading="loading">
+      <v-card class="position-relative mt-1 pa-1 scroll" max-height="700px" relative :loading="loading">
         <v-card-actions>
           <div class="mr-auto">
             {{ $t("search.results") }}
           </div>
-          <router-link :to="advancedSearchUrl"> {{ $t("search.advanced-search") }} </router-link>
+          <router-link :to="advancedSearchUrl" class="text-primary"> {{ $t("search.advanced-search") }} </router-link>
         </v-card-actions>
 
         <RecipeCardMobile
@@ -39,12 +39,12 @@
           :key="index"
           :tabindex="index"
           class="ma-1 arrow-nav"
-          :name="recipe.name"
-          :description="recipe.description || ''"
-          :slug="recipe.slug"
-          :rating="recipe.rating"
+          :name="recipe.name ?? ''"
+          :description="recipe.description ?? ''"
+          :slug="recipe.slug ?? ''"
+          :rating="recipe.rating ?? 0"
           :image="recipe.image"
-          :recipe-id="recipe.id"
+          :recipe-id="recipe.id ?? ''"
           v-on="$attrs.selected ? { selected: () => handleSelect(recipe) } : {}"
         />
       </v-card>
