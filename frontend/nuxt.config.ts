@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     compatibilityVersion: 3,
   },
   devtools: {
-    enabled: true,
+    enabled: false,
   },
   dir: {
     static: 'static',
