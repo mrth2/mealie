@@ -15,7 +15,7 @@
 
     <BasePageTitle divider>
       <template #header>
-        <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-notifiers.svg')"></v-img>
+        <v-img width="100%" max-height="125" max-width="125" :src="require('~/static/svgs/manage-notifiers.svg')"></v-img>
       </template>
       <template #title> {{ $t("events.event-notifiers") }} </template>
       {{ $t("events.new-notification-form-description") }}

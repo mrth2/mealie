@@ -2,7 +2,7 @@
   <v-container class="narrow-container">
     <BasePageTitle class="mb-2">
       <template #header>
-        <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-profile.svg')"></v-img>
+        <v-img width="100%" max-height="125" max-width="125" :src="require('~/static/svgs/manage-profile.svg')"></v-img>
       </template>
       <template #title> {{ $t('user.admin-user-creation') }} </template>
     </BasePageTitle>

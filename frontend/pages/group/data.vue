@@ -2,7 +2,7 @@
   <v-container>
     <BasePageTitle>
       <template #header>
-        <v-img max-height="175" max-width="175" :src="require('~/static/svgs/manage-recipes.svg')"></v-img>
+        <v-img width="100%" max-height="175" max-width="175" :src="require('~/static/svgs/manage-recipes.svg')"></v-img>
       </template>
       <template #title> {{ $t('data-pages.data-management') }} </template>
       {{ $t('data-pages.data-management-description') }}

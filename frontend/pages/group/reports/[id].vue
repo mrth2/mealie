@@ -2,7 +2,7 @@
   <v-container>
     <BasePageTitle divider>
       <template #header>
-        <v-img max-height="200" max-width="200" class="mb-2" :src="require('~/static/svgs/data-reports.svg')"></v-img>
+        <v-img width="100%" max-height="200" max-width="200" class="mb-2" :src="require('~/static/svgs/data-reports.svg')"></v-img>
       </template>
       <template #title> {{ $t('group.report') }} </template>
     </BasePageTitle>

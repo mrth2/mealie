@@ -2,7 +2,7 @@
   <v-container class="narrow-container">
     <BasePageTitle divider>
       <template #header>
-        <v-img max-height="200px" max-width="200px" :src="require('~/static/svgs/manage-api-tokens.svg')"></v-img>
+        <v-img width="100%" max-height="200px" max-width="200px" :src="require('~/static/svgs/manage-api-tokens.svg')"></v-img>
       </template>
       <template #title> {{ $t("settings.token.api-tokens") }} </template>
       {{ $t('settings.token.you-have-token-count', user.tokens.length) }}

@@ -3,7 +3,7 @@
     <!-- Image -->
     <BasePageTitle divider>
       <template #header>
-        <v-img max-height="200" max-width="150" :src="require('~/static/svgs/admin-site-settings.svg')"></v-img>
+        <v-img width="100%" max-height="200" max-width="150" :src="require('~/static/svgs/admin-site-settings.svg')"></v-img>
       </template>
       <template #title> {{ $t("settings.site-settings") }} </template>
     </BasePageTitle>

@@ -2,7 +2,7 @@
   <v-container class="narrow-container">
     <BasePageTitle class="mb-5">
       <template #header>
-        <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-group-settings.svg')"></v-img>
+        <v-img width="100%" max-height="100" max-width="100" :src="require('~/static/svgs/manage-group-settings.svg')"></v-img>
       </template>
       <template #title> {{ $t("profile.group-settings") }} </template>
       {{ $t("profile.group-description") }}

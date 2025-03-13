@@ -2,7 +2,7 @@
   <v-container class="md-container">
     <BasePageTitle divider>
       <template #header>
-        <v-img max-height="100" width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
+        <v-img width="100%" max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
       </template>
       <template #title> {{ $t('meal-plan.meal-plan-rules') }} </template>
       {{ $t('meal-plan.meal-plan-rules-description') }}
@@ -132,9 +132,8 @@
 </template>
 
 <script lang="ts">
-
 import { useUserApi } from "~/composables/api";
-import { PlanRulesCreate, PlanRulesOut } from "~/lib/api/types/meal-plan";
+import type { PlanRulesCreate, PlanRulesOut } from "~/lib/api/types/meal-plan";
 import GroupMealPlanRuleForm from "~/components/Domain/Household/GroupMealPlanRuleForm.vue";
 import { useAsyncKey } from "~/composables/use-utils";
 import RecipeChips from "~/components/Domain/Recipe/RecipeChips.vue";

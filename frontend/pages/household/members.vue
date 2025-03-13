@@ -2,7 +2,7 @@
   <v-container>
     <BasePageTitle divider>
       <template #header>
-        <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-members.svg')"></v-img>
+        <v-img width="100%" max-height="125" max-width="125" :src="require('~/static/svgs/manage-members.svg')"></v-img>
       </template>
       <template #title> {{ $t('group.manage-members') }} </template>
       <i18n-t keypath="group.manage-members-description">

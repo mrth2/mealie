@@ -2,7 +2,7 @@
   <v-container v-if="group" class="narrow-container">
     <BasePageTitle>
       <template #header>
-        <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-group-settings.svg')"></v-img>
+        <v-img width="100%" max-height="125" max-width="125" :src="require('~/static/svgs/manage-group-settings.svg')"></v-img>
       </template>
       <template #title> {{ $t('group.admin-group-management') }} </template>
       {{ $t('group.admin-group-management-text') }}

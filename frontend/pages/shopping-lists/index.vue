@@ -21,7 +21,7 @@
     </BaseDialog>
     <BasePageTitle divider>
       <template #header>
-        <v-img max-height="100" max-width="100" :src="require('~/static/svgs/shopping-cart.svg')"></v-img>
+        <v-img width="100%" max-height="100" max-width="100" :src="require('~/static/svgs/shopping-cart.svg')"></v-img>
       </template>
       <template #title>{{ $t('shopping-list.shopping-lists') }}</template>
     </BasePageTitle>
