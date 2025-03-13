@@ -29,3 +29,11 @@ export default defineNuxtComponent({
   },
 });
 </script>
+
+<style scoped>
+.subtitle-1 {
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--v-text-caption);
+}
+</style>
