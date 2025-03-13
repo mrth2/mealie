@@ -23,7 +23,7 @@
             </v-card-title>
             <v-card-text class="mt-n5">
               <div class="mt-4 d-flex align-center">
-                <v-text-field :model-value="yieldQuantityEditorValue" type="number" :min="0" hide-spin-buttons @update:model-value="recalculateScale(yieldQuantityEditorValue)" />
+                <v-text-field :model-value="yieldQuantityEditorValue" type="number" :min="0" variant="underlined" hide-spin-buttons @update:model-value="recalculateScale(yieldQuantityEditorValue)" />
                 <v-tooltip end color="secondary darken-1">
                   <template #activator="{ props }">
                     <v-btn v-bind="props" icon class="mx-1" size="small" @click="scale = 1">
