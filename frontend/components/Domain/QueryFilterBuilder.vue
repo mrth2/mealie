@@ -2,7 +2,7 @@
   <v-card class="ma-0" style="overflow-x: auto;">
     <v-card-text class="ma-0 pa-0">
       <v-container fluid class="ma-0 pa-0">
-        <draggable :value="fields" handle=".handle" delay="250" :delay-on-touch-only="true" v-bind="{
+        <VueDraggable :value="fields" handle=".handle" :delay="250" :delay-on-touch-only="true" v-bind="{
           animation: 200,
           group: 'recipe-instructions',
           ghostClass: 'ghost',
@@ -115,7 +115,7 @@
               ]" class="my-auto" @delete="removeField(index)" />
             </v-col>
           </v-row>
-        </draggable>
+        </VueDraggable>
       </v-container>
     </v-card-text>
     <v-card-actions>
@@ -128,7 +128,7 @@
 </template>
 
 <script lang="ts">
-import draggable from "vuedraggable";
+import { VueDraggable } from 'vue-draggable-plus'
 import { useHouseholdSelf } from "~/composables/use-households";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { Organizer } from "~/lib/api/types/non-generated";
@@ -138,7 +138,7 @@ import { type Field, type FieldDefinition, type FieldValue, type OrganizerBase, 
 
 export default defineNuxtComponent({
   components: {
-    draggable,
+    VueDraggable,
     RecipeOrganizerSelector,
   },
   props: {

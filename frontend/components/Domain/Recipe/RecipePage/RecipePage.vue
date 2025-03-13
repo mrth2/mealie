@@ -121,13 +121,12 @@
     </v-sheet>
     <v-btn
       v-if="isCookMode"
-      fab
-      size="small"
+      icon
       color="primary"
       style="position: fixed; right: 12px; top: 60px;"
       @click="toggleCookMode()"
-      >
-      <v-icon>mdi-close</v-icon>
+    >
+      <v-icon>{{ $globals.icons.close }}</v-icon>
     </v-btn>
   </div>
 

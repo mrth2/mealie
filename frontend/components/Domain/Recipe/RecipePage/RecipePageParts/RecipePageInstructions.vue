@@ -63,11 +63,12 @@
         {{ $t("recipe.cook-mode") }}
       </BaseButton>
     </div>
-    <draggable :disabled="!isEditForm" :value="modelValue" handle=".handle" delay="250" :delay-on-touch-only="true" v-bind="{
-      animation: 200,
-      group: 'recipe-instructions',
-      ghostClass: 'ghost',
-    }" @input="updateIndex" @start="drag = true" @end="drag = false">
+    <VueDraggable v-model="instructionList" :disabled="!isEditForm" handle=".handle" :delay="250"
+      :delay-on-touch-only="true" v-bind="{
+        animation: 200,
+        group: 'recipe-instructions',
+        ghostClass: 'ghost',
+      }" @start="drag = true" @end="drag = false">
       <TransitionGroup type="transition" :name="!drag ? 'flip-list' : ''">
         <div v-for="(step, index) in modelValue" :key="step.id" class="list-group-item">
           <v-app-bar v-if="step.id && showTitleEditor[step.id]" class="primary mt-6" style="cursor: pointer" dark
@@ -75,8 +76,8 @@
             <v-toolbar-title v-if="!isEditForm" class="headline">
               <v-app-bar-title> {{ step.title }} </v-app-bar-title>
             </v-toolbar-title>
-            <v-text-field v-if="isEditForm" v-model="step.title" class="headline pa-0 mt-5" density="compact" variant="solo" flat
-              :placeholder="$t('recipe.section-title')" bg-color="primary">
+            <v-text-field v-if="isEditForm" v-model="step.title" class="headline pa-0 mt-5" density="compact"
+              variant="solo" flat :placeholder="$t('recipe.section-title')" bg-color="primary">
             </v-text-field>
           </v-app-bar>
           <v-hover v-slot="{ isHovering }">
@@ -203,13 +204,13 @@
           </v-hover>
         </div>
       </TransitionGroup>
-    </draggable>
+    </VueDraggable>
     <v-divider v-if="!isCookMode" class="mt-10 d-flex d-md-none" />
   </section>
 </template>
 
 <script lang="ts">
-import draggable from "vuedraggable";
+import { VueDraggable } from 'vue-draggable-plus'
 import RecipeIngredientHtml from "../../RecipeIngredientHtml.vue";
 import type { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
@@ -230,7 +231,7 @@ interface MergerHistory {
 
 export default defineNuxtComponent({
   components: {
-    draggable,
+    VueDraggable,
     RecipeIngredientHtml,
     DropZone,
     RecipeIngredients
@@ -254,6 +255,7 @@ export default defineNuxtComponent({
       default: 1,
     },
   },
+  emits: ["update:modelValue", "click-instruction-field", "update:assets"],
 
   setup(props, context) {
     const i18n = useI18n();
@@ -351,9 +353,10 @@ export default defineNuxtComponent({
       showTitleEditor.value = temp;
     }
 
-    function updateIndex(data: RecipeStep) {
-      context.emit("update:modelValue", data);
-    }
+    const instructionList = computed({
+      get: () => props.modelValue,
+      set: (value: RecipeStep[]) => context.emit("update:modelValue", value),
+    });
 
     // ===============================================================
     // Ingredient Linker
@@ -639,7 +642,7 @@ export default defineNuxtComponent({
       toggleDisabled,
       isChecked,
       toggleShowTitle,
-      updateIndex,
+      instructionList,
       autoSetReferences,
       parseIngredientText,
       toggleCookMode,

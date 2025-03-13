@@ -34,13 +34,13 @@
       </div>
       <div v-else>
         <v-expansion-panels v-model="panels" multiple>
-          <draggable v-if="parsedIng.length > 0" v-model="parsedIng" handle=".handle" delay="250"
+          <VueDraggable v-if="parsedIng.length > 0" v-model="parsedIng" handle=".handle" :delay="250"
             :delay-on-touch-only="true" :style="{ width: '100%' }" ghost-class="ghost">
             <v-expansion-panel v-for="(ing, index) in parsedIng" :key="index">
               <v-expansion-panel-title class="my-0 py-0" disable-icon-rotate>
-                <template #default="{ open }">
+                <template #default="{ expanded }">
                   <v-fade-transition>
-                    <span v-if="!open" key="0"> {{ ing.input }} </span>
+                    <span v-if="!expanded" key="0"> {{ ing.input }} </span>
                   </v-fade-transition>
                 </template>
                 <template #actions>
@@ -69,7 +69,7 @@
                 </v-card-actions>
               </v-expansion-panel-text>
             </v-expansion-panel>
-          </draggable>
+          </VueDraggable>
         </v-expansion-panels>
       </div>
     </v-container>
@@ -78,7 +78,7 @@
 
 <script lang="ts">
 import { invoke, until } from "@vueuse/core";
-import draggable from "vuedraggable";
+import { VueDraggable } from 'vue-draggable-plus'
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import { alert } from "~/composables/use-toast";
 import { useAppInfo, useUserApi } from "~/composables/api";
@@ -107,7 +107,7 @@ interface Error {
 export default defineNuxtComponent({
   components: {
     RecipeIngredientEditor,
-    draggable
+    VueDraggable,
   },
   middleware: ["sidebase-auth", "group-only"],
   setup() {

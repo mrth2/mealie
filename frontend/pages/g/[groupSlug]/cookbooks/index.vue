@@ -66,10 +66,10 @@
 
       <!-- Cookbook List -->
       <v-expansion-panels class="mt-2">
-        <draggable
+        <VueDraggable
           v-model="myCookbooks"
           handle=".handle"
-          delay="250"
+          :delay="250"
           :delay-on-touch-only="true"
           style="width: 100%"
           @change="actions.updateOrder(myCookbooks)"
@@ -115,16 +115,14 @@
               </v-card-actions>
             </v-expansion-panel-text>
           </v-expansion-panel>
-        </draggable>
+        </VueD>
       </v-expansion-panels>
     </v-container>
   </div>
 </template>
 
 <script lang="ts">
-
-
-import draggable from "vuedraggable";
+import { VueDraggable } from 'vue-draggable-plus'
 import { useCookbooks } from "@/composables/use-group-cookbooks";
 import { useHouseholdSelf } from "@/composables/use-households";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
@@ -132,7 +130,7 @@ import type { ReadCookBook } from "~/lib/api/types/cookbook";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
 
 export default defineNuxtComponent({
-  components: { CookbookEditor, draggable },
+  components: { CookbookEditor, VueDraggable },
   middleware: ["sidebase-auth", "group-only"],
   setup() {
     const dialogStates = reactive({

@@ -36,7 +36,7 @@
     "vite": "^6.2.0",
     "vite-plugin-commonjs": "^0.10.4",
     "vue-advanced-cropper": "^2.8.9",
-    "vuedraggable": "^4.1.0",
+    "vue-draggable-plus": "^0.6.0",
     "vuetify-nuxt-module": "0.18.3"
   },
   "devDependencies": {

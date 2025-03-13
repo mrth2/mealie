@@ -84,14 +84,14 @@
     <!-- Viewer -->
     <section v-if="!edit" class="py-2">
       <div v-if="!preferences.viewByLabel">
-        <draggable :value="listItems.unchecked" handle=".handle" delay="250" :delay-on-touch-only="true"
+        <VueDraggable :value="listItems.unchecked" handle=".handle" :delay="250" :delay-on-touch-only="true"
           @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUnchecked">
           <v-lazy v-for="(item, index) in listItems.unchecked" :key="item.id" class="my-2">
             <ShoppingListItem v-model="listItems.unchecked[index]" class="my-2 my-sm-0" :show-label=true
               :labels="allLabels || []" :units="allUnits || []" :foods="allFoods || []" :recipes="recipeMap"
               @checked="saveListItem" @save="saveListItem" @delete="deleteListItem(item)" />
           </v-lazy>
-        </draggable>
+        </VueDraggable>
       </div>
 
       <!-- View By Label -->
@@ -109,7 +109,7 @@
           <v-divider />
           <v-expand-transition group>
             <div v-show="labelOpenState[key]">
-              <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true"
+              <VueDraggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true"
                 @start="loadingCounter += 1" @end="loadingCounter -= 1"
                 @input="updateIndexUncheckedByLabel(key, $event)">
                 <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
@@ -117,7 +117,7 @@
                     :units="allUnits || []" :foods="allFoods || []" :recipes="recipeMap" @checked="saveListItem"
                     @save="saveListItem" @delete="deleteListItem(item)" />
                 </v-lazy>
-              </draggable>
+              </VueDraggable>
             </div>
           </v-expand-transition>
         </div>
@@ -138,12 +138,12 @@
         :title="$t('shopping-list.reorder-labels')" :submit-icon="$globals.icons.save" :submit-text="$t('general.save')"
         @submit="saveLabelOrder" @close="cancelLabelOrder">
         <v-card height="fit-content" max-height="70vh" style="overflow-y: auto;">
-          <draggable v-if="localLabels" :value="localLabels" handle=".handle" delay="250" :delay-on-touch-only="true"
+          <VueDraggable v-if="localLabels" :value="localLabels" handle=".handle" delay="250" :delay-on-touch-only="true"
             class="my-2" @input="updateLabelOrder">
             <div v-for="(labelSetting, index) in localLabels" :key="labelSetting.id">
               <MultiPurposeLabelSection v-model="localLabels[index]" use-color />
             </div>
-          </draggable>
+          </VueDraggable>
         </v-card>
       </BaseDialog>
 
@@ -229,7 +229,7 @@
 </template>
 
 <script lang="ts">
-import draggable from "vuedraggable";
+import { VueDraggable } from "vue-draggable-plus";
 import { useIdle, useToggle } from "@vueuse/core";
 import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
@@ -254,7 +254,7 @@ interface PresentLabel {
 
 export default defineNuxtComponent({
   components: {
-    draggable,
+    VueDraggable,
     MultiPurposeLabelSection,
     ShoppingListItem,
     RecipeList,

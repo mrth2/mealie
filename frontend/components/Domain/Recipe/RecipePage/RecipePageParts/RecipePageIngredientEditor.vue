@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
-    <draggable v-if="recipe.recipeIngredient.length > 0" v-model="recipe.recipeIngredient" handle=".handle" delay="250"
+    <VueDraggable v-if="recipe.recipeIngredient.length > 0" v-model="recipe.recipeIngredient" handle=".handle" :delay="250"
       :delay-on-touch-only="true" v-bind="{
         animation: 200,
         group: 'recipe-ingredients',
@@ -14,7 +14,7 @@
           :disable-amount="recipe.settings.disableAmount" @delete="recipe.recipeIngredient.splice(index, 1)"
           @insert-above="insertNewIngredient(index)" @insert-below="insertNewIngredient(index + 1)" />
       </TransitionGroup>
-    </draggable>
+    </VueDraggable>
     <v-skeleton-loader v-else boilerplate elevation="2" type="list-item"> </v-skeleton-loader>
     <div class="d-flex flex-wrap justify-center justify-sm-end mt-3">
       <v-tooltip top color="accent">
@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import draggable from "vuedraggable";
+import { VueDraggable } from 'vue-draggable-plus'
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
@@ -48,7 +48,7 @@ import { uuid4 } from "~/composables/use-utils";
 
 export default defineNuxtComponent({
   components: {
-    draggable,
+    VueDraggable,
     RecipeDialogBulkAdd,
     RecipeIngredientEditor,
   },

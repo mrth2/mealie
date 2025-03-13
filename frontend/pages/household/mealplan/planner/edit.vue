@@ -50,7 +50,7 @@
             {{ $d(plan.date, "short") }}
           </p>
         </v-card>
-        <draggable tag="div" handle=".handle" delay="250" :delay-on-touch-only="true" :value="plan.meals" group="meals"
+        <VueDraggable tag="div" handle=".handle" :delay="250" :delay-on-touch-only="true" :value="plan.meals" group="meals"
           :data-index="index" :data-box="plan.date" style="min-height: 150px" @end="onMoveCallback">
           <v-card v-for="mealplan in plan.meals" :key="mealplan.id" class="my-1"
             :class="{ handle: $vuetify.display.smAndUp }">
@@ -98,7 +98,7 @@
               </v-btn>
             </div>
           </v-card>
-        </draggable>
+        </VueDraggable>
         <!-- Day Column Actions -->
         <div class="d-flex justify-end mt-auto">
           <BaseButtonGroup :buttons="[
@@ -146,7 +146,7 @@
 <script lang="ts">
 import { format } from "date-fns";
 import type { SortableEvent } from "sortablejs";
-import draggable from "vuedraggable";
+import { VueDraggable } from "vue-draggable-plus";
 import type { MealsByDate } from "./types";
 import { useMealplans, usePlanTypeOptions, getEntryTypeText } from "~/composables/use-group-mealplan";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
@@ -157,7 +157,7 @@ import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 
 export default defineNuxtComponent({
   components: {
-    draggable,
+    VueDraggable,
     RecipeCardImage,
   },
   props: {
