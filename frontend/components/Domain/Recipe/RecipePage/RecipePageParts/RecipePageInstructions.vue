@@ -213,7 +213,7 @@ import draggable from "vuedraggable";
 import RecipeIngredientHtml from "../../RecipeIngredientHtml.vue";
 import type { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
-import { uuid4, detectServerBaseUrl } from "~/composables/use-utils";
+import { uuid4 } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
@@ -257,8 +257,7 @@ export default defineNuxtComponent({
 
   setup(props, context) {
     const i18n = useI18n();
-    const { req } = useNuxtApp();
-    const BASE_URL = detectServerBaseUrl(req);
+    const BASE_URL = useRequestURL().origin;
 
     const { isCookMode, toggleCookMode, isEditForm } = usePageState(props.recipe.slug);
 
