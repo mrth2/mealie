@@ -115,7 +115,7 @@
               </v-card-actions>
             </v-expansion-panel-text>
           </v-expansion-panel>
-        </VueD>
+        </VueDraggable>
       </v-expansion-panels>
     </v-container>
   </div>
