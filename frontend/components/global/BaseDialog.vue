@@ -6,7 +6,7 @@
         emit('submit'); dialog = false;
       }" @click:outside="emit('cancel')" @keydown.esc="emit('cancel')">
       <v-card height="100%">
-        <v-app-bar dark density="comfortable" :color="color" class="px-3">
+        <v-app-bar dark density="comfortable" :color="color" class="px-3 position-relative top-0 left-0 w-100">
           <v-icon size="large">
             {{ icon }}
           </v-icon>
