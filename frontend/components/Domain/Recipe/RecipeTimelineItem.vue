@@ -24,7 +24,7 @@
           </v-col>
           <v-spacer />
           <v-col :cols="useMobileFormat ? 'auto' : '1'" class="px-0 pt-0">
-            <RecipeTimelineContextMenu v-if="$auth.user && $auth.user.id == event.userId && event.eventType != 'system'"
+            <RecipeTimelineContextMenu v-if="currentUser && currentUser.id == event.userId && event.eventType != 'system'"
               :menu-top="false" :event="event" :menu-icon="$globals.icons.dotsVertical"
               :use-mobile-format="useMobileFormat" fab color="transparent" :elevation="0" :card-menu="false" :use-items="{
                 edit: true,
@@ -60,7 +60,6 @@
 </template>
 
 <script lang="ts">
-
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import RecipeTimelineContextMenu from "./RecipeTimelineContextMenu.vue";
 import { useStaticRoutes } from "~/composables/api";
@@ -88,14 +87,15 @@ export default defineNuxtComponent({
   },
 
   setup(props) {
-    const $auth = useMealieAuth();
     const { $vuetify, $globals } = useNuxtApp();
     const { recipeTimelineEventImage } = useStaticRoutes();
     const { eventTypeOptions } = useTimelineEventTypes();
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);
 
+    const { user: currentUser } = useMealieAuth();
+
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user?.value?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || currentUser?.value?.groupSlug || "");
 
     const useMobileFormat = computed(() => {
       return $vuetify.display.smAndDown.value;
@@ -154,6 +154,7 @@ export default defineNuxtComponent({
       hideImage,
       timelineEvents,
       useMobileFormat,
+      currentUser,
     };
   },
 });
