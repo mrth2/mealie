@@ -107,7 +107,7 @@
                 @update:model-value="setRightParenthesisValue(field, index, $event)">
                 <template #chip="{ item }">
                   <span :class="config.select.textClass" style="width: 100%;">
-                    {{ item }}
+                    {{ item.raw }}
                   </span>
                 </template>
               </v-select>
