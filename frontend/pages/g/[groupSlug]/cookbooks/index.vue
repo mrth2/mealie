@@ -54,7 +54,7 @@
           :label="$t('cookbook.hide-cookbooks-from-other-households')"
           hide-details
         />
-        <div class="ml-8">
+        <div class="ml-10 mt-n3">
           <p class="text-subtitle-2 my-0 py-0">
             {{ $t("cookbook.hide-cookbooks-from-other-households-description") }}
           </p>
