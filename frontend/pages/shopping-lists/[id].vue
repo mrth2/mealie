@@ -84,7 +84,7 @@
     <!-- Viewer -->
     <section v-if="!edit" class="py-2">
       <div v-if="!preferences.viewByLabel">
-        <VueDraggable :value="listItems.unchecked" handle=".handle" :delay="250" :delay-on-touch-only="true"
+        <VueDraggable v-model="listItems.unchecked" handle=".handle" :delay="250" :delay-on-touch-only="true"
           @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUnchecked">
           <v-lazy v-for="(item, index) in listItems.unchecked" :key="item.id" class="my-2">
             <ShoppingListItem v-model="listItems.unchecked[index]" class="my-2 my-sm-0" :show-label=true
@@ -109,9 +109,9 @@
           <v-divider />
           <v-expand-transition group>
             <div v-show="labelOpenState[key]">
-              <VueDraggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true"
+              <VueDraggable :model-value="value" handle=".handle" :delay="250" :delay-on-touch-only="true"
                 @start="loadingCounter += 1" @end="loadingCounter -= 1"
-                @input="updateIndexUncheckedByLabel(key, $event)">
+                @update="updateIndexUncheckedByLabel(key, $event)">
                 <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
                   <ShoppingListItem v-model="value[index]" :show-label=false :labels="allLabels || []"
                     :units="allUnits || []" :foods="allFoods || []" :recipes="recipeMap" @checked="saveListItem"
@@ -138,7 +138,7 @@
         :title="$t('shopping-list.reorder-labels')" :submit-icon="$globals.icons.save" :submit-text="$t('general.save')"
         @submit="saveLabelOrder" @close="cancelLabelOrder">
         <v-card height="fit-content" max-height="70vh" style="overflow-y: auto;">
-          <VueDraggable v-if="localLabels" :value="localLabels" handle=".handle" delay="250" :delay-on-touch-only="true"
+          <VueDraggable v-if="localLabels" v-model="localLabels" handle=".handle" :delay="250" :delay-on-touch-only="true"
             class="my-2" @input="updateLabelOrder">
             <div v-for="(labelSetting, index) in localLabels" :key="labelSetting.id">
               <MultiPurposeLabelSection v-model="localLabels[index]" use-color />
