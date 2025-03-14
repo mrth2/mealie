@@ -1,6 +1,6 @@
 
 import { useData, useReadOnlyStore, useStore } from "../partials/use-store-factory";
-import { RecipeTag } from "~/lib/api/types/recipe";
+import type { RecipeTag } from "~/lib/api/types/recipe";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
 
 const store: Ref<RecipeTag[]> = ref([]);

@@ -1,6 +1,6 @@
 
 import { useData, useReadOnlyStore, useStore } from "../partials/use-store-factory";
-import { RecipeTool } from "~/lib/api/types/recipe";
+import type { RecipeTool } from "~/lib/api/types/recipe";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
 
 interface RecipeToolWithOnHand extends RecipeTool {

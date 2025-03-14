@@ -1,6 +1,6 @@
 
 import { useData, useReadOnlyStore, useStore } from "../partials/use-store-factory";
-import { IngredientFood } from "~/lib/api/types/recipe";
+import type { IngredientFood } from "~/lib/api/types/recipe";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
 
 const store: Ref<IngredientFood[]> = ref([]);
