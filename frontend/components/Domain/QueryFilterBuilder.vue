@@ -263,6 +263,7 @@ export default defineNuxtComponent({
 
     function setOrganizerValues(field: FieldWithId, index: number, values: OrganizerBase[]) {
       setFieldValues(field, index, values.map((value) => value.id.toString()));
+      fields.value[index].organizers = values;
     }
 
     function removeField(index: number) {
@@ -322,7 +323,7 @@ export default defineNuxtComponent({
         return initFieldsError();
       };
 
-      const initFields: Field[] = [];
+      const initFields: FieldWithId[] = [];
       let error = false;
       props.initialQueryFilter.parts.forEach((part: QueryFilterJSONPart, index: number) => {
         const fieldDef = props.fieldDefs.find((fieldDef) => fieldDef.name === part.attributeName);

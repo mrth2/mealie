@@ -1,11 +1,11 @@
 <template>
-  <v-autocomplete v-model="selected" :items="storeItem" :value="modelValue" :label="label" chips deletable-chips
-    item-title="name" multiple :prepend-inner-icon="icon" return-object v-bind="inputAttrs" auto-select-first
-    :search-input.sync="searchInput" class="pa-0" @change="resetSearchInput">
+  <v-autocomplete v-model="selected" :items="storeItem" :label="label" chips deletable-chips
+    item-title="name" multiple variant="underlined" :prepend-inner-icon="icon" return-object v-bind="inputAttrs" auto-select-first
+    :search-input.sync="searchInput" class="pa-0" @update:model-value="resetSearchInput">
     <template #chip="data">
-      <v-chip :key="data.index" class="ma-1" :input-value="data.item.raw.selected" size="small" close label color="accent" dark
+      <v-chip :key="data.index" class="ma-1" :input-value="data.item.raw.selected" size="small" :append-icon="$globals.icons.close" color="white" dark
         @click:close="removeByIndex(data.index)">
-        {{ data.item.raw.name || data.item }}
+        {{ data.item.raw.name }}
       </v-chip>
     </template>
     <template v-if="showAdd" #append>
@@ -76,6 +76,9 @@ export default defineNuxtComponent({
         context.emit("update:modelValue", val);
       },
     });
+    watch(selected, (val) => {
+      console.log("set", val);
+    }, { deep: true})
 
     onMounted(() => {
       if (selected.value === undefined) {
