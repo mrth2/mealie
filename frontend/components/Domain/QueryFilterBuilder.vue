@@ -271,17 +271,6 @@ export default defineNuxtComponent({
       state.datePickers.splice(index, 1);
     };
 
-    watch(
-      // Toggling showAdvanced changes the builder logic without changing the field values,
-      // so we need to manually trigger reactivity to re-run the builder.
-      () => state.showAdvanced,
-      () => {
-        if (fields.value?.length) {
-          fields.value = [...fields.value];
-        }
-      },
-    )
-
     const fieldsUpdater = useDebounceFn((newFields: typeof fields.value) => {
       newFields.forEach((field, index) => {
         const updatedField = getFieldFromFieldDef(field);
