@@ -48,7 +48,7 @@
             {{ $d(plan.date, "short") }}
           </p>
         </v-card>
-        <VueDraggable tag="div" handle=".handle" :delay="250" :delay-on-touch-only="true" :value="plan.meals"
+        <VueDraggable v-model="plan.meals" tag="div" handle=".handle" :delay="250" :delay-on-touch-only="true"
           group="meals" :data-index="index" :data-box="plan.date" style="min-height: 150px" @end="onMoveCallback">
           <v-card v-for="mealplan in plan.meals" :key="mealplan.id" class="my-1"
             :class="{ handle: $vuetify.display.smAndUp }">
