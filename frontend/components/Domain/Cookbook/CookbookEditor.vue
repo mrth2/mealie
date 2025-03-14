@@ -1,8 +1,10 @@
 <template>
   <div>
     <v-card-text v-if="cookbook" class="px-1">
-      <v-text-field v-model="cookbook.name" :label="$t('cookbook.cookbook-name')" variant="underlined" color="primary"></v-text-field>
-      <v-textarea v-model="cookbook.description" auto-grow :rows="2" :label="$t('recipe.description')" variant="underlined" color="primary"></v-textarea>
+      <v-text-field v-model="cookbook.name" :label="$t('cookbook.cookbook-name')" variant="underlined"
+        color="primary"></v-text-field>
+      <v-textarea v-model="cookbook.description" auto-grow :rows="2" :label="$t('recipe.description')"
+        variant="underlined" color="primary"></v-textarea>
       <QueryFilterBuilder :field-defs="fieldDefs" :initial-query-filter="cookbook.queryFilter" @input="handleInput" />
       <v-switch v-model="cookbook.public" hide-details single-line>
         <template #label>
@@ -25,7 +27,7 @@ import type { FieldDefinition } from "~/composables/use-query-filter-builder";
 export default defineNuxtComponent({
   components: { QueryFilterBuilder },
   props: {
-    cookbook: {
+    modelValue: {
       type: Object as () => ReadCookBook,
       required: true,
     },
@@ -34,11 +36,15 @@ export default defineNuxtComponent({
       required: true,
     },
   },
-  setup(props) {
+  emits: ["update:modelValue"],
+  setup(props, { emit }) {
     const i18n = useI18n();
 
+    const cookbook = toRef(() => props.modelValue);
+
     function handleInput(value: string | undefined) {
-      props.cookbook.queryFilterString = value || "";
+      cookbook.value.queryFilterString = value || "";
+      emit('update:modelValue', cookbook.value);
     }
 
     const fieldDefs: FieldDefinition[] = [
@@ -80,6 +86,7 @@ export default defineNuxtComponent({
     ];
 
     return {
+      cookbook,
       handleInput,
       fieldDefs,
     };

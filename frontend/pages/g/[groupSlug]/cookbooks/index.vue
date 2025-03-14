@@ -8,6 +8,7 @@
       max-width="1100px"
       :icon="$globals.icons.pages"
       :title="$t('cookbook.create-a-cookbook')"
+      can-submit
       :submit-icon="$globals.icons.save"
       :submit-text="$t('general.save')"
       :submit-disabled="!createTarget.queryFilterString"
@@ -16,8 +17,8 @@
     >
       <v-card-text>
         <CookbookEditor
+          v-model=createTarget
           :key="createTargetKey"
-          :cookbook=createTarget
           :actions="actions"
         />
       </v-card-text>
@@ -74,7 +75,7 @@
           style="width: 100%"
           @change="actions.updateOrder(myCookbooks)"
         >
-          <v-expansion-panel v-for="cookbook in myCookbooks" :key="cookbook.id" class="my-2 left-border rounded">
+          <v-expansion-panel v-for="(cookbook, index) in myCookbooks" :key="cookbook.id" class="my-2 left-border rounded">
             <v-expansion-panel-title disable-icon-rotate class="headline">
               <div class="d-flex align-center">
                 <v-icon size="large" start>
@@ -83,7 +84,7 @@
                 {{ cookbook.name }}
               </div>
               <template #actions>
-                <v-icon class="handle">
+                <v-icon class="handle" :size="40">
                   {{ $globals.icons.arrowUpDown }}
                 </v-icon>
                 <v-btn icon size="small" class="ml-2">
@@ -94,7 +95,7 @@
               </template>
             </v-expansion-panel-title>
             <v-expansion-panel-text>
-              <CookbookEditor :cookbook="cookbook" :actions="actions" :collapsable="false" @delete="deleteEventHandler" />
+              <CookbookEditor v-model="myCookbooks[index]" :actions="actions" :collapsable="false" @delete="deleteEventHandler" />
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <BaseButtonGroup
@@ -110,8 +111,8 @@
                     disabled: !cookbook.queryFilterString
                   },
                 ]"
-                @delete="deleteEventHandler(cookbook)"
-                @save="actions.updateOne(cookbook)" />
+                @delete="deleteEventHandler(myCookbooks[index])"
+                @save="actions.updateOne(myCookbooks[index])" />
               </v-card-actions>
             </v-expansion-panel-text>
           </v-expansion-panel>
@@ -147,16 +148,10 @@ export default defineNuxtComponent({
 
     const $auth = useMealieAuth();
     const { cookbooks: allCookbooks, actions } = useCookbooks();
-    const myCookbooks = computed<ReadCookBook[]>({
-      get: () => {
-        return allCookbooks.value?.filter((cookbook) => {
-          return cookbook.householdId === $auth.user.value?.householdId;
-        }) || [];
-      },
-      set: (value: ReadCookBook[]) => {
-        actions.updateOrder(value);
-      },
-    });
+    const _myCookbooks = computed(() => allCookbooks.value?.filter((cookbook) => {
+      return cookbook.householdId === $auth.user.value?.householdId;
+    }) ?? []);
+    const myCookbooks = toRef(_myCookbooks, 'value');
     const { household } = useHouseholdSelf();
     const cookbookPreferences = useCookbookPreferences()
 

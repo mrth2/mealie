@@ -32,8 +32,8 @@
             <v-spacer></v-spacer>
 
             <slot name="custom-card-action"></slot>
-            <BaseButton v-if="$attrs.delete" delete secondary @click="deleteEvent" />
-            <BaseButton v-if="$attrs.confirm" :color="color" type="submit" :disabled="submitDisabled" @click="
+            <BaseButton v-if="canDelete" delete secondary @click="deleteEvent" />
+            <BaseButton v-if="canConfirm" :color="color" type="submit" :disabled="submitDisabled" @click="
               emit('confirm');
             dialog = false;
             ">
@@ -42,7 +42,7 @@
               </template>
               {{ $t("general.confirm") }}
             </BaseButton>
-            <BaseButton v-if="$attrs.submit" type="submit" :disabled="submitDisabled" @click="submitEvent">
+            <BaseButton v-if="canSubmit" type="submit" :disabled="submitDisabled" @click="submitEvent">
               {{ submitText }}
               <template v-if="submitIcon" #icon>
                 {{ submitIcon }}
@@ -75,6 +75,10 @@ interface DialogProps {
   submitText?: string;
   submitDisabled?: boolean;
   keepOpen?: boolean;
+  // actions
+  canDelete?: boolean;
+  canConfirm?: boolean;
+  canSubmit?: boolean;
 }
 
 interface DialogEmits {
@@ -99,6 +103,9 @@ const props = withDefaults(defineProps<DialogProps>(), {
   submitText: () => useNuxtApp().$i18n.t("general.create"),
   submitDisabled: false,
   keepOpen: false,
+  canDelete: false,
+  canConfirm: false,
+  canSubmit: false,
 });
 const emit = defineEmits<DialogEmits>();
 

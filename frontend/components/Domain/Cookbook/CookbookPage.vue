@@ -5,7 +5,7 @@
       :icon="$globals.icons.pages" :title="$t('general.edit')" :submit-icon="$globals.icons.save"
       :submit-text="$t('general.save')" :submit-disabled="!editTarget.queryFilterString" @submit="editCookbook">
       <v-card-text>
-        <CookbookEditor :cookbook="editTarget" :actions="actions" />
+        <CookbookEditor v-model="editTarget" :actions="actions" />
       </v-card-text>
     </BaseDialog>
 
