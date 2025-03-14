@@ -8,11 +8,13 @@
           ghostClass: 'ghost',
         }" @start="drag = true" @end="onDragEnd">
           <v-row v-for="(field, index) in fields" :key="index" class="d-flex flex-nowrap" style="max-width: 100%;">
+            <!-- drag handle -->
             <v-col :cols="config.items.icon.cols" :class="config.col.class" :style="config.items.icon.style">
               <v-icon class="handle" :size="24" style="cursor: move;margin: auto;">
                 {{ $globals.icons.arrowUpDown }}
               </v-icon>
             </v-col>
+            <!-- and / or  -->
             <v-col :cols="config.items.logicalOperator.cols" :class="config.col.class"
               :style="config.items.logicalOperator.style">
               <v-select v-if="index" :model-value="field.logicalOperator" :items="[logOps.AND, logOps.OR]"
@@ -25,6 +27,7 @@
                 </template>
               </v-select>
             </v-col>
+            <!-- left parenthesis -->
             <v-col v-if="showAdvanced" :cols="config.items.leftParens.cols" :class="config.col.class"
               :style="config.items.leftParens.style">
               <v-select :model-value="field.leftParenthesis" :items="['', '(', '((', '(((']" variant="underlined"
@@ -36,6 +39,7 @@
                 </template>
               </v-select>
             </v-col>
+            <!-- field name -->
             <v-col :cols="config.items.fieldName.cols" :class="config.col.class" :style="config.items.fieldName.style">
               <v-select :model-value="field.label" :items="fieldDefs" variant="underlined" item-title="label"
                 @change="setField(index, $event)">
@@ -46,6 +50,7 @@
                 </template>
               </v-select>
             </v-col>
+            <!-- relational operator -->
             <v-col :cols="config.items.relationalOperator.cols" :class="config.col.class"
               :style="config.items.relationalOperator.style">
               <v-select v-if="field.type !== 'boolean'" :model-value="field.relationalOperatorValue"
@@ -58,6 +63,7 @@
                 </template>
               </v-select>
             </v-col>
+            <!-- field value -->
             <v-col :cols="config.items.fieldValue.cols" :class="config.col.class" :style="config.items.fieldValue.style">
               <v-select v-if="field.fieldOptions" :model-value="field.values" :items="field.fieldOptions"
                 item-title="label" item-value="value" multiple variant="underlined"
@@ -93,6 +99,7 @@
                 :selector-type="Organizer.Household" :show-add="false" :show-label="false" :show-icon="false"
                 @update:model-value="setOrganizerValues(field, index, $event)" />
             </v-col>
+            <!-- right parenthesis -->
             <v-col v-if="showAdvanced" :cols="config.items.rightParens.cols" :class="config.col.class"
               :style="config.items.rightParens.style">
               <v-select :model-value="field.rightParenthesis" :items="['', ')', '))', ')))']" variant="underlined"
@@ -104,6 +111,7 @@
                 </template>
               </v-select>
             </v-col>
+            <!-- field actions -->
             <v-col :cols="config.items.fieldActions.cols" :class="config.col.class"
               :style="config.items.fieldActions.style">
               <BaseButtonGroup :buttons="[
