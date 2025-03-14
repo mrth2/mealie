@@ -7,7 +7,7 @@
           group: 'recipe-instructions',
           ghostClass: 'ghost',
         }" @start="drag = true" @end="onDragEnd">
-          <v-row v-for="(field, index) in fields" :key="index" class="d-flex flex-nowrap" style="max-width: 100%;">
+          <v-row v-for="(field, index) in fields" :key="field.id" class="d-flex flex-nowrap" style="max-width: 100%;">
             <!-- drag handle -->
             <v-col :cols="config.items.icon.cols" :class="config.col.class" :style="config.items.icon.style">
               <v-icon class="handle" :size="24" style="cursor: move;margin: auto;">
@@ -64,7 +64,8 @@
               </v-select>
             </v-col>
             <!-- field value -->
-            <v-col :cols="config.items.fieldValue.cols" :class="config.col.class" :style="config.items.fieldValue.style">
+            <v-col :cols="config.items.fieldValue.cols" :class="config.col.class"
+              :style="config.items.fieldValue.style">
               <v-select v-if="field.fieldOptions" :model-value="field.values" :items="field.fieldOptions"
                 item-title="label" item-value="value" multiple variant="underlined"
                 @update:model-value="setFieldValues(field, index, $event)" />
@@ -196,13 +197,19 @@ export default defineNuxtComponent({
       fields.value.splice(newIndex, 0, field);
     }
 
-    const fields = ref<Field[]>([]);
-    // watch(fields, (v) => {
-    //   console.trace();
-    // })
+    // add id to fields to prevent reactivity issues
+    type FieldWithId = Field & { id: number };
+    const fields = ref<FieldWithId[]>([]);
 
+    const uid = ref(1); // init uid to pass to fields
+    function useUid() {
+      return uid.value++;
+    }
     function addField(field: FieldDefinition) {
-      fields.value.push(getFieldFromFieldDef(field));
+      fields.value.push({
+        ...getFieldFromFieldDef(field),
+        id: useUid()
+      });
       state.datePickers.push(false);
     };
 
@@ -219,58 +226,43 @@ export default defineNuxtComponent({
       // we have to set this explicitly since it might be undefined
       updatedField.fieldOptions = fieldDef.fieldOptions;
 
-      fields.value.splice(index, 1, getFieldFromFieldDef(updatedField, resetValue));
+      fields.value[index] = {
+        ...getFieldFromFieldDef(updatedField, resetValue),
+        id: fields.value[index].id, // keep the id
+      };
     }
 
-    function setLeftParenthesisValue(field: Field, index: number, value: string) {
+    function setLeftParenthesisValue(field: FieldWithId, index: number, value: string) {
       console.log("setLeftParenthesisValue", field, index, value);
-      fields.value.splice(index, 1, {
-        ...field,
-        leftParenthesis: value,
-      });
+      fields.value[index].leftParenthesis = value;
     }
 
-    function setRightParenthesisValue(field: Field, index: number, value: string) {
-      fields.value.splice(index, 1, {
-        ...field,
-        rightParenthesis: value,
-      });
+    function setRightParenthesisValue(field: FieldWithId, index: number, value: string) {
+      fields.value[index].rightParenthesis = value;
     }
 
-    function setLogicalOperatorValue(field: Field, index: number, value: LogicalOperator | undefined) {
+    function setLogicalOperatorValue(field: FieldWithId, index: number, value: LogicalOperator | undefined) {
       if (!value) {
         value = logOps.value.AND.value;
       }
 
-      fields.value.splice(index, 1, {
-        ...field,
-        logicalOperator: value ? logOps.value[value] : undefined,
-      });
+      fields.value[index].logicalOperator = value ? logOps.value[value] : undefined;
     }
 
-    function setRelationalOperatorValue(field: Field, index: number, value: RelationalKeyword | RelationalOperator) {
-      fields.value.splice(index, 1, {
-        ...field,
-        relationalOperatorValue: relOps.value[value],
-      });
+    function setRelationalOperatorValue(field: FieldWithId, index: number, value: RelationalKeyword | RelationalOperator) {
+      fields.value[index].relationalOperatorValue = relOps.value[value];
     }
 
-    function setFieldValue(field: Field, index: number, value: FieldValue) {
+    function setFieldValue(field: FieldWithId, index: number, value: FieldValue) {
       state.datePickers[index] = false;
-      fields.value.splice(index, 1, {
-        ...field,
-        value,
-      });
+      fields.value[index].value = value;
     }
 
-    function setFieldValues(field: Field, index: number, values: FieldValue[]) {
-      fields.value.splice(index, 1, {
-        ...field,
-        values,
-      });
+    function setFieldValues(field: FieldWithId, index: number, values: FieldValue[]) {
+      fields.value[index].values = values;
     }
 
-    function setOrganizerValues(field: Field, index: number, values: OrganizerBase[]) {
+    function setOrganizerValues(field: FieldWithId, index: number, values: OrganizerBase[]) {
       setFieldValues(field, index, values.map((value) => value.id.toString()));
     }
 
@@ -297,7 +289,7 @@ export default defineNuxtComponent({
 
     watch(fields, fieldsUpdater, { deep: true });
 
-    async function hydrateOrganizers(field: Field, index: number) {
+    async function hydrateOrganizers(field: FieldWithId, index: number) {
       if (!field.values?.length || !isOrganizerType(field.type)) {
         return;
       }
@@ -340,7 +332,10 @@ export default defineNuxtComponent({
           return initFieldsError(`Invalid query filter; unknown attribute name "${part.attributeName || ""}"`);
         }
 
-        const field = getFieldFromFieldDef(fieldDef);
+        const field: FieldWithId = {
+          ...getFieldFromFieldDef(fieldDef),
+          id: useUid(),
+        };
         field.leftParenthesis = part.leftParenthesis || field.leftParenthesis;
         field.rightParenthesis = part.rightParenthesis || field.rightParenthesis;
         field.logicalOperator = part.logicalOperator ?
