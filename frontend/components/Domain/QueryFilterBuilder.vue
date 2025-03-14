@@ -34,15 +34,15 @@
                 @update:model-value="setLeftParenthesisValue(field, index, $event)">
                 <template #chip="{ item }">
                   <span :class="config.select.textClass" style="width: 100%;">
-                    {{ item }}
+                    {{ item.raw }}
                   </span>
                 </template>
               </v-select>
             </v-col>
             <!-- field name -->
             <v-col :cols="config.items.fieldName.cols" :class="config.col.class" :style="config.items.fieldName.style">
-              <v-select :model-value="field.label" :items="fieldDefs" variant="underlined" item-title="label"
-                @change="setField(index, $event)">
+              <v-select chips :model-value="field.label" :items="fieldDefs" variant="underlined" item-title="label"
+                @update:model-value="setField(index, $event)">
                 <template #chip="{ item }">
                   <span :class="config.select.textClass" style="width: 100%;">
                     {{ item.raw.label }}
@@ -73,8 +73,7 @@
                 @update:model-value="setFieldValue(field, index, $event)" />
               <v-text-field v-else-if="field.type === 'number'" :model-value="field.value" type="number"
                 variant="underlined" @:model-value="setFieldValue(field, index, $event)" />
-              <v-checkbox v-else-if="field.type === 'boolean'" :model-value="field.value"
-                @change="setFieldValue(field, index, $event)" />
+              <v-checkbox v-else-if="field.type === 'boolean'" :model-value="field.value" @update:model-value="setFieldValue(field, index, $event!)" />
               <v-menu v-else-if="field.type === 'date'" v-model="datePickers[index]" :close-on-content-click="false"
                 transition="scale-transition" offset-y max-width="290px" min-width="auto">
                 <template #activator="{ props }">
