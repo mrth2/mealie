@@ -73,7 +73,8 @@
                 @update:model-value="setFieldValue(field, index, $event)" />
               <v-text-field v-else-if="field.type === 'number'" :model-value="field.value" type="number"
                 variant="underlined" @:model-value="setFieldValue(field, index, $event)" />
-              <v-checkbox v-else-if="field.type === 'boolean'" :model-value="field.value" @update:model-value="setFieldValue(field, index, $event!)" />
+              <v-checkbox v-else-if="field.type === 'boolean'" :model-value="field.value"
+                @update:model-value="setFieldValue(field, index, $event!)" />
               <v-menu v-else-if="field.type === 'date'" v-model="datePickers[index]" :close-on-content-click="false"
                 transition="scale-transition" offset-y max-width="290px" min-width="auto">
                 <template #activator="{ props }">
@@ -302,7 +303,14 @@ export default defineNuxtComponent({
       }
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      const organizers = field.values.map((value) => store.value.find((organizer: OrganizerBase) => organizer.id === value));
+      const organizers = field.values.map((value) => {
+        const organizer = store.value.find((item) => item?.id?.toString() === value);
+        if (!organizer) {
+          console.error(`Could not find organizer with id ${value}`);
+          return undefined;
+        }
+        return organizer;
+      });
       field.organizers = organizers.filter((organizer) => organizer !== undefined) as OrganizerBase[];
       setOrganizerValues(field, index, field.organizers);
     }
