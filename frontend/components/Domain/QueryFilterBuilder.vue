@@ -2,79 +2,80 @@
   <v-card class="ma-0" style="overflow-x: auto;">
     <v-card-text class="ma-0 pa-0">
       <v-container fluid class="ma-0 pa-0">
-        <VueDraggable :value="fields" handle=".handle" :delay="250" :delay-on-touch-only="true" v-bind="{
+        <VueDraggable v-model="fields" handle=".handle" :delay="250" :delay-on-touch-only="true" v-bind="{
           animation: 200,
           group: 'recipe-instructions',
           ghostClass: 'ghost',
         }" @start="drag = true" @end="onDragEnd">
           <v-row v-for="(field, index) in fields" :key="index" class="d-flex flex-nowrap" style="max-width: 100%;">
-            <v-col :cols="attrs.fields.icon.cols" :class="attrs.col.class" :style="attrs.fields.icon.style">
-              <v-icon class="handle" style="width: 100%; height: 100%;">
+            <v-col :cols="config.items.icon.cols" :class="config.col.class" :style="config.items.icon.style">
+              <v-icon class="handle" :size="24" style="cursor: move;margin: auto;">
                 {{ $globals.icons.arrowUpDown }}
               </v-icon>
             </v-col>
-            <v-col :cols="attrs.fields.logicalOperator.cols" :class="attrs.col.class"
-              :style="attrs.fields.logicalOperator.style">
+            <v-col :cols="config.items.logicalOperator.cols" :class="config.col.class"
+              :style="config.items.logicalOperator.style">
               <v-select v-if="index" :model-value="field.logicalOperator" :items="[logOps.AND, logOps.OR]"
-                item-title="label" item-value="value"
+                item-title="label" item-value="value" variant="underlined"
                 @update:model-value="setLogicalOperatorValue(field, index, $event.value)">
                 <template #chip="{ item }">
-                  <span :class="attrs.select.textClass" style="width: 100%;">
+                  <span :class="config.select.textClass" style="width: 100%;">
                     {{ item.raw.label }}
                   </span>
                 </template>
               </v-select>
             </v-col>
-            <v-col v-if="showAdvanced" :cols="attrs.fields.leftParens.cols" :class="attrs.col.class"
-              :style="attrs.fields.leftParens.style">
-              <v-select :model-value="field.leftParenthesis" :items="['', '(', '((', '(((']"
+            <v-col v-if="showAdvanced" :cols="config.items.leftParens.cols" :class="config.col.class"
+              :style="config.items.leftParens.style">
+              <v-select :model-value="field.leftParenthesis" :items="['', '(', '((', '(((']" variant="underlined"
                 @update:model-value="setLeftParenthesisValue(field, index, $event)">
                 <template #chip="{ item }">
-                  <span :class="attrs.select.textClass" style="width: 100%;">
+                  <span :class="config.select.textClass" style="width: 100%;">
                     {{ item }}
                   </span>
                 </template>
               </v-select>
             </v-col>
-            <v-col :cols="attrs.fields.fieldName.cols" :class="attrs.col.class" :style="attrs.fields.fieldName.style">
-              <v-select v-model="field.label" :items="fieldDefs" item-title="label" @change="setField(index, $event)">
+            <v-col :cols="config.items.fieldName.cols" :class="config.col.class" :style="config.items.fieldName.style">
+              <v-select :model-value="field.label" :items="fieldDefs" variant="underlined" item-title="label"
+                @change="setField(index, $event)">
                 <template #chip="{ item }">
-                  <span :class="attrs.select.textClass" style="width: 100%;">
+                  <span :class="config.select.textClass" style="width: 100%;">
                     {{ item.raw.label }}
                   </span>
                 </template>
               </v-select>
             </v-col>
-            <v-col :cols="attrs.fields.relationalOperator.cols" :class="attrs.col.class"
-              :style="attrs.fields.relationalOperator.style">
+            <v-col :cols="config.items.relationalOperator.cols" :class="config.col.class"
+              :style="config.items.relationalOperator.style">
               <v-select v-if="field.type !== 'boolean'" :model-value="field.relationalOperatorValue"
-                :items="field.relationalOperatorOptions" item-title="label" item-value="value"
+                :items="field.relationalOperatorOptions" item-title="label" item-value="value" variant="underlined"
                 @update:model-value="setRelationalOperatorValue(field, index, $event.value)">
                 <template #chip="{ item }">
-                  <span :class="attrs.select.textClass" style="width: 100%;">
+                  <span :class="config.select.textClass" style="width: 100%;">
                     {{ item.raw.label }}
                   </span>
                 </template>
               </v-select>
             </v-col>
-            <v-col :cols="attrs.fields.fieldValue.cols" :class="attrs.col.class" :style="attrs.fields.fieldValue.style">
+            <v-col :cols="config.items.fieldValue.cols" :class="config.col.class" :style="config.items.fieldValue.style">
               <v-select v-if="field.fieldOptions" :model-value="field.values" :items="field.fieldOptions"
-                item-title="label" item-value="value" multiple
+                item-title="label" item-value="value" multiple variant="underlined"
                 @update:model-value="setFieldValues(field, index, $event)" />
-              <v-text-field v-else-if="field.type === 'string'" :model-value="field.value"
+              <v-text-field v-else-if="field.type === 'string'" :model-value="field.value" variant="underlined"
                 @update:model-value="setFieldValue(field, index, $event)" />
               <v-text-field v-else-if="field.type === 'number'" :model-value="field.value" type="number"
-                @:model-value="setFieldValue(field, index, $event)" />
+                variant="underlined" @:model-value="setFieldValue(field, index, $event)" />
               <v-checkbox v-else-if="field.type === 'boolean'" :model-value="field.value"
                 @change="setFieldValue(field, index, $event)" />
               <v-menu v-else-if="field.type === 'date'" v-model="datePickers[index]" :close-on-content-click="false"
                 transition="scale-transition" offset-y max-width="290px" min-width="auto">
                 <template #activator="{ props }">
                   <v-text-field v-model="field.value" persistent-hint :prepend-icon="$globals.icons.calendar"
-                    v-bind="props" readonly />
+                    variant="underlined" color="primary" v-bind="props" readonly />
                 </template>
-                <v-date-picker :model-value="field.value" no-title :first-day-of-week="firstDayOfWeek" :local="$i18n.locale"
-                  @update:model-value="setFieldValue(field, index, $event)" />
+                <v-date-picker :model-value="field.value" no-title :first-day-of-week="firstDayOfWeek"
+                  :local="$i18n.locale" @update:model-value="setFieldValue(field, index, $event)" />
               </v-menu>
               <RecipeOrganizerSelector v-else-if="field.type === Organizer.Category" :model-value="field.organizers"
                 :selector-type="Organizer.Category" :show-add="false" :show-label="false" :show-icon="false"
@@ -92,19 +93,19 @@
                 :selector-type="Organizer.Household" :show-add="false" :show-label="false" :show-icon="false"
                 @update:model-value="setOrganizerValues(field, index, $event)" />
             </v-col>
-            <v-col v-if="showAdvanced" :cols="attrs.fields.rightParens.cols" :class="attrs.col.class"
-              :style="attrs.fields.rightParens.style">
-              <v-select :model-value="field.rightParenthesis" :items="['', ')', '))', ')))']"
+            <v-col v-if="showAdvanced" :cols="config.items.rightParens.cols" :class="config.col.class"
+              :style="config.items.rightParens.style">
+              <v-select :model-value="field.rightParenthesis" :items="['', ')', '))', ')))']" variant="underlined"
                 @update:model-value="setRightParenthesisValue(field, index, $event)">
                 <template #chip="{ item }">
-                  <span :class="attrs.select.textClass" style="width: 100%;">
+                  <span :class="config.select.textClass" style="width: 100%;">
                     {{ item }}
                   </span>
                 </template>
               </v-select>
             </v-col>
-            <v-col :cols="attrs.fields.fieldActions.cols" :class="attrs.col.class"
-              :style="attrs.fields.fieldActions.style">
+            <v-col :cols="config.items.fieldActions.cols" :class="config.col.class"
+              :style="config.items.fieldActions.style">
               <BaseButtonGroup :buttons="[
                 {
                   icon: $globals.icons.delete,
@@ -135,6 +136,7 @@ import { Organizer } from "~/lib/api/types/non-generated";
 import type { LogicalOperator, QueryFilterJSON, QueryFilterJSONPart, RelationalKeyword, RelationalOperator } from "~/lib/api/types/response";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
 import { type Field, type FieldDefinition, type FieldValue, type OrganizerBase, useQueryFilterBuilder } from "~/composables/use-query-filter-builder";
+import { useDebounceFn } from '@vueuse/core';
 
 export default defineNuxtComponent({
   components: {
@@ -187,6 +189,9 @@ export default defineNuxtComponent({
     }
 
     const fields = ref<Field[]>([]);
+    // watch(fields, (v) => {
+    //   console.trace();
+    // })
 
     function addField(field: FieldDefinition) {
       fields.value.push(getFieldFromFieldDef(field));
@@ -210,6 +215,7 @@ export default defineNuxtComponent({
     }
 
     function setLeftParenthesisValue(field: Field, index: number, value: string) {
+      console.log("setLeftParenthesisValue", field, index, value);
       fields.value.splice(index, 1, {
         ...field,
         leftParenthesis: value,
@@ -276,27 +282,23 @@ export default defineNuxtComponent({
       },
     )
 
-    watch(
-      () => fields.value,
-      (newFields) => {
-        newFields.forEach((field, index) => {
-          const updatedField = getFieldFromFieldDef(field);
-          fields.value[index] = updatedField;
-        });
+    const fieldsUpdater = useDebounceFn((newFields: typeof fields.value) => {
+      newFields.forEach((field, index) => {
+        const updatedField = getFieldFromFieldDef(field);
+        fields.value[index] = updatedField; // recursive!!!
+      });
 
-        const qf = buildQueryFilterString(fields.value, state.showAdvanced);
-        if (qf) {
-          console.debug(`Set query filter: ${qf}`);
-        }
-        state.qfValid = !!qf;
+      const qf = buildQueryFilterString(fields.value, state.showAdvanced);
+      if (qf) {
+        console.debug(`Set query filter: ${qf}`);
+      }
+      state.qfValid = !!qf;
 
-        context.emit("input", qf || undefined);
-        context.emit("inputJSON", qf ? buildQueryFilterJSON() : undefined);
-      },
-      {
-        deep: true
-      },
-    );
+      context.emit("input", qf || undefined);
+      context.emit("inputJSON", qf ? buildQueryFilterJSON() : undefined);
+    }, 500);
+
+    watch(fields, fieldsUpdater, { deep: true });
 
     async function hydrateOrganizers(field: Field, index: number) {
       if (!field.values?.length || !isOrganizerType(field.type)) {
@@ -431,16 +433,16 @@ export default defineNuxtComponent({
     }
 
 
-    const attrs = computed(() => {
+    const config = computed(() => {
       const baseColMaxWidth = 55;
-      const attrs = {
+      return {
         col: {
           class: "d-flex justify-center align-end field-col pa-1",
         },
         select: {
           textClass: "d-flex justify-center text-center",
         },
-        fields: {
+        items: {
           icon: {
             cols: 1,
             style: "width: fit-content;",
@@ -475,8 +477,6 @@ export default defineNuxtComponent({
           },
         },
       }
-
-      return attrs;
     })
 
     return {
@@ -484,7 +484,7 @@ export default defineNuxtComponent({
       ...toRefs(state),
       logOps,
       relOps,
-      attrs,
+      config,
       firstDayOfWeek,
       onDragEnd,
       // Fields
