@@ -28,7 +28,7 @@
     <BaseDialog v-if="shoppingListIngredientDialog" v-model="dialog"
       :title="selectedShoppingList ? selectedShoppingList.name : $t('recipe.add-to-list')"
       :icon="$globals.icons.cartCheck" width="70%" :submit-text="$t('recipe.add-to-list')"
-      @submit="addRecipesToList()">
+      can-submit @submit="addRecipesToList()">
       <div style="max-height: 70vh;  overflow-y: auto">
         <v-card v-for="(recipeSection, recipeSectionIndex) in recipeIngredientSections"
           :key="recipeSection.recipeId + recipeSectionIndex" elevation="0" height="fit-content" width="100%">

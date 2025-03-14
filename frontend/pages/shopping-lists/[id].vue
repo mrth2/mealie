@@ -1,14 +1,14 @@
 <template>
   <v-container v-if="shoppingList" class="md-container">
-    <BaseDialog v-model="checkAllDialog" :title="$t('general.confirm')" @confirm="checkAll">
+    <BaseDialog v-model="checkAllDialog" :title="$t('general.confirm')" can-confirm @confirm="checkAll">
       <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-check-all-items') }}</v-card-text>
     </BaseDialog>
 
-    <BaseDialog v-model="uncheckAllDialog" :title="$t('general.confirm')" @confirm="uncheckAll">
+    <BaseDialog v-model="uncheckAllDialog" :title="$t('general.confirm')" can-confirm @confirm="uncheckAll">
       <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-uncheck-all-items') }}</v-card-text>
     </BaseDialog>
 
-    <BaseDialog v-model="deleteCheckedDialog" :title="$t('general.confirm')" @confirm="deleteChecked">
+    <BaseDialog v-model="deleteCheckedDialog" :title="$t('general.confirm')" can-confirm @confirm="deleteChecked">
       <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-delete-checked-items') }}</v-card-text>
     </BaseDialog>
 
@@ -136,7 +136,7 @@
       <!-- Reorder Labels -->
       <BaseDialog v-model="reorderLabelsDialog" :icon="$globals.icons.tagArrowUp"
         :title="$t('shopping-list.reorder-labels')" :submit-icon="$globals.icons.save" :submit-text="$t('general.save')"
-        @submit="saveLabelOrder" @close="cancelLabelOrder">
+        can-submit @submit="saveLabelOrder" @close="cancelLabelOrder">
         <v-card height="fit-content" max-height="70vh" style="overflow-y: auto;">
           <VueDraggable v-if="localLabels" v-model="localLabels" handle=".handle" :delay="250" :delay-on-touch-only="true"
             class="my-2" @input="updateLabelOrder">

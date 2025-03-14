@@ -1,13 +1,13 @@
 <template>
   <v-container v-if="shoppingListChoices && ready" class="narrow-container">
-    <BaseDialog v-model="createDialog" :title="$t('shopping-list.create-shopping-list')" @submit="createOne">
+    <BaseDialog v-model="createDialog" :title="$t('shopping-list.create-shopping-list')" can-submit @submit="createOne">
       <v-card-text>
         <v-text-field v-model="createName" autofocus :label="$t('shopping-list.new-list')"> </v-text-field>
       </v-card-text>
     </BaseDialog>
 
     <!-- Settings -->
-    <BaseDialog v-model="ownerDialog" :icon="$globals.icons.admin" :title="$t('user.edit-user')" @confirm="updateOwner">
+    <BaseDialog v-model="ownerDialog" :icon="$globals.icons.admin" :title="$t('user.edit-user')" can-confirm @confirm="updateOwner">
       <v-container>
         <v-form>
           <v-select v-model="updateUserId" :items="allUsers" item-title="fullName" item-value="id"
@@ -16,7 +16,7 @@
       </v-container>
     </BaseDialog>
 
-    <BaseDialog v-model="deleteDialog" :title="$t('general.confirm')" color="error" @confirm="deleteOne">
+    <BaseDialog v-model="deleteDialog" :title="$t('general.confirm')" color="error" can-confirm @confirm="deleteOne">
       <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-delete-this-item') }}</v-card-text>
     </BaseDialog>
     <BasePageTitle divider>

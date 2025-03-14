@@ -2,7 +2,7 @@
   <div>
     <!-- Create Dialog -->
     <BaseDialog v-model="state.createDialog" :title="$t('data-pages.tags.new-tag')" :icon="$globals.icons.tags"
-      @submit="createTag">
+      can-submit @submit="createTag">
       <v-card-text>
         <v-form ref="domNewTagForm">
           <v-text-field v-model="createTarget.name" autofocus :label="$t('general.name')"

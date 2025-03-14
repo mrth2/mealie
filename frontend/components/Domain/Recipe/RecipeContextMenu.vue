@@ -4,20 +4,20 @@
     <RecipeDialogShare v-model="shareDialog" :recipe-id="recipeId" :name="name" />
     <RecipeDialogPrintPreferences v-model="printPreferencesDialog" :recipe="recipeRef" />
     <BaseDialog v-model="recipeDeleteDialog" :title="$t('recipe.delete-recipe')" color="error"
-      :icon="$globals.icons.alertCircle" @confirm="deleteRecipe()">
+      :icon="$globals.icons.alertCircle" can-confirm @confirm="deleteRecipe()">
       <v-card-text>
         {{ $t("recipe.delete-confirmation") }}
       </v-card-text>
     </BaseDialog>
     <BaseDialog v-model="recipeDuplicateDialog" :title="$t('recipe.duplicate')" color="primary"
-      :icon="$globals.icons.duplicate" @confirm="duplicateRecipe()">
+      :icon="$globals.icons.duplicate" can-confirm @confirm="duplicateRecipe()">
       <v-card-text>
         <v-text-field v-model="recipeName" density="compact" :label="$t('recipe.recipe-name')" autofocus
           @keyup.enter="duplicateRecipe()"></v-text-field>
       </v-card-text>
     </BaseDialog>
     <BaseDialog v-model="mealplannerDialog" :title="$t('recipe.add-recipe-to-mealplan')" color="primary"
-      :icon="$globals.icons.calendar" @confirm="addRecipeToPlan()">
+      :icon="$globals.icons.calendar" can-confirm @confirm="addRecipeToPlan()">
       <v-card-text>
         <v-menu v-model="pickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y
           max-width="290px" min-width="auto">

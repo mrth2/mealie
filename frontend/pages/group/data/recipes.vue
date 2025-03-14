@@ -2,13 +2,13 @@
   <v-container fluid>
     <!-- Export Purge Confirmation Dialog -->
     <BaseDialog v-model="purgeExportsDialog" :title="$t('data-pages.recipes.purge-exports')" color="error"
-      :icon="$globals.icons.alertCircle" @confirm="purgeExports()">
+      :icon="$globals.icons.alertCircle" can-confirm @confirm="purgeExports()">
       <v-card-text> {{ $t('data-pages.recipes.are-you-sure-you-want-to-delete-all-export-data') }} </v-card-text>
     </BaseDialog>
 
     <!-- Base Dialog Object -->
     <BaseDialog ref="domDialog" v-model="dialog.state" width="650px" :icon="dialog.icon" :title="dialog.title"
-      :submit-text="$t('general.submit')" @submit="dialog.callback">
+      :submit-text="$t('general.submit')" can-submit @submit="dialog.callback">
       <v-card-text v-if="dialog.mode == MODES.tag">
         <RecipeOrganizerSelector v-model="toSetTags" selector-type="tags" />
       </v-card-text>

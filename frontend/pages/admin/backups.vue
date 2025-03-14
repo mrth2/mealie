@@ -3,7 +3,7 @@
     <section>
       <!-- Delete Dialog -->
       <BaseDialog v-model="deleteDialog" :title="$t('settings.backup.delete-backup')" color="error"
-        :icon="$globals.icons.alertCircle" @confirm="deleteBackup()">
+        :icon="$globals.icons.alertCircle" can-confirm @confirm="deleteBackup()">
         <v-card-text>
           {{ $t("general.confirm-delete-generic") }}
         </v-card-text>

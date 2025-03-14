@@ -39,7 +39,7 @@
     <div class="d-flex ml-auto mt-2">
       <v-spacer></v-spacer>
       <BaseDialog v-model="state.newAssetDialog" :title="$t('asset.new-asset')"
-        :icon="getIconDefinition(state.newAsset.icon).icon" @submit="addAsset">
+        :icon="getIconDefinition(state.newAsset.icon).icon" can-submit @submit="addAsset">
         <template #activator>
           <BaseButton v-if="edit" size="small" create @click="state.newAssetDialog = true" />
         </template>

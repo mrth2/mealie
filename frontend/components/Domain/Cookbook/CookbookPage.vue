@@ -3,7 +3,7 @@
     <!-- Edit Dialog -->
     <BaseDialog v-if="editTarget" v-model="dialogStates.edit" width="100%" max-width="1100px"
       :icon="$globals.icons.pages" :title="$t('general.edit')" :submit-icon="$globals.icons.save"
-      :submit-text="$t('general.save')" :submit-disabled="!editTarget.queryFilterString" @submit="editCookbook">
+      :submit-text="$t('general.save')" :submit-disabled="!editTarget.queryFilterString" can-submit @submit="editCookbook">
       <v-card-text>
         <CookbookEditor v-model="editTarget" :actions="actions" />
       </v-card-text>

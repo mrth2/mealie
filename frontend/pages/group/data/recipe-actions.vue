@@ -2,7 +2,7 @@
   <div>
     <!-- Create Dialog -->
     <BaseDialog v-model="state.createDialog" :title="$t('data-pages.recipe-actions.new-recipe-action')"
-      :icon="$globals.icons.primary" @submit="createAction">
+      :icon="$globals.icons.primary" can-submit @submit="createAction">
       <v-card-text>
         <v-form ref="domNewActionForm">
           <v-text-field v-model="createTarget.title" autofocus :label="$t('general.title')"
@@ -17,7 +17,7 @@
     <!-- Edit Dialog -->
     <BaseDialog v-model="state.editDialog" :icon="$globals.icons.primary"
       :title="$t('data-pages.recipe-actions.edit-recipe-action')" :submit-text="$t('general.save')"
-      @submit="editSaveAction">
+      can-submit @submit="editSaveAction">
       <v-card-text v-if="editTarget">
         <div class="mt-4">
           <v-text-field v-model="editTarget.title" :label="$t('general.title')" />
@@ -34,7 +34,7 @@
 
     <!-- Delete Dialog -->
     <BaseDialog v-model="state.deleteDialog" :title="$t('general.confirm')" :icon="$globals.icons.alertCircle"
-      color="error" @confirm="deleteAction">
+      color="error" can-confirm @confirm="deleteAction">
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
         <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.title }}</p>
@@ -43,7 +43,7 @@
 
     <!-- Bulk Delete Dialog -->
     <BaseDialog v-model="state.bulkDeleteDialog" width="650px" :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle" color="error" @confirm="deleteSelected">
+      :icon="$globals.icons.alertCircle" color="error" can-confirm @confirm="deleteSelected">
       <v-card-text>
         <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
         <v-card variant="outlined">

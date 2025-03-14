@@ -1,12 +1,12 @@
 <template>
   <v-container class="narrow-container">
     <BaseDialog v-model="deleteDialog" color="error" :title="$t('general.confirm')" :icon="$globals.icons.alertCircle"
-      @confirm="deleteNotifier(deleteTargetId)">
+      can-confirm @confirm="deleteNotifier(deleteTargetId)">
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
       </v-card-text>
     </BaseDialog>
-    <BaseDialog v-model="createDialog" :title="$t('events.new-notification')" @submit="createNewNotifier">
+    <BaseDialog v-model="createDialog" :title="$t('events.new-notification')" can-submit @submit="createNewNotifier">
       <v-card-text>
         <v-text-field v-model="createNotifierData.name" :label="$t('general.name')"></v-text-field>
         <v-text-field v-model="createNotifierData.appriseUrl" :label="$t('events.apprise-url')"></v-text-field>

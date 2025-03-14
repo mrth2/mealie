@@ -16,7 +16,7 @@
     </BaseDialog>
 
     <BaseDialog v-model="confirmDialog" :title="$t('general.confirm')" color="error"
-      @confirm="deleteHousehold(deleteTarget)">
+      can-confirm @confirm="deleteHousehold(deleteTarget)">
       <template #activator> </template>
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}

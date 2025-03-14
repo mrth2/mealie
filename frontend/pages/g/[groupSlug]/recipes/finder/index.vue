@@ -41,7 +41,7 @@
                       {{ $t("recipe-finder.other-filters") }}
                       <BaseDialog v-model="queryFilterMenu" :title="$t('recipe-finder.other-filters')"
                         :icon="$globals.icons.filter" width="100%" max-width="1100px"
-                        :submit-disabled="!queryFilterEditorValue" @confirm="saveQueryFilter">
+                        :submit-disabled="!queryFilterEditorValue" can-confirm @confirm="saveQueryFilter">
                         <QueryFilterBuilder :key="queryFilterMenuKey" :initial-query-filter="queryFilterJSON"
                           :field-defs="queryFilterBuilderFields" @input="(value) => queryFilterEditorValue = value"
                           @inputJSON="(value) => queryFilterEditorValueJSON = value" />

@@ -8,10 +8,10 @@
       max-width="1100px"
       :icon="$globals.icons.pages"
       :title="$t('cookbook.create-a-cookbook')"
-      can-submit
       :submit-icon="$globals.icons.save"
       :submit-text="$t('general.save')"
       :submit-disabled="!createTarget.queryFilterString"
+      can-submit
       @submit="actions.updateOne(createTarget)"
       @cancel="deleteCreateTarget()"
     >
@@ -30,6 +30,7 @@
       :title="$t('general.delete-with-name', { name: $t('cookbook.cookbook') })"
       :icon="$globals.icons.alertCircle"
       color="error"
+      can-confirm
       @confirm="deleteCookbook()"
     >
       <v-card-text>

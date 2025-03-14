@@ -2,7 +2,7 @@
   <div>
     <!-- Create Dialog -->
     <BaseDialog v-model="state.createDialog" :title="$t('data-pages.tools.new-tool')" :icon="$globals.icons.potSteam"
-      @submit="createTool">
+      can-submit @submit="createTool">
       <v-card-text>
         <v-form ref="domNewToolForm">
           <v-text-field v-model="createTarget.name" autofocus :label="$t('general.name')"

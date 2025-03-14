@@ -8,6 +8,7 @@
       :title="$t('general.delete-with-name', { name: $t(translationKey) })"
       color="error"
       :icon="$globals.icons.alertCircle"
+      can-confirm
       @confirm="deleteOne()"
     >
       <v-card-text>
@@ -16,7 +17,7 @@
       </v-card-text>
     </BaseDialog>
 
-    <BaseDialog v-if="updateTarget" v-model="dialogs.update" :title="$t('general.update')" @confirm="updateOne()">
+    <BaseDialog v-if="updateTarget" v-model="dialogs.update" :title="$t('general.update')" can-confirm @confirm="updateOne()">
       <v-card-text>
         <v-text-field v-model="updateTarget.name" :label="$t('general.name')"> </v-text-field>
         <v-checkbox v-if="itemType === Organizer.Tool" v-model="updateTarget.onHand" :label="$t('tool.on-hand')"></v-checkbox>

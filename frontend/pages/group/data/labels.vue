@@ -2,7 +2,7 @@
   <div>
     <!-- Create New Dialog -->
     <BaseDialog v-model="state.createDialog" :title="$t('data-pages.labels.new-label')" :icon="$globals.icons.tags"
-      @submit="createLabel">
+      can-submit @submit="createLabel">
       <v-card-text>
         <MultiPurposeLabel :label="createLabelData" />
 
@@ -15,7 +15,7 @@
 
     <!-- Edit Dialog -->
     <BaseDialog v-model="state.editDialog" :icon="$globals.icons.tags" :title="$t('data-pages.labels.edit-label')"
-      :submit-icon="$globals.icons.save" :submit-text="$t('general.save')" @submit="editSaveLabel">
+      :submit-icon="$globals.icons.save" :submit-text="$t('general.save')" can-submit @submit="editSaveLabel">
       <v-card-text v-if="editLabel">
         <MultiPurposeLabel :label="editLabel" />
         <div class="mt-4">
@@ -27,7 +27,7 @@
 
     <!-- Delete Dialog -->
     <BaseDialog v-model="state.deleteDialog" :title="$t('general.confirm')" :icon="$globals.icons.alertCircle"
-      color="error" @confirm="deleteLabel">
+      color="error" can-confirm @confirm="deleteLabel">
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
         <v-row>
@@ -38,7 +38,7 @@
 
     <!-- Bulk Delete Dialog -->
     <BaseDialog v-model="state.bulkDeleteDialog" width="650px" :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle" color="error" @confirm="deleteSelected">
+      :icon="$globals.icons.alertCircle" color="error" can-confirm @confirm="deleteSelected">
       <v-card-text>
         <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
         <v-card variant="outlined">
@@ -55,7 +55,7 @@
 
     <!-- Seed Dialog-->
     <BaseDialog v-model="seedDialog" :icon="$globals.icons.foods" :title="$t('data-pages.seed-data')"
-      @confirm="seedDatabase">
+      can-confirm @confirm="seedDatabase">
       <v-card-text>
         <div class="pb-2">
           {{ $t("data-pages.labels.seed-dialog-text") }}

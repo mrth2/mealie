@@ -2,7 +2,7 @@
   <v-container fluid>
     <UserInviteDialog v-model="inviteDialog" />
     <BaseDialog v-model="deleteDialog" :title="$t('general.confirm')" color="error"
-      @confirm="deleteUser(deleteTargetId)">
+      can-confirm @confirm="deleteUser(deleteTargetId)">
       <template #activator> </template>
 
       <v-card-text>

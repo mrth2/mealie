@@ -2,7 +2,7 @@
   <div>
     <div>
       <BaseDialog v-model="madeThisDialog" :icon="$globals.icons.chefHat" :title="$t('recipe.made-this')"
-        :submit-text="$t('recipe.add-to-timeline')" @submit="createTimelineEvent">
+        :submit-text="$t('recipe.add-to-timeline')" can-submit @submit="createTimelineEvent">
         <v-card-text>
           <v-form ref="domMadeThisForm">
             <v-textarea v-model="newTimelineEvent.eventMessage" autofocus :label="$t('recipe.comment')"

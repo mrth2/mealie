@@ -6,6 +6,7 @@
       :icon="$globals.icons.edit"
       :submit-icon="$globals.icons.check"
       :submit-text="$t('general.confirm')"
+      can-submit
       @submit="saveAliases"
       @cancel="$emit('cancel')"
     >

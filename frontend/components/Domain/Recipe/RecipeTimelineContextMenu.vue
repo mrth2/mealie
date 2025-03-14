@@ -10,7 +10,7 @@
       </v-card-text>
     </BaseDialog>
     <BaseDialog v-model="recipeEventDeleteDialog" :title="$t('events.delete-event')" color="error"
-      :icon="$globals.icons.alertCircle" @confirm="$emit('delete')">
+      :icon="$globals.icons.alertCircle" can-confirm @confirm="$emit('delete')">
       <v-card-text>
         {{ $t("events.event-delete-confirmation") }}
       </v-card-text>

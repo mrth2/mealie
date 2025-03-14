@@ -4,6 +4,7 @@
       v-model="createDialog"
       :title="$t('group.create-group')"
       :icon="$globals.icons.group"
+      can-submit
       @submit="createGroup(createGroupForm.data)"
     >
       <template #activator> </template>
@@ -16,6 +17,7 @@
       v-model="confirmDialog"
       :title="$t('general.confirm')"
       color="error"
+      can-confirm
       @confirm="deleteGroup(deleteTarget)"
     >
       <template #activator> </template>

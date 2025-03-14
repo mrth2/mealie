@@ -2,7 +2,7 @@
   <div>
     <!-- Merge Dialog -->
     <BaseDialog v-model="mergeDialog" :icon="$globals.icons.foods" :title="$t('data-pages.foods.combine-food')"
-      @confirm="mergeFoods">
+      can-confirm @confirm="mergeFoods">
       <v-card-text>
         <div>
           {{ $t("data-pages.foods.merge-dialog-text") }}
@@ -22,7 +22,7 @@
 
     <!-- Seed Dialog-->
     <BaseDialog v-model="seedDialog" :icon="$globals.icons.foods" :title="$t('data-pages.seed-data')"
-      @confirm="seedDatabase">
+      can-confirm @confirm="seedDatabase">
       <v-card-text>
         <div class="pb-2">
           {{ $t("data-pages.foods.seed-dialog-text") }}
@@ -45,7 +45,7 @@
 
     <!-- Create Dialog -->
     <BaseDialog v-model="createDialog" :icon="$globals.icons.foods" :title="$t('data-pages.foods.create-food')"
-      :submit-icon="$globals.icons.save" :submit-text="$t('general.save')" @submit="createFood">
+      :submit-icon="$globals.icons.save" :submit-text="$t('general.save')" can-submit @submit="createFood">
       <v-card-text>
         <v-form ref="domNewFoodForm">
           <v-text-field v-model="createTarget.name" autofocus :label="$t('general.name')"
@@ -69,7 +69,7 @@
 
     <!-- Edit Dialog -->
     <BaseDialog v-model="editDialog" :icon="$globals.icons.foods" :title="$t('data-pages.foods.edit-food')"
-      :submit-icon="$globals.icons.save" :submit-text="$t('general.save')" @submit="editSaveFood">
+      :submit-icon="$globals.icons.save" :submit-text="$t('general.save')" can-submit @submit="editSaveFood">
       <v-card-text v-if="editTarget">
         <v-form ref="domEditFoodForm">
           <v-text-field v-model="editTarget.name" :label="$t('general.name')"
@@ -93,7 +93,7 @@
 
     <!-- Delete Dialog -->
     <BaseDialog v-model="deleteDialog" :title="$t('general.confirm')" :icon="$globals.icons.alertCircle" color="error"
-      @confirm="deleteFood">
+      can-confirm @confirm="deleteFood">
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
         <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.name }}</p>
@@ -102,7 +102,7 @@
 
     <!-- Bulk Delete Dialog -->
     <BaseDialog v-model="bulkDeleteDialog" width="650px" :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle" color="error" @confirm="deleteSelected">
+      :icon="$globals.icons.alertCircle" color="error" can-confirm @confirm="deleteSelected">
       <v-card-text>
         <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
         <v-card variant="outlined">
@@ -119,7 +119,7 @@
 
     <!-- Bulk Assign Labels Dialog -->
     <BaseDialog v-model="bulkAssignLabelDialog" :title="$t('data-pages.labels.assign-label')"
-      :icon="$globals.icons.tags" @confirm="assignSelected">
+      :icon="$globals.icons.tags" can-confirm @confirm="assignSelected">
       <v-card-text>
         <v-card class="mb-4">
           <v-card-title>{{ $t("general.caution") }}</v-card-title>

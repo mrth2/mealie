@@ -2,7 +2,7 @@
   <div>
     <!-- Create Dialog -->
     <BaseDialog v-model="state.createDialog" :title="$t('data-pages.categories.new-category')"
-      :icon="$globals.icons.categories" @submit="createCategory">
+      :icon="$globals.icons.categories" can-submit @submit="createCategory">
       <v-card-text>
         <v-form ref="domNewCategoryForm">
           <v-text-field v-model="createTarget.name" autofocus :label="$t('general.name')"
@@ -14,7 +14,7 @@
 
     <!-- Edit Dialog -->
     <BaseDialog v-model="state.editDialog" :icon="$globals.icons.categories"
-      :title="$t('data-pages.categories.edit-category')" :submit-text="$t('general.save')" @submit="editSaveCategory">
+      :title="$t('data-pages.categories.edit-category')" :submit-text="$t('general.save')" can-submit @submit="editSaveCategory">
       <v-card-text v-if="editTarget">
         <div class="mt-4">
           <v-text-field v-model="editTarget.name" :label="$t('general.name')"> </v-text-field>
@@ -24,7 +24,7 @@
 
     <!-- Delete Dialog -->
     <BaseDialog v-model="state.deleteDialog" :title="$t('general.confirm')" :icon="$globals.icons.alertCircle"
-      color="error" @confirm="deleteCategory">
+      color="error" can-confirm @confirm="deleteCategory">
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
         <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.name }}</p>
@@ -33,7 +33,7 @@
 
     <!-- Bulk Delete Dialog -->
     <BaseDialog v-model="state.bulkDeleteDialog" width="650px" :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle" color="error" @confirm="deleteSelected">
+      :icon="$globals.icons.alertCircle" color="error" can-confirm @confirm="deleteSelected">
       <v-card-text>
         <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
         <v-card variant="outlined">
