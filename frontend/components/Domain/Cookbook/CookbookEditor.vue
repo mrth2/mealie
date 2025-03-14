@@ -38,7 +38,6 @@ export default defineNuxtComponent({
     const i18n = useI18n();
 
     function handleInput(value: string | undefined) {
-      console.log("handleInput", value);
       props.cookbook.queryFilterString = value || "";
     }
 

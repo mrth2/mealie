@@ -233,7 +233,6 @@ export default defineNuxtComponent({
     }
 
     function setLeftParenthesisValue(field: FieldWithId, index: number, value: string) {
-      console.log("setLeftParenthesisValue", field, index, value);
       fields.value[index].leftParenthesis = value;
     }
 
