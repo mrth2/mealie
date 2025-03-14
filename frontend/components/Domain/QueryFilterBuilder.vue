@@ -55,7 +55,7 @@
               :style="config.items.relationalOperator.style">
               <v-select v-if="field.type !== 'boolean'" :model-value="field.relationalOperatorValue"
                 :items="field.relationalOperatorOptions" item-title="label" item-value="value" variant="underlined"
-                @update:model-value="setRelationalOperatorValue(field, index, $event.value)">
+                @update:model-value="setRelationalOperatorValue(field, index, $event as unknown as RelationalKeyword | RelationalOperator)">
                 <template #chip="{ item }">
                   <span :class="config.select.textClass" style="width: 100%;">
                     {{ item.raw.label }}
