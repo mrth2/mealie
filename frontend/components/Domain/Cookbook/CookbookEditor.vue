@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-card-text v-if="cookbook" class="px-1">
-      <v-text-field v-model="cookbook.name" :label="$t('cookbook.cookbook-name')"></v-text-field>
-      <v-textarea v-model="cookbook.description" auto-grow :rows="2" :label="$t('recipe.description')"></v-textarea>
+      <v-text-field v-model="cookbook.name" :label="$t('cookbook.cookbook-name')" variant="underlined" color="primary"></v-text-field>
+      <v-textarea v-model="cookbook.description" auto-grow :rows="2" :label="$t('recipe.description')" variant="underlined" color="primary"></v-textarea>
       <QueryFilterBuilder :field-defs="fieldDefs" :initial-query-filter="cookbook.queryFilter" @input="handleInput" />
       <v-switch v-model="cookbook.public" hide-details single-line>
         <template #label>
