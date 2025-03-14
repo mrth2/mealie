@@ -1,20 +1,18 @@
 <template>
   <div>
     <!-- Create Meal Dialog -->
-    <BaseDialog v-model="state.dialog" :title="$t(newMeal.existing
-      ? 'meal-plan.update-this-meal-plan'
-      : 'meal-plan.create-a-new-meal-plan'
-    )" :submit-text="$t(newMeal.existing
-      ? 'general.update'
-      : 'general.create'
-    )" color="primary" :icon="$globals.icons.foods" :submit-disabled="isCreateDisabled" can-submit @submit="
+    <BaseDialog v-model="state.dialog"
+      :title="newMeal.existing ? $t('meal-plan.update-this-meal-plan') : $t('meal-plan.create-a-new-meal-plan')"
+      :submit-text="newMeal.existing ? $t('general.update') : $t('general.create')" color="primary"
+      :icon="$globals.icons.foods" :submit-disabled="isCreateDisabled" can-submit @submit="() => {
         if (newMeal.existing) {
-        actions.updateOne(newMeal);
-      } else {
-        actions.createOne(newMeal);
-      }
+          actions.updateOne(newMeal);
+        } else {
+          actions.createOne(newMeal);
+        }
         resetDialog();
-        " @close="resetDialog()">
+      }
+      " @close="resetDialog()">
       <v-card-text>
         <v-menu v-model="state.pickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y
           max-width="290px" min-width="auto">
