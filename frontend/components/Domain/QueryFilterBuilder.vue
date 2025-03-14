@@ -19,7 +19,7 @@
               :style="config.items.logicalOperator.style">
               <v-select v-if="index" :model-value="field.logicalOperator" :items="[logOps.AND, logOps.OR]"
                 item-title="label" item-value="value" variant="underlined"
-                @update:model-value="setLogicalOperatorValue(field, index, $event.value)">
+                @update:model-value="setLogicalOperatorValue(field, index, $event as unknown as LogicalOperator)">
                 <template #chip="{ item }">
                   <span :class="config.select.textClass" style="width: 100%;">
                     {{ item.raw.label }}
