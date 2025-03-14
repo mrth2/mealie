@@ -7,39 +7,27 @@
         <v-menu offset-y bottom start nudge-bottom="3" :close-on-content-click="false">
           <template #activator="{ props }">
             <v-badge :content="filterBadgeCount" :value="filterBadgeCount" bordered>
-              <v-btn class="rounded-circle" size="small" color="info" v-bind="props">
+              <v-btn class="rounded-circle" size="small" color="info" v-bind="props" icon>
                 <v-icon> {{ $globals.icons.filter }} </v-icon>
               </v-btn>
             </v-badge>
           </template>
           <v-card>
             <v-list>
-              <v-list-item @click="reverseSort">
-                <v-icon start>
-                  {{
-                    preferences.orderDirection === "asc" ?
-                      $globals.icons.sortCalendarDescending : $globals.icons.sortCalendarAscending
-                  }}
-                </v-icon>
-                <v-list-item-title>
-                  {{ preferences.orderDirection === "asc" ? $t("general.sort-descending") :
-                    $t("general.sort-ascending") }}
-                </v-list-item-title>
+              <v-list-item @click="reverseSort"
+                :prepend-icon="preferences.orderDirection === 'asc' ? $globals.icons.sortCalendarDescending : $globals.icons.sortCalendarAscending"
+                :title="preferences.orderDirection === 'asc' ? $t('general.sort-descending') : $t('general.sort-ascending')">
               </v-list-item>
               <v-divider />
-              <v-list-item class="pa-0">
-                <v-list class="py-0" style="width: 100%;">
-                  <v-list-item v-for="option, idx in eventTypeFilterState" :key="idx">
-                    <v-checkbox :model-value="option.checked" readonly @click="toggleEventTypeOption(option.value)">
-                      <template #label>
-                        <v-icon start>
-                          {{ option.icon }}
-                        </v-icon>
-                        {{ option.label }}
-                      </template>
-                    </v-checkbox>
-                  </v-list-item>
-                </v-list>
+              <v-list-item v-for="option, idx in eventTypeFilterState" :key="idx">
+                <v-checkbox :model-value="option.checked" color="primary" readonly @click="toggleEventTypeOption(option.value)">
+                  <template #label>
+                    <v-icon start>
+                      {{ option.icon }}
+                    </v-icon>
+                    {{ option.label }}
+                  </template>
+                </v-checkbox>
               </v-list-item>
             </v-list>
           </v-card>
