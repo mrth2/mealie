@@ -76,9 +76,6 @@ export default defineNuxtComponent({
         context.emit("update:modelValue", val);
       },
     });
-    watch(selected, (val) => {
-      console.log("set", val);
-    }, { deep: true})
 
     onMounted(() => {
       if (selected.value === undefined) {
