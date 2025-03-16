@@ -579,7 +579,6 @@
     "made-this": "Ich hab's gemacht",
     "how-did-it-turn-out": "Wie ist es geworden?",
     "user-made-this": "{user} hat's gemacht",
-    "last-made-date": "Zuletzt gemacht {date}",
     "api-extras-description": "Rezepte-Extras sind ein Hauptmerkmal der Mealie API. Sie ermöglichen es dir, benutzerdefinierte JSON Key-Value-Paare zu einem Rezept zu erstellen, um Drittanbieter-Anwendungen zu steuern. Du kannst diese dazu verwenden, um Automatisierungen auszulösen oder benutzerdefinierte Nachrichten an bestimmte Geräte zu senden.",
     "message-key": "Nachrichten-Schlüssel",
     "parse": "Parsen",
@@ -647,7 +646,6 @@
     "nextStep": "Nächster Schritt",
     "recipe-actions": "Rezept-Aktionen",
     "parser": {
-      "experimental-alert-text": "Mealie verwendet natürliche Sprachverarbeitung (NLP), um Einheiten und Lebensmittel für deine Zutatenliste zu parsen. Diese Funktion ist experimentell und funktioniert möglicherweise nicht immer wie sie sollte. Wenn du die Parser-Ergebnisse nicht verwenden möchtest, wähle 'Abbrechen' und deine Änderungen werden nicht gespeichert.",
       "ingredient-parser": "Zutaten-Parser",
       "explanation": "Um den Zutaten-Parser zu verwenden, klicke auf den Button 'Alles parsen', um den Vorgang zu starten. Nachdem die Zutaten analysiert worden sind, kannst du überprüfen, ob die Einträge korrekt erkannt wurden. Der vom Modell errechnete Zuverlässigkeitswert wird rechts neben der Zutat angezeigt. Diese Angabe ist ein Durchschnitt der Einzelwerte und möglicherweise nicht immer ganz korrekt.",
       "alerts-explainer": "Es werden Warnungen angezeigt, wenn ein passendes Lebensmittel oder eine Einheit gefunden wurde, aber in der Datenbank nicht vorhanden ist.",

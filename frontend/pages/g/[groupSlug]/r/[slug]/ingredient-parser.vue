@@ -1,15 +1,8 @@
 <template>
   <v-container v-if="recipe">
     <v-container>
-      <v-alert dismissible border="start" border-color type="warning" elevation="2" :icon="$globals.icons.alert">
-        <b>{{ $t("banner-experimental.title") }}</b>
-        <div>
-          {{ $t("recipe.parser.experimental-alert-text") }}
-        </div>
-      </v-alert>
-
-      <BaseCardSectionTitle :title="$t('recipe.parser.ingredient-parser')">
-        <div class="mt-4">{{ $t("recipe.parser.explanation") }}</div>
+      <BaseCardSectionTitle :title="$tc('recipe.parser.ingredient-parser')">
+        <div class="mt-4">{{ $tc("recipe.parser.explanation") }}</div>
 
         <div class="my-4">
           {{ $t("recipe.parser.alerts-explainer") }}

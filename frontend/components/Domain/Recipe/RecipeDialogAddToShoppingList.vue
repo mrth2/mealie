@@ -99,8 +99,8 @@ import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
-import type { ShoppingListSummary } from "~/lib/api/types/household";
-import type { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { RecipeIngredient, ShoppingListAddRecipeParamsBulk, ShoppingListSummary } from "~/lib/api/types/household";
+import type { Recipe } from "~/lib/api/types/recipe";
 
 export interface RecipeWithScale extends Recipe {
   scale: number;
@@ -304,12 +304,12 @@ export default defineNuxtComponent({
     }
 
     async function addRecipesToList() {
-      const promises: Promise<any>[] = [];
-      recipeIngredientSections.value.forEach((section) => {
-        if (!selectedShoppingList.value) {
-          return;
-        }
+      if (!selectedShoppingList.value) {
+        return;
+      }
 
+      const recipeData: ShoppingListAddRecipeParamsBulk[] = [];
+      recipeIngredientSections.value.forEach((section) => {
         const ingredients: RecipeIngredient[] = [];
         section.ingredientSections.forEach((ingSection) => {
           ingSection.ingredients.forEach((ing) => {
@@ -323,24 +323,17 @@ export default defineNuxtComponent({
           return;
         }
 
-        promises.push(api.shopping.lists.addRecipe(
-          selectedShoppingList.value.id,
-          section.recipeId,
-          section.recipeScale,
-          ingredients,
-        ));
+        recipeData.push(
+          {
+            recipeId: section.recipeId,
+            recipeIncrementQuantity: section.recipeScale,
+            recipeIngredients: ingredients,
+          }
+        );
       });
 
-      let success = true;
-      const results = await Promise.allSettled(promises);
-      results.forEach((result) => {
-        if (result.status === "rejected") {
-          success = false;
-        }
-      })
-
-      success ? alert.success(i18n.t("recipe.successfully-added-to-list"))
-        : alert.error(i18n.t("failed-to-add-recipes-to-list"))
+      const { error } = await api.shopping.lists.addRecipes(selectedShoppingList.value.id, recipeData);
+      error ? alert.error(i18n.t("recipe.failed-to-add-recipes-to-list")) : alert.success(i18n.t("recipe.successfully-added-to-list"));
 
       state.shoppingListDialog = false;
       state.shoppingListIngredientDialog = false;

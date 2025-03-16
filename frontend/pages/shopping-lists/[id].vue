@@ -784,7 +784,7 @@ export default defineNuxtComponent({
 
       loadingCounter.value += 1;
       recipeReferenceLoading.value = true;
-      const { data } = await userApi.shopping.lists.addRecipe(shoppingList.value.id, recipeId);
+      const { data } = await userApi.shopping.lists.addRecipes(shoppingList.value.id, [{ recipeId }]);
       recipeReferenceLoading.value = false;
       loadingCounter.value -= 1;
 

@@ -579,7 +579,6 @@
     "made-this": "Olen seda valmistanud",
     "how-did-it-turn-out": "Kuidas tuli see välja?",
     "user-made-this": "{user} on seda valmistanud",
-    "last-made-date": "Viimati valmistatud: {date}",
     "api-extras-description": "Retsepti väljavõtted on Meali API oluline funktsioon. Neid saab kasutada kohandatud JSON-võtme/väärtuse paaride loomiseks retseptis, et viidata kolmandate osapoolte rakendustele. Neid klahve saab kasutada teabe edastamiseks, näiteks automaatse toimingu või kohandatud sõnumi käivitamiseks teie valitud seadmele.",
     "message-key": "Sõnumi võti",
     "parse": "Analüüsi",
@@ -647,7 +646,6 @@
     "nextStep": "Järgmine samm",
     "recipe-actions": "Retsepti toimingud",
     "parser": {
-      "experimental-alert-text": "Mealie kasutab teie retseptide koostisosade analüüsimiseks ja ühikute ja tarvikute loomiseks loomulikku keeletöötlust. See funktsioon on katseline ja ei pruugi alati ootuspäraselt töötada. Kui te neid struktureeritud tulemusi ei soovi, võite vajutada nuppu \"Tühista\" ja teie muudatusi ei salvestata.",
       "ingredient-parser": "Koostisosade analüüser",
       "explanation": "Koostisosade sorteerimise tööriista kasutamiseks vajutage nuppu \"Sordi kõik\". Kui koostisosad on saadaval, saate üksused üle vaadata ja kontrollida, kas analüüsimine õnnestus. Mudeli usaldusväärtus on loetletud üksuse nimest paremal. See väärtus on üksikute väärtuste keskmine ja ei ole alati väga täpne.",
       "alerts-explainer": "Teile antakse märku, kui leitakse sobiv toit või üksus, kuid seda pole andmebaasis olemas.",
