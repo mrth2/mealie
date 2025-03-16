@@ -291,6 +291,7 @@ export default defineNuxtConfig({
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     mode: process.env.NODE_ENV === "production" ? "production" : "development",
+    registerType: "autoUpdate",
     useCredentials: true,
     manifest: {
       start_url: "/",
