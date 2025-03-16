@@ -21,7 +21,6 @@
     "@nuxtjs/i18n": "^9.2.1",
     "@nuxtjs/mdc": "0.14.0",
     "@nuxtjs/proxy": "^2.1.0",
-    "@nuxtjs/pwa": "^3.3.5",
     "@sidebase/nuxt-auth": "0.10.0",
     "@vite-pwa/nuxt": "0.10.6",
     "@vueuse/core": "^12.7.0",
