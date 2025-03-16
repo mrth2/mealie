@@ -163,7 +163,7 @@ export default defineNuxtComponent({
   },
   head() {
     return {
-      title: this.$t("sidebar.manage-users") as string,
+      title: useI18n().t("sidebar.manage-users"),
     };
   },
 });

@@ -145,7 +145,7 @@ export default defineNuxtComponent({
   },
   head() {
     return {
-      title: this.$t("group.manage-groups") as string,
+      title: useI18n().t("group.manage-groups"),
     };
   },
 });
