@@ -29,24 +29,24 @@
         <BaseButton @click="openDialog"> {{ $t("general.create") }} </BaseButton>
       </v-toolbar>
 
-      <v-data-table :headers="headers" :items="households || []" item-key="id" class="elevation-0" hide-default-footer
+      <v-data-table v-if="headers && households" :headers="headers" :items="households" item-key="id" class="elevation-0" hide-default-footer
         disable-pagination :search="search" @click:row="handleRowClick">
         <template #item.users="{ item }">
-          {{ item.users.length }}
+          {{ item.users?.length }}
         </template>
         <template #item.group="{ item }">
           {{ item.group }}
         </template>
         <template #item.webhookEnable="{ item }">
-          {{ item.webhooks.length > 0 ? $t("general.yes") : $t("general.no") }}
+          {{ item.webhooks!.length > 0 ? $t("general.yes") : $t("general.no") }}
         </template>
         <template #item.actions="{ item }">
-          <v-tooltip bottom :disabled="!(item && item.users.length > 0)">
+          <v-tooltip bottom :disabled="!(item && item.users!.length > 0)">
             <template #activator="{ props }">
               <div v-bind="props">
-                <v-btn :disabled="item && item.users.length > 0" class="mr-1" icon color="error" @click.stop="
+                <v-btn :disabled="item && item.users!.length > 0" class="mr-1" icon color="error" @click.stop="
                   confirmDialog = true;
-                deleteTarget = item.id;
+                  deleteTarget = +item.id;
                 ">
                   <v-icon>
                     {{ $globals.icons.delete }}

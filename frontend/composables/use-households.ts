@@ -1,6 +1,6 @@
 
 import { useAdminApi, useUserApi } from "~/composables/api";
-import { HouseholdCreate, HouseholdInDB } from "~/lib/api/types/household";
+import type { HouseholdCreate, HouseholdInDB } from "~/lib/api/types/household";
 
 const householdSelfRef = ref<HouseholdInDB | null>(null);
 const loading = ref(false);
@@ -53,7 +53,7 @@ export const useAdminHouseholds = function () {
   function getAllHouseholds() {
     loading.value = true;
     const asyncKey = String(Date.now());
-    const households = useAsyncData(asyncKey, async () => {
+    const { data: households } = useAsyncData(asyncKey, async () => {
       const { data } = await api.households.getAll(1, -1, { orderBy: "name, group.name", orderDirection: "asc" });
 
       if (data) {
