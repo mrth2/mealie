@@ -1,5 +1,5 @@
 <template>
-  <v-data-table :headers="headers" :items="items" item-key="id" class="elevation-0" :items-per-page="50" @click:row="handleRowClick">
+  <v-data-table :headers="headers" :items="items" item-key="id" class="elevation-0" :items-per-page="50" @click:row="($event, { item}) => handleRowClick(item)">
     <template #item.category="{ item }">
       {{ capitalize(item.category) }}
     </template>

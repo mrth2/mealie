@@ -40,26 +40,26 @@
         hide-default-footer
         disable-pagination
         :search="search"
-        @click:row="handleRowClick"
+        @click:row="($event, { item }) => handleRowClick(item)"
       >
         <template #item.households="{ item }">
-          {{ item.households.length }}
+          {{ item.households!.length }}
         </template>
         <template #item.users="{ item }">
-          {{ item.users.length }}
+          {{ item.users!.length }}
         </template>
         <template #item.actions="{ item }">
-          <v-tooltip bottom :disabled="!(item && (item.households.length > 0 || item.users.length > 0))">
+          <v-tooltip bottom :disabled="!(item && (item.households!.length > 0 || item.users!.length > 0))">
             <template #activator="{ props }">
               <div v-bind="props">
                 <v-btn
-                  :disabled="item && (item.households.length > 0 || item.users.length > 0)"
+                  :disabled="item && (item.households!.length > 0 || item.users!.length > 0)"
                   class="mr-1"
                   icon
                   color="error"
                   @click.stop="
                     confirmDialog = true;
-                    deleteTarget = item.id;
+                    deleteTarget = +item.id;
                   "
                 >
                   <v-icon>
@@ -135,10 +135,8 @@ export default defineNuxtComponent({
       state.createGroupForm.data.name = "";
     }
 
-    const router = useRouter();
-
     function handleRowClick(item: GroupInDB) {
-      router.push(`/admin/manage/groups/${item.id}`);
+      navigateTo(`/admin/manage/groups/${item.id}`);
     }
 
     return { ...toRefs(state), groups, refreshAllGroups, deleteGroup, createGroup, openDialog, handleRowClick };

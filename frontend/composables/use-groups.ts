@@ -1,6 +1,6 @@
 
 import { useUserApi } from "~/composables/api";
-import { GroupBase, GroupSummary } from "~/lib/api/types/user";
+import type { GroupBase, GroupSummary } from "~/lib/api/types/user";
 
 const groupSelfRef = ref<GroupSummary | null>(null);
 const loading = ref(false);
@@ -50,7 +50,7 @@ export const useGroups = function () {
   function getAllGroups() {
     loading.value = true;
     const asyncKey = String(Date.now());
-    const groups = useAsyncData(asyncKey, async () => {
+    const { data: groups } = useAsyncData(asyncKey, async () => {
       const { data } = await api.groups.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });;
 
       if (data) {

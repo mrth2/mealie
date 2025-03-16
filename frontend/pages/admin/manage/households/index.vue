@@ -30,7 +30,7 @@
       </v-toolbar>
 
       <v-data-table v-if="headers && households" :headers="headers" :items="households" item-key="id" class="elevation-0" hide-default-footer
-        disable-pagination :search="search" @click:row="handleRowClick">
+        disable-pagination :search="search" @click:row="($event, { item }) => handleRowClick(item)">
         <template #item.users="{ item }">
           {{ item.users?.length }}
         </template>

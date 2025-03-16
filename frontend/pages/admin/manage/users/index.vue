@@ -26,7 +26,7 @@
         </BaseOverflowButton>
       </v-toolbar>
       <v-data-table :headers="headers" :items="users || []" item-key="id" class="elevation-0" elevation="0"
-        hide-default-footer disable-pagination :search="search" @click:row="handleRowClick">
+        hide-default-footer disable-pagination :search="search" @click:row="($event, { item }) => handleRowClick(item)">
         <template #item.admin="{ item }">
           <v-icon end :color="item.admin ? 'success' : undefined">
             {{ item.admin ? $globals.icons.checkboxMarkedCircle : $globals.icons.windowClose }}
