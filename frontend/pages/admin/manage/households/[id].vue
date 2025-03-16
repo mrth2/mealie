@@ -2,7 +2,8 @@
   <v-container v-if="household" class="narrow-container">
     <BasePageTitle>
       <template #header>
-        <v-img width="100%" max-height="125" max-width="125" :src="require('~/static/svgs/manage-group-settings.svg')"></v-img>
+        <v-img width="100%" max-height="125" max-width="125"
+          :src="require('~/static/svgs/manage-group-settings.svg')"></v-img>
       </template>
       <template #title> {{ $t('household.admin-household-management') }} </template>
       {{ $t('household.admin-household-management-text') }}
@@ -13,7 +14,7 @@
       <v-card variant="outlined">
         <v-card-text>
           <v-select v-if="groups" v-model="household.groupId" disabled :items="groups" rounded class="rounded-lg"
-            item-title="name" item-value="id" :return-object="false"variant="filled" :label="$t('group.user-group')"
+            item-title="name" item-value="id" :return-object="false" variant="filled" :label="$t('group.user-group')"
             :rules="[validators.required]" />
           <v-text-field v-model="household.name" :label="$t('household.household-name')"
             :rules="[validators.required]" />
@@ -49,7 +50,7 @@ export default defineNuxtComponent({
     const i18n = useI18n();
 
     const { groups } = useGroups();
-    const householdId = route.params.id;
+    const householdId = computed(() => route.params.id as string);
 
     // ==============================================
     // New User Form
@@ -58,22 +59,20 @@ export default defineNuxtComponent({
 
     const adminApi = useAdminApi();
 
-    const household = ref<HouseholdInDB | null>(null);
-
     const userError = ref(false);
 
-    onMounted(async () => {
-      const { data, error } = await adminApi.households.getOne(householdId);
+    const { data: household } = useAsyncData(`get-household-${householdId.value}`, async () => {
+      if (!householdId.value) {
+        return null;
+      }
+      const { data, error } = await adminApi.households.getOne(householdId.value);
 
       if (error?.response?.status === 404) {
         alert.error(i18n.t("user.user-not-found"));
         userError.value = true;
       }
-
-      if (data) {
-        household.value = data;
-      }
-    });
+      return data;
+    }, { watch: [householdId] });
 
     async function handleSubmit() {
       if (!refHouseholdEditForm.value?.validate() || household.value === null) {
