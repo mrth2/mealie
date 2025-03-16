@@ -276,17 +276,6 @@ export default defineNuxtConfig({
   nitro: {
     baseURL: process.env.SUB_PATH || "",
   },
-  /* proxy: {
-    // See Proxy section
-    [`${process.env.SUB_PATH || ""}api`]: {
-      pathRewrite: {
-        [`${process.env.SUB_PATH || ""}api`]: "/api", // rewrite path
-      },
-      changeOrigin: true,
-      target: process.env.API_URL || "http://localhost:9000",
-      xfwd: true,
-    },
-  }, */
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -444,16 +433,6 @@ export default defineNuxtConfig({
       }
     },
   },
-  // pwa: {
-  //   meta: {
-  //     /* meta options */
-  //     name: "Mealie",
-  //     description: "Mealie is a recipe management and meal planning app",
-  //     theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
-  //     ogSiteName: "Mealie",
-  //   },
-  //   icon: false, // disables the icon module
-  // },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
