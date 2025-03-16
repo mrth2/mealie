@@ -3,7 +3,8 @@
     <!-- Image -->
     <BasePageTitle divider>
       <template #header>
-        <v-img width="100%" max-height="200" max-width="150" :src="require('~/static/svgs/admin-site-settings.svg')"></v-img>
+        <v-img width="100%" max-height="200" max-width="150"
+          :src="require('~/static/svgs/admin-site-settings.svg')"></v-img>
       </template>
       <template #title> {{ $t("settings.site-settings") }} </template>
     </BasePageTitle>
@@ -63,7 +64,7 @@
     <!-- Email -->
     <section>
       <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.email" :title="$t('user.email')" />
-      <v-alert border="start" border-color :type="appConfig.emailReady ? 'success' : 'error'" elevation="2">
+      <v-alert border="start" border-color="default" :type="appConfig.emailReady ? 'success' : 'error'" elevation="2">
         <div class="font-weight-medium">{{ $t('settings.email-configuration-status') }}</div>
         <div>
           {{ appConfig.emailReady ? $t('settings.ready') : $t('settings.not-ready') }}
@@ -96,37 +97,29 @@
       <v-card class="mb-4">
         <template v-if="appInfo && appInfo.length">
           <template v-for="(property, idx) in appInfo" :key="property.name">
-            <template>
-              <v-list-item>
-                <template #prepend>
-                  <v-icon> {{ property.icon || $globals.icons.user }} </v-icon>
-                </template>
-                <v-list-item-title>
-                  <div>{{ property.name }}</div>
-                </v-list-item-title>
-                <template v-if="property.slot === 'recipe-scraper'">
-                  <v-list-item-subtitle>
-                    <a target="_blank"
-                      :href="`https://github.com/hhursev/recipe-scrapers/releases/tag/${property.value}`">
-                      {{ property.value }}
-                    </a>
-                  </v-list-item-subtitle>
-                </template>
-                <template v-else-if="property.slot === 'build'">
-                  <v-list-item-subtitle>
-                    <a target="_blank" :href="`https://github.com/mealie-recipes/mealie/commit/${property.value}`">
-                      {{ property.value }}
-                    </a>
-                  </v-list-item-subtitle>
-                </template>
-                <template v-else>
-                  <v-list-item-subtitle>
+            <v-list-item :title="property.name" :prepend-icon="property.icon || $globals.icons.user">
+              <template v-if="property.slot === 'recipe-scraper'">
+                <v-list-item-subtitle>
+                  <a target="_blank"
+                    :href="`https://github.com/hhursev/recipe-scrapers/releases/tag/${property.value}`">
                     {{ property.value }}
-                  </v-list-item-subtitle>
-                </template>
-              </v-list-item>
-              <v-divider v-if="appInfo && idx !== appInfo.length - 1" :key="`divider-${property.name}`"></v-divider>
-            </template>
+                  </a>
+                </v-list-item-subtitle>
+              </template>
+              <template v-else-if="property.slot === 'build'">
+                <v-list-item-subtitle>
+                  <a target="_blank" :href="`https://github.com/mealie-recipes/mealie/commit/${property.value}`">
+                    {{ property.value }}
+                  </a>
+                </v-list-item-subtitle>
+              </template>
+              <template v-else>
+                <v-list-item-subtitle>
+                  {{ property.value }}
+                </v-list-item-subtitle>
+              </template>
+            </v-list-item>
+            <v-divider v-if="appInfo && idx !== appInfo.length - 1" :key="`divider-${property.name}`"></v-divider>
           </template>
         </template>
         <template v-else>
@@ -197,6 +190,7 @@ export default defineNuxtComponent({
       isUpToDate: false,
       ldapReady: false,
       oidcReady: false,
+      enableOpenai: false,
     });
     function isLocalHostOrHttps() {
       return window.location.hostname === "localhost" || window.location.protocol === "https:";
@@ -309,7 +303,7 @@ export default defineNuxtComponent({
       versionLatest: "null",
     });
     function getAppInfo() {
-      const statistics = useAsyncData(useAsyncKey(), async () => {
+      const { data: statistics } = useAsyncData(useAsyncKey(), async () => {
         const { data } = await adminApi.about.about();
         if (data) {
           rawAppInfo.value.version = data.version;
