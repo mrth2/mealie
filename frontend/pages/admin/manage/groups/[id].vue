@@ -2,7 +2,8 @@
   <v-container v-if="group" class="narrow-container">
     <BasePageTitle>
       <template #header>
-        <v-img width="100%" max-height="125" max-width="125" :src="require('~/static/svgs/manage-group-settings.svg')"></v-img>
+        <v-img width="100%" max-height="125" max-width="125"
+          :src="require('~/static/svgs/manage-group-settings.svg')"></v-img>
       </template>
       <template #title> {{ $t('group.admin-group-management') }} </template>
       {{ $t('group.admin-group-management-text') }}
@@ -27,7 +28,6 @@
 import GroupPreferencesEditor from "~/components/Domain/Group/GroupPreferencesEditor.vue";
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-import type { GroupInDB } from "~/lib/api/types/user";
 import type { VForm } from "~/types/vuetify";
 
 export default defineNuxtComponent({
@@ -43,7 +43,7 @@ export default defineNuxtComponent({
 
     const i18n = useI18n();
 
-    const groupId = route.params.id as string;
+    const groupId = computed(() => route.params.id as string);
 
     // ==============================================
     // New User Form
@@ -52,22 +52,20 @@ export default defineNuxtComponent({
 
     const adminApi = useAdminApi();
 
-    const group = ref<GroupInDB | null>(null);
-
     const userError = ref(false);
 
-    onMounted(async () => {
-      const { data, error } = await adminApi.groups.getOne(groupId);
+    const { data: group, refresh } = useLazyAsyncData(`get-household-${groupId.value}`, async () => {
+      if (!groupId.value) {
+        return null;
+      }
+      const { data, error } = await adminApi.groups.getOne(groupId.value);
 
       if (error?.response?.status === 404) {
         alert.error(i18n.t("user.user-not-found"));
         userError.value = true;
       }
-
-      if (data) {
-        group.value = data;
-      }
-    });
+      return data;
+    }, { watch: [groupId] });
 
     async function handleSubmit() {
       if (!refGroupEditForm.value?.validate() || group.value === null) {
