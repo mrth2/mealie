@@ -41,22 +41,17 @@
       </BaseCardSectionTitle>
       <v-card class="mb-4">
         <template v-for="(check, idx) in simpleChecks" :key="`list-item-${idx}`">
-          <template>
-            <v-list-item>
-              <template #prepend>
-                <v-icon :color="check.color">
-                  {{ check.icon }}
-                </v-icon>
-              </template>
-              <v-list-item-title>
-                {{ check.text }}
-              </v-list-item-title>
-              <v-list-item-subtitle class="wrap-word">
-                {{ check.status ? check.successText : check.errorText }}
-              </v-list-item-subtitle>
-            </v-list-item>
-            <v-divider :key="`divider-${idx}`"></v-divider>
-          </template>
+          <v-list-item :title="check.text">
+            <template #prepend>
+              <v-icon :color="check.color">
+                {{ check.icon }}
+              </v-icon>
+            </template>
+            <v-list-item-subtitle class="wrap-word">
+              {{ check.status ? check.successText : check.errorText }}
+            </v-list-item-subtitle>
+          </v-list-item>
+          <v-divider></v-divider>
         </template>
       </v-card>
     </section>
