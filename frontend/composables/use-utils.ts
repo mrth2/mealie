@@ -1,4 +1,4 @@
-import { IncomingMessage } from "connect";
+import type { IncomingMessage } from "connect";
 import { useDark } from "@vueuse/core";
 
 

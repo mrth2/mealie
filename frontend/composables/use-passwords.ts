@@ -1,3 +1,4 @@
+import { computed } from 'vue';
 import type { VueI18n } from 'vue-i18n';
 import { scorePassword } from "~/lib/validators";
 

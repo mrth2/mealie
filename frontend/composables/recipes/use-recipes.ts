@@ -1,9 +1,9 @@
-
+import { ref } from "vue";
 import { useAsyncKey } from "../use-utils";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useUserApi } from "~/composables/api";
-import { OrderByNullPosition, Recipe } from "~/lib/api/types/recipe";
-import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
+import type { OrderByNullPosition, Recipe } from "~/lib/api/types/recipe";
+import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 
 export const allRecipes = ref<Recipe[]>([]);
 export const recentRecipes = ref<Recipe[]>([]);

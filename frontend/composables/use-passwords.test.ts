@@ -1,4 +1,4 @@
-
+import { ref } from "vue";
 import { describe, expect, test } from "vitest";
 import { usePasswordStrength } from "./use-passwords";
 import { stubI18n } from "~/tests/utils";
