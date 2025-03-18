@@ -63,7 +63,6 @@ import { useAdminHouseholds } from "~/composables/use-households";
 import { alert } from "~/composables/use-toast";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
-import type { VForm } from "~/types/vuetify";
 import type { UserOut } from "~/lib/api/types/user";
 
 export default defineNuxtComponent({

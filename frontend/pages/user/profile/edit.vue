@@ -5,7 +5,7 @@
         <div class="d-flex flex-column align-center justify-center">
           <UserAvatar :tooltip="false" size="96" :user-id="userCopy.id!" />
           <AppButtonUpload class="my-1" file-name="profile" accept="image/*" :url="`/api/users/${userCopy.id}/image`"
-            @uploaded="$auth.fetch()" />
+            @uploaded="$auth.refresh()" />
         </div>
       </template>
       <template #title> {{ $t("profile.user-settings") }} </template>
@@ -98,9 +98,9 @@
 <script lang="ts">
 import { useUserApi } from "~/composables/api";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
-import type { VForm } from "~/types/vuetify";
 import UserPasswordStrength from "~/components/Domain/User/UserPasswordStrength.vue";
 import { validators } from "~/composables/use-validators";
+import type { VForm } from '~/types/auto-forms';
 
 export default defineNuxtComponent({
   components: {
@@ -138,7 +138,7 @@ export default defineNuxtComponent({
       if (!userCopy.value?.id) return;
       const { response } = await api.users.updateOne(userCopy.value.id, userCopy.value);
       if (response?.status === 200) {
-        $auth.fetch();
+        $auth.refresh();
       }
     }
 

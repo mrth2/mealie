@@ -37,7 +37,6 @@
 </template>
 
 <script lang="ts">
-import type { VForm } from "~/types/vuetify";
 import type { RecipeTimelineEventOut } from "~/lib/api/types/recipe";
 
 export interface TimelineContextMenuIncludes {

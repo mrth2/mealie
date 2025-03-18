@@ -61,7 +61,7 @@
 <script lang="ts">
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-import type { VForm } from "~/types/vuetify";
+import type { VForm } from '~/types/auto-forms';
 
 export default defineNuxtComponent({
   setup() {

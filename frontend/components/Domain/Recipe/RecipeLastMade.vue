@@ -65,10 +65,10 @@
 
 <script lang="ts">
 import { whenever } from "@vueuse/core";
-import type { VForm } from "~/types/vuetify";
 import { useUserApi } from "~/composables/api";
 import { useHouseholdSelf } from "~/composables/use-households";
 import type { Recipe, RecipeTimelineEventIn } from "~/lib/api/types/recipe";
+import type { VForm } from '~/types/auto-forms';
 
 export default defineNuxtComponent({
   props: {

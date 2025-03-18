@@ -188,8 +188,8 @@ import type { CreateIngredientFood, IngredientFood, IngredientFoodAlias } from "
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
 import { useFoodStore, useLabelStore } from "~/composables/store";
-import type { VForm } from "~/types/vuetify";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
+import type { VForm } from '~/types/auto-forms';
 
 interface CreateIngredientFoodWithOnHand extends CreateIngredientFood {
   onHand: boolean;

@@ -61,7 +61,7 @@ import type { AxiosResponse } from "axios";
 import { useTagStore } from "~/composables/store/use-tag-store";
 import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
-import type { VForm } from "~/types/vuetify";
+import type { VForm } from '~/types/auto-forms';
 
 const EDITOR_OPTIONS = {
   mode: "code",

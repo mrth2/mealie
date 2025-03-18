@@ -73,7 +73,7 @@ import type { AxiosResponse } from "axios";
 import { useUserApi } from "~/composables/api";
 import { useTagStore } from "~/composables/store/use-tag-store";
 import { validators } from "~/composables/use-validators";
-import type { VForm } from "~/types/vuetify";
+import type { VForm } from '~/types/auto-forms';
 
 export default defineNuxtComponent({
   setup() {

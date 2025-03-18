@@ -36,8 +36,6 @@
 <script lang="ts">
 import { useClipboard } from "@vueuse/core"
 
-import { VTooltip } from "~/types/vuetify";
-
 export default defineNuxtComponent({
   props: {
     copyText: {

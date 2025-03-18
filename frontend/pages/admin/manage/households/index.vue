@@ -64,13 +64,11 @@
 </template>
 
 <script lang="ts">
-
 import { fieldTypes } from "~/composables/forms";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
 import { validators } from "~/composables/use-validators";
 import type { HouseholdInDB } from "~/lib/api/types/household";
-import type { VForm } from "~/types/vuetify";
 
 export default defineNuxtComponent({
   setup() {

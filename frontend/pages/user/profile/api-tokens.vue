@@ -5,7 +5,7 @@
         <v-img width="100%" max-height="200px" max-width="200px" :src="require('~/static/svgs/manage-api-tokens.svg')"></v-img>
       </template>
       <template #title> {{ $t("settings.token.api-tokens") }} </template>
-      {{ $t('settings.token.you-have-token-count', user.tokens.length) }}
+      {{ $t('settings.token.you-have-token-count', user.tokens!.length) }}
     </BasePageTitle>
     <section class="d-flex justify-center">
       <v-card class="mt-4" width="500px">
@@ -39,13 +39,13 @@
     </section>
     <BaseCardSectionTitle class="mt-10" :title="$t('settings.token.active-tokens')"> </BaseCardSectionTitle>
     <section class="d-flex flex-column">
-      <div v-for="(token, index) in $auth.user.value.tokens" :key="index">
+      <div v-for="(token, index) in user.tokens" :key="index">
         <v-card variant="outlined" class="mb-2">
           <v-list-item>
             <v-list-item-title>
               {{ token.name }}
             </v-list-item-title>
-            <v-list-item-subtitle> {{ $t('general.created-on-date', [$d(new Date(token.createdAt))]) }}
+            <v-list-item-subtitle> {{ $t('general.created-on-date', [$d(new Date(token.createdAt!))]) }}
             </v-list-item-subtitle>
             <v-list-item-action>
               <BaseButton delete small @click="deleteToken(token.id)"></BaseButton>
@@ -59,7 +59,7 @@
 
 <script lang="ts">
 import { useUserApi } from "~/composables/api";
-import type { VForm } from "~/types/vuetify";
+import type { VForm } from '~/types/auto-forms';
 
 export default defineNuxtComponent({
   middleware: ["sidebase-auth", "advanced-only"],
@@ -87,7 +87,7 @@ export default defineNuxtComponent({
       createdToken.value = "";
       loading.value = false;
       name.value = "";
-      $auth.fetch();
+      $auth.refresh();
     }
 
     async function createToken(name: string) {
@@ -112,7 +112,7 @@ export default defineNuxtComponent({
 
     async function deleteToken(id: number) {
       const { data } = await api.users.deleteAPIToken(id);
-      $auth.fetch();
+      $auth.refresh();
       return data;
     }
 

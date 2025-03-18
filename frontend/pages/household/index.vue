@@ -21,12 +21,11 @@
 </template>
 
 <script lang="ts">
-
 import HouseholdPreferencesEditor from "~/components/Domain/Household/HouseholdPreferencesEditor.vue";
-import type { VForm } from "~/types/vuetify";
 import { useHouseholdSelf } from "~/composables/use-households";
 import type { ReadHouseholdPreferences } from "~/lib/api/types/household";
 import { alert } from "~/composables/use-toast";
+import type { VForm } from '~/types/auto-forms';
 
 export default defineNuxtComponent({
   components: {

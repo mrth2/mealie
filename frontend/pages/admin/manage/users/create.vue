@@ -49,14 +49,13 @@
 </template>
 
 <script lang="ts">
-
 import { useAdminApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
 import type { UserIn } from "~/lib/api/types/user";
-import type { VForm } from "~/types/vuetify";
+import type { VForm } from '~/types/auto-forms';
 
 export default defineNuxtComponent({
   setup() {

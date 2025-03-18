@@ -167,7 +167,6 @@
 </template>
 
 <script lang="ts">
-
 import type { LocaleObject } from "@nuxtjs/i18n";
 import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
@@ -175,7 +174,7 @@ import { useUserApi } from "~/composables/api";
 import type { CreateIngredientUnit, IngredientUnit, IngredientUnitAlias } from "~/lib/api/types/recipe";
 import { useLocales } from "~/composables/use-locales";
 import { useUnitStore } from "~/composables/store";
-import type { VForm } from "~/types/vuetify";
+import type { VForm } from '~/types/auto-forms';
 
 export default defineNuxtComponent({
   components: { RecipeDataAliasManagerDialog },

@@ -66,7 +66,6 @@
 <script lang="ts">
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-import type { VForm } from "~/types/vuetify";
 
 export default defineNuxtComponent({
   setup() {

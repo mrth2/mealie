@@ -35,7 +35,6 @@ import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { validators } from "~/composables/use-validators";
 import type { HouseholdInDB } from "~/lib/api/types/household";
-import type { VForm } from "~/types/vuetify";
 
 export default defineNuxtComponent({
   components: {
