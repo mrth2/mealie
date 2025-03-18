@@ -32,16 +32,18 @@
       <v-card-title class="headline justify-center pb-3"> {{ $t('user.sign-in') }} </v-card-title>
       <v-card-text class="w-100">
         <v-form @submit.prevent="authenticate">
-          <v-text-field v-model="form.email" :prepend-inner-icon="$globals.icons.email" variant="solo-filled" width="100%" rounded autofocus
-            autocomplete="username" class="rounded-lg" name="login" :label="$t('user.email-or-username')" type="text" />
+          <v-text-field v-model="form.email" :prepend-inner-icon="$globals.icons.email" variant="solo-filled"
+            width="100%" rounded autofocus autocomplete="username" class="rounded-lg" name="login"
+            :label="$t('user.email-or-username')" type="text" />
           <v-text-field id="password" v-model="form.password" :prepend-inner-icon="$globals.icons.lock"
-            :append-inner-icon="passwordIcon" variant="solo-filled" rounded autocomplete="current-password" class="rounded-lg"
-            name="password" :label="$t('user.password')" :type="inputType" @click:append-inner="togglePasswordShow" />
+            :append-inner-icon="passwordIcon" variant="solo-filled" rounded autocomplete="current-password"
+            class="rounded-lg" name="password" :label="$t('user.password')" :type="inputType"
+            @click:append-inner="togglePasswordShow" />
           <v-checkbox v-model="form.remember" class="ml-2 mt-n2" :label="$t('user.remember-me')"></v-checkbox>
           <v-card-actions class="justify-center pt-0">
             <div class="max-button">
-              <v-btn :loading="loggingIn" :disabled="oidcLoggingIn" variant="elevated" color="primary" type="submit" size="large" rounded
-                class="rounded-xl" block>
+              <v-btn :loading="loggingIn" :disabled="oidcLoggingIn" variant="elevated" color="primary" type="submit"
+                size="large" rounded class="rounded-xl" block>
                 {{ $t("user.login") }}
               </v-btn>
             </div>
@@ -217,7 +219,8 @@ export default defineNuxtComponent({
       formData.append("remember_me", String(form.remember));
 
       try {
-        await $auth.signIn(formData, { callbackUrl: '/' });
+        await $auth.signIn(formData, { redirect: false });
+        window.location.href = '/'; // Reload the app to get the new user
       } catch (error) {
         console.log(error)
         alertOnError(error)
