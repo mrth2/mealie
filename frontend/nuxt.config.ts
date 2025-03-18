@@ -3,6 +3,8 @@ import commonjs from 'vite-plugin-commonjs';
 
 const AUTH_TOKEN = 'mealie.auth.token';
 
+const API_URL = process.env.API_URL || "http://localhost:9000";
+
 export default defineNuxtConfig({
   // Global page headers: https://go.nuxtjs.dev/config-head
   // target: "static",
@@ -89,9 +91,10 @@ export default defineNuxtConfig({
 
   auth: {
     isEnabled: true,
+    globalAppMiddleware: true,
     // disableServerSideAuth: true,
     originEnvKey: 'AUTH_ORIGIN',
-    baseURL: 'http://localhost:9000/api',
+    baseURL: API_URL + '/api',
     provider: {
       type: 'local',
       endpoints: {
@@ -241,7 +244,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     sessionPassword: process.env.SESSION_PASSWORD || "password-with-at-least-32-characters",
-    apiUrl: process.env.API_URL || "http://localhost:9000",
+    apiUrl: API_URL,
     public: {
       AUTH_TOKEN,
       GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || undefined,

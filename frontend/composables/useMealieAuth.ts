@@ -1,4 +1,5 @@
 import type { UserOut } from "~/lib/api/types/user";
+import AuthService from "~/services/auth-service";
 
 export const useMealieAuth = function () {
   const auth = useAuth();
@@ -20,3 +21,10 @@ export const useMealieAuth = function () {
     refresh: auth.refresh,
   }
 };
+
+export const useMealieOidc = function () {
+  const $auth = new AuthService();
+  return {
+    $auth,
+  }
+}
