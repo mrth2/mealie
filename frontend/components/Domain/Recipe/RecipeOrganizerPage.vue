@@ -12,7 +12,7 @@
       @confirm="deleteOne()"
     >
       <v-card-text>
-<p>{{ $t("general.confirm-delete-generic-with-name", { name: $t(translationKey) }) }}</p>
+        <p>{{ $t("general.confirm-delete-generic-with-name", { name: $t(translationKey) }) }}</p>
         <p class="mt-4 mb-0 ml-4">{{ deleteTarget.name }}</p>
       </v-card-text>
     </BaseDialog>
@@ -39,7 +39,7 @@
       </v-col>
     </v-row>
 
-    <v-app-bar color="transparent" flat class="mt-n1 rounded align-center">
+    <v-app-bar color="transparent" flat class="mt-n1 rounded align-center px-4">
       <v-icon size="large" start>
         {{ icon }}
       </v-icon>
@@ -80,7 +80,7 @@ import Fuse from "fuse.js";
 
 import { useContextPresets } from "~/composables/use-context-presents";
 import RecipeOrganizerDialog from "~/components/Domain/Recipe/RecipeOrganizerDialog.vue";
-import { Organizer, RecipeOrganizer } from "~/lib/api/types/non-generated";
+import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
 import { useRouteQuery } from "~/composables/use-router";
 import { deepCopy } from "~/composables/use-utils";
 
@@ -241,7 +241,5 @@ export default defineNuxtComponent({
       translationKey,
     };
   },
-  // Needed for useMeta
-  head: {},
 });
 </script>
