@@ -78,7 +78,7 @@
       </template>
       <template #title> {{ shoppingList.name }} </template>
     </BasePageTitle>
-    <BannerWarning v-if="$nuxt.isOffline" :title="$t('shopping-list.you-are-offline')"
+    <BannerWarning v-if="isOffline" :title="$t('shopping-list.you-are-offline')"
       :description="$t('shopping-list.you-are-offline-description')" />
 
     <!-- Viewer -->
@@ -138,8 +138,8 @@
         :title="$t('shopping-list.reorder-labels')" :submit-icon="$globals.icons.save" :submit-text="$t('general.save')"
         can-submit @submit="saveLabelOrder" @close="cancelLabelOrder">
         <v-card height="fit-content" max-height="70vh" style="overflow-y: auto;">
-          <VueDraggable v-if="localLabels" v-model="localLabels" handle=".handle" :delay="250" :delay-on-touch-only="true"
-            class="my-2" @input="updateLabelOrder">
+          <VueDraggable v-if="localLabels" v-model="localLabels" handle=".handle" :delay="250"
+            :delay-on-touch-only="true" class="my-2" @input="updateLabelOrder">
             <div v-for="(labelSetting, index) in localLabels" :key="labelSetting.id">
               <MultiPurposeLabelSection v-model="localLabels[index]" use-color />
             </div>
@@ -202,12 +202,13 @@
             : 0) }}
         </div>
         <v-divider class="my-4"></v-divider>
-        <RecipeList :recipes="Array.from(recipeMap.values())" show-description :disabled="$nuxt.isOffline">
+        <RecipeList :recipes="Array.from(recipeMap.values())" show-description :disabled="isOffline">
           <template v-for="(recipe, index) in recipeMap.values()" #[`actions-${recipe.id}`]
             :key="'item-actions-decrease' + recipe.id">
             <template>
               <v-list-item-action>
-                <v-btn v-if="recipe" icon :disabled="$nuxt.isOffline" @click.prevent="removeRecipeReferenceToList(recipe.id)">
+                <v-btn v-if="recipe" icon :disabled="isOffline"
+                  @click.prevent="removeRecipeReferenceToList(recipe.id!)">
                   <v-icon color="grey lighten-1">{{ $globals.icons.minus }}</v-icon>
                 </v-btn>
               </v-list-item-action>
@@ -215,7 +216,7 @@
                 {{ shoppingList.recipeReferences[index].recipeQuantity }}
               </div>
               <v-list-item-action :key="'item-actions-increase' + recipe.id">
-                <v-btn icon :disabled="$nuxt.isOffline" @click.prevent="addRecipeReferenceToList(recipe.id)">
+                <v-btn icon :disabled="isOffline" @click.prevent="addRecipeReferenceToList(recipe.id!)">
                   <v-icon color="grey lighten-1">{{ $globals.icons.createAlt }}</v-icon>
                 </v-btn>
               </v-list-item-action>
@@ -230,7 +231,7 @@
 
 <script lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
-import { useIdle, useToggle } from "@vueuse/core";
+import { useIdle, useOnline, useToggle } from "@vueuse/core";
 import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
 import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurposeLabelSection.vue"
@@ -265,6 +266,8 @@ export default defineNuxtComponent({
     const i18n = useI18n();
     const $auth = useMealieAuth();
     const preferences = useShoppingListPreferences();
+
+    const isOffline = computed(() => useOnline().value === false);
 
     useSeoMeta({
       title: i18n.t("shopping-list.shopping-list"),
@@ -308,7 +311,7 @@ export default defineNuxtComponent({
         console.error(error);
       }
 
-      let newListValue = null
+      let newListValue: typeof shoppingList.value = null
       try {
         newListValue = await fetchShoppingList();
       } catch (error) {
@@ -391,7 +394,7 @@ export default defineNuxtComponent({
         unchecked: shoppingList.value?.listItems?.filter((item) => !item.checked) ?? [],
         checked: shoppingList.value?.listItems
           ?.filter((item) => item.checked)
-          .sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1))
+          .sort((a, b) => (a.updatedAt! < b.updatedAt! ? 1 : -1))
           ?? [],
       };
     });
@@ -1043,6 +1046,7 @@ export default defineNuxtComponent({
       allUnits,
       allFoods,
       getTextColor,
+      isOffline,
     };
   },
 });

@@ -8,12 +8,12 @@
           color="null"
           hide-details
           density="compact"
-          :label="listItem.note"
+          :label="listItem.note!"
           @change="$emit('checked', listItem)"
         >
           <template #label>
             <div :class="listItem.checked ? 'strike-through' : ''">
-              <RecipeIngredientListItem :ingredient="listItem" :disable-amount="!(listItem.isFood || listItem.quantity !== 1)" />
+              <RecipeIngredientListItem :ingredient="listItem as RecipeIngredient" :disable-amount="!(listItem.isFood || listItem.quantity !== 1)" />
             </div>
           </template>
         </v-checkbox>
@@ -69,7 +69,7 @@
     </v-row>
     <v-row v-if="!listItem.checked && recipeList && recipeList.length && displayRecipeRefs" no-gutters class="mb-2">
       <v-col cols="auto" style="width: 100%;">
-        <RecipeList :recipes="recipeList" :list-item="listItem" :disabled="$nuxt.isOffline" size="small" tile />
+        <RecipeList :recipes="recipeList" :list-item="listItem" :disabled="isOffline" size="small" tile />
       </v-col>
     </v-row>
     <v-row v-if="listItem.checked" no-gutters class="mb-2">
@@ -95,10 +95,11 @@
 </template>
 
 <script lang="ts">
+import { useOnline } from '@vueuse/core'
 import RecipeIngredientListItem from "../Recipe/RecipeIngredientListItem.vue";
 import ShoppingListItemEditor from "./ShoppingListItemEditor.vue";
 import MultiPurposeLabel from "./MultiPurposeLabel.vue";
-import type { ShoppingListItemOut } from "~/lib/api/types/household";
+import type { RecipeIngredient, ShoppingListItemOut } from "~/lib/api/types/household";
 import type { MultiPurposeLabelOut, MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import type { IngredientFood, IngredientUnit, RecipeSummary } from "~/lib/api/types/recipe";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
@@ -140,6 +141,7 @@ export default defineNuxtComponent({
     const i18n = useI18n();
     const displayRecipeRefs = ref(false);
     const itemLabelCols = ref<string>(props.modelValue.checked ? "auto" : props.showLabel ? "4" : "6");
+    const isOffline = computed(() => useOnline().value === false);
 
     const contextMenu: actions[] = [
       {
@@ -246,6 +248,7 @@ export default defineNuxtComponent({
       label,
       recipeList,
       toggleEdit,
+      isOffline,
     };
   },
 });
