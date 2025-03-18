@@ -100,7 +100,7 @@
           <v-btn :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'" :style="{
             'color': getTextColor(getLabelColor(value[0])),
             'letter-spacing': 'normal',
-          }" @click="toggleShowLabel(key)">
+          }" @click="toggleShowLabel(key.toString())">
             <v-icon>
               {{ labelOpenState[key] ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
             </v-icon>
@@ -111,7 +111,7 @@
             <div v-show="labelOpenState[key]">
               <VueDraggable :model-value="value" handle=".handle" :delay="250" :delay-on-touch-only="true"
                 @start="loadingCounter += 1" @end="loadingCounter -= 1"
-                @update="updateIndexUncheckedByLabel(key, $event)">
+                @update="updateIndexUncheckedByLabel(key.toString(), $event)">
                 <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
                   <ShoppingListItem v-model="value[index]" :show-label=false :labels="allLabels || []"
                     :units="allUnits || []" :foods="allFoods || []" :recipes="recipeMap" @checked="saveListItem"
@@ -207,7 +207,7 @@
             :key="'item-actions-decrease' + recipe.id">
             <template>
               <v-list-item-action>
-                <v-btn icon :disabled="$nuxt.isOffline" @click.prevent="removeRecipeReferenceToList(recipe.id)">
+                <v-btn v-if="recipe" icon :disabled="$nuxt.isOffline" @click.prevent="removeRecipeReferenceToList(recipe.id)">
                   <v-icon color="grey lighten-1">{{ $globals.icons.minus }}</v-icon>
                 </v-btn>
               </v-list-item-action>

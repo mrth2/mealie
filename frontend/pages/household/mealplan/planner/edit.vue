@@ -14,7 +14,7 @@
       }
       " @close="resetDialog()">
       <v-card-text>
-        <v-menu v-model="state.pickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y
+        <v-menu v-model="state.pickerMenu!" :close-on-content-click="false" transition="scale-transition" offset-y
           max-width="290px" min-width="auto">
           <template #activator="{ props }">
             <v-text-field v-model="newMeal.date" :label="$t('general.date')"
@@ -54,7 +54,7 @@
             :class="{ handle: $vuetify.display.smAndUp }">
             <v-list-item @click="editMeal(mealplan)">
               <v-avatar :rounded="false">
-                <RecipeCardImage v-if="mealplan.recipe" :recipe-id="mealplan.recipe.id" tiny icon-size="25"
+                <RecipeCardImage v-if="mealplan.recipe" :recipe-id="mealplan.recipe.id!" tiny icon-size="25"
                   :slug="mealplan.recipe ? mealplan.recipe.slug : ''">
                 </RecipeCardImage>
                 <v-icon v-else>
@@ -81,7 +81,7 @@
                     <v-icon start>
                       {{ $globals.icons.tags }}
                     </v-icon>
-                    {{ getEntryTypeText(mealplan.entryType) }}
+                    {{ getEntryTypeText(mealplan.entryType!) }}
                   </v-chip>
                 </template>
                 <v-list>

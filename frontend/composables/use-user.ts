@@ -8,7 +8,7 @@ Unsure how this could work but still be clear and functional. Perhaps by passing
 to control whether the object is substantiated... but some of the others rely on it being substantiated...Will come back to this.
 */
 
-export const useAllUsers = async function () {
+export const useAllUsers = function () {
   const api = useUserApi();
   const loading = ref(false);
 

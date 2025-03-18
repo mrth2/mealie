@@ -36,7 +36,7 @@ export const useMealplans = function (range: Ref<DateRange>) {
   const actions = {
     getAll() {
       loading.value = true;
-      const units = useAsyncData(useAsyncKey(), async () => {
+      const { data: units } = useAsyncData(useAsyncKey(), async () => {
         const query = {
           start_date: format(range.value.start, "yyyy-MM-dd"),
           end_date: format(range.value.end, "yyyy-MM-dd"),

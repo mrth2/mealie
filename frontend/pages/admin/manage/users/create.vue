@@ -11,6 +11,7 @@
       <v-card variant="outlined">
         <v-card-text>
           <v-select
+            v-if="groups"
             v-model="selectedGroupId"
             :items="groups"
             rounded
@@ -18,7 +19,7 @@
             item-title="name"
             item-value="id"
             :return-object="false"
-           variant="filled"
+            variant="filled"
             :label="$t('group.user-group')"
             :rules="[validators.required]"
           />
@@ -31,7 +32,7 @@
             item-title="name"
             item-value="name"
             :return-object="false"
-           variant="filled"
+            variant="filled"
             :label="$t('household.user-household')"
             :hint="selectedGroupId ? '' : $t('group.you-must-select-a-group-before-selecting-a-household')"
             persistent-hint
@@ -54,6 +55,7 @@ import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
+import type { UserIn } from "~/lib/api/types/user";
 import type { VForm } from "~/types/vuetify";
 
 export default defineNuxtComponent({
@@ -104,7 +106,7 @@ export default defineNuxtComponent({
     async function handleSubmit() {
       if (!refNewUserForm.value?.validate()) return;
 
-      const { response } = await adminApi.users.createOne(state.newUserData);
+      const { response } = await adminApi.users.createOne(state.newUserData as UserIn);
 
       if (response?.status === 201) {
         router.push("/admin/manage/users");

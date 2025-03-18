@@ -8,7 +8,7 @@
 
         <div class="mt-4">
           <v-text-field v-model="createLabelData.name" :label="$t('general.name')"> </v-text-field>
-          <InputColor v-model="createLabelData.color" />
+          <InputColor v-model="createLabelData.color!" />
         </div>
       </v-card-text>
     </BaseDialog>
@@ -20,7 +20,7 @@
         <MultiPurposeLabel :label="editLabel" />
         <div class="mt-4">
           <v-text-field v-model="editLabel.name" :label="$t('general.name')"> </v-text-field>
-          <InputColor v-model="editLabel.color" />
+          <InputColor v-model="editLabel.color!" />
         </div>
       </v-card-text>
     </BaseDialog>

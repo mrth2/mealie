@@ -104,7 +104,7 @@ export default defineNuxtComponent({
       deleteUserMixin(id);
 
       if (isUserOwnAccount.value) {
-        $auth.clear();
+        $auth.refresh();
       }
     }
 

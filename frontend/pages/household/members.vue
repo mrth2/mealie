@@ -21,31 +21,31 @@
     <v-data-table :headers="headers" :items="members || []" item-key="id" class="elevation-0" hide-default-footer
       disable-pagination>
       <template #item.avatar="{ item }">
-        <UserAvatar :tooltip="false" :user-id="item.id" />
+        <UserAvatar v-if="item" :tooltip="false" :user-id="item.id" />
       </template>
       <template #item.admin="{ item }">
-        {{ item.admin ? $t('user.admin') : $t('user.user') }}
+        {{ item && item.admin ? $t('user.admin') : $t('user.user') }}
       </template>
       <template #item.manageHousehold="{ item }">
-        <div class="d-flex justify-center">
+        <div v-if="item" class="d-flex justify-center">
           <v-checkbox v-model="item.canManageHousehold" :disabled="item.id === sessionUser?.id || item.admin" class=""
             style="max-width: 30px" @change="setPermissions(item)"></v-checkbox>
         </div>
       </template>
       <template #item.manage="{ item }">
-        <div class="d-flex justify-center">
+        <div v-if="item" class="d-flex justify-center">
           <v-checkbox v-model="item.canManage" :disabled="item.id === sessionUser?.id || item.admin" class=""
             style="max-width: 30px" @change="setPermissions(item)"></v-checkbox>
         </div>
       </template>
       <template #item.organize="{ item }">
-        <div class="d-flex justify-center">
+        <div v-if="item" class="d-flex justify-center">
           <v-checkbox v-model="item.canOrganize" :disabled="item.id === sessionUser?.id || item.admin" class=""
             style="max-width: 30px" @change="setPermissions(item)"></v-checkbox>
         </div>
       </template>
       <template #item.invite="{ item }">
-        <div class="d-flex justify-center">
+        <div v-if="item" class="d-flex justify-center">
           <v-checkbox v-model="item.canInvite" :disabled="item.id === sessionUser?.id || item.admin" class=""
             style="max-width: 30px" @change="setPermissions(item)"></v-checkbox>
         </div>

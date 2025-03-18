@@ -78,7 +78,7 @@ export default defineNuxtComponent({
     const i18n = useI18n();
     const route = useRoute();
 
-    const userId = route.params.id;
+    const userId = route.params.id as string;
 
     // ==============================================
     // New User Form

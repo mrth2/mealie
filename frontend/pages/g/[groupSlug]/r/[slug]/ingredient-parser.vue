@@ -41,7 +41,7 @@
                     {{ isError(ing) ? $globals.icons.alert : $globals.icons.check }}
                   </v-icon>
                   <div class="my-auto" :color="isError(ing) ? 'error-text' : 'success-text'">
-                    {{ ing.confidence ? asPercentage(ing.confidence.average) : "" }}
+                    {{ ing.confidence ? asPercentage(ing.confidence.average!) : "" }}
                   </div>
                 </template>
               </v-expansion-panel-title>
@@ -52,11 +52,11 @@
                 <v-card-actions>
                   <v-spacer />
                   <BaseButton v-if="errors[index].unitError && errors[index].unitErrorMessage !== ''" color="warning"
-                    size="small" @click="createUnit(ing.ingredient.unit, index)">
+                    size="small" @click="createUnit(ing.ingredient.unit!, index)">
                     {{ errors[index].unitErrorMessage }}
                   </BaseButton>
                   <BaseButton v-if="errors[index].foodError && errors[index].foodErrorMessage !== ''" color="warning"
-                    size="small" @click="createFood(ing.ingredient.food, index)">
+                    size="small" @click="createFood(ing.ingredient.food!, index)">
                     {{ errors[index].foodErrorMessage }}
                   </BaseButton>
                 </v-card-actions>
@@ -155,8 +155,8 @@ export default defineNuxtComponent({
     });
 
     function processIngredientError(ing: ParsedIngredient, index: number): Error {
-      const unitError = !checkForUnit(ing.ingredient.unit);
-      const foodError = !checkForFood(ing.ingredient.food);
+      const unitError = !checkForUnit(ing.ingredient.unit!);
+      const foodError = !checkForFood(ing.ingredient.food!);
 
       let unitErrorMessage = "";
       let foodErrorMessage = "";
@@ -312,11 +312,11 @@ export default defineNuxtComponent({
     // Save All Logic
     async function saveAll() {
       const ingredients = parsedIng.value.map((ing) => {
-        if (!checkForFood(ing.ingredient.food)) {
+        if (!checkForFood(ing.ingredient.food!)) {
           ing.ingredient.food = undefined;
         }
 
-        if (!checkForUnit(ing.ingredient.unit)) {
+        if (!checkForUnit(ing.ingredient.unit!)) {
           ing.ingredient.unit = undefined;
         }
 

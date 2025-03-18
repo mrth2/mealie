@@ -10,7 +10,7 @@ export const useGroupWebhooks = function () {
   const actions = {
     getAll() {
       loading.value = true;
-      const units = useAsyncData(useAsyncKey(), async () => {
+      const { data: units } = useAsyncData(useAsyncKey(), async () => {
         const { data } = await api.groupWebhooks.getAll();
 
         if (data) {

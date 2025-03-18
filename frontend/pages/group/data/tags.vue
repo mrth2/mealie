@@ -143,7 +143,7 @@ export default defineNuxtComponent({
       if (!deleteTarget.value || deleteTarget.value.id === undefined) {
         return;
       }
-      await tagStore.actions.deleteOne(deleteTarget.value.id);
+      await tagStore.actions.deleteOne(deleteTarget.value.id!);
       state.deleteDialog = false;
     }
 

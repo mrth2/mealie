@@ -117,8 +117,8 @@ export default defineNuxtComponent({
       }
 
       const property = confidence.value[attribute];
-      if (property !== undefined) {
-        return `${(property * 100).toFixed(0)}%`;
+      if (property !== undefined && property !== null) {
+        return `${(+property * 100).toFixed(0)}%`;
       }
       return undefined;
     }
