@@ -16,7 +16,6 @@ module.exports = {
     "@nuxtjs/eslint-config-typescript",
     "plugin:nuxt/recommended",
     "eslint:recommended",
-    "vue/no-duplicate-attributes",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     // "plugin:prettier/recommended",
