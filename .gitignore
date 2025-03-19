@@ -11,6 +11,8 @@ docs/site/
 .secret
 frontend/dist/
 frontend/.output/*
+frontend/.yarn/*
+frontend/.yarnrc.yml
 
 dev/code-generation/generated/*
 dev/data/mealie.db-journal
