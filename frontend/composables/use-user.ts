@@ -10,38 +10,15 @@ to control whether the object is substantiated... but some of the others rely on
 
 export const useAllUsers = function () {
   const api = useUserApi();
-  const loading = ref(false);
-
-  async function getAllUsers() {
-    loading.value = true;
-    const asyncKey = String(Date.now());
-    const { data: allUsers } = await useAsyncData(asyncKey, async () => {
-      const { data } = await api.users.getAll();
-      if (data) {
-        return data.items;
-      } else {
-        return null;
-      }
-    });
-
-    loading.value = false;
-    return allUsers;
-  }
-
-  async function refreshAllUsers() {
-    loading.value = true;
+  const asyncKey = String(Date.now());
+  const { data: users, refresh: refreshAllUsers } = useLazyAsyncData(asyncKey, async () => {
     const { data } = await api.users.getAll();
-
     if (data) {
-      users.value = data.items;
+      return data.items;
     } else {
-      users.value = null;
+      return null;
     }
-
-    loading.value = false;
-  }
-
-  const users = await getAllUsers();
+  });
 
   return { users, refreshAllUsers };
 };
