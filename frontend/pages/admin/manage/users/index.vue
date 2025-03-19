@@ -33,7 +33,7 @@
           </v-icon>
         </template>
         <template #item.actions="{ item }">
-          <v-btn icon :disabled="item.id == 1" color="error" @click.stop="
+          <v-btn icon :disabled="+item.id == 1" color="error" @click.stop="
             deleteDialog = true;
           deleteTargetId = item.id;
           ">
