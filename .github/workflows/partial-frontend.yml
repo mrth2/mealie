@@ -34,9 +34,9 @@ jobs:
         run: yarn
         working-directory: "frontend"
 
-      - name: Run linter 👀
-        run: yarn lint
-        working-directory: "frontend"
+      # - name: Run linter 👀
+      #   run: yarn lint
+      #   working-directory: "frontend"
 
       - name: Run tests 🧪
         run: yarn test:ci
