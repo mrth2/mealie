@@ -6,9 +6,7 @@ test('password login', async ({ page }) => {
     const name = "Change Me"
 
     await page.goto('http://localhost:9000/login');
-    await page.getByLabel('Email or Username').click();
     await page.getByLabel('Email or Username').fill(username);
-    await page.locator('div').filter({ hasText: /^Password$/ }).nth(3).click();
     await page.getByLabel('Password').fill(password);
     await page.getByRole('button', { name: 'Login', exact: true }).click();
     // skip admin setup page
@@ -22,9 +20,7 @@ test('ldap login', async ({ page }) => {
     const name = "Bender Bending Rodríguez"
 
     await page.goto('http://localhost:9000/login');
-    await page.getByLabel('Email or Username').click();
     await page.getByLabel('Email or Username').fill(username);
-    await page.locator('div').filter({ hasText: /^Password$/ }).nth(3).click();
     await page.getByLabel('Password').fill(password);
     await page.getByRole('button', { name: 'Login', exact: true }).click();
     await expect(page.getByRole('navigation')).toContainText(name);
@@ -37,9 +33,7 @@ test('ldap admin login', async ({ page }) => {
     const name = "Hubert J. Farnsworth"
 
     await page.goto('http://localhost:9000/login');
-    await page.getByLabel('Email or Username').click();
     await page.getByLabel('Email or Username').fill(username);
-    await page.locator('div').filter({ hasText: /^Password$/ }).nth(3).click();
     await page.getByLabel('Password').fill(password);
     await page.getByRole('button', { name: 'Login', exact: true }).click();
     // skip admin setup page
