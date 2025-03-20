@@ -1,8 +1,11 @@
 <template>
-  <v-container fill-height fluid class="d-flex fill-height justify-center align-center flex-column" :class="{
-    'bg-off-white': !$vuetify.theme.current.dark && !isDark,
-  }">
-    <v-alert v-if="isFirstLogin" class="my-4" type="info" icon="mdi-information">
+  <v-container
+    fill-height fluid class="d-flex fill-height justify-center align-center flex-column"
+    :class="{
+      'bg-off-white': !$vuetify.theme.current.dark && !isDark,
+    }"
+    >
+    <v-alert v-if="isFirstLogin" class="my-4 flex-none" type="info" icon="mdi-information">
       <div>
         <p class="mb-3">
           {{ $t('user.it-looks-like-this-is-your-first-time-logging-in') }}
@@ -15,8 +18,8 @@
       </div>
     </v-alert>
     <v-card tag="section" class="d-flex flex-column align-center" width="600px">
-      <v-toolbar width="100%" color="primary" class="d-flex justify-center mb-4" dark>
-        <v-toolbar-title class="headline text-h4 text-center"> Mealie </v-toolbar-title>
+      <v-toolbar color="primary" class="d-flex justify-center mb-4" dark>
+        <v-toolbar-title class="text-h5 text-h4 text-center"> Mealie </v-toolbar-title>
       </v-toolbar>
 
       <div class="icon-container">
@@ -29,20 +32,23 @@
         </v-avatar>
       </div>
 
-      <v-card-title class="headline justify-center pb-3"> {{ $t('user.sign-in') }} </v-card-title>
+      <v-card-title class="text-h5 justify-center pb-3"> {{ $t('user.sign-in') }} </v-card-title>
       <v-card-text class="w-100">
         <v-form @submit.prevent="authenticate">
-          <v-text-field v-model="form.email" :prepend-inner-icon="$globals.icons.email" variant="solo-filled"
+          <v-text-field
+v-model="form.email" :prepend-inner-icon="$globals.icons.email" variant="solo-filled"
             width="100%" rounded autofocus autocomplete="username" class="rounded-lg" name="login"
             :label="$t('user.email-or-username')" type="text" />
-          <v-text-field id="password" v-model="form.password" :prepend-inner-icon="$globals.icons.lock"
+          <v-text-field
+id="password" v-model="form.password" :prepend-inner-icon="$globals.icons.lock"
             :append-inner-icon="passwordIcon" variant="solo-filled" rounded autocomplete="current-password"
             class="rounded-lg" name="password" :label="$t('user.password')" :type="inputType"
             @click:append-inner="togglePasswordShow" />
           <v-checkbox v-model="form.remember" class="ml-2 mt-n2" :label="$t('user.remember-me')"></v-checkbox>
           <v-card-actions class="justify-center pt-0">
             <div class="max-button">
-              <v-btn :loading="loggingIn" :disabled="oidcLoggingIn" variant="elevated" color="primary" type="submit"
+              <v-btn
+:loading="loggingIn" :disabled="oidcLoggingIn" variant="elevated" color="primary" type="submit"
                 size="large" rounded class="rounded-xl" block>
                 {{ $t("user.login") }}
               </v-btn>
@@ -51,7 +57,8 @@
 
           <div v-if="allowOidc" class="d-flex my-4 justify-center align-center" width="80%">
             <v-divider class="div-width" />
-            <span class="absolute px-2" :class="{
+            <span
+class="absolute px-2" :class="{
               'bg-white': !$vuetify.theme.current.dark && !isDark,
               'bg-background': $vuetify.theme.current.dark || isDark,
             }">
@@ -60,7 +67,8 @@
           </div>
           <v-card-actions v-if="allowOidc" class="justify-center">
             <div class="max-button">
-              <v-btn :loading="oidcLoggingIn" color="primary" size="large" rounded class="rounded-xl" block
+              <v-btn
+:loading="oidcLoggingIn" color="primary" size="large" rounded class="rounded-xl" block
                 @click.native="() => oidcAuthenticate()">
                 {{ $t("user.login-oidc") }} {{ oidcProviderName }}
               </v-btn>
@@ -75,7 +83,8 @@
       </v-card-actions>
 
       <v-card-text class="d-flex justify-center flex-column flex-sm-row">
-        <div v-for="link in [
+        <div
+v-for="link in [
           {
             text: $t('about.sponsor'),
             icon: $globals.icons.heart,
@@ -208,7 +217,7 @@ export default defineNuxtComponent({
 
     async function authenticate() {
       if (form.email.length === 0 || form.password.length === 0) {
-        alert.error(i18n.t("user.please-enter-your-email-and-password") as string);
+        alert.error(i18n.t("user.please-enter-your-email-and-password"));
         return;
       }
 
@@ -220,7 +229,7 @@ export default defineNuxtComponent({
 
       try {
         await $auth.signIn(formData, { redirect: false });
-        window.location.href = '/'; // Reload the app to get the new user
+        window.location.href = "/"; // Reload the app to get the new user
       } catch (error) {
         console.log(error)
         alertOnError(error)
@@ -235,12 +244,12 @@ export default defineNuxtComponent({
       // if ($axios.isAxiosError(error) && error.response?.status === 401) {
       // @ts-ignore- see above
       if (error.response?.status === 401) {
-        alert.error(i18n.t("user.invalid-credentials") as string);
+        alert.error(i18n.t("user.invalid-credentials"));
         // @ts-ignore - see above
       } else if (error.response?.status === 423) {
-        alert.error(i18n.t("user.account-locked-please-try-again-later") as string);
+        alert.error(i18n.t("user.account-locked-please-try-again-later"));
       } else {
-        alert.error(i18n.t("events.something-went-wrong") as string);
+        alert.error(i18n.t("events.something-went-wrong"));
       }
     }
 
