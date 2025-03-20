@@ -5,7 +5,7 @@
       'bg-off-white': !$vuetify.theme.current.dark && !isDark,
     }"
     >
-    <v-alert v-if="isFirstLogin" class="my-4 flex-none" type="info" icon="mdi-information">
+    <v-alert v-if="isFirstLogin" class="my-4" type="info" icon="mdi-information" :style="{ flex: 'none' }">
       <div>
         <p class="mb-3">
           {{ $t('user.it-looks-like-this-is-your-first-time-logging-in') }}
