@@ -34,9 +34,13 @@ jobs:
         run: yarn
         working-directory: "frontend"
 
-      # - name: Run linter 👀
-      #   run: yarn lint
-      #   working-directory: "frontend"
+      - name: Prepare nuxt 🚀
+        run: yarn nuxt prepare
+        working-directory: "frontend"
+
+      - name: Run linter 👀
+        run: yarn lint
+        working-directory: "frontend"
 
       - name: Run tests 🧪
         run: yarn test:ci
