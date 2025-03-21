@@ -4,19 +4,19 @@ import type { GroupEventNotifierCreate, GroupEventNotifierOut, GroupEventNotifie
 const prefix = "/api";
 
 const routes = {
-	eventNotifier: `${prefix}/households/events/notifications`,
-	eventNotifierId: (id: string | number) => `${prefix}/households/events/notifications/${id}`,
+  eventNotifier: `${prefix}/households/events/notifications`,
+  eventNotifierId: (id: string | number) => `${prefix}/households/events/notifications/${id}`,
 };
 
 export class GroupEventNotifierApi extends BaseCRUDAPI<
-	GroupEventNotifierCreate,
-	GroupEventNotifierOut,
-	GroupEventNotifierUpdate
+  GroupEventNotifierCreate,
+  GroupEventNotifierOut,
+  GroupEventNotifierUpdate
 > {
-	baseRoute = routes.eventNotifier;
-	itemRoute = routes.eventNotifierId;
+  baseRoute = routes.eventNotifier;
+  itemRoute = routes.eventNotifierId;
 
-	async test(itemId: string) {
-		return await this.requests.post(`${this.baseRoute}/${itemId}/test`, {});
-	}
+  async test(itemId: string) {
+    return await this.requests.post(`${this.baseRoute}/${itemId}/test`, {});
+  }
 }

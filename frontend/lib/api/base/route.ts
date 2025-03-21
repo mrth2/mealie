@@ -1,11 +1,11 @@
 const parts = {
-	host: "http://localhost.com",
-	prefix: "",
+  host: "http://localhost.com",
+  prefix: "",
 };
 
 export function overrideParts(host: string, prefix: string) {
-	parts.host = host;
-	parts.prefix = prefix;
+  parts.host = host;
+  parts.prefix = prefix;
 }
 
 export type QueryValue = string | string[] | number | number[] | boolean | null | undefined;
@@ -20,19 +20,19 @@ export type QueryValue = string | string[] | number | number[] | boolean | null 
  * relative URLs in production because the API and client bundle are served from the same server/host.
  */
 export function route(rest: string, params: Record<string, QueryValue> | null = null): string {
-	const url = new URL(parts.prefix + rest, parts.host);
-	if (params) {
-		for (const [key, value] of Object.entries(params)) {
-			if (Array.isArray(value)) {
-				for (const item of value) {
-					url.searchParams.append(key, String(item));
-				}
-			}
-			else {
-				url.searchParams.append(key, String(value));
-			}
-		}
-	}
+  const url = new URL(parts.prefix + rest, parts.host);
+  if (params) {
+    for (const [key, value] of Object.entries(params)) {
+      if (Array.isArray(value)) {
+        for (const item of value) {
+          url.searchParams.append(key, String(item));
+        }
+      }
+      else {
+        url.searchParams.append(key, String(value));
+      }
+    }
+  }
 
-	return url.toString().replace("http://localhost.com", "");
+  return url.toString().replace("http://localhost.com", "");
 }

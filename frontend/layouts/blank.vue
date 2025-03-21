@@ -1,22 +1,22 @@
 <template>
-	<v-app dark>
-		<TheSnackbar />
+  <v-app dark>
+    <TheSnackbar />
 
-		<v-banner
-			v-if="isDemo"
-			sticky
-		>
-			<div class="text-center">
-				<b> {{ $t("demo.info_message_with_version", { version: version }) }} </b>
-			</div>
-		</v-banner>
+    <v-banner
+      v-if="isDemo"
+      sticky
+    >
+      <div class="text-center">
+        <b> {{ $t("demo.info_message_with_version", { version: version }) }} </b>
+      </div>
+    </v-banner>
 
-		<v-main>
-			<v-scroll-x-transition>
-				<NuxtPage />
-			</v-scroll-x-transition>
-		</v-main>
-	</v-app>
+    <v-main>
+      <v-scroll-x-transition>
+        <NuxtPage />
+      </v-scroll-x-transition>
+    </v-main>
+  </v-app>
 </template>
 
 <script lang="ts">
@@ -24,20 +24,20 @@ import TheSnackbar from "~/components/Layout/LayoutParts/TheSnackbar.vue";
 import { useAppInfo } from "~/composables/api";
 
 export default defineNuxtComponent({
-	components: { TheSnackbar },
-	setup() {
-		const appInfo = useAppInfo();
+  components: { TheSnackbar },
+  setup() {
+    const appInfo = useAppInfo();
 
-		const isDemo = computed(() => appInfo?.value?.demoStatus || false);
+    const isDemo = computed(() => appInfo?.value?.demoStatus || false);
 
-		const i18n = useI18n();
-		const version = computed(() => appInfo?.value?.version || i18n.t("about.unknown-version"));
+    const i18n = useI18n();
+    const version = computed(() => appInfo?.value?.version || i18n.t("about.unknown-version"));
 
-		return {
-			appInfo,
-			isDemo,
-			version,
-		};
-	},
+    return {
+      appInfo,
+      isDemo,
+      version,
+    };
+  },
 });
 </script>

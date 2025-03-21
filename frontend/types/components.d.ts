@@ -38,47 +38,47 @@ import type WakelockSwitch from "@/components/global/WakelockSwitch.vue";
 import type DefaultLayout from "@/components/layout/DefaultLayout.vue";
 
 declare module "vue" {
-	export interface GlobalComponents {
-		// Global Components
-		AdvancedOnly: typeof AdvancedOnly;
-		AppButtonCopy: typeof AppButtonCopy;
-		AppButtonUpload: typeof AppButtonUpload;
-		AppLoader: typeof AppLoader;
-		AppToolbar: typeof AppToolbar;
-		AutoForm: typeof AutoForm;
-		BannerExperimental: typeof BannerExperimental;
-		BannerWarning: typeof BannerWarning;
-		BaseButton: typeof BaseButton;
-		BaseButtonGroup: typeof BaseButtonGroup;
-		BaseCardSectionTitle: typeof BaseCardSectionTitle;
-		BaseDialog: typeof BaseDialog;
-		BaseDivider: typeof BaseDivider;
-		BaseOverflowButton: typeof BaseOverflowButton;
-		BasePageTitle: typeof BasePageTitle;
-		BaseStatCard: typeof BaseStatCard;
-		BaseWizard: typeof BaseWizard;
-		ButtonLink: typeof ButtonLink;
-		ContextMenu: typeof ContextMenu;
-		CrudTable: typeof CrudTable;
-		DevDumpJson: typeof DevDumpJson;
-		DocLink: typeof DocLink;
-		DropZone: typeof DropZone;
-		HelpIcon: typeof HelpIcon;
-		ImageCropper: typeof ImageCropper;
-		InputColor: typeof InputColor;
-		InputLabelType: typeof InputLabelType;
-		InputQuantity: typeof InputQuantity;
-		LanguageDialog: typeof LanguageDialog;
-		MarkdownEditor: typeof MarkdownEditor;
-		RecipeJsonEditor: typeof RecipeJsonEditor;
-		ReportTable: typeof ReportTable;
-		SafeMarkdown: typeof SafeMarkdown;
-		StatsCards: typeof StatsCards;
-		ToggleState: typeof ToggleState;
-		WakelockSwitch: typeof WakelockSwitch;
-		// Layout Components
-		DefaultLayout: typeof DefaultLayout;
-	}
+  export interface GlobalComponents {
+    // Global Components
+    AdvancedOnly: typeof AdvancedOnly;
+    AppButtonCopy: typeof AppButtonCopy;
+    AppButtonUpload: typeof AppButtonUpload;
+    AppLoader: typeof AppLoader;
+    AppToolbar: typeof AppToolbar;
+    AutoForm: typeof AutoForm;
+    BannerExperimental: typeof BannerExperimental;
+    BannerWarning: typeof BannerWarning;
+    BaseButton: typeof BaseButton;
+    BaseButtonGroup: typeof BaseButtonGroup;
+    BaseCardSectionTitle: typeof BaseCardSectionTitle;
+    BaseDialog: typeof BaseDialog;
+    BaseDivider: typeof BaseDivider;
+    BaseOverflowButton: typeof BaseOverflowButton;
+    BasePageTitle: typeof BasePageTitle;
+    BaseStatCard: typeof BaseStatCard;
+    BaseWizard: typeof BaseWizard;
+    ButtonLink: typeof ButtonLink;
+    ContextMenu: typeof ContextMenu;
+    CrudTable: typeof CrudTable;
+    DevDumpJson: typeof DevDumpJson;
+    DocLink: typeof DocLink;
+    DropZone: typeof DropZone;
+    HelpIcon: typeof HelpIcon;
+    ImageCropper: typeof ImageCropper;
+    InputColor: typeof InputColor;
+    InputLabelType: typeof InputLabelType;
+    InputQuantity: typeof InputQuantity;
+    LanguageDialog: typeof LanguageDialog;
+    MarkdownEditor: typeof MarkdownEditor;
+    RecipeJsonEditor: typeof RecipeJsonEditor;
+    ReportTable: typeof ReportTable;
+    SafeMarkdown: typeof SafeMarkdown;
+    StatsCards: typeof StatsCards;
+    ToggleState: typeof ToggleState;
+    WakelockSwitch: typeof WakelockSwitch;
+    // Layout Components
+    DefaultLayout: typeof DefaultLayout;
+  }
 }
 
 export {};

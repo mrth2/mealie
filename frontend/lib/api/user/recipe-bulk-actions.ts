@@ -9,40 +9,40 @@ type BulkActionResponse = object;
 const prefix = "/api";
 
 const routes = {
-	bulkExport: prefix + "/recipes/bulk-actions/export",
-	purgeExports: prefix + "/recipes/bulk-actions/export/purge",
-	bulkCategorize: prefix + "/recipes/bulk-actions/categorize",
-	bulkTag: prefix + "/recipes/bulk-actions/tag",
-	bulkDelete: prefix + "/recipes/bulk-actions/delete",
-	bulkSettings: prefix + "/recipes/bulk-actions/settings",
+  bulkExport: prefix + "/recipes/bulk-actions/export",
+  purgeExports: prefix + "/recipes/bulk-actions/export/purge",
+  bulkCategorize: prefix + "/recipes/bulk-actions/categorize",
+  bulkTag: prefix + "/recipes/bulk-actions/tag",
+  bulkDelete: prefix + "/recipes/bulk-actions/delete",
+  bulkSettings: prefix + "/recipes/bulk-actions/settings",
 };
 
 export class BulkActionsAPI extends BaseAPI {
-	async bulkExport(payload: ExportRecipes) {
-		return await this.requests.post<BulkActionResponse>(routes.bulkExport, payload);
-	}
+  async bulkExport(payload: ExportRecipes) {
+    return await this.requests.post<BulkActionResponse>(routes.bulkExport, payload);
+  }
 
-	async bulkCategorize(payload: AssignCategories) {
-		return await this.requests.post<BulkActionResponse>(routes.bulkCategorize, payload);
-	}
+  async bulkCategorize(payload: AssignCategories) {
+    return await this.requests.post<BulkActionResponse>(routes.bulkCategorize, payload);
+  }
 
-	async bulkSetSettings(payload: AssignSettings) {
-		return await this.requests.post<BulkActionResponse>(routes.bulkSettings, payload);
-	}
+  async bulkSetSettings(payload: AssignSettings) {
+    return await this.requests.post<BulkActionResponse>(routes.bulkSettings, payload);
+  }
 
-	async bulkTag(payload: AssignTags) {
-		return await this.requests.post<BulkActionResponse>(routes.bulkTag, payload);
-	}
+  async bulkTag(payload: AssignTags) {
+    return await this.requests.post<BulkActionResponse>(routes.bulkTag, payload);
+  }
 
-	async bulkDelete(payload: DeleteRecipes) {
-		return await this.requests.post<BulkActionResponse>(routes.bulkDelete, payload);
-	}
+  async bulkDelete(payload: DeleteRecipes) {
+    return await this.requests.post<BulkActionResponse>(routes.bulkDelete, payload);
+  }
 
-	async fetchExports() {
-		return await this.requests.get<GroupDataExport[]>(routes.bulkExport);
-	}
+  async fetchExports() {
+    return await this.requests.get<GroupDataExport[]>(routes.bulkExport);
+  }
 
-	async purgeExports() {
-		return await this.requests.delete<BulkActionResponse>(routes.purgeExports);
-	}
+  async purgeExports() {
+    return await this.requests.delete<BulkActionResponse>(routes.purgeExports);
+  }
 }

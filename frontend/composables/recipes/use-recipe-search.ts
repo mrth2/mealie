@@ -4,11 +4,11 @@ import type { ExploreApi } from "~/lib/api/public/explore";
 import type { Recipe } from "~/lib/api/types/recipe";
 
 export interface UseRecipeSearchReturn {
-	query: Ref<string>;
-	error: Ref<string>;
-	loading: Ref<boolean>;
-	data: Ref<Recipe[]>;
-	trigger(): Promise<void>;
+  query: Ref<string>;
+  error: Ref<string>;
+  loading: Ref<boolean>;
+  data: Ref<Recipe[]>;
+  trigger(): Promise<void>;
 }
 
 /**
@@ -18,53 +18,53 @@ export interface UseRecipeSearchReturn {
  * search, use the `useRecipeQuery` composable.
  */
 export function useRecipeSearch(api: UserApi | ExploreApi): UseRecipeSearchReturn {
-	const query = ref("");
-	const error = ref("");
-	const loading = ref(false);
-	const recipes = ref<Recipe[]>([]);
+  const query = ref("");
+  const error = ref("");
+  const loading = ref(false);
+  const recipes = ref<Recipe[]>([]);
 
-	async function searchRecipes(term: string) {
-		loading.value = true;
-		const { data, error } = await api.recipes.search({
-			search: term,
-			page: 1,
-			orderBy: "name",
-			orderDirection: "asc",
-			perPage: 20,
-			_searchSeed: Date.now().toString(),
-		});
+  async function searchRecipes(term: string) {
+    loading.value = true;
+    const { data, error } = await api.recipes.search({
+      search: term,
+      page: 1,
+      orderBy: "name",
+      orderDirection: "asc",
+      perPage: 20,
+      _searchSeed: Date.now().toString(),
+    });
 
-		if (error) {
-			console.error(error);
-			loading.value = false;
-			recipes.value = [];
-			return;
-		}
+    if (error) {
+      console.error(error);
+      loading.value = false;
+      recipes.value = [];
+      return;
+    }
 
-		if (data) {
-			recipes.value = data.items;
-		}
+    if (data) {
+      recipes.value = data.items;
+    }
 
-		loading.value = false;
-	}
+    loading.value = false;
+  }
 
-	watchDebounced(
-		() => query.value,
-		async (term: string) => {
-			await searchRecipes(term);
-		},
-		{ debounce: 500 },
-	);
+  watchDebounced(
+    () => query.value,
+    async (term: string) => {
+      await searchRecipes(term);
+    },
+    { debounce: 500 },
+  );
 
-	async function trigger() {
-		await searchRecipes(query.value);
-	}
+  async function trigger() {
+    await searchRecipes(query.value);
+  }
 
-	return {
-		query,
-		error,
-		loading,
-		data: recipes,
-		trigger,
-	};
+  return {
+    query,
+    error,
+    loading,
+    data: recipes,
+    trigger,
+  };
 }

@@ -1,13 +1,13 @@
 <template>
-	<div>
-		<RecipeExplorerPage />
-	</div>
+  <div>
+    <RecipeExplorerPage />
+  </div>
 </template>
 
 <script lang="ts">
 import RecipeExplorerPage from "~/components/Domain/Recipe/RecipeExplorerPage.vue";
 
 export default defineNuxtComponent({
-	components: { RecipeExplorerPage },
+  components: { RecipeExplorerPage },
 });
 </script>

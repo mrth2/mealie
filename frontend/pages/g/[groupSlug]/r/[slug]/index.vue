@@ -1,10 +1,10 @@
 <template>
-	<div>
-		<RecipePage
-			v-if="recipe"
-			:recipe="recipe"
-		/>
-	</div>
+  <div>
+    <RecipePage
+      v-if="recipe"
+      :recipe="recipe"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -27,32 +27,32 @@ const slug = route.params.slug as string;
 
 const recipe = ref<Recipe | null>(null);
 if (isOwnGroup.value) {
-	const { recipe: data } = useRecipe(slug);
-	watch(data, (value) => {
-		recipe.value = value;
-	});
+  const { recipe: data } = useRecipe(slug);
+  watch(data, (value) => {
+    recipe.value = value;
+  });
 }
 else {
-	const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
-	const api = usePublicExploreApi(groupSlug.value);
-	const { data } = await useAsyncData(useAsyncKey(), async () => {
-		const { data, error } = await api.explore.recipes.getOne(slug);
-		if (error) {
-			console.error("error loading recipe -> ", error);
-			router.push(`/g/${groupSlug.value}`);
-		}
+  const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+  const api = usePublicExploreApi(groupSlug.value);
+  const { data } = await useAsyncData(useAsyncKey(), async () => {
+    const { data, error } = await api.explore.recipes.getOne(slug);
+    if (error) {
+      console.error("error loading recipe -> ", error);
+      router.push(`/g/${groupSlug.value}`);
+    }
 
-		return data;
-	});
-	recipe.value = data.value;
+    return data;
+  });
+  recipe.value = data.value;
 }
 
 whenever(
-	() => recipe.value,
-	() => {
-		if (recipe.value && recipe.value.name) {
-			title.value = recipe.value.name;
-		}
-	},
+  () => recipe.value,
+  () => {
+    if (recipe.value && recipe.value.name) {
+      title.value = recipe.value.name;
+    }
+  },
 );
 </script>

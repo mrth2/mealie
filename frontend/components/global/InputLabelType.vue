@@ -1,39 +1,39 @@
 <template>
-	<v-autocomplete
-		ref="autocompleteRef"
-		v-model="itemVal"
-		v-bind="$attrs"
-		v-model:search-input="searchInput"
-		item-title="name"
-		return-object
-		:items="items"
-		:prepend-icon="icon || $globals.icons.tags"
-		auto-select-first
-		clearable
-		hide-details
-		@keyup.enter="emitCreate"
-	>
-		<template
-			v-if="$attrs.create"
-			#no-data
-		>
-			<div class="caption text-center pb-2">
-				{{ $t("recipe.press-enter-to-create") }}
-			</div>
-		</template>
-		<template
-			v-if="$attrs.create"
-			#append-item
-		>
-			<div class="px-2">
-				<BaseButton
-					block
-					size="small"
-					@click="emitCreate"
-				/>
-			</div>
-		</template>
-	</v-autocomplete>
+  <v-autocomplete
+    ref="autocompleteRef"
+    v-model="itemVal"
+    v-bind="$attrs"
+    v-model:search-input="searchInput"
+    item-title="name"
+    return-object
+    :items="items"
+    :prepend-icon="icon || $globals.icons.tags"
+    auto-select-first
+    clearable
+    hide-details
+    @keyup.enter="emitCreate"
+  >
+    <template
+      v-if="$attrs.create"
+      #no-data
+    >
+      <div class="caption text-center pb-2">
+        {{ $t("recipe.press-enter-to-create") }}
+      </div>
+    </template>
+    <template
+      v-if="$attrs.create"
+      #append-item
+    >
+      <div class="px-2">
+        <BaseButton
+          block
+          size="small"
+          @click="emitCreate"
+        />
+      </div>
+    </template>
+  </v-autocomplete>
 </template>
 
 <script lang="ts">
@@ -61,66 +61,66 @@ import type { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 
 export default defineNuxtComponent({
-	props: {
-		modelValue: {
-			type: Object as () => MultiPurposeLabelSummary | IngredientFood | IngredientUnit,
-			required: false,
-			default: () => {
-				return {};
-			},
-		},
-		items: {
-			type: Array as () => Array<MultiPurposeLabelSummary | IngredientFood | IngredientUnit>,
-			required: true,
-		},
-		itemId: {
-			type: [String, Number],
-			default: undefined,
-		},
-		icon: {
-			type: String,
-			required: false,
-			default: undefined,
-		},
-	},
-	emits: ["update:modelValue", "update:item-id", "create"],
-	setup(props, context) {
-		const autocompleteRef = ref<HTMLInputElement>();
-		const searchInput = ref("");
-		const itemIdVal = computed({
-			get: () => {
-				return props.itemId || undefined;
-			},
-			set: (val) => {
-				context.emit("update:item-id", val);
-			},
-		});
+  props: {
+    modelValue: {
+      type: Object as () => MultiPurposeLabelSummary | IngredientFood | IngredientUnit,
+      required: false,
+      default: () => {
+        return {};
+      },
+    },
+    items: {
+      type: Array as () => Array<MultiPurposeLabelSummary | IngredientFood | IngredientUnit>,
+      required: true,
+    },
+    itemId: {
+      type: [String, Number],
+      default: undefined,
+    },
+    icon: {
+      type: String,
+      required: false,
+      default: undefined,
+    },
+  },
+  emits: ["update:modelValue", "update:item-id", "create"],
+  setup(props, context) {
+    const autocompleteRef = ref<HTMLInputElement>();
+    const searchInput = ref("");
+    const itemIdVal = computed({
+      get: () => {
+        return props.itemId || undefined;
+      },
+      set: (val) => {
+        context.emit("update:item-id", val);
+      },
+    });
 
-		const itemVal = computed({
-			get: () => {
-				return props.modelValue;
-			},
-			set: (val) => {
-				itemIdVal.value = val?.id || undefined;
-				context.emit("update:modelValue", val);
-			},
-		});
+    const itemVal = computed({
+      get: () => {
+        return props.modelValue;
+      },
+      set: (val) => {
+        itemIdVal.value = val?.id || undefined;
+        context.emit("update:modelValue", val);
+      },
+    });
 
-		function emitCreate() {
-			if (props.items.some(item => item.name === searchInput.value)) {
-				return;
-			}
-			context.emit("create", searchInput.value);
-			autocompleteRef.value?.blur();
-		}
+    function emitCreate() {
+      if (props.items.some(item => item.name === searchInput.value)) {
+        return;
+      }
+      context.emit("create", searchInput.value);
+      autocompleteRef.value?.blur();
+    }
 
-		return {
-			autocompleteRef,
-			itemVal,
-			itemIdVal,
-			searchInput,
-			emitCreate,
-		};
-	},
+    return {
+      autocompleteRef,
+      itemVal,
+      itemIdVal,
+      searchInput,
+      emitCreate,
+    };
+  },
 });
 </script>

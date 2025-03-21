@@ -5,97 +5,97 @@ const groupSelfRef = ref<GroupSummary | null>(null);
 const loading = ref(false);
 
 export const useGroupSelf = function () {
-	const api = useUserApi();
-	async function refreshGroupSelf() {
-		loading.value = true;
-		const { data } = await api.groups.getCurrentUserGroup();
-		groupSelfRef.value = data;
-		loading.value = false;
-	}
+  const api = useUserApi();
+  async function refreshGroupSelf() {
+    loading.value = true;
+    const { data } = await api.groups.getCurrentUserGroup();
+    groupSelfRef.value = data;
+    loading.value = false;
+  }
 
-	const actions = {
-		get() {
-			if (!(groupSelfRef.value || loading.value)) {
-				refreshGroupSelf();
-			}
+  const actions = {
+    get() {
+      if (!(groupSelfRef.value || loading.value)) {
+        refreshGroupSelf();
+      }
 
-			return groupSelfRef;
-		},
-		async updatePreferences() {
-			if (!groupSelfRef.value) {
-				await refreshGroupSelf();
-			}
-			if (!groupSelfRef.value?.preferences) {
-				return;
-			}
+      return groupSelfRef;
+    },
+    async updatePreferences() {
+      if (!groupSelfRef.value) {
+        await refreshGroupSelf();
+      }
+      if (!groupSelfRef.value?.preferences) {
+        return;
+      }
 
-			const { data } = await api.groups.setPreferences(groupSelfRef.value.preferences);
+      const { data } = await api.groups.setPreferences(groupSelfRef.value.preferences);
 
-			if (data) {
-				groupSelfRef.value.preferences = data;
-			}
-		},
-	};
+      if (data) {
+        groupSelfRef.value.preferences = data;
+      }
+    },
+  };
 
-	const group = actions.get();
+  const group = actions.get();
 
-	return { actions, group };
+  return { actions, group };
 };
 
 export const useGroups = function () {
-	const api = useUserApi();
-	const loading = ref(false);
+  const api = useUserApi();
+  const loading = ref(false);
 
-	function getAllGroups() {
-		loading.value = true;
-		const asyncKey = String(Date.now());
-		const { data: groups } = useAsyncData(asyncKey, async () => {
-			const { data } = await api.groups.getAll(1, -1, { orderBy: "name", orderDirection: "asc" }); ;
+  function getAllGroups() {
+    loading.value = true;
+    const asyncKey = String(Date.now());
+    const { data: groups } = useAsyncData(asyncKey, async () => {
+      const { data } = await api.groups.getAll(1, -1, { orderBy: "name", orderDirection: "asc" }); ;
 
-			if (data) {
-				return data.items;
-			}
-			else {
-				return null;
-			}
-		});
+      if (data) {
+        return data.items;
+      }
+      else {
+        return null;
+      }
+    });
 
-		loading.value = false;
-		return groups;
-	}
+    loading.value = false;
+    return groups;
+  }
 
-	async function refreshAllGroups() {
-		loading.value = true;
-		const { data } = await api.groups.getAll(1, -1, { orderBy: "name", orderDirection: "asc" }); ;
+  async function refreshAllGroups() {
+    loading.value = true;
+    const { data } = await api.groups.getAll(1, -1, { orderBy: "name", orderDirection: "asc" }); ;
 
-		if (data) {
-			groups.value = data.items;
-		}
-		else {
-			groups.value = null;
-		}
+    if (data) {
+      groups.value = data.items;
+    }
+    else {
+      groups.value = null;
+    }
 
-		loading.value = false;
-	}
+    loading.value = false;
+  }
 
-	async function deleteGroup(id: string | number) {
-		loading.value = true;
-		const { data } = await api.groups.deleteOne(id);
-		loading.value = false;
-		refreshAllGroups();
-		return data;
-	}
+  async function deleteGroup(id: string | number) {
+    loading.value = true;
+    const { data } = await api.groups.deleteOne(id);
+    loading.value = false;
+    refreshAllGroups();
+    return data;
+  }
 
-	async function createGroup(payload: GroupBase) {
-		loading.value = true;
-		const { data } = await api.groups.createOne(payload);
+  async function createGroup(payload: GroupBase) {
+    loading.value = true;
+    const { data } = await api.groups.createOne(payload);
 
-		if (data && groups.value) {
-			groups.value.push(data);
-		}
-	}
+    if (data && groups.value) {
+      groups.value.push(data);
+    }
+  }
 
-	const groups = getAllGroups();
+  const groups = getAllGroups();
 
-	return { groups, getAllGroups, refreshAllGroups, deleteGroup, createGroup };
+  return { groups, getAllGroups, refreshAllGroups, deleteGroup, createGroup };
 };

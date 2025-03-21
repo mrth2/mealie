@@ -6,15 +6,15 @@ const store: Ref<MultiPurposeLabelOut[]> = ref([]);
 const loading = ref(false);
 
 export const useLabelData = function () {
-	return useData<MultiPurposeLabelOut>({
-		groupId: "",
-		id: "",
-		name: "",
-		color: "",
-	});
+  return useData<MultiPurposeLabelOut>({
+    groupId: "",
+    id: "",
+    name: "",
+    color: "",
+  });
 };
 
 export const useLabelStore = function () {
-	const api = useUserApi();
-	return useStore<MultiPurposeLabelOut>(store, loading, api.multiPurposeLabels);
+  const api = useUserApi();
+  return useStore<MultiPurposeLabelOut>(store, loading, api.multiPurposeLabels);
 };

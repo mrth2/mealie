@@ -4,60 +4,60 @@ import type { BaseCRUDAPI, BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clien
 import type { QueryValue } from "~/lib/api/base/route";
 
 export const useData = function <T extends BoundT>(defaultObject: T) {
-	const data = reactive({ ...defaultObject });
-	function reset() {
-		Object.assign(data, defaultObject);
-	};
+  const data = reactive({ ...defaultObject });
+  function reset() {
+    Object.assign(data, defaultObject);
+  };
 
-	return { data, reset };
+  return { data, reset };
 };
 
 export const useReadOnlyStore = function <T extends BoundT>(
-	store: Ref<T[]>,
-	loading: Ref<boolean>,
-	api: BaseCRUDAPIReadOnly<T>,
+  store: Ref<T[]>,
+  loading: Ref<boolean>,
+  api: BaseCRUDAPIReadOnly<T>,
   params = {} as Record<string, QueryValue>,
 ) {
-	const storeActions = useReadOnlyActions(api, store, loading);
-	const actions = {
-		...storeActions,
-		async refresh() {
-			return await storeActions.refresh(1, -1, params);
-		},
-		flushStore() {
-			store.value = [];
-		},
-	};
+  const storeActions = useReadOnlyActions(api, store, loading);
+  const actions = {
+    ...storeActions,
+    async refresh() {
+      return await storeActions.refresh(1, -1, params);
+    },
+    flushStore() {
+      store.value = [];
+    },
+  };
 
-	if (!loading.value && (!store.value || store.value.length === 0)) {
-		const result = actions.getAll(1, -1, params);
-		store.value = result.value || [];
-	}
+  if (!loading.value && (!store.value || store.value.length === 0)) {
+    const result = actions.getAll(1, -1, params);
+    store.value = result.value || [];
+  }
 
-	return { store, actions };
+  return { store, actions };
 };
 
 export const useStore = function <T extends BoundT>(
-	store: Ref<T[]>,
-	loading: Ref<boolean>,
-	api: BaseCRUDAPI<unknown, T, unknown>,
+  store: Ref<T[]>,
+  loading: Ref<boolean>,
+  api: BaseCRUDAPI<unknown, T, unknown>,
   params = {} as Record<string, QueryValue>,
 ) {
-	const storeActions = useStoreActions(api, store, loading);
-	const actions = {
-		...storeActions,
-		async refresh() {
-			return await storeActions.refresh(1, -1, params);
-		},
-		flushStore() {
-			store = ref([]);
-		},
-	};
+  const storeActions = useStoreActions(api, store, loading);
+  const actions = {
+    ...storeActions,
+    async refresh() {
+      return await storeActions.refresh(1, -1, params);
+    },
+    flushStore() {
+      store = ref([]);
+    },
+  };
 
-	if (!loading.value && (!store.value || store.value.length === 0)) {
-		const result = actions.getAll(1, -1, params);
-		store.value = result.value || [];
-	}
+  if (!loading.value && (!store.value || store.value.length === 0)) {
+    const result = actions.getAll(1, -1, params);
+    store.value = result.value || [];
+  }
 
-	return { store, actions };
+  return { store, actions };
 };

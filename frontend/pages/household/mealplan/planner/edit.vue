@@ -1,247 +1,247 @@
 <template>
-	<div>
-		<!-- Create Meal Dialog -->
-		<BaseDialog
-			v-model="state.dialog"
-			:title="newMeal.existing ? $t('meal-plan.update-this-meal-plan') : $t('meal-plan.create-a-new-meal-plan')"
-			:submit-text="newMeal.existing ? $t('general.update') : $t('general.create')"
-			color="primary"
-			:icon="$globals.icons.foods"
-			:submit-disabled="isCreateDisabled"
-			can-submit
-			@submit="() => {
-				if (newMeal.existing) {
-					actions.updateOne(newMeal);
-				}
-				else {
-					actions.createOne(newMeal);
-				}
-				resetDialog();
-			}
-			"
-			@close="resetDialog()"
-		>
-			<v-card-text>
-				<v-menu
-					v-model="state.pickerMenu!"
-					:close-on-content-click="false"
-					transition="scale-transition"
-					offset-y
-					max-width="290px"
-					min-width="auto"
-				>
-					<template #activator="{ props }">
-						<v-text-field
-							v-model="newMeal.date"
-							:label="$t('general.date')"
-							:hint="$t('recipe.date-format-hint-yyyy-mm-dd')"
-							persistent-hint
-							:prepend-icon="$globals.icons.calendar"
-							v-bind="props"
-							readonly
-						/>
-					</template>
-					<v-date-picker
-						v-model="newMeal.date"
-						no-title
-						:first-day-of-week="firstDayOfWeek"
-						:local="$i18n.locale"
-						@input="state.pickerMenu = false"
-					/>
-				</v-menu>
-				<v-card-text>
-					<v-select
-						v-model="newMeal.entryType"
-						:return-object="false"
-						:items="planTypeOptions"
-						:label="$t('recipe.entry-type')"
-					/>
-					<v-autocomplete
-						v-if="!dialog.note"
-						v-model="newMeal.recipeId"
-						v-model:search-input="search.query.value"
-						:label="$t('meal-plan.meal-recipe')"
-						:items="search.data.value"
-						:loading="search.loading.value"
-						cache-items
-						item-title="name"
-						item-value="id"
-						:return-object="false"
-						:rules="[requiredRule]"
-					/>
-					<template v-else>
-						<v-text-field
-							v-model="newMeal.title"
-							:rules="[requiredRule]"
-							:label="$t('meal-plan.meal-title')"
-						/>
-						<v-textarea
-							v-model="newMeal.text"
-							rows="2"
-							:label="$t('meal-plan.meal-note')"
-						/>
-					</template>
-				</v-card-text>
-				<v-card-actions class="my-0 py-0">
-					<v-switch
-						v-model="dialog.note"
-						class="mt-n3"
-						:label="$t('meal-plan.note-only')"
-					/>
-				</v-card-actions>
-			</v-card-text>
-		</BaseDialog>
-		<v-row>
-			<v-col
-				v-for="(plan, index) in mealplans"
-				:key="index"
-				cols="12"
-				sm="12"
-				md="3"
-				lg="3"
-				xl="2"
-				class="col-borders my-1 d-flex flex-column"
-			>
-				<v-card class="mb-2 border-left-primary rounded-sm pa-2">
-					<p class="pl-2 mb-1">
-						{{ $d(plan.date, "short") }}
-					</p>
-				</v-card>
-				<VueDraggable
-					v-model="plan.meals"
-					tag="div"
-					handle=".handle"
-					:delay="250"
-					:delay-on-touch-only="true"
-					group="meals"
-					:data-index="index"
-					:data-box="plan.date"
-					style="min-height: 150px"
-					@end="onMoveCallback"
-				>
-					<v-card
-						v-for="mealplan in plan.meals"
-						:key="mealplan.id"
-						class="my-1"
-						:class="{ handle: $vuetify.display.smAndUp }"
-					>
-						<v-list-item @click="editMeal(mealplan)">
-							<v-avatar :rounded="false">
-								<RecipeCardImage
-									v-if="mealplan.recipe"
-									:recipe-id="mealplan.recipe.id!"
-									tiny
-									icon-size="25"
-									:slug="mealplan.recipe ? mealplan.recipe.slug : ''"
-								/>
-								<v-icon v-else>
-									{{ $globals.icons.primary }}
-								</v-icon>
-							</v-avatar>
-							<v-list-item-title class="mb-1">
-								{{ mealplan.recipe ? mealplan.recipe.name : mealplan.title }}
-							</v-list-item-title>
-							<v-list-item-subtitle style="min-height: 16px">
-								{{ mealplan.recipe ? mealplan.recipe.description + " " : mealplan.text }}
-							</v-list-item-subtitle>
-						</v-list-item>
-						<v-divider class="mx-2" />
-						<div
-							class="py-2 px-2 d-flex"
-							style="align-items: center"
-						>
-							<v-btn
-								size="small"
-								icon
-								:class="{ handle: !$vuetify.display.smAndUp }"
-							>
-								<v-icon>
-									{{ $globals.icons.arrowUpDown }}
-								</v-icon>
-							</v-btn>
-							<v-menu offset-y>
-								<template #activator="{ props }">
-									<v-chip
-										v-bind="props"
-										label
-										size="small"
-										color="accent"
-										@click.prevent
-									>
-										<v-icon start>
-											{{ $globals.icons.tags }}
-										</v-icon>
-										{{ getEntryTypeText(mealplan.entryType!) }}
-									</v-chip>
-								</template>
-								<v-list>
-									<v-list-item
-										v-for="mealType in planTypeOptions"
-										:key="mealType.value"
-										@click="actions.setType(mealplan, mealType.value)"
-									>
-										<v-list-item-title> {{ mealType.text }} </v-list-item-title>
-									</v-list-item>
-								</v-list>
-							</v-menu>
-							<v-btn
-								class="ml-auto"
-								size="small"
-								icon
-								@click="actions.deleteOne(mealplan.id)"
-							>
-								<v-icon>{{ $globals.icons.delete }}</v-icon>
-							</v-btn>
-						</div>
-					</v-card>
-				</VueDraggable>
-				<!-- Day Column Actions -->
-				<div class="d-flex justify-end mt-auto">
-					<BaseButtonGroup
-						:buttons="[
-							{
-								icon: $globals.icons.diceMultiple,
-								text: $t('meal-plan.random-meal'),
-								event: 'random',
-								children: [
-									{
-										icon: $globals.icons.diceMultiple,
-										text: $t('meal-plan.breakfast'),
-										event: 'randomBreakfast',
-									},
-									{
-										icon: $globals.icons.diceMultiple,
-										text: $t('meal-plan.lunch'),
-										event: 'randomLunch',
-									},
-								],
-							},
-							{
-								icon: $globals.icons.potSteam,
-								text: $t('meal-plan.random-dinner'),
-								event: 'randomDinner',
-							},
-							{
-								icon: $globals.icons.bowlMixOutline,
-								text: $t('meal-plan.random-side'),
-								event: 'randomSide',
-							},
-							{
-								icon: $globals.icons.createAlt,
-								text: $t('general.new'),
-								event: 'create',
-							},
-						]"
-						@create="openDialog(plan.date)"
-						@random-breakfast="randomMeal(plan.date, 'breakfast')"
-						@random-lunch="randomMeal(plan.date, 'lunch')"
-						@random-dinner="randomMeal(plan.date, 'dinner')"
-						@random-side="randomMeal(plan.date, 'side')"
-					/>
-				</div>
-			</v-col>
-		</v-row>
-	</div>
+  <div>
+    <!-- Create Meal Dialog -->
+    <BaseDialog
+      v-model="state.dialog"
+      :title="newMeal.existing ? $t('meal-plan.update-this-meal-plan') : $t('meal-plan.create-a-new-meal-plan')"
+      :submit-text="newMeal.existing ? $t('general.update') : $t('general.create')"
+      color="primary"
+      :icon="$globals.icons.foods"
+      :submit-disabled="isCreateDisabled"
+      can-submit
+      @submit="() => {
+        if (newMeal.existing) {
+          actions.updateOne(newMeal);
+        }
+        else {
+          actions.createOne(newMeal);
+        }
+        resetDialog();
+      }
+      "
+      @close="resetDialog()"
+    >
+      <v-card-text>
+        <v-menu
+          v-model="state.pickerMenu!"
+          :close-on-content-click="false"
+          transition="scale-transition"
+          offset-y
+          max-width="290px"
+          min-width="auto"
+        >
+          <template #activator="{ props }">
+            <v-text-field
+              v-model="newMeal.date"
+              :label="$t('general.date')"
+              :hint="$t('recipe.date-format-hint-yyyy-mm-dd')"
+              persistent-hint
+              :prepend-icon="$globals.icons.calendar"
+              v-bind="props"
+              readonly
+            />
+          </template>
+          <v-date-picker
+            v-model="newMeal.date"
+            no-title
+            :first-day-of-week="firstDayOfWeek"
+            :local="$i18n.locale"
+            @input="state.pickerMenu = false"
+          />
+        </v-menu>
+        <v-card-text>
+          <v-select
+            v-model="newMeal.entryType"
+            :return-object="false"
+            :items="planTypeOptions"
+            :label="$t('recipe.entry-type')"
+          />
+          <v-autocomplete
+            v-if="!dialog.note"
+            v-model="newMeal.recipeId"
+            v-model:search-input="search.query.value"
+            :label="$t('meal-plan.meal-recipe')"
+            :items="search.data.value"
+            :loading="search.loading.value"
+            cache-items
+            item-title="name"
+            item-value="id"
+            :return-object="false"
+            :rules="[requiredRule]"
+          />
+          <template v-else>
+            <v-text-field
+              v-model="newMeal.title"
+              :rules="[requiredRule]"
+              :label="$t('meal-plan.meal-title')"
+            />
+            <v-textarea
+              v-model="newMeal.text"
+              rows="2"
+              :label="$t('meal-plan.meal-note')"
+            />
+          </template>
+        </v-card-text>
+        <v-card-actions class="my-0 py-0">
+          <v-switch
+            v-model="dialog.note"
+            class="mt-n3"
+            :label="$t('meal-plan.note-only')"
+          />
+        </v-card-actions>
+      </v-card-text>
+    </BaseDialog>
+    <v-row>
+      <v-col
+        v-for="(plan, index) in mealplans"
+        :key="index"
+        cols="12"
+        sm="12"
+        md="3"
+        lg="3"
+        xl="2"
+        class="col-borders my-1 d-flex flex-column"
+      >
+        <v-card class="mb-2 border-left-primary rounded-sm pa-2">
+          <p class="pl-2 mb-1">
+            {{ $d(plan.date, "short") }}
+          </p>
+        </v-card>
+        <VueDraggable
+          v-model="plan.meals"
+          tag="div"
+          handle=".handle"
+          :delay="250"
+          :delay-on-touch-only="true"
+          group="meals"
+          :data-index="index"
+          :data-box="plan.date"
+          style="min-height: 150px"
+          @end="onMoveCallback"
+        >
+          <v-card
+            v-for="mealplan in plan.meals"
+            :key="mealplan.id"
+            class="my-1"
+            :class="{ handle: $vuetify.display.smAndUp }"
+          >
+            <v-list-item @click="editMeal(mealplan)">
+              <v-avatar :rounded="false">
+                <RecipeCardImage
+                  v-if="mealplan.recipe"
+                  :recipe-id="mealplan.recipe.id!"
+                  tiny
+                  icon-size="25"
+                  :slug="mealplan.recipe ? mealplan.recipe.slug : ''"
+                />
+                <v-icon v-else>
+                  {{ $globals.icons.primary }}
+                </v-icon>
+              </v-avatar>
+              <v-list-item-title class="mb-1">
+                {{ mealplan.recipe ? mealplan.recipe.name : mealplan.title }}
+              </v-list-item-title>
+              <v-list-item-subtitle style="min-height: 16px">
+                {{ mealplan.recipe ? mealplan.recipe.description + " " : mealplan.text }}
+              </v-list-item-subtitle>
+            </v-list-item>
+            <v-divider class="mx-2" />
+            <div
+              class="py-2 px-2 d-flex"
+              style="align-items: center"
+            >
+              <v-btn
+                size="small"
+                icon
+                :class="{ handle: !$vuetify.display.smAndUp }"
+              >
+                <v-icon>
+                  {{ $globals.icons.arrowUpDown }}
+                </v-icon>
+              </v-btn>
+              <v-menu offset-y>
+                <template #activator="{ props }">
+                  <v-chip
+                    v-bind="props"
+                    label
+                    size="small"
+                    color="accent"
+                    @click.prevent
+                  >
+                    <v-icon start>
+                      {{ $globals.icons.tags }}
+                    </v-icon>
+                    {{ getEntryTypeText(mealplan.entryType!) }}
+                  </v-chip>
+                </template>
+                <v-list>
+                  <v-list-item
+                    v-for="mealType in planTypeOptions"
+                    :key="mealType.value"
+                    @click="actions.setType(mealplan, mealType.value)"
+                  >
+                    <v-list-item-title> {{ mealType.text }} </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+              <v-btn
+                class="ml-auto"
+                size="small"
+                icon
+                @click="actions.deleteOne(mealplan.id)"
+              >
+                <v-icon>{{ $globals.icons.delete }}</v-icon>
+              </v-btn>
+            </div>
+          </v-card>
+        </VueDraggable>
+        <!-- Day Column Actions -->
+        <div class="d-flex justify-end mt-auto">
+          <BaseButtonGroup
+            :buttons="[
+              {
+                icon: $globals.icons.diceMultiple,
+                text: $t('meal-plan.random-meal'),
+                event: 'random',
+                children: [
+                  {
+                    icon: $globals.icons.diceMultiple,
+                    text: $t('meal-plan.breakfast'),
+                    event: 'randomBreakfast',
+                  },
+                  {
+                    icon: $globals.icons.diceMultiple,
+                    text: $t('meal-plan.lunch'),
+                    event: 'randomLunch',
+                  },
+                ],
+              },
+              {
+                icon: $globals.icons.potSteam,
+                text: $t('meal-plan.random-dinner'),
+                event: 'randomDinner',
+              },
+              {
+                icon: $globals.icons.bowlMixOutline,
+                text: $t('meal-plan.random-side'),
+                event: 'randomSide',
+              },
+              {
+                icon: $globals.icons.createAlt,
+                text: $t('general.new'),
+                event: 'create',
+              },
+            ]"
+            @create="openDialog(plan.date)"
+            @random-breakfast="randomMeal(plan.date, 'breakfast')"
+            @random-lunch="randomMeal(plan.date, 'lunch')"
+            @random-dinner="randomMeal(plan.date, 'dinner')"
+            @random-side="randomMeal(plan.date, 'side')"
+          />
+        </div>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script lang="ts">
@@ -258,168 +258,168 @@ import { useHouseholdSelf } from "~/composables/use-households";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 
 export default defineNuxtComponent({
-	components: {
-		VueDraggable,
-		RecipeCardImage,
-	},
-	props: {
-		mealplans: {
-			type: Array as () => MealsByDate[],
-			required: true,
-		},
-		actions: {
-			type: Object as () => ReturnType<typeof useMealplans>["actions"],
-			required: true,
-		},
-	},
-	setup(props) {
-		const api = useUserApi();
-		const $auth = useMealieAuth();
-		const { household } = useHouseholdSelf();
-		const requiredRule = (value: any) => !!value || "Required.";
+  components: {
+    VueDraggable,
+    RecipeCardImage,
+  },
+  props: {
+    mealplans: {
+      type: Array as () => MealsByDate[],
+      required: true,
+    },
+    actions: {
+      type: Object as () => ReturnType<typeof useMealplans>["actions"],
+      required: true,
+    },
+  },
+  setup(props) {
+    const api = useUserApi();
+    const $auth = useMealieAuth();
+    const { household } = useHouseholdSelf();
+    const requiredRule = (value: any) => !!value || "Required.";
 
-		const state = ref({
-			dialog: false,
-			pickerMenu: null as null | boolean,
-		});
+    const state = ref({
+      dialog: false,
+      pickerMenu: null as null | boolean,
+    });
 
-		const firstDayOfWeek = computed(() => {
-			return household.value?.preferences?.firstDayOfWeek || 0;
-		});
+    const firstDayOfWeek = computed(() => {
+      return household.value?.preferences?.firstDayOfWeek || 0;
+    });
 
-		function onMoveCallback(evt: SortableEvent) {
-			const supportedEvents = ["drop", "touchend"];
+    function onMoveCallback(evt: SortableEvent) {
+      const supportedEvents = ["drop", "touchend"];
 
-			// Adapted From https://github.com/SortableJS/Vue.Draggable/issues/1029
-			const ogEvent: DragEvent = (evt as any).originalEvent;
+      // Adapted From https://github.com/SortableJS/Vue.Draggable/issues/1029
+      const ogEvent: DragEvent = (evt as any).originalEvent;
 
-			if (ogEvent && ogEvent.type in supportedEvents) {
-				// The drop was cancelled, unsure if anything needs to be done?
-				console.log("Cancel Move Event");
-			}
-			else {
-				// A Meal was moved, set the new date value and make an update request and refresh the meals
-				const fromMealsByIndex = parseInt(evt.from.getAttribute("data-index") ?? "");
-				const toMealsByIndex = parseInt(evt.to.getAttribute("data-index") ?? "");
+      if (ogEvent && ogEvent.type in supportedEvents) {
+        // The drop was cancelled, unsure if anything needs to be done?
+        console.log("Cancel Move Event");
+      }
+      else {
+        // A Meal was moved, set the new date value and make an update request and refresh the meals
+        const fromMealsByIndex = parseInt(evt.from.getAttribute("data-index") ?? "");
+        const toMealsByIndex = parseInt(evt.to.getAttribute("data-index") ?? "");
 
-				if (!isNaN(fromMealsByIndex) && !isNaN(toMealsByIndex)) {
-					const mealData = props.mealplans[fromMealsByIndex].meals[evt.oldIndex as number];
-					const destDate = props.mealplans[toMealsByIndex].date;
+        if (!isNaN(fromMealsByIndex) && !isNaN(toMealsByIndex)) {
+          const mealData = props.mealplans[fromMealsByIndex].meals[evt.oldIndex as number];
+          const destDate = props.mealplans[toMealsByIndex].date;
 
-					mealData.date = format(destDate, "yyyy-MM-dd");
+          mealData.date = format(destDate, "yyyy-MM-dd");
 
-					props.actions.updateOne(mealData);
-				}
-			}
-		}
+          props.actions.updateOne(mealData);
+        }
+      }
+    }
 
-		// =====================================================
-		// New Meal Dialog
+    // =====================================================
+    // New Meal Dialog
 
-		const dialog = reactive({
-			loading: false,
-			error: false,
-			note: false,
-		});
+    const dialog = reactive({
+      loading: false,
+      error: false,
+      note: false,
+    });
 
-		watch(dialog, () => {
-			if (dialog.note) {
-				newMeal.recipeId = undefined;
-			}
-		});
+    watch(dialog, () => {
+      if (dialog.note) {
+        newMeal.recipeId = undefined;
+      }
+    });
 
-		const newMeal = reactive({
-			date: "",
-			title: "",
-			text: "",
-			recipeId: undefined as string | undefined,
-			entryType: "dinner" as PlanEntryType,
-			existing: false,
-			id: 0,
-			groupId: "",
-			userId: $auth.user.value?.id || "",
-		});
+    const newMeal = reactive({
+      date: "",
+      title: "",
+      text: "",
+      recipeId: undefined as string | undefined,
+      entryType: "dinner" as PlanEntryType,
+      existing: false,
+      id: 0,
+      groupId: "",
+      userId: $auth.user.value?.id || "",
+    });
 
-		const isCreateDisabled = computed(() => {
-			if (dialog.note) {
-				return !newMeal.title.trim();
-			}
-			return !newMeal.recipeId;
-		});
+    const isCreateDisabled = computed(() => {
+      if (dialog.note) {
+        return !newMeal.title.trim();
+      }
+      return !newMeal.recipeId;
+    });
 
-		function openDialog(date: Date) {
-			newMeal.date = format(date, "yyyy-MM-dd");
-			state.value.dialog = true;
-		}
+    function openDialog(date: Date) {
+      newMeal.date = format(date, "yyyy-MM-dd");
+      state.value.dialog = true;
+    }
 
-		function editMeal(mealplan: UpdatePlanEntry) {
-			const { date, title, text, entryType, recipeId, id, groupId, userId } = mealplan;
-			if (!entryType) return;
+    function editMeal(mealplan: UpdatePlanEntry) {
+      const { date, title, text, entryType, recipeId, id, groupId, userId } = mealplan;
+      if (!entryType) return;
 
-			newMeal.date = date;
-			newMeal.title = title || "";
-			newMeal.text = text || "";
-			newMeal.recipeId = recipeId || undefined;
-			newMeal.entryType = entryType;
-			newMeal.existing = true;
-			newMeal.id = id;
-			newMeal.groupId = groupId;
-			newMeal.userId = userId || $auth.user.value?.id || "";
+      newMeal.date = date;
+      newMeal.title = title || "";
+      newMeal.text = text || "";
+      newMeal.recipeId = recipeId || undefined;
+      newMeal.entryType = entryType;
+      newMeal.existing = true;
+      newMeal.id = id;
+      newMeal.groupId = groupId;
+      newMeal.userId = userId || $auth.user.value?.id || "";
 
-			state.value.dialog = true;
-			dialog.note = !recipeId;
-		}
+      state.value.dialog = true;
+      dialog.note = !recipeId;
+    }
 
-		function resetDialog() {
-			newMeal.date = "";
-			newMeal.title = "";
-			newMeal.text = "";
-			newMeal.entryType = "dinner";
-			newMeal.recipeId = undefined;
-			newMeal.existing = false;
-		}
+    function resetDialog() {
+      newMeal.date = "";
+      newMeal.title = "";
+      newMeal.text = "";
+      newMeal.entryType = "dinner";
+      newMeal.recipeId = undefined;
+      newMeal.existing = false;
+    }
 
-		async function randomMeal(date: Date, type: PlanEntryType) {
-			const { data } = await api.mealplans.setRandom({
-				date: format(date, "yyyy-MM-dd"),
-				entryType: type,
-			});
+    async function randomMeal(date: Date, type: PlanEntryType) {
+      const { data } = await api.mealplans.setRandom({
+        date: format(date, "yyyy-MM-dd"),
+        entryType: type,
+      });
 
-			if (data) {
-				props.actions.refreshAll();
-			}
-		}
+      if (data) {
+        props.actions.refreshAll();
+      }
+    }
 
-		// =====================================================
-		// Search
+    // =====================================================
+    // Search
 
-		const search = useRecipeSearch(api);
-		const planTypeOptions = usePlanTypeOptions();
+    const search = useRecipeSearch(api);
+    const planTypeOptions = usePlanTypeOptions();
 
-		onMounted(async () => {
-			await search.trigger();
-		});
+    onMounted(async () => {
+      await search.trigger();
+    });
 
-		return {
-			state,
-			onMoveCallback,
-			planTypeOptions,
-			getEntryTypeText,
-			requiredRule,
-			isCreateDisabled,
+    return {
+      state,
+      onMoveCallback,
+      planTypeOptions,
+      getEntryTypeText,
+      requiredRule,
+      isCreateDisabled,
 
-			// Dialog
-			dialog,
-			newMeal,
-			openDialog,
-			editMeal,
-			resetDialog,
-			randomMeal,
+      // Dialog
+      dialog,
+      newMeal,
+      openDialog,
+      editMeal,
+      resetDialog,
+      randomMeal,
 
-			// Search
-			search,
-			firstDayOfWeek,
-		};
-	},
+      // Search
+      search,
+      firstDayOfWeek,
+    };
+  },
 });
 </script>
