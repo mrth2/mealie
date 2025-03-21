@@ -22,16 +22,14 @@ export default defineNuxtConfig({
     head: {
       title: "Mealie",
       meta: [
-        { hid: "og:type", property: "og:type", content: "website" },
-        { hid: "og:title", property: "og:title", content: "Mealie" },
-        { hid: "og:site_name", property: "og:site_name", content: "Mealie" },
+        { property: "og:type", content: "website" },
+        { property: "og:title", content: "Mealie" },
+        { property: "og:site_name", content: "Mealie" },
         {
-          hid: "og:description",
           property: "og:description",
           content: "Mealie is a recipe management app for your kitchen.",
         },
         {
-          hid: "og:image",
           property: "og:image",
           content:
             "https://raw.githubusercontent.com/mealie-recipes/mealie/9571816ac4eed5beacfc0abf6c03eff1427fd0eb/frontend/static/icons/android-chrome-512x512.png",
@@ -39,16 +37,15 @@ export default defineNuxtConfig({
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         {
-          hid: "description",
           name: "description",
           content: "Mealie is a recipe management app for your kitchen.",
         },
       ],
       link: [
-        { hid: "favicon", rel: "icon", type: "image/x-icon", href: "/favicon.ico", "data-n-head": "ssr" },
-        { hid: "shortcut icon", rel: "shortcut icon", type: "image/png", href: "/icons/icon-x64.png", "data-n-head": "ssr" },
-        { hid: "apple-touch-icon", rel: "apple-touch-icon", type: "image/png", href: "/icons/apple-touch-icon.png", "data-n-head": "ssr" },
-        { hid: "mask-icon", rel: "mask-icon", href: "/icons/safari-pinned-tab.svg", "data-n-head": "ssr" }
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico", "data-n-head": "ssr" },
+        { rel: "shortcut icon", type: "image/png", href: "/icons/icon-x64.png", "data-n-head": "ssr" },
+        { rel: "apple-touch-icon", type: "image/png", href: "/icons/apple-touch-icon.png", "data-n-head": "ssr" },
+        { rel: "mask-icon", href: "/icons/safari-pinned-tab.svg", "data-n-head": "ssr" }
       ],
     },
 
@@ -68,16 +65,9 @@ export default defineNuxtConfig({
     },
   ],
 
-  modules: [
-    "@vite-pwa/nuxt",
-    // https://i18n.nuxtjs.org/setup
-    "@nuxtjs/i18n",
-    "@sidebase/nuxt-auth",
-    // https://google-fonts.nuxtjs.org/setup
-    "@nuxtjs/google-fonts",
-    "vuetify-nuxt-module",
-    "@nuxtjs/mdc",
-  ],
+  modules: ["@vite-pwa/nuxt", // https://i18n.nuxtjs.org/setup
+    "@nuxtjs/i18n", "@sidebase/nuxt-auth", // https://google-fonts.nuxtjs.org/setup
+    "@nuxtjs/google-fonts", "vuetify-nuxt-module", "@nuxtjs/mdc", "@nuxt/eslint"],
 
   googleFonts: {
     fontsPath: "/assets/fonts",
@@ -447,6 +437,18 @@ export default defineNuxtConfig({
       locale: {
         locale: "en-US",
         fallback: "en-US",
+      },
+    },
+  },
+
+  // eslint rules
+  eslint: {
+    config: {
+      stylistic: {
+        indent: 'tab',
+        semi: true,
+        quotes: 'double',
+        commaDangle: 'always-multiline',
       },
     },
   },
