@@ -187,6 +187,7 @@ export default defineNuxtComponent({
 		// ===========================================================================
 		// Context Menu Event Handler
 
+		// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 		const eventHandlers: { [key: string]: () => void | Promise<any> } = {
 			edit: () => {
 				state.recipeEventEditDialog = true;

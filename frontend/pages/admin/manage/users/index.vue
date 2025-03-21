@@ -50,7 +50,7 @@
 				/>
 			</v-toolbar>
 			<v-data-table
-				:headers="headers"
+				:headers="headers as any"
 				:items="users || []"
 				item-key="id"
 				class="elevation-0"
@@ -60,7 +60,7 @@
 				:search="search"
 				@click:row="($event, { item }) => handleRowClick(item)"
 			>
-				<template #item.admin="{ item }">
+				<template #[`item.admin`]="{ item }">
 					<v-icon
 						end
 						:color="item.admin ? 'success' : undefined"
@@ -68,7 +68,7 @@
 						{{ item.admin ? $globals.icons.checkboxMarkedCircle : $globals.icons.windowClose }}
 					</v-icon>
 				</template>
-				<template #item.actions="{ item }">
+				<template #[`item.actions`]="{ item }">
 					<v-btn
 						icon
 						:disabled="+item.id == 1"

@@ -55,9 +55,9 @@
 		<v-data-table
 			v-model="selected"
 			item-key="id"
+			:headers="activeHeaders as any"
 			:show-select="bulkActions.length > 0"
-			:headers="activeHeaders"
-			:sort-by="initialSort"
+			:sort-by="initialSort as any"
 			:sort-desc="initialSortDesc"
 			:items="data || []"
 			:items-per-page="15"
@@ -75,7 +75,7 @@
 					{{ item[header.value] }}
 				</slot>
 			</template>
-			<template #item.actions="{ item }">
+			<template #[`item.actions`]="{ item }">
 				<BaseButtonGroup
 					:buttons="[
 						{
@@ -162,6 +162,7 @@ export default defineNuxtComponent({
 			default: false,
 		},
 	},
+	emits: ["delete-one", "edit-one"],
 	setup(props, context) {
 		const i18n = useI18n();
 		// ===========================================================

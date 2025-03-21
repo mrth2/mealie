@@ -1,6 +1,5 @@
 <template>
-	<v-app
-		v-if="ready"
+	<v-app v-if="ready"
 		dark
 	>
 		<v-card-title>
@@ -15,8 +14,7 @@
 				<p class="primary--text">
 					4
 				</p>
-				<v-icon
-					color="primary"
+				<v-icon color="primary"
 					class="mx-auto mb-0"
 					size="200"
 				>
@@ -30,8 +28,7 @@
 		<v-card-actions>
 			<v-spacer />
 			<slot name="actions">
-				<v-btn
-					v-for="(button, index) in buttons"
+				<v-btn v-for="(button, index) in buttons"
 					:key="index"
 					nuxt
 					:to="button.to"
@@ -122,9 +119,9 @@ export default defineNuxtComponent({
 
 		useSeoMeta({
 			title:
-        props.error.statusCode === 404
-        	? (i18n.t("page.404-not-found") as string)
-        	: (i18n.t("page.an-error-occurred") as string),
+				props.error.statusCode === 404
+					? (i18n.t("page.404-not-found") as string)
+					: (i18n.t("page.an-error-occurred") as string),
 		});
 
 		const buttons = [

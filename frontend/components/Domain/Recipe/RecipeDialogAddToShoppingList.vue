@@ -276,7 +276,6 @@ export default defineNuxtComponent({
 				}
 
 				if (recipeSectionMap.has(recipe.slug)) {
-					// @ts-ignore not undefined, see above
 					recipeSectionMap.get(recipe.slug).recipeScale += recipe.scale;
 					continue;
 				}
@@ -414,6 +413,7 @@ export default defineNuxtComponent({
 			});
 
 			const { error } = await api.shopping.lists.addRecipes(selectedShoppingList.value.id, recipeData);
+			// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 			error ? alert.error(i18n.t("recipe.failed-to-add-recipes-to-list")) : alert.success(i18n.t("recipe.successfully-added-to-list"));
 
 			state.shoppingListDialog = false;

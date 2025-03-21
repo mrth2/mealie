@@ -17,6 +17,7 @@ export default defineNuxtComponent({
 			required: true,
 		},
 	},
+	emits: ["update:modelValue"],
 	setup(props, context) {
 		const preferences = computed({
 			get() {

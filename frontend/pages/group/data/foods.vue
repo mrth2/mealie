@@ -309,7 +309,7 @@
 					{{ $t('data-pages.combine') }}
 				</BaseButton>
 			</template>
-			<template #item.label="{ item }">
+			<template #[`item.label`]="{ item }">
 				<MultiPurposeLabel
 					v-if="item.label"
 					:label="item.label"
@@ -317,12 +317,12 @@
 					{{ item.label.name }}
 				</MultiPurposeLabel>
 			</template>
-			<template #item.onHand="{ item }">
+			<template #[`item.onHand`]="{ item }">
 				<v-icon :color="item.onHand ? 'success' : undefined">
 					{{ item.onHand ? $globals.icons.check : $globals.icons.close }}
 				</v-icon>
 			</template>
-			<template #item.createdAt="{ item }">
+			<template #[`item.createdAt`]="{ item }">
 				{{ formatDate(item.createdAt) }}
 			</template>
 			<template #button-bottom>
@@ -587,7 +587,7 @@ export default defineNuxtComponent({
 		});
 
 		const locales = LOCALES.filter(locale =>
-			(i18n.locales.value as LocaleObject[]).map(i18nLocale => i18nLocale.code).includes(locale.value),
+			(i18n.locales.value as LocaleObject[]).map(i18nLocale => i18nLocale.code).includes(locale.value as any),
 		);
 
 		async function seedDatabase() {

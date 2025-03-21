@@ -25,15 +25,15 @@
 				:items-per-page="50"
 				show-expand
 			>
-				<template #item.success="{ item }">
+				<template #[`item.success`]="{ item }">
 					<v-icon :color="item.success ? 'success' : 'error'">
 						{{ item.success ? $globals.icons.checkboxMarkedCircle : $globals.icons.close }}
 					</v-icon>
 				</template>
-				<template #item.timestamp="{ item }">
-					{{ $d(Date.parse(item.timestamp), "short") }}
+				<template #[`item.timestamp`]="{ item }">
+					{{ $d(Date.parse(item.timestamp!), "short") }}
 				</template>
-				<template #expanded-item="{ headers, item }">
+				<template #[`expanded-item`]="{ headers, item }">
 					<td
 						v-if="item.exception"
 						class="pa-6"

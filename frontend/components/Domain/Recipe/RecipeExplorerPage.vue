@@ -615,7 +615,7 @@ export default defineNuxtComponent({
 					const query = JSON.parse(searchQuerySession.value.recipe);
 					await router.replace({ query });
 				}
-				catch (error) {
+				catch {
 					searchQuerySession.value.recipe = "";
 					router.replace({ query: {} });
 				}

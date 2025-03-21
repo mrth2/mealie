@@ -43,7 +43,7 @@
 			</v-toolbar>
 
 			<v-data-table
-				:headers="headers"
+				:headers="headers as any"
 				:items="groups || []"
 				item-key="id"
 				class="elevation-0"
@@ -52,13 +52,13 @@
 				:search="search"
 				@click:row="($event, { item }) => handleRowClick(item)"
 			>
-				<template #item.households="{ item }">
+				<template #[`item.households`]="{ item }">
 					{{ item.households!.length }}
 				</template>
-				<template #item.users="{ item }">
+				<template #[`item.users`]="{ item }">
 					{{ item.users!.length }}
 				</template>
-				<template #item.actions="{ item }">
+				<template #[`item.actions`]="{ item }">
 					<v-tooltip
 						bottom
 						:disabled="!(item && (item.households!.length > 0 || item.users!.length > 0))"

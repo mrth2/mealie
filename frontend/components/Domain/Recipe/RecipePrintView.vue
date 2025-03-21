@@ -3,34 +3,29 @@
 		<section>
 			<v-container class="ma-0 pa-0">
 				<v-row>
-					<v-col
-						v-if="preferences.imagePosition && preferences.imagePosition != ImagePosition.hidden"
+					<v-col v-if="preferences.imagePosition && preferences.imagePosition != ImagePosition.hidden"
 						:order="preferences.imagePosition == ImagePosition.left ? -1 : 1"
 						cols="4"
 						align-self="center"
 					>
-						<img
-							:key="imageKey"
+						<img :key="imageKey"
 							:src="recipeImageUrl"
 							style="min-height: 50; max-width: 100%;"
 						>
 					</v-col>
 					<v-col order="0">
 						<v-card-title class="headline pl-0">
-							<v-icon
-								start
+							<v-icon start
 								color="primary"
 							>
 								{{ $globals.icons.primary }}
 							</v-icon>
 							{{ recipe.name }}
 						</v-card-title>
-						<div
-							v-if="recipeYield"
+						<div v-if="recipeYield"
 							class="d-flex justify-space-between align-center px-4 pb-2"
 						>
-							<v-chip
-								:size="$vuetify.display.smAndDown ? 'small' : undefined"
+							<v-chip :size="$vuetify.display.smAndDown ? 'small' : undefined"
 								label
 							>
 								<v-icon start>
@@ -41,8 +36,7 @@
 							</v-chip>
 						</div>
 						<v-row class="d-flex justify-start">
-							<RecipeTimeCard
-								:prep-time="recipe.prepTime"
+							<RecipeTimeCard :prep-time="recipe.prepTime"
 								:total-time="recipe.totalTime"
 								:perform-time="recipe.performTime"
 								small
@@ -51,8 +45,7 @@
 							/>
 						</v-row>
 
-						<v-card-text
-							v-if="preferences.showDescription"
+						<v-card-text v-if="preferences.showDescription"
 							class="px-0"
 						>
 							<SafeMarkdown :source="recipe.description" />
@@ -67,28 +60,23 @@
 			<v-card-title class="headline pl-0">
 				{{ $t("recipe.ingredients") }}
 			</v-card-title>
-			<div
-				v-for="(ingredientSection, sectionIndex) in ingredientSections"
+			<div v-for="(ingredientSection, sectionIndex) in ingredientSections"
 				:key="`ingredient-section-${sectionIndex}`"
 				class="print-section"
 			>
-				<h4
-					v-if="ingredientSection.ingredients[0].title"
+				<h4 v-if="ingredientSection.ingredients[0].title"
 					class="ingredient-title mt-2"
 				>
 					{{ ingredientSection.ingredients[0].title }}
 				</h4>
-				<div
-					class="ingredient-grid"
+				<div class="ingredient-grid"
 					:style="{ gridTemplateRows: `repeat(${Math.ceil(ingredientSection.ingredients.length / 2)}, min-content)` }"
 				>
-					<template
-						v-for="(ingredient, ingredientIndex) in ingredientSection.ingredients"
+					<template v-for="(ingredient, ingredientIndex) in ingredientSection.ingredients"
 						:key="`ingredient-${ingredientIndex}`"
 					>
 						<!-- eslint-disable-next-line vue/no-v-html -->
-						<p
-							class="ingredient-body"
+						<p class="ingredient-body"
 							v-html="parseText(ingredient)"
 						/>
 					</template>
@@ -98,24 +86,20 @@
 
 		<!-- Instructions -->
 		<section>
-			<div
-				v-for="(instructionSection, sectionIndex) in instructionSections"
+			<div v-for="(instructionSection, sectionIndex) in instructionSections"
 				:key="`instruction-section-${sectionIndex}`"
 				:class="{ 'print-section': instructionSection.sectionName }"
 			>
-				<v-card-title
-					v-if="!sectionIndex"
+				<v-card-title v-if="!sectionIndex"
 					class="headline pl-0"
 				>
 					{{ $t("recipe.instructions") }}
 				</v-card-title>
-				<div
-					v-for="(step, stepIndex) in instructionSection.instructions"
+				<div v-for="(step, stepIndex) in instructionSection.instructions"
 					:key="`instruction-${stepIndex}`"
 				>
 					<div class="print-section">
-						<h4
-							v-if="step.title"
+						<h4 v-if="step.title"
 							:key="`instruction-title-${stepIndex}`"
 							class="instruction-title mb-2"
 						>
@@ -125,10 +109,10 @@
 							{{ step.summary ? step.summary : $t("recipe.step-index", {
 								step: stepIndex
 									+ instructionSection.stepOffset
-									+ 1 }) }}
+									+ 1,
+							}) }}
 						</h5>
-						<SafeMarkdown
-							:source="step.text"
+						<SafeMarkdown :source="step.text"
 							class="recipe-step-body"
 						/>
 					</div>
@@ -138,20 +122,17 @@
 
 		<!-- Notes -->
 		<div v-if="preferences.showNotes">
-			<v-divider
-				v-if="hasNotes"
+			<v-divider v-if="hasNotes"
 				class="grey my-4"
 			/>
 
 			<section>
-				<div
-					v-for="(note, index) in recipe.notes"
+				<div v-for="(note, index) in recipe.notes"
 					:key="index + 'note'"
 				>
 					<div class="print-section">
 						<h4>{{ note.title }}</h4>
-						<SafeMarkdown
-							:source="note.text"
+						<SafeMarkdown :source="note.text"
 							class="note-body"
 						/>
 					</div>
@@ -169,8 +150,7 @@
 				<div class="print-section">
 					<table class="nutrition-table">
 						<tbody>
-							<tr
-								v-for="(value, key) in recipe.nutrition"
+							<tr v-for="(value, key) in recipe.nutrition"
 								:key="key"
 							>
 								<template v-if="value">

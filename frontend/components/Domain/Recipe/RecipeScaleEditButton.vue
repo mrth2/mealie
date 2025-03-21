@@ -110,6 +110,7 @@ export default defineNuxtComponent({
 			default: false,
 		},
 	},
+	emits: ["update:modelValue"],
 	setup(props, { emit }) {
 		const i18n = useI18n();
 		const menu = ref<boolean>(false);

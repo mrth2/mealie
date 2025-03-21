@@ -4,7 +4,7 @@ import type { GroupDataExport } from "~/lib/api/types/group";
 
 // Many bulk actions return nothing
 
-interface BulkActionResponse {}
+type BulkActionResponse = object;
 
 const prefix = "/api";
 

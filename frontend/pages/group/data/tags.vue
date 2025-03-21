@@ -154,8 +154,10 @@ export default defineNuxtComponent({
 		// Create Tag
 
 		async function createTag() {
-			// @ts-ignore - only property really required is the name (RecipeOrganizerPage)
-			await tagStore.actions.createOne({ name: tagData.data.name });
+			await tagStore.actions.createOne({
+				name: tagData.data.name,
+				slug: "",
+			});
 			tagData.reset();
 			state.createDialog = false;
 		}

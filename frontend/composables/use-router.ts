@@ -5,8 +5,7 @@ export function useRouterQuery(query: string) {
 	const param: WritableComputedRef<string> = computed({
 		get(): string {
 			console.log("Get Query Change");
-			// @ts-ignore For some reason, this could also return an array
-			return router?.query[query] || "";
+			return router?.query[query] as string || "";
 		},
 		set(v: string): void {
 			router.query[query] = v;

@@ -77,9 +77,7 @@ export default defineNuxtComponent({
 				return;
 			}
 			const { response } = await api.recipes.createOne({ name });
-			// TODO createOne claims to return a Recipe, but actually the API only returns a string
-			// @ts-expect-error See above
-			handleResponse(response, true);
+			handleResponse(response as any, true);
 		}
 		return {
 			domCreateByName,

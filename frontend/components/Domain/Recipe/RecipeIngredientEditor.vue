@@ -192,7 +192,8 @@ export default defineNuxtComponent({
 			default: false,
 		},
 	},
-	setup(props, { attrs: listeners, emit }) {
+	emits: ["clickIngredientField"],
+	setup(props, { attrs: listeners }) {
 		const { mdAndUp } = useDisplay();
 		const i18n = useI18n();
 		const { $globals } = useNuxtApp();

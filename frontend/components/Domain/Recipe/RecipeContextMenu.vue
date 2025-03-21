@@ -1,17 +1,14 @@
 <template>
 	<div class="text-center">
 		<!-- Recipe Share Dialog -->
-		<RecipeDialogShare
-			v-model="shareDialog"
+		<RecipeDialogShare v-model="shareDialog"
 			:recipe-id="recipeId"
 			:name="name"
 		/>
-		<RecipeDialogPrintPreferences
-			v-model="printPreferencesDialog"
+		<RecipeDialogPrintPreferences v-model="printPreferencesDialog"
 			:recipe="recipeRef"
 		/>
-		<BaseDialog
-			v-model="recipeDeleteDialog"
+		<BaseDialog v-model="recipeDeleteDialog"
 			:title="$t('recipe.delete-recipe')"
 			color="error"
 			:icon="$globals.icons.alertCircle"
@@ -22,8 +19,7 @@
 				{{ $t("recipe.delete-confirmation") }}
 			</v-card-text>
 		</BaseDialog>
-		<BaseDialog
-			v-model="recipeDuplicateDialog"
+		<BaseDialog v-model="recipeDuplicateDialog"
 			:title="$t('recipe.duplicate')"
 			color="primary"
 			:icon="$globals.icons.duplicate"
@@ -31,8 +27,7 @@
 			@confirm="duplicateRecipe()"
 		>
 			<v-card-text>
-				<v-text-field
-					v-model="recipeName"
+				<v-text-field v-model="recipeName"
 					density="compact"
 					:label="$t('recipe.recipe-name')"
 					autofocus
@@ -40,8 +35,7 @@
 				/>
 			</v-card-text>
 		</BaseDialog>
-		<BaseDialog
-			v-model="mealplannerDialog"
+		<BaseDialog v-model="mealplannerDialog"
 			:title="$t('recipe.add-recipe-to-mealplan')"
 			color="primary"
 			:icon="$globals.icons.calendar"
@@ -49,8 +43,7 @@
 			@confirm="addRecipeToPlan()"
 		>
 			<v-card-text>
-				<v-menu
-					v-model="pickerMenu"
+				<v-menu v-model="pickerMenu"
 					:close-on-content-click="false"
 					transition="scale-transition"
 					offset-y
@@ -58,38 +51,33 @@
 					min-width="auto"
 				>
 					<template #activator="{ props }">
-						<v-text-field
-							v-model="newMealdate"
+						<v-text-field v-model="newMealdate"
 							:label="$t('general.date')"
 							:prepend-icon="$globals.icons.calendar"
 							v-bind="props"
 							readonly
 						/>
 					</template>
-					<v-date-picker
-						v-model="newMealdate"
+					<v-date-picker v-model="newMealdate"
 						no-title
 						:first-day-of-week="firstDayOfWeek"
 						:local="$i18n.locale"
 						@input="pickerMenu = false"
 					/>
 				</v-menu>
-				<v-select
-					v-model="newMealType"
+				<v-select v-model="newMealType"
 					:return-object="false"
 					:items="planTypeOptions"
 					:label="$t('recipe.entry-type')"
 				/>
 			</v-card-text>
 		</BaseDialog>
-		<RecipeDialogAddToShoppingList
-			v-if="shoppingLists && recipeRefWithScale"
+		<RecipeDialogAddToShoppingList v-if="shoppingLists && recipeRefWithScale"
 			v-model="shoppingListDialog"
 			:recipes="[recipeRefWithScale]"
 			:shopping-lists="shoppingLists"
 		/>
-		<v-menu
-			offset-y
+		<v-menu offset-y
 			start
 			:bottom="!menuTop"
 			:nudge-bottom="!menuTop ? '5' : '0'"
@@ -101,8 +89,7 @@
 			content-class="d-print-none"
 		>
 			<template #activator="{ props }">
-				<v-btn
-					:class="{ 'rounded-circle': fab }"
+				<v-btn :class="{ 'rounded-circle': fab }"
 					:small="fab"
 					:color="color"
 					:icon="!fab"
@@ -114,8 +101,7 @@
 				</v-btn>
 			</template>
 			<v-list density="compact">
-				<v-list-item
-					v-for="(item, index) in menuItems"
+				<v-list-item v-for="(item, index) in menuItems"
 					:key="index"
 					@click="contextMenuEventHandler(item.event)"
 				>
@@ -134,12 +120,10 @@
 								{{ $t("recipe.recipe-actions") }}
 							</v-list-item-title>
 						</template>
-						<v-list
-							density="compact"
+						<v-list density="compact"
 							class="ma-0 pa-0"
 						>
-							<v-list-item
-								v-for="(action, index) in recipeActions"
+							<v-list-item v-for="(action, index) in recipeActions"
 								:key="index"
 								class="pl-6"
 								@click="executeRecipeAction(action)"
@@ -456,6 +440,7 @@ export default defineNuxtComponent({
 		}
 
 		// Note: Print is handled as an event in the parent component
+		// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 		const eventHandlers: { [key: string]: () => void | Promise<any> } = {
 			delete: () => {
 				state.recipeDeleteDialog = true;
@@ -480,7 +465,9 @@ export default defineNuxtComponent({
 					promises.push(refreshRecipe());
 				}
 
-				Promise.allSettled(promises).then(() => { state.shoppingListDialog = true; });
+				Promise.allSettled(promises).then(() => {
+					state.shoppingListDialog = true;
+				});
 			},
 			share: () => {
 				state.shareDialog = true;

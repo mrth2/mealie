@@ -158,7 +158,7 @@
 					{{ $t("general.create") }}
 				</BaseButton>
 			</template>
-			<template #item.name="{ item }">
+			<template #[`item.name`]="{ item }">
 				<MultiPurposeLabel
 					v-if="item"
 					:label="item"

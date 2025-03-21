@@ -155,8 +155,10 @@ export default defineNuxtComponent({
 		// Create Category
 
 		async function createCategory() {
-			// @ts-ignore - only property really required is the name (RecipeOrganizerPage)
-			await categoryStore.actions.createOne({ name: categoryData.data.name });
+			await categoryStore.actions.createOne({
+				name: categoryData.data.name,
+				slug: "",
+			});
 			categoryData.reset();
 			state.createDialog = false;
 		}

@@ -64,6 +64,7 @@ export default defineNuxtComponent({
 			default: false,
 		},
 	},
+	emits: ["update:day", "update:entry-type", "update:query-filter-string"],
 	setup(props, context) {
 		const i18n = useI18n();
 

@@ -51,6 +51,7 @@ export default defineNuxtComponent({
 			default: "",
 		},
 	},
+	emits: ["update:modelValue"],
 	setup(props, context) {
 		const selected = computed({
 			get: () => props.modelValue,

@@ -78,7 +78,7 @@ export default defineNuxtComponent({
 
 		const userError = ref(false);
 
-		const { data: group, refresh } = useLazyAsyncData(`get-household-${groupId.value}`, async () => {
+		const { data: group } = useLazyAsyncData(`get-household-${groupId.value}`, async () => {
 			if (!groupId.value) {
 				return null;
 			}

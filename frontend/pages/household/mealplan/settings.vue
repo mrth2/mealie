@@ -190,7 +190,7 @@ export default defineNuxtComponent({
 			default: false,
 		},
 	},
-	setup(props, { emit }) {
+	setup() {
 		const api = useUserApi();
 		const i18n = useI18n();
 

@@ -155,6 +155,7 @@ export default defineNuxtComponent({
 			required: true,
 		},
 	},
+	emits: ["eventCreated"],
 	setup(props, context) {
 		const madeThisDialog = ref(false);
 		const userApi = useUserApi();
@@ -250,7 +251,6 @@ export default defineNuxtComponent({
 					newTimelineEventImageName.value,
 				);
 				if (imageResponse.data) {
-					// @ts-ignore the image response data will always match a value of TimelineEventImage
 					newEvent.image = imageResponse.data.image;
 				}
 			}

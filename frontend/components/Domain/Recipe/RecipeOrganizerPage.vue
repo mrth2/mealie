@@ -156,6 +156,7 @@ export default defineNuxtComponent({
 			required: true,
 		},
 	},
+	emits: ["update", "delete"],
 	setup(props, { emit }) {
 		const state = reactive({
 			// Search Options
@@ -254,7 +255,7 @@ export default defineNuxtComponent({
 				return byLetter;
 			}
 
-			fuzzyItems.value
+			[...fuzzyItems.value]
 				.sort((a, b) => a.name.localeCompare(b.name))
 				.forEach((item) => {
 					const letter = item.name[0].toUpperCase();

@@ -160,7 +160,7 @@ export default defineNuxtComponent({
 			if (!cookbooks.value) {
 				return [];
 			}
-			cookbooks.value.sort((a, b) => (a.position || 0) - (b.position || 0));
+			[...cookbooks.value].sort((a, b) => (a.position || 0) - (b.position || 0));
 
 			const ownLinks: SideBarLink[] = [];
 			const links: SideBarLink[] = [];

@@ -157,6 +157,7 @@ export default defineNuxtComponent({
 			default: false,
 		},
 	},
+	emits: ["update:requireAll", "update:modelValue"],
 	setup(props, context) {
 		const state = reactive({
 			search: "",

@@ -65,6 +65,7 @@ export default defineNuxtComponent({
 			default: undefined,
 		},
 	},
+	emits: ["save"],
 	setup(_, context) {
 		const cropper = ref<Cropper>();
 		const { $globals } = useNuxtApp();

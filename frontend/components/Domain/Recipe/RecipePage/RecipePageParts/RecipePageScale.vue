@@ -39,6 +39,7 @@ export default defineNuxtComponent({
 			default: 1,
 		},
 	},
+	emits: ["update:scale"],
 	setup(props, { emit }) {
 		const { isEditMode } = usePageState(props.recipe.slug);
 

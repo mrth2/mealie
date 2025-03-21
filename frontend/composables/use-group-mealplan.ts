@@ -53,7 +53,7 @@ export const useMealplans = function (range: Ref<DateRange>) {
 			loading.value = false;
 			return units;
 		},
-		async refreshAll(this: void) {
+		async refreshAll() {
 			loading.value = true;
 			const query = {
 				start_date: format(range.value.start, "yyyy-MM-dd"),

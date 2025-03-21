@@ -1,8 +1,7 @@
 <template>
 	<div>
 		<!-- Create Dialog -->
-		<BaseDialog
-			v-model="state.createDialog"
+		<BaseDialog v-model="state.createDialog"
 			:title="$t('data-pages.tools.new-tool')"
 			:icon="$globals.icons.potSteam"
 			can-submit
@@ -10,14 +9,12 @@
 		>
 			<v-card-text>
 				<v-form ref="domNewToolForm">
-					<v-text-field
-						v-model="createTarget.name"
+					<v-text-field v-model="createTarget.name"
 						autofocus
 						:label="$t('general.name')"
 						:rules="[validators.required]"
 					/>
-					<v-checkbox
-						v-model="createTarget.onHand"
+					<v-checkbox v-model="createTarget.onHand"
 						:label="$t('tool.on-hand')"
 					/>
 				</v-form>
@@ -25,8 +22,7 @@
 		</BaseDialog>
 
 		<!-- Edit Dialog -->
-		<BaseDialog
-			v-model="state.editDialog"
+		<BaseDialog v-model="state.editDialog"
 			:icon="$globals.icons.potSteam"
 			:title="$t('data-pages.tools.edit-tool')"
 			:submit-text="$t('general.save')"
@@ -34,12 +30,10 @@
 		>
 			<v-card-text v-if="editTarget">
 				<div class="mt-4">
-					<v-text-field
-						v-model="editTarget.name"
+					<v-text-field v-model="editTarget.name"
 						:label="$t('general.name')"
 					/>
-					<v-checkbox
-						v-model="editTarget.onHand"
+					<v-checkbox v-model="editTarget.onHand"
 						:label="$t('tool.on-hand')"
 					/>
 				</div>
@@ -47,8 +41,7 @@
 		</BaseDialog>
 
 		<!-- Delete Dialog -->
-		<BaseDialog
-			v-model="state.deleteDialog"
+		<BaseDialog v-model="state.deleteDialog"
 			:title="$t('general.confirm')"
 			:icon="$globals.icons.alertCircle"
 			color="error"
@@ -56,8 +49,7 @@
 		>
 			<v-card-text>
 				{{ $t("general.confirm-delete-generic") }}
-				<p
-					v-if="deleteTarget"
+				<p v-if="deleteTarget"
 					class="mt-4 ml-4"
 				>
 					{{ deleteTarget.name }}
@@ -66,8 +58,7 @@
 		</BaseDialog>
 
 		<!-- Bulk Delete Dialog -->
-		<BaseDialog
-			v-model="state.bulkDeleteDialog"
+		<BaseDialog v-model="state.bulkDeleteDialog"
 			width="650px"
 			:title="$t('general.confirm')"
 			:icon="$globals.icons.alertCircle"
@@ -79,8 +70,7 @@
 					{{ $t('general.confirm-delete-generic-items') }}
 				</p>
 				<v-card variant="outlined">
-					<v-virtual-scroll
-						height="400"
+					<v-virtual-scroll height="400"
 						item-height="25"
 						:items="bulkDeleteTarget"
 					>
@@ -95,13 +85,11 @@
 		</BaseDialog>
 
 		<!-- Data Table -->
-		<BaseCardSectionTitle
-			:icon="$globals.icons.potSteam"
+		<BaseCardSectionTitle :icon="$globals.icons.potSteam"
 			section
 			:title="$t('data-pages.tools.tool-data')"
 		/>
-		<CrudTable
-			v-model:headers="tableHeaders"
+		<CrudTable v-model:headers="tableHeaders"
 			:table-config="tableConfig"
 			:data="tools || []"
 			:bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
@@ -111,14 +99,13 @@
 			@delete-selected="bulkDeleteEventHandler"
 		>
 			<template #button-row>
-				<BaseButton
-					create
+				<BaseButton create
 					@click="state.createDialog = true"
 				>
 					{{ $t("general.create") }}
 				</BaseButton>
 			</template>
-			<template #item.onHand="{ item }">
+			<template #[`item.onHand`]="{ item }">
 				<v-icon :color="item.onHand ? 'success' : undefined">
 					{{ item.onHand ? $globals.icons.check : $globals.icons.close }}
 				</v-icon>
@@ -188,8 +175,11 @@ export default defineNuxtComponent({
 				toolData.data.householdsWithTool = [];
 			}
 
-			// @ts-ignore - only property really required is the name and onHand (RecipeOrganizerPage)
-			await toolStore.actions.createOne({ name: toolData.data.name, householdsWithTool: toolData.data.householdsWithTool });
+			await toolStore.actions.createOne({
+				name: toolData.data.name, householdsWithTool: toolData.data.householdsWithTool,
+				id: "",
+				slug: "",
+			});
 			toolData.reset();
 			state.createDialog = false;
 		}

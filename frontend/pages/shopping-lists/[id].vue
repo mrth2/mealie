@@ -1,10 +1,8 @@
 <template>
-	<v-container
-		v-if="shoppingList"
+	<v-container v-if="shoppingList"
 		class="md-container"
 	>
-		<BaseDialog
-			v-model="checkAllDialog"
+		<BaseDialog v-model="checkAllDialog"
 			:title="$t('general.confirm')"
 			can-confirm
 			@confirm="checkAll"
@@ -12,8 +10,7 @@
 			<v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-check-all-items') }}</v-card-text>
 		</BaseDialog>
 
-		<BaseDialog
-			v-model="uncheckAllDialog"
+		<BaseDialog v-model="uncheckAllDialog"
 			:title="$t('general.confirm')"
 			can-confirm
 			@confirm="uncheckAll"
@@ -21,8 +18,7 @@
 			<v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-uncheck-all-items') }}</v-card-text>
 		</BaseDialog>
 
-		<BaseDialog
-			v-model="deleteCheckedDialog"
+		<BaseDialog v-model="deleteCheckedDialog"
 			:title="$t('general.confirm')"
 			can-confirm
 			@confirm="deleteChecked"
@@ -34,29 +30,24 @@
 			<template #header>
 				<v-container>
 					<v-row>
-						<v-col
-							cols="3"
+						<v-col cols="3"
 							class="text-left"
 						>
-							<ButtonLink
-								:to="`/shopping-lists?disableRedirect=true`"
+							<ButtonLink :to="`/shopping-lists?disableRedirect=true`"
 								:text="$t('shopping-list.all-lists')"
 								:icon="$globals.icons.backArrow"
 							/>
 						</v-col>
-						<v-col
-							cols="6"
+						<v-col cols="6"
 							class="d-none d-lg-flex justify-center"
 						>
-							<v-img
-								max-height="100"
+							<v-img max-height="100"
 								max-width="100"
 								:src="require('~/static/svgs/shopping-cart.svg')"
 							/>
 						</v-col>
 						<v-col class="d-flex justify-end">
-							<BaseButtonGroup
-								:buttons="[
+							<BaseButtonGroup :buttons="[
 									{
 										icon: $globals.icons.contentCopy,
 										text: '',
@@ -119,20 +110,17 @@
 				{{ shoppingList.name }}
 			</template>
 		</BasePageTitle>
-		<BannerWarning
-			v-if="isOffline"
+		<BannerWarning v-if="isOffline"
 			:title="$t('shopping-list.you-are-offline')"
 			:description="$t('shopping-list.you-are-offline-description')"
 		/>
 
 		<!-- Viewer -->
-		<section
-			v-if="!edit"
+		<section v-if="!edit"
 			class="py-2"
 		>
 			<div v-if="!preferences.viewByLabel">
-				<VueDraggable
-					v-model="listItems.unchecked"
+				<VueDraggable v-model="listItems.unchecked"
 					handle=".handle"
 					:delay="250"
 					:delay-on-touch-only="true"
@@ -140,13 +128,11 @@
 					@end="loadingCounter -= 1"
 					@input="updateIndexUnchecked"
 				>
-					<v-lazy
-						v-for="(item, index) in listItems.unchecked"
+					<v-lazy v-for="(item, index) in listItems.unchecked"
 						:key="item.id"
 						class="my-2"
 					>
-						<ShoppingListItem
-							v-model="listItems.unchecked[index]"
+						<ShoppingListItem v-model="listItems.unchecked[index]"
 							class="my-2 my-sm-0"
 							:show-label="true"
 							:labels="allLabels || []"
@@ -163,13 +149,11 @@
 
 			<!-- View By Label -->
 			<div v-else>
-				<div
-					v-for="(value, key) in itemsByLabel"
+				<div v-for="(value, key) in itemsByLabel"
 					:key="key"
 					class="pb-4"
 				>
-					<v-btn
-						:color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'"
+					<v-btn :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'"
 						:style="{
 							'color': getTextColor(getLabelColor(value[0])),
 							'letter-spacing': 'normal',
@@ -184,8 +168,7 @@
 					<v-divider />
 					<v-expand-transition group>
 						<div v-show="labelOpenState[key]">
-							<VueDraggable
-								:model-value="value"
+							<VueDraggable :model-value="value"
 								handle=".handle"
 								:delay="250"
 								:delay-on-touch-only="true"
@@ -193,13 +176,11 @@
 								@end="loadingCounter -= 1"
 								@update="updateIndexUncheckedByLabel(key.toString(), $event)"
 							>
-								<v-lazy
-									v-for="(item, index) in value"
+								<v-lazy v-for="(item, index) in value"
 									:key="item.id"
 									class="ml-2 my-2"
 								>
-									<ShoppingListItem
-										v-model="value[index]"
+									<ShoppingListItem v-model="value[index]"
 										:show-label="false"
 										:labels="allLabels || []"
 										:units="allUnits || []"
@@ -218,8 +199,7 @@
 
 			<!-- Create Item -->
 			<div v-if="createEditorOpen">
-				<ShoppingListItemEditor
-					v-model="createListItemData"
+				<ShoppingListItemEditor v-model="createListItemData"
 					class="my-4"
 					:labels="allLabels || []"
 					:units="allUnits || []"
@@ -230,12 +210,10 @@
 					@save="createListItem"
 				/>
 			</div>
-			<div
-				v-else
+			<div v-else
 				class="d-flex justify-end"
 			>
-				<BaseButton
-					create
+				<BaseButton create
 					@click="createEditorOpen = true"
 				>
 					{{ $t('general.add') }}
@@ -243,8 +221,7 @@
 			</div>
 
 			<!-- Reorder Labels -->
-			<BaseDialog
-				v-model="reorderLabelsDialog"
+			<BaseDialog v-model="reorderLabelsDialog"
 				:icon="$globals.icons.tagArrowUp"
 				:title="$t('shopping-list.reorder-labels')"
 				:submit-icon="$globals.icons.save"
@@ -253,13 +230,11 @@
 				@submit="saveLabelOrder"
 				@close="cancelLabelOrder"
 			>
-				<v-card
-					height="fit-content"
+				<v-card height="fit-content"
 					max-height="70vh"
 					style="overflow-y: auto;"
 				>
-					<VueDraggable
-						v-if="localLabels"
+					<VueDraggable v-if="localLabels"
 						v-model="localLabels"
 						handle=".handle"
 						:delay="250"
@@ -267,12 +242,10 @@
 						class="my-2"
 						@input="updateLabelOrder"
 					>
-						<div
-							v-for="(labelSetting, index) in localLabels"
+						<div v-for="(labelSetting, index) in localLabels"
 							:key="labelSetting.id"
 						>
-							<MultiPurposeLabelSection
-								v-model="localLabels[index]"
+							<MultiPurposeLabelSection v-model="localLabels[index]"
 								use-color
 							/>
 						</div>
@@ -281,8 +254,7 @@
 			</BaseDialog>
 
 			<!-- Checked Items -->
-			<div
-				v-if="listItems.checked && listItems.checked.length > 0"
+			<div v-if="listItems.checked && listItems.checked.length > 0"
 				class="mt-6"
 			>
 				<div class="d-flex">
@@ -297,8 +269,7 @@
 						</button>
 					</div>
 					<div class="justify-end mt-n2">
-						<BaseButtonGroup
-							:buttons="[
+						<BaseButtonGroup :buttons="[
 								{
 									icon: $globals.icons.checkboxBlankOutline,
 									text: $t('shopping-list.uncheck-all-items'),
@@ -318,12 +289,10 @@
 				<v-divider class="my-4" />
 				<v-expand-transition>
 					<div v-show="showChecked">
-						<div
-							v-for="(item, idx) in listItems.checked"
+						<div v-for="(item, idx) in listItems.checked"
 							:key="item.id"
 						>
-							<ShoppingListItem
-								v-model="listItems.checked[idx]"
+							<ShoppingListItem v-model="listItems.checked[idx]"
 								class="strike-through-note"
 								:labels="allLabels || []"
 								:units="allUnits || []"
@@ -343,8 +312,7 @@
 			<section>
 				<div>
 					<span>
-						<v-icon
-							start
+						<v-icon start
 							class="mb-1"
 						>
 							{{ $globals.icons.primary }}
@@ -355,47 +323,40 @@
 						: 0) }}
 				</div>
 				<v-divider class="my-4" />
-				<RecipeList
-					:recipes="Array.from(recipeMap.values())"
+				<RecipeList :recipes="Array.from(recipeMap.values())"
 					show-description
 					:disabled="isOffline"
 				>
-					<template
-						v-for="(recipe, index) in recipeMap.values()"
+					<template v-for="(recipe, index) in recipeMap.values()"
 						#[`actions-${recipe.id}`]
 						:key="'item-actions-decrease' + recipe.id"
 					>
-						<template>
-							<v-list-item-action>
-								<v-btn
-									v-if="recipe"
-									icon
-									:disabled="isOffline"
-									@click.prevent="removeRecipeReferenceToList(recipe.id!)"
-								>
-									<v-icon color="grey lighten-1">
-										{{ $globals.icons.minus }}
-									</v-icon>
-								</v-btn>
-							</v-list-item-action>
-							<div
-								:key="'item-actions-quantity' + recipe.id"
-								class="pl-3"
+						<v-list-item-action>
+							<v-btn v-if="recipe"
+								icon
+								:disabled="isOffline"
+								@click.prevent="removeRecipeReferenceToList(recipe.id!)"
 							>
-								{{ shoppingList.recipeReferences[index].recipeQuantity }}
-							</div>
-							<v-list-item-action :key="'item-actions-increase' + recipe.id">
-								<v-btn
-									icon
-									:disabled="isOffline"
-									@click.prevent="addRecipeReferenceToList(recipe.id!)"
-								>
-									<v-icon color="grey lighten-1">
-										{{ $globals.icons.createAlt }}
-									</v-icon>
-								</v-btn>
-							</v-list-item-action>
-						</template>
+								<v-icon color="grey lighten-1">
+									{{ $globals.icons.minus }}
+								</v-icon>
+							</v-btn>
+						</v-list-item-action>
+						<div :key="'item-actions-quantity' + recipe.id"
+							class="pl-3"
+						>
+							{{ shoppingList.recipeReferences[index].recipeQuantity }}
+						</div>
+						<v-list-item-action :key="'item-actions-increase' + recipe.id">
+							<v-btn icon
+								:disabled="isOffline"
+								@click.prevent="addRecipeReferenceToList(recipe.id!)"
+							>
+								<v-icon color="grey lighten-1">
+									{{ $globals.icons.createAlt }}
+								</v-icon>
+							</v-btn>
+						</v-list-item-action>
 					</template>
 				</RecipeList>
 			</section>
@@ -419,7 +380,6 @@ import { useShoppingListItemActions } from "~/composables/use-shopping-list-item
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 import { getTextColor } from "~/composables/use-text-color";
 import { uuid4 } from "~/composables/use-utils";
-import type { PlanEntryType } from "~/lib/api/types/meal-plan";
 
 type CopyTypes = "plain" | "markdown";
 
@@ -539,7 +499,7 @@ export default defineNuxtComponent({
 				attempts++;
 			}
 
-			catch (error) {
+			catch {
 				attempts++;
 			}
 
@@ -559,7 +519,9 @@ export default defineNuxtComponent({
 		const maxAttempts = 17280;
 		let attempts = 0;
 
-		const pollTimer: ReturnType<typeof setInterval> = setInterval(() => { pollForChanges(); }, pollFrequency);
+		const pollTimer: ReturnType<typeof setInterval> = setInterval(() => {
+			pollForChanges();
+		}, pollFrequency);
 		onUnmounted(() => {
 			clearInterval(pollTimer);
 		});
@@ -937,7 +899,7 @@ export default defineNuxtComponent({
 			}
 
 			// sort the map by label order
-			const orderedLabelNames = shoppingList.value?.labelSettings?.map((labelSetting) => { return labelSetting.label.name; });
+			const orderedLabelNames = shoppingList.value?.labelSettings?.map(labelSetting => labelSetting.label.name);
 			if (!orderedLabelNames) {
 				itemsByLabel.value = items;
 				return;
@@ -1001,10 +963,10 @@ export default defineNuxtComponent({
 		// List Item CRUD
 
 		/*
-     * saveListItem updates and update on the backend server. Additionally, if the item is
-     * checked it will also append that item to the end of the list so that the unchecked items
-     * are at the top of the list.
-     */
+		 * saveListItem updates and update on the backend server. Additionally, if the item is
+		 * checked it will also append that item to the end of the list so that the unchecked items
+		 * are at the top of the list.
+		 */
 		function saveListItem(item: ShoppingListItemOut) {
 			if (!shoppingList.value) {
 				return;
@@ -1068,10 +1030,10 @@ export default defineNuxtComponent({
 				labelId: undefined,
 				unitId: undefined,
 				foodId: undefined,
-			};
+			} as ShoppingListItemOut;
 		}
 
-		const newMeal = reactive({
+		/* const newMeal = reactive({
 			date: "",
 			title: "",
 			text: "",
@@ -1081,7 +1043,7 @@ export default defineNuxtComponent({
 			id: 0,
 			groupId: "",
 			userId: $auth.user.value?.id || "",
-		});
+		}); */
 
 		function createListItem() {
 			if (!shoppingList.value) {

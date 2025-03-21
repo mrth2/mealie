@@ -23,15 +23,17 @@
 import { useDropZone } from "@vueuse/core";
 
 export default defineNuxtComponent({
+	emits: ["drop"],
 	setup(_, context) {
 		const el = ref<HTMLDivElement>();
 
-		function onDrop(files: File[]) {
-			context.emit("drop", files);
+		function onDrop(files: File[] | null) {
+			if (files) {
+				context.emit("drop", files);
+			}
 		}
 
-		// @ts-ignore - This should work?
-		const { isOverDropZone } = useDropZone(el, onDrop);
+		const { isOverDropZone } = useDropZone(el, files => onDrop(files));
 
 		return { el, isOverDropZone };
 	},

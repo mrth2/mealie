@@ -117,7 +117,6 @@ export default defineNuxtComponent({
 			});
 
 			if (data) {
-				// @ts-ignore username is always populated here
 				props.recipe.comments.push(data);
 			}
 

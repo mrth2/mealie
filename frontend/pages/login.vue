@@ -146,7 +146,7 @@
 								rounded
 								class="rounded-xl"
 								block
-								@click.native="() => oidcAuthenticate()"
+								@click="() => oidcAuthenticate()"
 							>
 								{{ $t("user.login-oidc") }} {{ oidcProviderName }}
 							</v-btn>
@@ -349,10 +349,8 @@ export default defineNuxtComponent({
 			// See https://github.com/nuxt-community/axios-module/issues/550
 			// Import $axios from useContext()
 			// if ($axios.isAxiosError(error) && error.response?.status === 401) {
-			// @ts-ignore- see above
 			if (error.response?.status === 401) {
 				alert.error(i18n.t("user.invalid-credentials"));
-				// @ts-ignore - see above
 			}
 			else if (error.response?.status === 423) {
 				alert.error(i18n.t("user.account-locked-please-try-again-later"));

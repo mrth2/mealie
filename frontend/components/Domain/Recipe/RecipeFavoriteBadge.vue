@@ -29,7 +29,6 @@
 <script lang="ts">
 import { useUserSelfRatings } from "~/composables/use-users";
 import { useUserApi } from "~/composables/api";
-import type { UserOut } from "~/lib/api/types/user";
 
 export default defineNuxtComponent({
 	props: {

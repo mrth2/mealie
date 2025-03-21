@@ -70,7 +70,6 @@ import { useGroups } from "~/composables/use-groups";
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { validators } from "~/composables/use-validators";
-import type { HouseholdInDB } from "~/lib/api/types/household";
 
 export default defineNuxtComponent({
 	components: {

@@ -29,8 +29,8 @@ export function useGroupRecipeActionData() {
 }
 
 export const useGroupRecipeActions = function (
-  orderBy: string | null = "title",
-  orderDirection: string | null = "asc",
+	orderBy: string | null = "title",
+	orderDirection: string | null = "asc",
 ) {
 	const api = useUserApi();
 
@@ -58,6 +58,7 @@ export const useGroupRecipeActions = function (
 			.replace("${yieldText}", recipe.recipeYield || "");
 	};
 
+	// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 	async function execute(action: GroupRecipeActionOut, recipe: Recipe, recipeScale: number): Promise<void | RequestResponse<unknown>> {
 		const url = parseRecipeActionUrl(action.url, recipe, recipeScale);
 

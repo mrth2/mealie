@@ -150,7 +150,7 @@ export default defineNuxtComponent({
 		});
 
 		const i18n = useI18n();
-		const { $globals, req } = useNuxtApp();
+		const { $globals } = useNuxtApp();
 
 		const iconOptions = [
 			{

@@ -7,10 +7,10 @@
 		class="elevation-0"
 		@click:row="downloadData"
 	>
-		<template #item.expires="{ item }">
+		<template #[`item.expires`]="{ item }">
 			{{ getTimeToExpire(item.expires) }}
 		</template>
-		<template #item.actions="{ item }">
+		<template #[`item.actions`]="{ item }">
 			<BaseButton
 				download
 				size="small"

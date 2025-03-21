@@ -75,6 +75,7 @@ export default defineNuxtComponent({
 			default: true,
 		},
 	},
+	emits: ["update:modelValue"],
 	setup(props, { emit }) {
 		function addNote() {
 			const newNotes = [...props.modelValue, { title: "", text: "" }];

@@ -102,7 +102,6 @@ export default defineNuxtComponent({
 		const $auth = useMealieAuth();
 		const { loggedIn } = useLoggedInState();
 		const route = useRoute();
-		const router = useRouter();
 		const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 		const { xs, smAndUp } = useDisplay();
 

@@ -133,11 +133,7 @@ interface DialogProps {
 
 interface DialogEmits {
 	(e: "update:modelValue", value: boolean): void;
-	(e: "submit"): void;
-	(e: "cancel"): void;
-	(e: "confirm"): void;
-	(e: "delete"): void;
-	(e: "close"): void;
+	(e: "submit" | "cancel" | "confirm" | "delete" | "close"): void;
 }
 
 // Using TypeScript interface with withDefaults for props
@@ -197,10 +193,10 @@ function open() {
 	logDeprecatedProp("open");
 }
 
-function close() {
+/* function close() {
 	dialog.value = false;
 	logDeprecatedProp("close");
-}
+} */
 
 function logDeprecatedProp(val: string) {
 	console.warn(

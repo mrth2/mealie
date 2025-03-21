@@ -1,4 +1,3 @@
-// @ts-ignore missing color types
 import Color from "@sphinxxxx/color-conversion";
 
 const LIGHT_COLOR = "white";

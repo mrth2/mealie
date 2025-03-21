@@ -1,16 +1,13 @@
 <template>
-	<v-container
-		fluid
+	<v-container fluid
 		class="narrow-container"
 	>
-		<BaseDialog
-			v-model="state.storageDetails"
+		<BaseDialog v-model="state.storageDetails"
 			:title="$t('admin.maintenance.storage-details')"
 			:icon="$globals.icons.folderOutline"
 		>
 			<div class="py-2">
-				<template
-					v-for="(value, key, idx) in storageDetails"
+				<template v-for="(value, key, idx) in storageDetails"
 					:key="`item-${key}`"
 				>
 					<v-list-item>
@@ -21,8 +18,7 @@
 							{{ value }}
 						</v-list-item-subtitle>
 					</v-list-item>
-					<v-divider
-						v-if="idx != 4"
+					<v-divider v-if="idx != 4"
 						:key="`divider-${key}`"
 						class="mx-2"
 					/>
@@ -37,17 +33,14 @@
 		</BasePageTitle>
 
 		<section>
-			<BaseCardSectionTitle
-				class="pb-0"
+			<BaseCardSectionTitle class="pb-0"
 				:icon="$globals.icons.wrench"
 				:title="$t('admin.maintenance.summary-title')"
 			/>
-			<div
-				class="mb-6 ml-2 d-flex"
+			<div class="mb-6 ml-2 d-flex"
 				style="gap: 0.3rem"
 			>
-				<BaseButton
-					color="info"
+				<BaseButton color="info"
 					@click="getSummary"
 				>
 					<template #icon>
@@ -55,8 +48,7 @@
 					</template>
 					{{ $t("admin.maintenance.button-label-get-summary") }}
 				</BaseButton>
-				<BaseButton
-					color="info"
+				<BaseButton color="info"
 					@click="openDetails"
 				>
 					<template #icon>
@@ -65,34 +57,26 @@
 					{{ $t("admin.maintenance.button-label-open-details") }}
 				</BaseButton>
 			</div>
-			<v-card
-				class="ma-2"
+			<v-card class="ma-2"
 				:loading="state.fetchingInfo"
 			>
-				<template
-					v-for="(value, idx) in info"
+				<template v-for="(value, idx) in info"
 					:key="`item-${idx}`"
 				>
-					<template>
-						<v-list-item>
-							<v-list-item-title class="py-2">
-								<div>{{ value.name }}</div>
-								<v-list-item-subtitle class="text-end">
-									{{ value.value }}
-								</v-list-item-subtitle>
-							</v-list-item-title>
-						</v-list-item>
-						<v-divider
-							:key="`divider-${idx}`"
-							class="mx-2"
-						/>
-					</template>
+					<v-list-item>
+						<v-list-item-title class="py-2">
+							<div>{{ value.name }}</div>
+							<v-list-item-subtitle class="text-end">
+								{{ value.value }}
+							</v-list-item-subtitle>
+						</v-list-item-title>
+					</v-list-item>
+					<v-divider class="mx-2" />
 				</template>
 			</v-card>
 		</section>
 		<section>
-			<BaseCardSectionTitle
-				class="pb-0 mt-8"
+			<BaseCardSectionTitle class="pb-0 mt-8"
 				:icon="$globals.icons.wrench"
 				:title="$t('admin.mainentance.actions-title')"
 			>
@@ -105,12 +89,10 @@
 					</template>
 				</i18n-t>
 			</BaseCardSectionTitle>
-			<v-card
-				class="ma-2"
+			<v-card class="ma-2"
 				:loading="state.actionLoading"
 			>
-				<template
-					v-for="(action, idx) in actions"
+				<template v-for="(action, idx) in actions"
 					:key="`item-${idx}`"
 				>
 					<template>
@@ -121,8 +103,7 @@
 									{{ action.subtitle }}
 								</v-list-item-subtitle>
 							</v-list-item-title>
-							<BaseButton
-								color="info"
+							<BaseButton color="info"
 								@click="action.handler"
 							>
 								<template #icon>
@@ -131,8 +112,7 @@
 								{{ $t("general.run") }}
 							</BaseButton>
 						</v-list-item>
-						<v-divider
-							:key="`divider-${idx}`"
+						<v-divider :key="`divider-${idx}`"
 							class="mx-2"
 						/>
 					</template>

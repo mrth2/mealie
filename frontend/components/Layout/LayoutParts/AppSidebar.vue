@@ -1,18 +1,15 @@
 <template>
-	<v-navigation-drawer
-		v-model="showDrawer"
+	<v-navigation-drawer v-model="showDrawer"
 		class="d-flex flex-column d-print-none"
 	>
 		<!-- User Profile -->
 		<template v-if="loggedIn">
-			<v-list-item
-				lines="two"
+			<v-list-item lines="two"
 				:to="userProfileLink"
 				exact
 			>
 				<div class="d-flex align-center ga-2">
-					<UserAvatar
-						list
+					<UserAvatar list
 						:user-id="sessionUser.id"
 						:tooltip="false"
 					/>
@@ -22,15 +19,13 @@
 							{{ sessionUser.fullName }}
 						</v-list-item-title>
 						<v-list-item-subtitle>
-							<v-btn
-								v-if="isOwnGroup"
+							<v-btn v-if="isOwnGroup"
 								class="px-2 pa-0"
 								:variant="'tonal'"
 								:to="userFavoritesLink"
 								size="small"
 							>
-								<v-icon
-									start
+								<v-icon start
 									size="small"
 								>
 									{{ $globals.icons.heart }}
@@ -48,20 +43,17 @@
 
 		<!-- Primary Links -->
 		<template v-if="topLink">
-			<v-list
-				v-model:selected="secondarySelected"
+			<v-list v-model:selected="secondarySelected"
 				nav
 				density="comfortable"
 				color="primary"
 			>
 				<template v-for="nav in topLink">
-					<div
-						v-if="!nav.restricted || isOwnGroup"
+					<div v-if="!nav.restricted || isOwnGroup"
 						:key="nav.key || nav.title"
 					>
 						<!-- Multi Items -->
-						<v-list-group
-							v-if="nav.children"
+						<v-list-group v-if="nav.children"
 							:key="(nav.key || nav.title) + 'multi-item'"
 							v-model="dropDowns[nav.title]"
 							color="primary"
@@ -69,15 +61,13 @@
 							:fluid="true"
 						>
 							<template #activator="{ props }">
-								<v-list-item
-									v-bind="props"
+								<v-list-item v-bind="props"
 									:prepend-icon="nav.icon"
 									:title="nav.title"
 								/>
 							</template>
 
-							<v-list-item
-								v-for="child in nav.children"
+							<v-list-item v-for="child in nav.children"
 								:key="child.key || child.title"
 								exact
 								:to="child.to"
@@ -88,11 +78,8 @@
 						</v-list-group>
 
 						<!-- Single Item -->
-						<template
-							v-else
-							:key="(nav.key || nav.title) + 'single-item'"
-						>
-							<v-list-item
+						<template v-else>
+							<v-list-item :key="(nav.key || nav.title) + 'single-item'"
 								exact
 								link
 								:to="nav.to"
@@ -108,20 +95,17 @@
 		<!-- Secondary Links -->
 		<template v-if="secondaryLinks.length > 0">
 			<v-divider class="mt-2" />
-			<v-list
-				v-model:selected="secondarySelected"
+			<v-list v-model:selected="secondarySelected"
 				nav
 				density="compact"
 				exact
 			>
 				<template v-for="nav in secondaryLinks">
-					<div
-						v-if="!nav.restricted || isOwnGroup"
+					<div v-if="!nav.restricted || isOwnGroup"
 						:key="nav.key || nav.title"
 					>
 						<!-- Multi Items -->
-						<v-list-group
-							v-if="nav.children"
+						<v-list-group v-if="nav.children"
 							:key="(nav.key || nav.title) + 'multi-item'"
 							v-model="dropDowns[nav.title]"
 							color="primary"
@@ -133,8 +117,7 @@
 								</v-list-item-title>
 							</template>
 
-							<v-list-item
-								v-for="child in nav.children"
+							<v-list-item v-for="child in nav.children"
 								:key="child.key || child.title"
 								exact
 								:to="child.to"
@@ -148,43 +131,35 @@
 						</v-list-group>
 
 						<!-- Single Item -->
-						<template
-							v-else
+						<v-list-item v-else
 							:key="(nav.key || nav.title) + 'single-item'"
+							exact
+							link
+							:to="nav.to"
 						>
-							<v-list-item
-								exact
-								link
-								:to="nav.to"
-							>
-								<template #prepend>
-									<v-icon>{{ nav.icon }}</v-icon>
-								</template>
-								<v-list-item-title>{{ nav.title }}</v-list-item-title>
-							</v-list-item>
-						</template>
+							<template #prepend>
+								<v-icon>{{ nav.icon }}</v-icon>
+							</template>
+							<v-list-item-title>{{ nav.title }}</v-list-item-title>
+						</v-list-item>
 					</div>
 				</template>
 			</v-list>
 		</template>
 
 		<!-- Bottom Navigation Links -->
-		<template
-			v-if="bottomLinks"
+		<template v-if="bottomLinks"
 			#append
 		>
-			<v-list
-				v-model:selected="bottomSelected"
+			<v-list v-model:selected="bottomSelected"
 				nav
 				density="compact"
 			>
 				<template v-for="nav in bottomLinks">
-					<div
-						v-if="!nav.restricted || isOwnGroup"
+					<div v-if="!nav.restricted || isOwnGroup"
 						:key="nav.key || nav.title"
 					>
-						<v-list-item
-							:key="nav.key || nav.title"
+						<v-list-item :key="nav.key || nav.title"
 							exact
 							link
 							:to="nav.to"
@@ -236,9 +211,10 @@ export default defineNuxtComponent({
 		bottomLinks: {
 			type: Array as () => SidebarLinks,
 			required: false,
-			default: [],
+			default: () => ([]),
 		},
 	},
+	emits: ["update:modelValue"],
 	setup(props, context) {
 		const $auth = useMealieAuth();
 		const { loggedIn, isOwnGroup } = useLoggedInState();

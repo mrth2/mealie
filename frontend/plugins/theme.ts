@@ -1,5 +1,3 @@
-import { config } from "~/lib/api/config";
-
 export interface ThemeConfig {
 	lightPrimary: string;
 	lightAccent: string;
@@ -27,7 +25,7 @@ async function fetchTheme(): Promise<ThemeConfig | undefined> {
 		const data = await response.json();
 		return data as ThemeConfig;
 	}
-	catch (error) {
+	catch {
 		return undefined;
 	}
 }

@@ -14,7 +14,6 @@ export class UnitAPI extends BaseCRUDAPI<CreateIngredientUnit, IngredientUnit> {
 	itemRoute = routes.unitsUnit;
 
 	merge(fromId: string, toId: string) {
-		// @ts-ignore TODO: fix this
 		return this.requests.put<IngredientUnit>(routes.merge, { fromUnit: fromId, toUnit: toId });
 	}
 }

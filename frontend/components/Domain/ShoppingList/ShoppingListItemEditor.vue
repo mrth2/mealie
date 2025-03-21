@@ -164,6 +164,7 @@ export default defineNuxtComponent({
 			default: true,
 		},
 	},
+	emits: ["update:modelValue", "save", "cancel", "delete"],
 	setup(props, context) {
 		const foodStore = useFoodStore();
 		const foodData = useFoodData();
@@ -183,7 +184,6 @@ export default defineNuxtComponent({
 		watch(
 			() => props.modelValue.food,
 			(newFood) => {
-				// @ts-ignore our logic already assumes there's a label attribute, even if TS doesn't think there is
 				listItem.value.label = newFood?.label || null;
 				listItem.value.labelId = listItem.value.label?.id || null;
 			},
@@ -191,6 +191,7 @@ export default defineNuxtComponent({
 
 		async function createAssignFood(val: string) {
 			// keep UI reactive
+			// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 			listItem.value.food ? listItem.value.food.name = val : listItem.value.food = { name: val };
 
 			foodData.data.name = val;
@@ -204,6 +205,7 @@ export default defineNuxtComponent({
 
 		async function createAssignUnit(val: string) {
 			// keep UI reactive
+			// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 			listItem.value.unit ? listItem.value.unit.name = val : listItem.value.unit = { name: val };
 
 			unitData.data.name = val;
@@ -221,7 +223,6 @@ export default defineNuxtComponent({
 			}
 
 			listItem.value.food.labelId = listItem.value.labelId;
-			// @ts-ignore the food will have an id, even though TS says it might not
 			await foodStore.actions.updateOne(listItem.value.food);
 		}
 

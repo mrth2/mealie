@@ -60,12 +60,12 @@
 								right
 								content-class="text-caption"
 							>
-								<template #activator="{ props }">
+								<template #activator="{ props: tooltipProps }">
 									<v-btn
 										size="small"
 										class="ml-2"
 										icon
-										v-bind="props"
+										v-bind="tooltipProps"
 										@click="displayRecipeRefs = !displayRecipeRefs"
 									>
 										<v-icon>
@@ -171,7 +171,7 @@ import { useOnline } from "@vueuse/core";
 import RecipeIngredientListItem from "../Recipe/RecipeIngredientListItem.vue";
 import ShoppingListItemEditor from "./ShoppingListItemEditor.vue";
 import MultiPurposeLabel from "./MultiPurposeLabel.vue";
-import type { RecipeIngredient, ShoppingListItemOut } from "~/lib/api/types/household";
+import type { ShoppingListItemOut } from "~/lib/api/types/household";
 import type { MultiPurposeLabelOut, MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import type { IngredientFood, IngredientUnit, RecipeSummary } from "~/lib/api/types/recipe";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
@@ -209,6 +209,7 @@ export default defineNuxtComponent({
 			default: undefined,
 		},
 	},
+	emits: ["checked", "update:modelValue", "save"],
 	setup(props, context) {
 		const i18n = useI18n();
 		const displayRecipeRefs = ref(false);
@@ -279,9 +280,7 @@ export default defineNuxtComponent({
      * or the label of the food applied.
      */
 		const label = computed<MultiPurposeLabelSummary | undefined>(() => {
-			// @ts-ignore - it _might_ exists
 			if (listItem.value.label) {
-				// @ts-ignore - it _might_ exists
 				return listItem.value.label as MultiPurposeLabelSummary;
 			}
 

@@ -2,8 +2,7 @@
 	<div @click.prevent>
 		<!-- User Rating -->
 		<v-hover v-slot="{ isHovering, props }">
-			<v-rating
-				v-if="isOwnGroup && (userRating || isHovering || !ratingsLoaded)"
+			<v-rating v-if="isOwnGroup && (userRating || isHovering || !ratingsLoaded)"
 				v-bind="props"
 				:model-value="userRating"
 				active-color="secondary"
@@ -17,8 +16,7 @@
 				@click="updateRating"
 			/>
 			<!-- Group Rating -->
-			<v-rating
-				v-else
+			<v-rating v-else
 				v-bind="props"
 				:model-value="groupRating"
 				:half-increments="true"
@@ -60,6 +58,7 @@ export default defineNuxtComponent({
 			default: false,
 		},
 	},
+	emits: ["update:modelValue"],
 	setup(props, context) {
 		const { isOwnGroup } = useLoggedInState();
 		console.log("isOwnGroup", isOwnGroup);

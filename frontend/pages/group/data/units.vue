@@ -294,17 +294,17 @@
 					{{ $t('data-pages.combine') }}
 				</BaseButton>
 			</template>
-			<template #item.useAbbreviation="{ item }">
+			<template #[`item.useAbbreviation`]="{ item }">
 				<v-icon :color="item.useAbbreviation ? 'success' : undefined">
 					{{ item.useAbbreviation ? $globals.icons.check : $globals.icons.close }}
 				</v-icon>
 			</template>
-			<template #item.fraction="{ item }">
+			<template #[`item.fraction`]="{ item }">
 				<v-icon :color="item.fraction ? 'success' : undefined">
 					{{ item.fraction ? $globals.icons.check : $globals.icons.close }}
 				</v-icon>
 			</template>
-			<template #item.createdAt="{ item }">
+			<template #[`item.createdAt`]="{ item }">
 				{{ formatDate(item.createdAt) }}
 			</template>
 			<template #button-bottom>

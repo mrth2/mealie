@@ -121,6 +121,7 @@ export default defineNuxtComponent({
 				return;
 			}
 
+			// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
 			delete props.recipe.extras[key];
 			props.recipe.extras = { ...props.recipe.extras };
 		}

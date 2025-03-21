@@ -29,24 +29,24 @@
 			</v-container>
 		</BasePageTitle>
 		<v-data-table
-			:headers="headers"
+			:headers="headers as any"
 			:items="members || []"
 			item-key="id"
 			class="elevation-0"
 			hide-default-footer
 			disable-pagination
 		>
-			<template #item.avatar="{ item }">
+			<template #[`item.avatar`]="{ item }">
 				<UserAvatar
 					v-if="item"
 					:tooltip="false"
 					:user-id="item.id"
 				/>
 			</template>
-			<template #item.admin="{ item }">
+			<template #[`item.admin`]="{ item }">
 				{{ item && item.admin ? $t('user.admin') : $t('user.user') }}
 			</template>
-			<template #item.manageHousehold="{ item }">
+			<template #[`item.manageHousehold`]="{ item }">
 				<div
 					v-if="item"
 					class="d-flex justify-center"
@@ -60,7 +60,7 @@
 					/>
 				</div>
 			</template>
-			<template #item.manage="{ item }">
+			<template #[`item.manage`]="{ item }">
 				<div
 					v-if="item"
 					class="d-flex justify-center"
@@ -74,7 +74,7 @@
 					/>
 				</div>
 			</template>
-			<template #item.organize="{ item }">
+			<template #[`item.organize`]="{ item }">
 				<div
 					v-if="item"
 					class="d-flex justify-center"
@@ -88,7 +88,7 @@
 					/>
 				</div>
 			</template>
-			<template #item.invite="{ item }">
+			<template #[`item.invite`]="{ item }">
 				<div
 					v-if="item"
 					class="d-flex justify-center"

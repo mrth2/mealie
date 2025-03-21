@@ -306,7 +306,6 @@ export default defineNuxtComponent({
 			title: i18n.t("settings.profile"),
 		});
 
-		// @ts-ignore $auth.user is typed as unknown, but it's a user
 		const user = computed<UserOut | null>(() => $auth.user.value);
 
 		const inviteDialog = ref(false);

@@ -271,7 +271,7 @@ export default defineNuxtComponent({
 						data[i].ingredient.title = recipe.value.recipeIngredient[i].title;
 					}
 				}
-				catch (TypeError) {
+				catch {
 					console.error("Index Mismatch Error during recipe ingredient parsing; did the number of ingredients change?");
 				}
 

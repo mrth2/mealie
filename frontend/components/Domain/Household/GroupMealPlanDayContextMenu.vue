@@ -125,10 +125,11 @@ export default defineNuxtComponent({
 		async function getShoppingLists() {
 			const { data } = await api.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
 			if (data) {
-				shoppingLists.value = data.items ?? [];
+				shoppingLists.value = data.items as ShoppingListSummary[] ?? [];
 			}
 		}
 
+		// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 		const eventHandlers: { [key: string]: () => void | Promise<any> } = {
 			shoppingList: () => {
 				getShoppingLists();

@@ -1,16 +1,13 @@
 <template>
-	<v-timeline-item
-		:class="attrs.class"
+	<v-timeline-item :class="attrs.class"
 		fill-dot
 		:small="attrs.small"
 		:icon="icon"
 	>
-		<template
-			v-if="!useMobileFormat"
+		<template v-if="!useMobileFormat"
 			#opposite
 		>
-			<v-chip
-				v-if="event.timestamp"
+			<v-chip v-if="event.timestamp"
 				label
 				large
 			>
@@ -20,26 +17,22 @@
 				{{ new Date(event.timestamp).toLocaleDateString($i18n.locale) }}
 			</v-chip>
 		</template>
-		<v-card
-			hover
+		<v-card hover
 			:to="$attrs.selected || !recipe ? undefined : `/g/${groupSlug}/r/${recipe.slug}`"
 			class="elevation-12"
 			@click="$emit('selected')"
 		>
 			<v-card-title class="background">
 				<v-row>
-					<v-col
-						align-self="center"
+					<v-col align-self="center"
 						:cols="useMobileFormat ? 'auto' : '2'"
 						:class="attrs.avatar.class"
 					>
-						<UserAvatar
-							:user-id="event.userId"
+						<UserAvatar :user-id="event.userId"
 							:size="attrs.avatar.size"
 						/>
 					</v-col>
-					<v-col
-						v-if="useMobileFormat"
+					<v-col v-if="useMobileFormat"
 						align-self="center"
 						class="pr-0"
 					>
@@ -48,16 +41,14 @@
 							{{ new Date(event.timestamp || "").toLocaleDateString($i18n.locale) }}
 						</v-chip>
 					</v-col>
-					<v-col
-						v-else
+					<v-col v-else
 						cols="9"
 						style="margin: auto; text-align: center;"
 					>
 						{{ event.subject }}
 					</v-col>
 					<v-spacer />
-					<v-col
-						:cols="useMobileFormat ? 'auto' : '1'"
+					<v-col :cols="useMobileFormat ? 'auto' : '1'"
 						class="px-0 pt-0"
 					>
 						<RecipeTimelineContextMenu
@@ -80,20 +71,16 @@
 					</v-col>
 				</v-row>
 			</v-card-title>
-			<v-card-text
-				v-if="showRecipeCards && recipe"
+			<v-card-text v-if="showRecipeCards && recipe"
 				class="background"
 			>
-				<v-row
-					:class="useMobileFormat ? 'py-3 mx-0' : 'py-3 mx-0'"
+				<v-row :class="useMobileFormat ? 'py-3 mx-0' : 'py-3 mx-0'"
 					style="max-width: 100%;"
 				>
-					<v-col
-						align-self="center"
+					<v-col align-self="center"
 						class="pa-0"
 					>
-						<RecipeCardMobile
-							:vertical="useMobileFormat"
+						<RecipeCardMobile :vertical="useMobileFormat"
 							:name="recipe.name"
 							:slug="recipe.slug"
 							:description="recipe.description"
@@ -110,8 +97,7 @@
 				<v-row>
 					<v-col>
 						<strong v-if="useMobileFormat">{{ event.subject }}</strong>
-						<v-img
-							v-if="eventImageUrl"
+						<v-img v-if="eventImageUrl"
 							:src="eventImageUrl"
 							min-height="50"
 							:height="hideImage ? undefined : 'auto'"
@@ -120,8 +106,7 @@
 							:class="attrs.image.class"
 							@error="hideImage = true"
 						/>
-						<div
-							v-if="event.eventMessage"
+						<div v-if="event.eventMessage"
 							:class="useMobileFormat ? 'text-caption' : ''"
 						>
 							<SafeMarkdown :source="event.eventMessage" />
@@ -159,6 +144,7 @@ export default defineNuxtComponent({
 			default: false,
 		},
 	},
+	emits: ["selected", "update", "delete"],
 
 	setup(props) {
 		const { $vuetify, $globals } = useNuxtApp();

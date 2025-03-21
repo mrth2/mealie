@@ -1,15 +1,11 @@
 import type { UserOut } from "~/lib/api/types/user";
 
 declare module "#auth-utils" {
-	interface User extends UserOut { }
+	type User = UserOut;
 
-	interface UserSession {
+	type UserSession = object;
 
-	}
-
-	interface SecureSessionData {
-
-	}
+	type SecureSessionData = object;
 }
 
 export { };

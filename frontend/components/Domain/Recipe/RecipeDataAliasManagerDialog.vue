@@ -1,7 +1,6 @@
 <template>
 	<div>
-		<BaseDialog
-			v-model="dialog"
+		<BaseDialog v-model="dialog"
 			:title="$t('data-pages.manage-aliases')"
 			:icon="$globals.icons.edit"
 			:submit-icon="$globals.icons.check"
@@ -12,20 +11,17 @@
 		>
 			<v-card-text>
 				<v-container>
-					<v-row
-						v-for="alias, i in aliases"
+					<v-row v-for="alias, i in aliases"
 						:key="i"
 					>
 						<v-col cols="10">
-							<v-text-field
-								v-model="alias.name"
+							<v-text-field v-model="alias.name"
 								:label="$t('general.name')"
 								:rules="[validators.required]"
 							/>
 						</v-col>
 						<v-col cols="2">
-							<BaseButtonGroup
-								:buttons="[
+							<BaseButtonGroup :buttons="[
 									{
 										icon: $globals.icons.delete,
 										text: $t('general.delete'),
@@ -39,8 +35,7 @@
 				</v-container>
 			</v-card-text>
 			<template #custom-card-action>
-				<BaseButton
-					edit
+				<BaseButton edit
 					@click="createAlias"
 				>
 					{{ $t('data-pages.create-alias') }}
@@ -73,6 +68,7 @@ export default defineNuxtComponent({
 			required: true,
 		},
 	},
+	emits: ["submit", "update:modelValue"],
 	setup(props, context) {
 		// V-Model Support
 		const dialog = computed({
@@ -118,9 +114,7 @@ export default defineNuxtComponent({
 					!alias.name
 					|| alias.name === props.data.name
 					|| alias.name === props.data.pluralName
-					// @ts-ignore only applies to units
 					|| alias.name === props.data.abbreviation
-					// @ts-ignore only applies to units
 					|| alias.name === props.data.pluralAbbreviation
 					|| seenAliasNames.includes(alias.name)
 				) {

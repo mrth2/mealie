@@ -1,14 +1,12 @@
 <template>
-	<v-toolbar
-		rounded
+	<v-toolbar rounded
 		height="0"
 		class="fixed-bar mt-0"
 		color="rgb(255, 0, 0, 0.0)"
 		flat
 		style="z-index: 2; position: sticky"
 	>
-		<BaseDialog
-			v-model="deleteDialog"
+		<BaseDialog v-model="deleteDialog"
 			:title="$t('recipe.delete-recipe')"
 			color="error"
 			:icon="$globals.icons.alertCircle"
@@ -21,34 +19,29 @@
 		</BaseDialog>
 
 		<v-spacer />
-		<div
-			v-if="!open"
+		<div v-if="!open"
 			class="custom-btn-group ma-1"
 		>
-			<RecipeFavoriteBadge
-				v-if="loggedIn"
+			<RecipeFavoriteBadge v-if="loggedIn"
 				class="ml-1"
 				color="info"
 				button-style
-				:recipe-id="recipe.id"
+				:recipe-id="recipe.id!"
 				show-always
 			/>
-			<RecipeTimelineBadge
-				v-if="loggedIn"
+			<RecipeTimelineBadge v-if="loggedIn"
 				button-style
 				class="ml-1"
 				:slug="recipe.slug"
-				:recipe-name="recipe.name"
+				:recipe-name="recipe.name!"
 			/>
 			<div v-if="loggedIn">
-				<v-tooltip
-					v-if="canEdit"
+				<v-tooltip v-if="canEdit"
 					bottom
 					color="info"
 				>
 					<template #activator="{ props }">
-						<v-btn
-							class="rounded-circle ml-1"
+						<v-btn class="rounded-circle ml-1"
 							size="small"
 							color="info"
 							v-bind="props"
@@ -61,17 +54,16 @@
 				</v-tooltip>
 			</div>
 
-			<RecipeContextMenu
-				show-print
+			<RecipeContextMenu show-print
 				:menu-top="false"
-				:name="recipe.name"
-				:slug="recipe.slug"
+				:name="recipe.name!"
+				:slug="recipe.slug!"
 				:menu-icon="$globals.icons.dotsVertical"
 				fab
 				color="info"
 				:card-menu="false"
 				:recipe="recipe"
-				:recipe-id="recipe.id"
+				:recipe-id="recipe.id!"
 				:recipe-scale="recipeScale"
 				:use-items="{
 					edit: false,
@@ -89,12 +81,10 @@
 				@print="$emit('print')"
 			/>
 		</div>
-		<div
-			v-if="open"
+		<div v-if="open"
 			class="custom-btn-group gapped"
 		>
-			<v-btn
-				v-for="(btn, index) in editorButtons"
+			<v-btn v-for="(btn, index) in editorButtons"
 				:key="index"
 				:class="{ 'rounded-circle': $vuetify.display.xs }"
 				:size="$vuetify.display.xs ? 'small' : undefined"
@@ -157,6 +147,7 @@ export default defineNuxtComponent({
 			default: false,
 		},
 	},
+	emits: ["print", "input", "delete", "close"],
 	setup(_, context) {
 		const deleteDialog = ref(false);
 

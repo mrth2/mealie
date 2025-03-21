@@ -1,6 +1,6 @@
 <script lang="ts">
 export default defineNuxtComponent({
-	setup(props) {
+	setup() {
 		const { $vuetify } = useNuxtApp();
 		const imageHeight = computed(() => {
 			return $vuetify.display.xs.value ? "200" : "400";

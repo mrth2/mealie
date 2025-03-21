@@ -43,7 +43,7 @@
 
 					<v-divider />
 					<template
-						v-for="(util, idx) in utilities"
+						v-for="(util) in utilities"
 						:key="util.id"
 					>
 						<v-list-item

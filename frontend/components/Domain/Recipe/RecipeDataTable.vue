@@ -3,29 +3,29 @@
 		v-model="selected"
 		item-key="id"
 		show-select
-		sort-by="dateAdded"
+		:sort-by="'dateAdded' as any"
 		sort-desc
-		:headers="headers"
+		:headers="headers as any"
 		:items="recipes"
 		:items-per-page="15"
 		class="elevation-0"
 		:loading="loading"
 	>
-		<template #body.prepend>
+		<template #[`body.prepend`]>
 			<tr>
 				<td />
 				<td>Hello</td>
 				<td colspan="4" />
 			</tr>
 		</template>
-		<template #item.name="{ item }">
+		<template #[`item.name`]="{ item }">
 			<a
 				:href="`/g/${groupSlug}/r/${item.slug}`"
 				style="color: inherit; text-decoration: inherit; "
 				@click="$emit('click')"
 			>{{ item.name }}</a>
 		</template>
-		<template #item.tags="{ item }">
+		<template #[`item.tags`]="{ item }">
 			<RecipeChip
 				small
 				:items="item.tags!"
@@ -34,14 +34,14 @@
 				@item-selected="filterItems"
 			/>
 		</template>
-		<template #item.recipeCategory="{ item }">
+		<template #[`item.recipeCategory`]="{ item }">
 			<RecipeChip
 				small
 				:items="item.recipeCategory!"
 				@item-selected="filterItems"
 			/>
 		</template>
-		<template #item.tools="{ item }">
+		<template #[`item.tools`]="{ item }">
 			<RecipeChip
 				small
 				:items="item.tools"
@@ -49,7 +49,7 @@
 				@item-selected="filterItems"
 			/>
 		</template>
-		<template #item.userId="{ item }">
+		<template #[`item.userId`]="{ item }">
 			<v-list-item class="justify-start">
 				<UserAvatar
 					:user-id="item.userId!"
@@ -63,7 +63,7 @@
 				</div>
 			</v-list-item>
 		</template>
-		<template #item.dateAdded="{ item }">
+		<template #[`item.dateAdded`]="{ item }">
 			{{ formatDate(item.dateAdded!) }}
 		</template>
 	</v-data-table>
@@ -125,6 +125,7 @@ export default defineNuxtComponent({
 			},
 		},
 	},
+	emits: ["click"],
 	setup(props, context) {
 		const i18n = useI18n();
 		const $auth = useMealieAuth();

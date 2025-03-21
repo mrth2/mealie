@@ -184,6 +184,7 @@ export default defineNuxtComponent({
 			default: false,
 		},
 	},
+	emits: ["update:modelValue", "submit"],
 	setup(props, context) {
 		const i18n = useI18n();
 		const { $globals } = useNuxtApp();

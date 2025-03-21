@@ -1,9 +1,7 @@
 import { createI18n } from "vue-i18n";
-import { createApp } from "vue";
-
-const app = createApp({});
 
 function loadEnLocales() {
+	// eslint-disable-next-line @typescript-eslint/no-require-imports
 	return require("../lang/messages/en-US.json") as Record<string, string>;
 }
 

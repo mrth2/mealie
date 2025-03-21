@@ -62,6 +62,7 @@ export default defineNuxtComponent({
 			default: true,
 		},
 	},
+	emits: ["update:modelValue"],
 	setup(props, context) {
 		const { labels } = useNutritionLabels();
 		const valueNotNull = computed(() => {
