@@ -1,30 +1,40 @@
 <template>
-  <div ref="el" :class="isOverDropZone ? 'over' : ''">
-    <div v-if="isOverDropZone" class="overlay"></div>
-    <div v-if="isOverDropZone" class="absolute text-container">
-      <p class="text-center drop-text"> {{ $t("recipe.drop-image") }} </p>
-    </div>
-    <slot></slot>
-  </div>
+	<div
+		ref="el"
+		:class="isOverDropZone ? 'over' : ''"
+	>
+		<div
+			v-if="isOverDropZone"
+			class="overlay"
+		/>
+		<div
+			v-if="isOverDropZone"
+			class="absolute text-container"
+		>
+			<p class="text-center drop-text">
+				{{ $t("recipe.drop-image") }}
+			</p>
+		</div>
+		<slot />
+	</div>
 </template>
 
 <script lang="ts">
-
 import { useDropZone } from "@vueuse/core";
 
 export default defineNuxtComponent({
-  setup(_, context) {
-    const el = ref<HTMLDivElement>();
+	setup(_, context) {
+		const el = ref<HTMLDivElement>();
 
-    function onDrop(files: File[]) {
-      context.emit("drop", files);
-    }
+		function onDrop(files: File[]) {
+			context.emit("drop", files);
+		}
 
-    // @ts-ignore - This should work?
-    const { isOverDropZone } = useDropZone(el, onDrop);
+		// @ts-ignore - This should work?
+		const { isOverDropZone } = useDropZone(el, onDrop);
 
-    return { el, isOverDropZone };
-  },
+		return { el, isOverDropZone };
+	},
 });
 </script>
 

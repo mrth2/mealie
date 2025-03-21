@@ -1,4 +1,3 @@
-
 import { useReadOnlyStore } from "../partials/use-store-factory";
 import { useRequests } from "../api/api-client";
 import type { UserSummary } from "~/lib/api/types/user";
@@ -8,13 +7,13 @@ const store: Ref<UserSummary[]> = ref([]);
 const loading = ref(false);
 
 class GroupUserAPIReadOnly extends BaseCRUDAPIReadOnly<UserSummary> {
-  baseRoute = "/api/groups/members";
-  itemRoute = (idOrUsername: string | number) => `/groups/members/${idOrUsername}`;
+	baseRoute = "/api/groups/members";
+	itemRoute = (idOrUsername: string | number) => `/groups/members/${idOrUsername}`;
 }
 
 export const useUserStore = function () {
-  const requests = useRequests();
-  const api = new GroupUserAPIReadOnly(requests);
+	const requests = useRequests();
+	const api = new GroupUserAPIReadOnly(requests);
 
-  return useReadOnlyStore<UserSummary>(store, loading, api, { orderBy: "full_name" });
-}
+	return useReadOnlyStore<UserSummary>(store, loading, api, { orderBy: "full_name" });
+};

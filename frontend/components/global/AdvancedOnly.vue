@@ -1,5 +1,5 @@
 <template>
-  <div scoped-slot></div>
+	<div scoped-slot />
 </template>
 
 <script lang="ts">
@@ -8,14 +8,14 @@
  * and has advanced options toggled.
  */
 export default defineNuxtComponent({
-  setup(_, ctx) {
-    const $auth = useMealieAuth();
+	setup(_, ctx) {
+		const $auth = useMealieAuth();
 
-    const r = $auth.user.value?.advanced || false;
+		const r = $auth.user.value?.advanced || false;
 
-    return () => {
-      return r ? ctx.slots.default?.() : null;
-    };
-  },
+		return () => {
+			return r ? ctx.slots.default?.() : null;
+		};
+	},
 });
 </script>

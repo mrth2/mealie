@@ -1,23 +1,23 @@
 <template>
-  <v-app dark>
-    <TheSnackbar />
+	<v-app dark>
+		<TheSnackbar />
 
-    <AppHeader :menu="false"> </AppHeader>
-    <v-main>
-      <v-scroll-x-transition>
-        <div>
-          <NuxtPage />
-        </div>
-      </v-scroll-x-transition>
-    </v-main>
-  </v-app>
+		<AppHeader :menu="false" />
+		<v-main>
+			<v-scroll-x-transition>
+				<div>
+					<NuxtPage />
+				</div>
+			</v-scroll-x-transition>
+		</v-main>
+	</v-app>
 </template>
-
 
 <script lang="ts">
 import TheSnackbar from "~/components/Layout/LayoutParts/TheSnackbar.vue";
 import AppHeader from "@/components/Layout/LayoutParts/AppHeader.vue";
+
 export default defineNuxtComponent({
-  components: { TheSnackbar, AppHeader },
+	components: { TheSnackbar, AppHeader },
 });
 </script>

@@ -1,7 +1,11 @@
 <template>
-<div class="print-container">
-  <RecipePrintView :recipe="recipe" :scale="scale" :density="'compact'" />
-</div>
+	<div class="print-container">
+		<RecipePrintView
+			:recipe="recipe"
+			:scale="scale"
+			:density="'compact'"
+		/>
+	</div>
 </template>
 
 <script lang="ts">
@@ -9,19 +13,19 @@ import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import type { Recipe } from "~/lib/api/types/recipe";
 
 export default defineNuxtComponent({
-  components: {
-    RecipePrintView,
-  },
-  props: {
-    recipe: {
-      type: Object as () => Recipe,
-      required: true,
-    },
-    scale: {
-      type: Number,
-      default: 1,
-    },
-  },
+	components: {
+		RecipePrintView,
+	},
+	props: {
+		recipe: {
+			type: Object as () => Recipe,
+			required: true,
+		},
+		scale: {
+			type: Number,
+			default: 1,
+		},
+	},
 });
 </script>
 

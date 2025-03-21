@@ -1,4 +1,3 @@
-
 import { useAdminApi, useUserApi } from "~/composables/api";
 import type { HouseholdCreate, HouseholdInDB } from "~/lib/api/types/household";
 
@@ -6,114 +5,116 @@ const householdSelfRef = ref<HouseholdInDB | null>(null);
 const loading = ref(false);
 
 export const useHouseholdSelf = function () {
-  const api = useUserApi();
+	const api = useUserApi();
 
-  async function refreshHouseholdSelf() {
-    loading.value = true;
-    const { data } = await api.households.getCurrentUserHousehold();
-    householdSelfRef.value = data;
-    loading.value = false;
-  }
+	async function refreshHouseholdSelf() {
+		loading.value = true;
+		const { data } = await api.households.getCurrentUserHousehold();
+		householdSelfRef.value = data;
+		loading.value = false;
+	}
 
-  const actions = {
-    get() {
-      if (!(householdSelfRef.value || loading.value)) {
-        refreshHouseholdSelf();
-      }
+	const actions = {
+		get() {
+			if (!(householdSelfRef.value || loading.value)) {
+				refreshHouseholdSelf();
+			}
 
-      return householdSelfRef;
-    },
-    async updatePreferences() {
-      if (!householdSelfRef.value) {
-        await refreshHouseholdSelf();
-      }
-      if (!householdSelfRef.value?.preferences) {
-        return;
-      }
+			return householdSelfRef;
+		},
+		async updatePreferences() {
+			if (!householdSelfRef.value) {
+				await refreshHouseholdSelf();
+			}
+			if (!householdSelfRef.value?.preferences) {
+				return;
+			}
 
-      const { data } = await api.households.setPreferences(householdSelfRef.value.preferences);
+			const { data } = await api.households.setPreferences(householdSelfRef.value.preferences);
 
-      if (data) {
-        householdSelfRef.value.preferences = data;
-      }
+			if (data) {
+				householdSelfRef.value.preferences = data;
+			}
 
-      return data || undefined;
-    },
-  };
+			return data || undefined;
+		},
+	};
 
-  const household = actions.get();
+	const household = actions.get();
 
-  return { actions, household };
+	return { actions, household };
 };
 
 export const useAdminHouseholds = function () {
-  const api = useAdminApi();
-  const loading = ref(false);
+	const api = useAdminApi();
+	const loading = ref(false);
 
-  function getAllHouseholds() {
-    loading.value = true;
-    const asyncKey = String(Date.now());
-    const { data: households } = useAsyncData(asyncKey, async () => {
-      const { data } = await api.households.getAll(1, -1, { orderBy: "name, group.name", orderDirection: "asc" });
+	function getAllHouseholds() {
+		loading.value = true;
+		const asyncKey = String(Date.now());
+		const { data: households } = useAsyncData(asyncKey, async () => {
+			const { data } = await api.households.getAll(1, -1, { orderBy: "name, group.name", orderDirection: "asc" });
 
-      if (data) {
-        return data.items;
-      } else {
-        return null;
-      }
-    });
+			if (data) {
+				return data.items;
+			}
+			else {
+				return null;
+			}
+		});
 
-    loading.value = false;
-    return households;
-  }
+		loading.value = false;
+		return households;
+	}
 
-  async function refreshAllHouseholds() {
-    loading.value = true;
-    const { data } = await api.households.getAll(1, -1, { orderBy: "name, group.name", orderDirection: "asc" });;
+	async function refreshAllHouseholds() {
+		loading.value = true;
+		const { data } = await api.households.getAll(1, -1, { orderBy: "name, group.name", orderDirection: "asc" }); ;
 
-    if (data) {
-      households.value = data.items;
-    } else {
-      households.value = null;
-    }
+		if (data) {
+			households.value = data.items;
+		}
+		else {
+			households.value = null;
+		}
 
-    loading.value = false;
-  }
+		loading.value = false;
+	}
 
-  async function deleteHousehold(id: string | number) {
-    loading.value = true;
-    const { data } = await api.households.deleteOne(id);
-    loading.value = false;
-    refreshAllHouseholds();
-    return data;
-  }
+	async function deleteHousehold(id: string | number) {
+		loading.value = true;
+		const { data } = await api.households.deleteOne(id);
+		loading.value = false;
+		refreshAllHouseholds();
+		return data;
+	}
 
-  async function createHousehold(payload: HouseholdCreate) {
-    loading.value = true;
-    const { data } = await api.households.createOne(payload);
+	async function createHousehold(payload: HouseholdCreate) {
+		loading.value = true;
+		const { data } = await api.households.createOne(payload);
 
-    if (data && households.value) {
-      households.value.push(data);
-    }
-  }
+		if (data && households.value) {
+			households.value.push(data);
+		}
+	}
 
-  const households = getAllHouseholds();
-  function useHouseholdsInGroup(groupIdRef: Ref<string>) {
-    return computed(
-      () => {
-        return (households.value && groupIdRef.value)
-          ? households.value.filter((h) => h.groupId === groupIdRef.value)
-          : [];
-      },
-    );
-  }
+	const households = getAllHouseholds();
+	function useHouseholdsInGroup(groupIdRef: Ref<string>) {
+		return computed(
+			() => {
+				return (households.value && groupIdRef.value)
+					? households.value.filter(h => h.groupId === groupIdRef.value)
+					: [];
+			},
+		);
+	}
 
-  return {
-    households,
-    useHouseholdsInGroup,
-    getAllHouseholds,
-    refreshAllHouseholds,
-    deleteHousehold,
-    createHousehold,
-  };
+	return {
+		households,
+		useHouseholdsInGroup,
+		getAllHouseholds,
+		refreshAllHouseholds,
+		deleteHousehold,
+		createHousehold,
+	};
 };

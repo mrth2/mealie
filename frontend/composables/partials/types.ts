@@ -1,3 +1,3 @@
 export type BoundT = {
-  id?: string | number | null;
+	id?: string | number | null;
 };

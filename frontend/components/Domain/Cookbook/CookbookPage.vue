@@ -1,34 +1,73 @@
 <template>
-  <div>
-    <!-- Edit Dialog -->
-    <BaseDialog v-if="editTarget" v-model="dialogStates.edit" width="100%" max-width="1100px"
-      :icon="$globals.icons.pages" :title="$t('general.edit')" :submit-icon="$globals.icons.save"
-      :submit-text="$t('general.save')" :submit-disabled="!editTarget.queryFilterString" can-submit @submit="editCookbook">
-      <v-card-text>
-        <CookbookEditor v-model="editTarget" :actions="actions" />
-      </v-card-text>
-    </BaseDialog>
+	<div>
+		<!-- Edit Dialog -->
+		<BaseDialog
+			v-if="editTarget"
+			v-model="dialogStates.edit"
+			width="100%"
+			max-width="1100px"
+			:icon="$globals.icons.pages"
+			:title="$t('general.edit')"
+			:submit-icon="$globals.icons.save"
+			:submit-text="$t('general.save')"
+			:submit-disabled="!editTarget.queryFilterString"
+			can-submit
+			@submit="editCookbook"
+		>
+			<v-card-text>
+				<CookbookEditor
+					v-model="editTarget"
+					:actions="actions"
+				/>
+			</v-card-text>
+		</BaseDialog>
 
-    <!-- Page -->
-    <v-container v-if="book" fluid>
-      <v-app-bar color="transparent" flat class="mt-n1 position-relative left-0 top-0 w-100">
-        <v-icon size="large" start> {{ $globals.icons.pages }} </v-icon>
-        <v-toolbar-title class="headline"> {{ book.name }} </v-toolbar-title>
-        <v-spacer></v-spacer>
-        <BaseButton v-if="canEdit" class="mx-1" :edit="true" @click="handleEditCookbook" />
-      </v-app-bar>
-      <v-card flat>
-        <v-card-text class="py-0">
-          {{ book.description }}
-        </v-card-text>
-      </v-card>
+		<!-- Page -->
+		<v-container
+			v-if="book"
+			fluid
+		>
+			<v-app-bar
+				color="transparent"
+				flat
+				class="mt-n1 position-relative left-0 top-0 w-100"
+			>
+				<v-icon
+					size="large"
+					start
+				>
+					{{ $globals.icons.pages }}
+				</v-icon>
+				<v-toolbar-title class="headline">
+					{{ book.name }}
+				</v-toolbar-title>
+				<v-spacer />
+				<BaseButton
+					v-if="canEdit"
+					class="mx-1"
+					:edit="true"
+					@click="handleEditCookbook"
+				/>
+			</v-app-bar>
+			<v-card flat>
+				<v-card-text class="py-0">
+					{{ book.description }}
+				</v-card-text>
+			</v-card>
 
-      <v-container class="pa-0">
-        <RecipeCardSection class="mb-5 mx-1" :recipes="recipes" :query="{ cookbook: slug }" @sortRecipes="assignSorted"
-          @replaceRecipes="replaceRecipes" @appendRecipes="appendRecipes" @delete="removeRecipe" />
-      </v-container>
-    </v-container>
-  </div>
+			<v-container class="pa-0">
+				<RecipeCardSection
+					class="mb-5 mx-1"
+					:recipes="recipes"
+					:query="{ cookbook: slug }"
+					@sort-recipes="assignSorted"
+					@replace-recipes="replaceRecipes"
+					@append-recipes="appendRecipes"
+					@delete="removeRecipe"
+				/>
+			</v-container>
+		</v-container>
+	</div>
 </template>
 
 <script lang="ts">
@@ -40,79 +79,80 @@ import type { RecipeCookBook } from "~/lib/api/types/cookbook";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
 
 export default defineNuxtComponent({
-  components: { RecipeCardSection, CookbookEditor },
-  setup() {
-    const $auth = useMealieAuth();
-    const { isOwnGroup } = useLoggedInState();
+	components: { RecipeCardSection, CookbookEditor },
+	setup() {
+		const $auth = useMealieAuth();
+		const { isOwnGroup } = useLoggedInState();
 
-    const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+		const route = useRoute();
+		const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
-    const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
-    const slug = route.params.slug as string;
-    const { getOne } = useCookbook(isOwnGroup.value ? null : groupSlug.value);
-    const { actions } = useCookbooks();
-    const router = useRouter();
+		const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
+		const slug = route.params.slug as string;
+		const { getOne } = useCookbook(isOwnGroup.value ? null : groupSlug.value);
+		const { actions } = useCookbooks();
+		const router = useRouter();
 
-    const tab = ref(null);
-    const book = getOne(slug);
+		const tab = ref(null);
+		const book = getOne(slug);
 
-    const isOwnHousehold = computed(() => {
-      if (!($auth.user.value && book.value?.householdId)) {
-        return false;
-      }
+		const isOwnHousehold = computed(() => {
+			if (!($auth.user.value && book.value?.householdId)) {
+				return false;
+			}
 
-      return $auth.user.value.householdId === book.value.householdId;
-    })
-    const canEdit = computed(() => isOwnGroup.value && isOwnHousehold.value);
+			return $auth.user.value.householdId === book.value.householdId;
+		});
+		const canEdit = computed(() => isOwnGroup.value && isOwnHousehold.value);
 
-    const dialogStates = reactive({
-      edit: false,
-    });
+		const dialogStates = reactive({
+			edit: false,
+		});
 
-    const editTarget = ref<RecipeCookBook | null>(null);
-    function handleEditCookbook() {
-      dialogStates.edit = true;
-      editTarget.value = book.value;
-    }
+		const editTarget = ref<RecipeCookBook | null>(null);
+		function handleEditCookbook() {
+			dialogStates.edit = true;
+			editTarget.value = book.value;
+		}
 
-    async function editCookbook() {
-      if (!editTarget.value) {
-        return;
-      }
-      const response = await actions.updateOne(editTarget.value);
+		async function editCookbook() {
+			if (!editTarget.value) {
+				return;
+			}
+			const response = await actions.updateOne(editTarget.value);
 
-      if (response?.slug && book.value?.slug !== response?.slug) {
-        // if name changed, redirect to new slug
-        router.push(`/g/${route.params.groupSlug}/cookbooks/${response?.slug}`);
-      } else {
-        // otherwise reload the page, since the recipe criteria changed
-        router.go(0);
-      }
-      dialogStates.edit = false;
-      editTarget.value = null;
-    }
+			if (response?.slug && book.value?.slug !== response?.slug) {
+				// if name changed, redirect to new slug
+				router.push(`/g/${route.params.groupSlug}/cookbooks/${response?.slug}`);
+			}
+			else {
+				// otherwise reload the page, since the recipe criteria changed
+				router.go(0);
+			}
+			dialogStates.edit = false;
+			editTarget.value = null;
+		}
 
-    useSeoMeta({
-      title: book?.value?.name || "Cookbook",
-    });
+		useSeoMeta({
+			title: book?.value?.name || "Cookbook",
+		});
 
-    return {
-      book,
-      slug,
-      tab,
-      appendRecipes,
-      assignSorted,
-      recipes,
-      removeRecipe,
-      replaceRecipes,
-      canEdit,
-      dialogStates,
-      editTarget,
-      handleEditCookbook,
-      editCookbook,
-      actions,
-    };
-  },
+		return {
+			book,
+			slug,
+			tab,
+			appendRecipes,
+			assignSorted,
+			recipes,
+			removeRecipe,
+			replaceRecipes,
+			canEdit,
+			dialogStates,
+			editTarget,
+			handleEditCookbook,
+			editCookbook,
+			actions,
+		};
+	},
 });
 </script>
