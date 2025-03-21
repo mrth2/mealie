@@ -86,6 +86,7 @@ export default defineNuxtComponent({
       default: "category",
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     const i18n = useI18n();
 

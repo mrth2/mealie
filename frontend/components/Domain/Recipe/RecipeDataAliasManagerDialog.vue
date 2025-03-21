@@ -1,43 +1,28 @@
 <template>
   <div>
-    <BaseDialog v-model="dialog"
-                :title="$t('data-pages.manage-aliases')"
-                :icon="$globals.icons.edit"
-                :submit-icon="$globals.icons.check"
-                :submit-text="$t('general.confirm')"
-                can-submit
-                @submit="saveAliases"
-                @cancel="$emit('cancel')"
-    >
+    <BaseDialog v-model="dialog" :title="$t('data-pages.manage-aliases')" :icon="$globals.icons.edit"
+      :submit-icon="$globals.icons.check" :submit-text="$t('general.confirm')" can-submit @submit="saveAliases"
+      @cancel="$emit('cancel')">
       <v-card-text>
         <v-container>
-          <v-row v-for="alias, i in aliases"
-                 :key="i"
-          >
+          <v-row v-for="alias, i in aliases" :key="i">
             <v-col cols="10">
-              <v-text-field v-model="alias.name"
-                            :label="$t('general.name')"
-                            :rules="[validators.required]"
-              />
+              <v-text-field v-model="alias.name" :label="$t('general.name')" :rules="[validators.required]" />
             </v-col>
             <v-col cols="2">
               <BaseButtonGroup :buttons="[
-                                 {
-                                   icon: $globals.icons.delete,
-                                   text: $t('general.delete'),
-                                   event: 'delete',
-                                 },
-                               ]"
-                               @delete="deleteAlias(i)"
-              />
+                {
+                  icon: $globals.icons.delete,
+                  text: $t('general.delete'),
+                  event: 'delete',
+                },
+              ]" @delete="deleteAlias(i)" />
             </v-col>
           </v-row>
         </v-container>
       </v-card-text>
       <template #custom-card-action>
-        <BaseButton edit
-                    @click="createAlias"
-        >
+        <BaseButton edit @click="createAlias">
           {{ $t('data-pages.create-alias') }}
           <template #icon>
             {{ $globals.icons.create }}
@@ -68,7 +53,7 @@ export default defineNuxtComponent({
       required: true,
     },
   },
-  emits: ["submit", "update:modelValue"],
+  emits: ["submit", "update:modelValue", "cancel"],
   setup(props, context) {
     // V-Model Support
     const dialog = computed({

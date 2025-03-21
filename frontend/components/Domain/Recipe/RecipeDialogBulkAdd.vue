@@ -98,6 +98,7 @@ export default defineNuxtComponent({
       default: "",
     },
   },
+  emits: ["bulk-data"],
   setup(props, context) {
     const state = reactive({
       dialog: false,

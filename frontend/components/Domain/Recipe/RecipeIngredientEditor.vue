@@ -192,7 +192,7 @@ export default defineNuxtComponent({
       default: false,
     },
   },
-  emits: ["clickIngredientField"],
+  emits: ["clickIngredientField", "insert-above", "insert-below", "insert-ingredient", "delete"],
   setup(props, { attrs: listeners }) {
     const { mdAndUp } = useDisplay();
     const i18n = useI18n();

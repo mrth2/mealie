@@ -65,6 +65,7 @@ export default defineNuxtComponent({
       default: "fill-height",
     },
   },
+  emits: ["click"],
   setup(props) {
     const api = useUserApi();
 

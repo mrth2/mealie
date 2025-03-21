@@ -56,6 +56,7 @@ export default defineNuxtComponent({
       default: false,
     },
   },
+  emits: ["save", "delete"],
   setup(props) {
     const { $vuetify } = useNuxtApp();
     const { recipeImage } = useStaticRoutes();

@@ -137,6 +137,7 @@ export default defineNuxtComponent({
       default: true,
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     const api = useUserApi();
 

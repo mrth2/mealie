@@ -174,6 +174,7 @@ export default defineNuxtComponent({
       default: "fill-height",
     },
   },
+  emits: ["selected", "delete"],
   setup(props) {
     const $auth = useMealieAuth();
     const { isOwnGroup } = useLoggedInState();

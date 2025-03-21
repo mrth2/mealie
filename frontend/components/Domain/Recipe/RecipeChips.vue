@@ -58,6 +58,7 @@ export default defineNuxtComponent({
       default: null,
     },
   },
+  emits: ["item-selected"],
   setup(props) {
     const $auth = useMealieAuth();
 

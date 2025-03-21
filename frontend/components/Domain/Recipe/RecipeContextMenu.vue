@@ -1,110 +1,50 @@
 <template>
   <div class="text-center">
     <!-- Recipe Share Dialog -->
-    <RecipeDialogShare v-model="shareDialog"
-                       :recipe-id="recipeId"
-                       :name="name"
-    />
-    <RecipeDialogPrintPreferences v-model="printPreferencesDialog"
-                                  :recipe="recipeRef"
-    />
-    <BaseDialog v-model="recipeDeleteDialog"
-                :title="$t('recipe.delete-recipe')"
-                color="error"
-                :icon="$globals.icons.alertCircle"
-                can-confirm
-                @confirm="deleteRecipe()"
-    >
+    <RecipeDialogShare v-model="shareDialog" :recipe-id="recipeId" :name="name" />
+    <RecipeDialogPrintPreferences v-model="printPreferencesDialog" :recipe="recipeRef" />
+    <BaseDialog v-model="recipeDeleteDialog" :title="$t('recipe.delete-recipe')" color="error"
+      :icon="$globals.icons.alertCircle" can-confirm @confirm="deleteRecipe()">
       <v-card-text>
         {{ $t("recipe.delete-confirmation") }}
       </v-card-text>
     </BaseDialog>
-    <BaseDialog v-model="recipeDuplicateDialog"
-                :title="$t('recipe.duplicate')"
-                color="primary"
-                :icon="$globals.icons.duplicate"
-                can-confirm
-                @confirm="duplicateRecipe()"
-    >
+    <BaseDialog v-model="recipeDuplicateDialog" :title="$t('recipe.duplicate')" color="primary"
+      :icon="$globals.icons.duplicate" can-confirm @confirm="duplicateRecipe()">
       <v-card-text>
-        <v-text-field v-model="recipeName"
-                      density="compact"
-                      :label="$t('recipe.recipe-name')"
-                      autofocus
-                      @keyup.enter="duplicateRecipe()"
-        />
+        <v-text-field v-model="recipeName" density="compact" :label="$t('recipe.recipe-name')" autofocus
+          @keyup.enter="duplicateRecipe()" />
       </v-card-text>
     </BaseDialog>
-    <BaseDialog v-model="mealplannerDialog"
-                :title="$t('recipe.add-recipe-to-mealplan')"
-                color="primary"
-                :icon="$globals.icons.calendar"
-                can-confirm
-                @confirm="addRecipeToPlan()"
-    >
+    <BaseDialog v-model="mealplannerDialog" :title="$t('recipe.add-recipe-to-mealplan')" color="primary"
+      :icon="$globals.icons.calendar" can-confirm @confirm="addRecipeToPlan()">
       <v-card-text>
-        <v-menu v-model="pickerMenu"
-                :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
-                max-width="290px"
-                min-width="auto"
-        >
+        <v-menu v-model="pickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y
+          max-width="290px" min-width="auto">
           <template #activator="{ props }">
-            <v-text-field v-model="newMealdate"
-                          :label="$t('general.date')"
-                          :prepend-icon="$globals.icons.calendar"
-                          v-bind="props"
-                          readonly
-            />
+            <v-text-field v-model="newMealdate" :label="$t('general.date')" :prepend-icon="$globals.icons.calendar"
+              v-bind="props" readonly />
           </template>
-          <v-date-picker v-model="newMealdate"
-                         no-title
-                         :first-day-of-week="firstDayOfWeek"
-                         :local="$i18n.locale"
-                         @input="pickerMenu = false"
-          />
+          <v-date-picker v-model="newMealdate" no-title :first-day-of-week="firstDayOfWeek" :local="$i18n.locale"
+            @input="pickerMenu = false" />
         </v-menu>
-        <v-select v-model="newMealType"
-                  :return-object="false"
-                  :items="planTypeOptions"
-                  :label="$t('recipe.entry-type')"
-        />
+        <v-select v-model="newMealType" :return-object="false" :items="planTypeOptions"
+          :label="$t('recipe.entry-type')" />
       </v-card-text>
     </BaseDialog>
-    <RecipeDialogAddToShoppingList v-if="shoppingLists && recipeRefWithScale"
-                                   v-model="shoppingListDialog"
-                                   :recipes="[recipeRefWithScale]"
-                                   :shopping-lists="shoppingLists"
-    />
-    <v-menu offset-y
-            start
-            :bottom="!menuTop"
-            :nudge-bottom="!menuTop ? '5' : '0'"
-            :top="menuTop"
-            :nudge-top="menuTop ? '5' : '0'"
-            allow-overflow
-            close-delay="125"
-            :open-on-hover="$vuetify.display.mdAndUp"
-            content-class="d-print-none"
-    >
+    <RecipeDialogAddToShoppingList v-if="shoppingLists && recipeRefWithScale" v-model="shoppingListDialog"
+      :recipes="[recipeRefWithScale]" :shopping-lists="shoppingLists" />
+    <v-menu offset-y start :bottom="!menuTop" :nudge-bottom="!menuTop ? '5' : '0'" :top="menuTop"
+      :nudge-top="menuTop ? '5' : '0'" allow-overflow close-delay="125" :open-on-hover="$vuetify.display.mdAndUp"
+      content-class="d-print-none">
       <template #activator="{ props }">
-        <v-btn :class="{ 'rounded-circle': fab }"
-               :small="fab"
-               :color="color"
-               :icon="!fab"
-               dark
-               v-bind="props"
-               @click.prevent
-        >
+        <v-btn :class="{ 'rounded-circle': fab }" :small="fab" :color="color" :icon="!fab" dark v-bind="props"
+          @click.prevent>
           <v-icon>{{ icon }}</v-icon>
         </v-btn>
       </template>
       <v-list density="compact">
-        <v-list-item v-for="(item, index) in menuItems"
-                     :key="index"
-                     @click="contextMenuEventHandler(item.event)"
-        >
+        <v-list-item v-for="(item, index) in menuItems" :key="index" @click="contextMenuEventHandler(item.event)">
           <template #prepend>
             <v-icon :color="item.color">
               {{ item.icon }}
@@ -120,14 +60,9 @@
                 {{ $t("recipe.recipe-actions") }}
               </v-list-item-title>
             </template>
-            <v-list density="compact"
-                    class="ma-0 pa-0"
-            >
-              <v-list-item v-for="(action, index) in recipeActions"
-                           :key="index"
-                           class="pl-6"
-                           @click="executeRecipeAction(action)"
-              >
+            <v-list density="compact" class="ma-0 pa-0">
+              <v-list-item v-for="(action, index) in recipeActions" :key="index" class="pl-6"
+                @click="executeRecipeAction(action)">
                 <v-list-item-title>
                   {{ action.title }}
                 </v-list-item-title>
@@ -244,6 +179,7 @@ export default defineNuxtComponent({
       default: 1,
     },
   },
+  emits: ["delete"],
   setup(props, context) {
     const api = useUserApi();
 

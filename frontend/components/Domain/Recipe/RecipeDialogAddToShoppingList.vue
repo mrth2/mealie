@@ -221,6 +221,7 @@ export default defineNuxtComponent({
       default: () => [],
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     const i18n = useI18n();
     const $auth = useMealieAuth();

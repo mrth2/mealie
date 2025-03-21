@@ -148,6 +148,7 @@ export default defineNuxtComponent({
       default: 200,
     },
   },
+  emits: ["click", "delete"],
   setup(props) {
     const $auth = useMealieAuth();
     const { isOwnGroup } = useLoggedInState();

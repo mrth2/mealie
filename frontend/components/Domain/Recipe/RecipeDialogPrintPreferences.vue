@@ -103,6 +103,7 @@ export default defineNuxtComponent({
       default: undefined,
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     const preferences = useUserPrintPreferences();
 

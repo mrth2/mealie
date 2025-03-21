@@ -17,5 +17,8 @@ export default withNuxt({
     "@stylistic/js/no-tabs": ["error", { allowIndentationTabs: true }],
     "@stylistic/no-tabs": ["error", { allowIndentationTabs: true }],
     "@stylistic/no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
+    "vue/max-attributes-per-line": "off",
+    "vue/html-indent": "off",
+    "vue/html-closing-bracket-newline": "off",
   },
 });

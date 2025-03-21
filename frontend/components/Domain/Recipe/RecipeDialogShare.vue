@@ -110,6 +110,7 @@ export default defineNuxtComponent({
       required: true,
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     // V-Model Support
     const dialog = computed({
