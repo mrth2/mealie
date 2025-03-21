@@ -65,7 +65,7 @@
 
 			<v-data-table
 				v-if="headers && households"
-				:headers="headers"
+				:headers="headers as any"
 				:items="households"
 				item-key="id"
 				class="elevation-0"
@@ -74,16 +74,16 @@
 				:search="search"
 				@click:row="($event, { item }) => handleRowClick(item)"
 			>
-				<template #item.users="{ item }">
+				<template #[`item.users`]="{ item }">
 					{{ item.users?.length }}
 				</template>
-				<template #item.group="{ item }">
+				<template #[`item.group`]="{ item }">
 					{{ item.group }}
 				</template>
-				<template #item.webhookEnable="{ item }">
+				<template #[`item.webhookEnable`]="{ item }">
 					{{ item.webhooks!.length > 0 ? $t("general.yes") : $t("general.no") }}
 				</template>
-				<template #item.actions="{ item }">
+				<template #[`item.actions`]="{ item }">
 					<v-tooltip
 						bottom
 						:disabled="!(item && item.users!.length > 0)"
@@ -121,6 +121,7 @@ import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
 import { validators } from "~/composables/use-validators";
 import type { HouseholdInDB } from "~/lib/api/types/household";
+import type { VForm } from "~/types/auto-forms";
 
 export default defineNuxtComponent({
 	setup() {

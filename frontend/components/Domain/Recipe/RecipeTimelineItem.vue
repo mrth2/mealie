@@ -236,6 +236,6 @@ export default defineNuxtComponent({
 
 <style>
 .v-card::after {
-  display: none;
+	display: none;
 }
 </style>

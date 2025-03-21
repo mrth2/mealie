@@ -190,10 +190,10 @@ export default defineNuxtComponent({
 
 <style lang="css">
 .left-color-border {
-  border-left: 5px solid var(--v-primary-base) !important;
+	border-left: 5px solid var(--v-primary-base) !important;
 }
 
 .bottom-color-border {
-  border-bottom: 2px solid var(--v-primary-base) !important;
+	border-bottom: 2px solid var(--v-primary-base) !important;
 }
 </style>

@@ -687,23 +687,23 @@ export default defineNuxtComponent({
 
 <style lang="css">
 .search-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-  margin-top: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.65rem;
+	margin-top: 1rem;
 }
 
 .search-container {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 .search-box {
-  width: 950px;
+	width: 950px;
 }
 
 .search-button-container {
-  margin: 3rem auto 0 auto;
-  max-width: 500px;
+	margin: 3rem auto 0 auto;
+	max-width: 500px;
 }
 </style>

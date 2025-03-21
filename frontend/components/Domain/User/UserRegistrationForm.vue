@@ -134,37 +134,37 @@ export default defineNuxtComponent({
 
 <style lang="css" scoped>
 .icon-primary {
-  fill: var(--v-primary-base);
+	fill: var(--v-primary-base);
 }
 
 .icon-white {
-  fill: white;
+	fill: white;
 }
 
 .icon-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  position: relative;
-  margin-top: 2.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	position: relative;
+	margin-top: 2.5rem;
 }
 
 .icon-divider {
-  width: 100%;
-  margin-bottom: -2.5rem;
+	width: 100%;
+	margin-bottom: -2.5rem;
 }
 
 .icon-avatar {
-  border-color: rgba(0, 0, 0, 0.12);
-  border: 2px;
+	border-color: rgba(0, 0, 0, 0.12);
+	border: 2px;
 }
 
 .bg-off-white {
-  background: #f5f8fa;
+	background: #f5f8fa;
 }
 
 .preferred-width {
-  width: 840px;
+	width: 840px;
 }
 </style>

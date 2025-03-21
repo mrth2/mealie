@@ -198,34 +198,35 @@ export default defineNuxtComponent({
 
 <style>
 .v-mobile-img {
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-left: 0;
 }
 .v-card--reveal {
-  align-items: center;
-  bottom: 0;
-  justify-content: center;
-  opacity: 0.8;
-  position: absolute;
-  width: 100%;
+	align-items: center;
+	bottom: 0;
+	justify-content: center;
+	opacity: 0.8;
+	position: absolute;
+	width: 100%;
 }
 .v-card--text-show {
-  opacity: 1 !important;
+	opacity: 1 !important;
 }
 .headerClass {
-  white-space: nowrap;
-  word-break: normal;
-  overflow: hidden;
-  text-overflow: ellipsis;
+	white-space: nowrap;
+	word-break: normal;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .text-top {
-  align-self: start !important;
+	align-self: start !important;
 }
 
-.flat, .theme--dark .flat {
-  box-shadow: none!important;
-  background-color: transparent!important;
+.flat,
+.theme--dark .flat {
+	box-shadow: none !important;
+	background-color: transparent !important;
 }
 </style>

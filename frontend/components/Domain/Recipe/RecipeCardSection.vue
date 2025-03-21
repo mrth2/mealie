@@ -444,6 +444,6 @@ export default defineNuxtComponent({
 
 <style>
 .transparent {
-  opacity: 1;
+	opacity: 1;
 }
 </style>

@@ -7,16 +7,16 @@
 		:items-per-page="50"
 		@click:row="($event, { item }) => handleRowClick(item)"
 	>
-		<template #item.category="{ item }">
+		<template #[`item.category`]="{ item }">
 			{{ capitalize(item.category) }}
 		</template>
-		<template #item.timestamp="{ item }">
+		<template #[`item.timestamp`]="{ item }">
 			{{ $d(Date.parse(item.timestamp!), "long") }}
 		</template>
-		<template #item.status="{ item }">
+		<template #[`item.status`]="{ item }">
 			{{ capitalize(item.status!) }}
 		</template>
-		<template #item.actions="{ item }">
+		<template #[`item.actions`]="{ item }">
 			<v-btn
 				icon
 				@click.stop="deleteReport(item.id)"
@@ -37,6 +37,7 @@ export default defineNuxtComponent({
 			type: Array as () => Array<ReportSummary>,
 		},
 	},
+	emits: ["delete"],
 
 	setup(_, context) {
 		const i18n = useI18n();

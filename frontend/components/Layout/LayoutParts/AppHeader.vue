@@ -152,6 +152,6 @@ export default defineNuxtComponent({
 
 <style scoped>
 .v-toolbar {
-  z-index: 1010 !important;
+	z-index: 1010 !important;
 }
 </style>

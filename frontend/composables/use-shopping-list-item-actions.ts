@@ -1,4 +1,4 @@
-import { useLocalStorage } from "@vueuse/core";
+import { useLocalStorage, useOnline } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
 import type { ShoppingListItemOut, ShoppingListOut } from "~/lib/api/types/household";
 import type { RequestResponse } from "~/lib/api/types/non-generated";
@@ -21,6 +21,7 @@ interface Storage {
 }
 
 export function useShoppingListItemActions(shoppingListId: string) {
+	const isOnline = useOnline();
 	const api = useUserApi();
 	const storage = useLocalStorage(localStorageKey, {} as Storage, { deep: true });
 	const queue = reactive(getQueue());
@@ -153,8 +154,8 @@ export function useShoppingListItemActions(shoppingListId: string) {
 	}
 
 	/**
-   * Processes the queue items and returns whether the processing was successful.
-   */
+	 * Processes the queue items and returns whether the processing was successful.
+	 */
 	async function processQueueItems(
 		action: (items: ShoppingListItemOut[]) => Promise<RequestResponse<any>>,
 		itemQueueType: ItemQueueType,
@@ -176,7 +177,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
 			const itemsToProcess = [...queueItems];
 			await action(itemsToProcess)
 				.then(() => {
-					if (window.$nuxt.isOnline) {
+					if (isOnline.value) {
 						clearQueueItems(itemQueueType, itemsToProcess.map(item => item.id));
 					}
 				});
@@ -211,7 +212,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
 
 		// If we're online, or the queue is empty, the queue is fully processed, so we're up to date
 		// Otherwise, if all three queue processes failed, we've already reset the queue, so we need to reset the date
-		if (window.$nuxt.isOnline || queueEmpty.value || failures === 3) {
+		if (isOnline.value || queueEmpty.value || failures === 3) {
 			queue.lastUpdate = Date.now();
 		}
 	}

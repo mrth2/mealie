@@ -65,9 +65,9 @@ export default defineNuxtComponent({
 
 <style lang="css">
 .preference-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  max-width: 600px;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	max-width: 600px;
 }
 </style>

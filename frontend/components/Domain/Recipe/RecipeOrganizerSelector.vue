@@ -1,12 +1,12 @@
 <template>
 	<v-autocomplete
 		v-model="selected"
+		v-bind="inputAttrs"
+		v-model:search-input="searchInput"
 		:items="storeItem"
 		:label="label"
 		chips
 		deletable-chips
-		v-bind="inputAttrs"
-		v-model:search-input="searchInput"
 		item-title="name"
 		multiple
 		variant="underlined"
@@ -225,7 +225,7 @@ export default defineNuxtComponent({
 
 <style scoped>
 .v-autocomplete {
-  /* This aligns the input with other standard input fields */
-  margin-top: 6px;
+	/* This aligns the input with other standard input fields */
+	margin-top: 6px;
 }
 </style>

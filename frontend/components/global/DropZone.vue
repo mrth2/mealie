@@ -40,33 +40,33 @@ export default defineNuxtComponent({
 
 <style lang="css">
 .over {
-  background-color: #f0f0f0;
+	background-color: #f0f0f0;
 }
 .overlay {
-  position: absolute;
-  filter: blur(2px);
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.309);
+	position: absolute;
+	filter: blur(2px);
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.309);
 }
 
 .text-container {
-  z-index: 10;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	z-index: 10;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .drop-text {
-  color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
+	color: white;
+	font-size: 1.5rem;
+	font-weight: bold;
 }
 </style>

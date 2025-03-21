@@ -139,7 +139,7 @@
 			>
 				<div
 					v-for="(step, index) in modelValue"
-					:key="step.id"
+					:key="step.id!"
 					class="list-group-item"
 				>
 					<v-app-bar
@@ -257,11 +257,11 @@
 											@move-to-bottom="moveTo('bottom', index)"
 											@insert-above="insert(index)"
 											@insert-below="insert(index + 1)"
-											@toggle-section="toggleShowTitle(step.id)"
+											@toggle-section="toggleShowTitle(step.id!)"
 											@link-ingredients="openDialog(index, step.text, step.ingredientReferences)"
 											@preview-step="togglePreviewState(index)"
 											@upload-image="openImageUpload(index)"
-											@delete="modelValue.splice(index, 1)"
+											@delete="instructionList.splice(index, 1)"
 										/>
 									</div>
 								</template>
@@ -290,7 +290,7 @@
 									@click="$emit('click-instruction-field', `${index}.text`)"
 								>
 									<MarkdownEditor
-										v-model="modelValue[index]['text']"
+										v-model="instructionList[index]['text']"
 										v-model:preview="previewStates[index]"
 										class="mb-2"
 										:display-preview="false"
@@ -301,8 +301,8 @@
 									/>
 									<RecipeIngredientHtml
 										v-for="ing in step.ingredientReferences"
-										:key="ing.referenceId"
-										:markup="getIngredientByRefId(ing.referenceId)"
+										:key="ing.referenceId!"
+										:markup="getIngredientByRefId(ing.referenceId!)"
 									/>
 								</v-card-text>
 							</DropZone>
@@ -446,7 +446,7 @@ export default defineNuxtComponent({
 
 			v.forEach((element: RecipeStep) => {
 				if (element.id !== undefined) {
-					showTitleEditor.value[element.id] = hasSectionTitle(element.title);
+					showTitleEditor.value[element.id!] = hasSectionTitle(element.title!);
 				}
 			});
 		});
@@ -457,7 +457,7 @@ export default defineNuxtComponent({
 		onMounted(() => {
 			props.modelValue.forEach((element: RecipeStep) => {
 				if (element.id !== undefined) {
-					showTitleEditor.value[element.id] = hasSectionTitle(element.title);
+					showTitleEditor.value[element.id!] = hasSectionTitle(element.title!);
 				}
 
 				// showCookMode.value = false;
@@ -514,7 +514,7 @@ export default defineNuxtComponent({
 
 		function openDialog(idx: number, text: string, refs?: IngredientReferences[]) {
 			if (!refs) {
-				props.modelValue[idx].ingredientReferences = [];
+				instructionList.value[idx].ingredientReferences = [];
 				refs = props.modelValue[idx].ingredientReferences as IngredientReferences[];
 			}
 
@@ -564,7 +564,7 @@ export default defineNuxtComponent({
 			props.modelValue.forEach((element) => {
 				element.ingredientReferences?.forEach((ref) => {
 					if (ref.referenceId !== undefined) {
-						usedRefs[ref.referenceId] = true;
+						usedRefs[ref.referenceId!] = true;
 					}
 				});
 			});
@@ -603,10 +603,8 @@ export default defineNuxtComponent({
 				return "";
 			}
 
-			const ing = ingredientLookup.value[refId] ?? "";
-			if (ing === "") {
-				return "";
-			}
+			const ing = ingredientLookup.value[refId];
+			if (!ing) return "";
 			return parseIngredientText(ing, props.recipe.settings.disableAmount, props.scale);
 		}
 
@@ -626,8 +624,8 @@ export default defineNuxtComponent({
 				sourceText: props.modelValue[source].text,
 			});
 
-			props.modelValue[target].text += " " + props.modelValue[source].text;
-			props.modelValue.splice(source, 1);
+			instructionList.value[target].text += " " + props.modelValue[source].text;
+			instructionList.value.splice(source, 1);
 		}
 
 		function undoMerge(event: KeyboardEvent) {
@@ -641,8 +639,8 @@ export default defineNuxtComponent({
 					return;
 				}
 
-				props.modelValue[lastMerge.target].text = lastMerge.targetText;
-				props.modelValue.splice(lastMerge.source, 0, {
+				instructionList.value[lastMerge.target].text = lastMerge.targetText;
+				instructionList.value.splice(lastMerge.source, 0, {
 					id: uuid4(),
 					title: "",
 					text: lastMerge.sourceText,
@@ -653,15 +651,15 @@ export default defineNuxtComponent({
 
 		function moveTo(dest: string, source: number) {
 			if (dest === "top") {
-				props.modelValue.unshift(props.modelValue.splice(source, 1)[0]);
+				instructionList.value.unshift(instructionList.value.splice(source, 1)[0]);
 			}
 			else {
-				props.modelValue.push(props.modelValue.splice(source, 1)[0]);
+				instructionList.value.push(instructionList.value.splice(source, 1)[0]);
 			}
 		}
 
 		function insert(dest: number) {
-			props.modelValue.splice(dest, 0, { id: uuid4(), text: "", title: "", ingredientReferences: [] });
+			instructionList.value.splice(dest, 0, { id: uuid4(), text: "", title: "", ingredientReferences: [] });
 		}
 
 		const previewStates = ref<boolean[]>([]);
@@ -675,8 +673,8 @@ export default defineNuxtComponent({
 		function toggleCollapseSection(index: number) {
 			const sectionSteps: number[] = [];
 
-			for (let i = index; i < props.modelValue.length; i++) {
-				if (!(i === index) && hasSectionTitle(props.modelValue[i].title)) {
+			for (let i = index; i < instructionList.value.length; i++) {
+				if (!(i === index) && hasSectionTitle(instructionList.value[i].title!)) {
 					break;
 				}
 				else {
@@ -745,7 +743,7 @@ export default defineNuxtComponent({
 			context.emit("update:assets", [...props.assets, data]);
 			const assetUrl = BASE_URL + recipeAssetPath(props.recipe.id, data.fileName as string);
 			const text = `<img src="${assetUrl}" height="100%" width="100%"/>`;
-			props.modelValue[index].text += text;
+			instructionList.value[index].text += text;
 		}
 
 		function openImageUpload(index: number) {
@@ -808,54 +806,54 @@ export default defineNuxtComponent({
 
 <style lang="css" scoped>
 .v-card--link:before {
-  background: none;
+	background: none;
 }
 
 /** Select all li under .markdown class */
-.markdown>>>ul>li {
-  display: list-item;
-  list-style-type: disc !important;
+.markdown >>> ul > li {
+	display: list-item;
+	list-style-type: disc !important;
 }
 
 /** Select all li under .markdown class */
-.markdown>>>ol>li {
-  display: list-item;
+.markdown >>> ol > li {
+	display: list-item;
 }
 
 .flip-list-move {
-  transition: transform 0.5s;
+	transition: transform 0.5s;
 }
 
 .no-move {
-  transition: transform 0s;
+	transition: transform 0s;
 }
 
 .ghost {
-  opacity: 0.5;
+	opacity: 0.5;
 }
 
 .list-group {
-  min-height: 38px;
+	min-height: 38px;
 }
 
 .list-group-item i {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .blur {
-  filter: blur(2px);
+	filter: blur(2px);
 }
 
 .upload-overlay {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 1;
 }
 </style>

@@ -407,7 +407,7 @@ export default defineNuxtComponent({
     		props.recipe.recipeInstructions.push(...cleanedSteps);
     	}
     	else {
-    		props.recipe.recipeInstructions.push({ id: uuid4(), text: "", title: "", ingredientReferences: [] });
+    		props.recipe.recipeInstructions.push({ id: uuid4(), text: "", title: "", summary: "", ingredientReferences: [] });
     	}
     }
 
@@ -457,18 +457,18 @@ export default defineNuxtComponent({
 
 <style lang="css">
 .flip-list-move {
-  transition: transform 0.5s;
+	transition: transform 0.5s;
 }
 .no-move {
-  transition: transform 0s;
+	transition: transform 0s;
 }
 .ghost {
-  opacity: 0.5;
+	opacity: 0.5;
 }
 .list-group {
-  min-height: 38px;
+	min-height: 38px;
 }
 .list-group-item i {
-  cursor: pointer;
+	cursor: pointer;
 }
 </style>

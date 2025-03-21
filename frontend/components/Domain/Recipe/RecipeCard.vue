@@ -172,26 +172,26 @@ export default defineNuxtComponent({
 
 <style>
 .v-card--reveal {
-  align-items: center;
-  bottom: 0;
-  justify-content: center;
-  opacity: 0.8;
-  position: absolute;
-  width: 100%;
+	align-items: center;
+	bottom: 0;
+	justify-content: center;
+	opacity: 0.8;
+	position: absolute;
+	width: 100%;
 }
 .v-card--text-show {
-  opacity: 1 !important;
+	opacity: 1 !important;
 }
 .headerClass {
-  white-space: nowrap;
-  word-break: normal;
-  overflow: hidden;
-  text-overflow: ellipsis;
+	white-space: nowrap;
+	word-break: normal;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
-.descriptionWrapper{
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 8;
-  overflow: hidden;
+.descriptionWrapper {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 8;
+	overflow: hidden;
 }
 </style>

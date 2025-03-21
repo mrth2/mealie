@@ -211,7 +211,7 @@ function logDeprecatedProp(val: string) {
 
 <style>
 .top-dialog {
-  position: fixed;
-  top: 0;
+	position: fixed;
+	top: 0;
 }
 </style>

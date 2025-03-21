@@ -689,6 +689,6 @@ export default defineNuxtComponent({
 
 <style scoped>
 * {
-  font-size: 1em;
+	font-size: 1em;
 }
 </style>

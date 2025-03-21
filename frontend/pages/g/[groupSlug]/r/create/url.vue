@@ -224,6 +224,6 @@ export default defineNuxtComponent({
 
 <style>
 .force-white > a {
-  color: white !important;
+	color: white !important;
 }
 </style>

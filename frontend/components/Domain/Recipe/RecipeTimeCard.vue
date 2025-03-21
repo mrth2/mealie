@@ -142,9 +142,9 @@ export default defineNuxtComponent({
 
 <style scoped>
 .time-card-flex {
-  width: fit-content;
+	width: fit-content;
 }
 .custom-transparent {
-  opacity: 0.7;
+	opacity: 0.7;
 }
 </style>

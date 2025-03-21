@@ -37,7 +37,7 @@ export default defineNuxtConfig({
 				{
 					property: "og:image",
 					content:
-            "https://raw.githubusercontent.com/mealie-recipes/mealie/9571816ac4eed5beacfc0abf6c03eff1427fd0eb/frontend/static/icons/android-chrome-512x512.png",
+						"https://raw.githubusercontent.com/mealie-recipes/mealie/9571816ac4eed5beacfc0abf6c03eff1427fd0eb/frontend/static/icons/android-chrome-512x512.png",
 				},
 				{ charset: "utf-8" },
 				{ name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -55,9 +55,9 @@ export default defineNuxtConfig({
 		},
 
 		/* viewTransition: {
-      name: "layout",
-      mode: "out-in",
-    }, */
+			name: "layout",
+			mode: "out-in",
+		}, */
 		viewTransition: true,
 	},
 
@@ -105,10 +105,10 @@ export default defineNuxtConfig({
 		// https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-build
 		analyze: false,
 		/* babel: {
-      plugins: [
-        ["@babel/plugin-proposal-private-property-in-object", { loose: true }],
-      ],
-    }, */
+			plugins: [
+				["@babel/plugin-proposal-private-property-in-object", { loose: true }],
+			],
+		}, */
 		transpile: process.env.NODE_ENV !== "production" ? [/@vue[\\/]composition-api/] : [],
 	},
 	future: {
@@ -158,6 +158,7 @@ export default defineNuxtConfig({
 	// eslint rules
 	eslint: {
 		config: {
+			formatters: true,
 			stylistic: {
 				indent: "tab",
 				semi: true,
@@ -175,67 +176,67 @@ export default defineNuxtConfig({
 		},
 	},
 	/* auth: {
-    redirect: {
-      login: "/login",
-      logout: "/login",
-      callback: "/login",
-      home: "/",
-    },
-    cookie: {
-      prefix: "mealie.auth.",
-      options: {
-        expires: 7,
-        path: "/",
-      },
-    },
-    rewriteRedirects: false,
-    // Options
-    strategies: {
-      local: {
-        resetOnError: true,
-        token: {
-          property: "access_token",
-          global: true,
-          // required: true,
-          // type: 'Bearer'
-        },
-        user: {
-          property: "",
-          autoFetch: true,
-        },
-        endpoints: {
-          login: {
-            url: "api/auth/token",
-            method: "post",
-            propertyName: "access_token",
-          },
-          refresh: { url: "api/auth/refresh", method: "post" },
-          logout: { url: "api/auth/logout", method: "post" },
-          user: { url: "api/users/self", method: "get" },
-        },
-      },
-      oidc: {
-        scheme: "local",
-        resetOnError: true,
-        token: {
-          property: "access_token",
-          global: true,
-        },
-        user: {
-          property: "",
-          autoFetch: true,
-        },
-        endpoints: {
-          login: {
-            url: "api/auth/oauth/callback",
-            method: "get",
-          },
-          logout: { url: "api/auth/logout", method: "post" },
-          user: { url: "api/users/self", method: "get" },
-        },
-      },
-    },
-  }, */
+		redirect: {
+			login: "/login",
+			logout: "/login",
+			callback: "/login",
+			home: "/",
+		},
+		cookie: {
+			prefix: "mealie.auth.",
+			options: {
+				expires: 7,
+				path: "/",
+			},
+		},
+		rewriteRedirects: false,
+		// Options
+		strategies: {
+			local: {
+				resetOnError: true,
+				token: {
+					property: "access_token",
+					global: true,
+					// required: true,
+					// type: 'Bearer'
+				},
+				user: {
+					property: "",
+					autoFetch: true,
+				},
+				endpoints: {
+					login: {
+						url: "api/auth/token",
+						method: "post",
+						propertyName: "access_token",
+					},
+					refresh: { url: "api/auth/refresh", method: "post" },
+					logout: { url: "api/auth/logout", method: "post" },
+					user: { url: "api/users/self", method: "get" },
+				},
+			},
+			oidc: {
+				scheme: "local",
+				resetOnError: true,
+				token: {
+					property: "access_token",
+					global: true,
+				},
+				user: {
+					property: "",
+					autoFetch: true,
+				},
+				endpoints: {
+					login: {
+						url: "api/auth/oauth/callback",
+						method: "get",
+					},
+					logout: { url: "api/auth/logout", method: "post" },
+					user: { url: "api/users/self", method: "get" },
+				},
+			},
+		},
+	}, */
 
 	i18n: {
 		locales: [
@@ -326,7 +327,7 @@ export default defineNuxtConfig({
 				method: "GET",
 				params: {
 					/* title and url are not currently used in Mealie. If there are issues
-              with sharing, uncommenting those lines might help solve the puzzle. */
+							with sharing, uncommenting those lines might help solve the puzzle. */
 					// "title": "title",
 					text: "recipe_import_url",
 					// "url": "url",

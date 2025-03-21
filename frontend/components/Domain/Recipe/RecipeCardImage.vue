@@ -108,20 +108,20 @@ export default defineNuxtComponent({
 
 <style scoped>
 .icon-slot {
-  position: relative;
+	position: relative;
 }
 
 .icon-slot > div {
-  top: 0;
-  position: absolute;
-  z-index: 1;
+	top: 0;
+	position: absolute;
+	z-index: 1;
 }
 
 .icon-position {
-  opacity: 0.8;
-  display: flex !important;
-  position: relative;
-  margin-left: auto !important;
-  margin-right: auto !important;
+	opacity: 0.8;
+	display: flex !important;
+	position: relative;
+	margin-left: auto !important;
+	margin-right: auto !important;
 }
 </style>

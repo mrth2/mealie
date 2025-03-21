@@ -304,16 +304,16 @@ export default defineNuxtComponent({
 
 <style scoped>
 @media print {
-  .no-print {
-    display: none;
-  }
+	.no-print {
+		display: none;
+	}
 }
 
 .favorites-link {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 .favorites-link:hover {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 </style>

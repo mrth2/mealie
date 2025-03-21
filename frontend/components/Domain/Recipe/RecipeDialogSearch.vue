@@ -198,6 +198,6 @@ export default defineNuxtComponent({
 
 <style>
 .scroll {
-  overflow-y: auto;
+	overflow-y: auto;
 }
 </style>

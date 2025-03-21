@@ -13,8 +13,7 @@
 			>
 				<v-card class="mb-2 border-left-primary rounded-sm px-2">
 					<v-container class="px-0">
-						<v-row
-							no-gutters
+						<v-row no-gutters
 							style="width: 100%;"
 						>
 							<v-col cols="10">
@@ -22,25 +21,21 @@
 									{{ $d(day.date, "short") }}
 								</p>
 							</v-col>
-							<v-col
-								class="d-flex justify-top"
+							<v-col class="d-flex justify-top"
 								cols="2"
 							>
-								<GroupMealPlanDayContextMenu
-									v-if="day.recipes.length"
+								<GroupMealPlanDayContextMenu v-if="day.recipes.length"
 									:recipes="day.recipes"
 								/>
 							</v-col>
 						</v-row>
 					</v-container>
 				</v-card>
-				<div
-					v-for="section in day.sections"
+				<div v-for="section in day.sections"
 					:key="section.title"
 				>
 					<div class="py-2 d-flex flex-column">
-						<div
-							class="primary"
+						<div class="primary"
 							style="width: 50px; height: 2.5px"
 						/>
 						<p class="text-overline my-0">
@@ -84,63 +79,63 @@ export default defineNuxtComponent({
 		},
 	},
 	setup(props) {
-    type DaySection = {
-    	title: string;
-    	meals: ReadPlanEntry[];
-    };
+		type DaySection = {
+			title: string;
+			meals: ReadPlanEntry[];
+		};
 
-    type Days = {
-    	date: Date;
-    	sections: DaySection[];
-    	recipes: RecipeSummary[];
-    };
+		type Days = {
+			date: Date;
+			sections: DaySection[];
+			recipes: RecipeSummary[];
+		};
 
-    const i18n = useI18n();
+		const i18n = useI18n();
 
-    const plan = computed<Days[]>(() => {
-    	return props.mealplans.reduce((acc, day) => {
-    		const out: Days = {
-    			date: day.date,
-    			sections: [
-    				{ title: i18n.t("meal-plan.breakfast"), meals: [] },
-    				{ title: i18n.t("meal-plan.lunch"), meals: [] },
-    				{ title: i18n.t("meal-plan.dinner"), meals: [] },
-    				{ title: i18n.t("meal-plan.side"), meals: [] },
-    			],
-    			recipes: [],
-    		};
+		const plan = computed<Days[]>(() => {
+			return props.mealplans.reduce((acc, day) => {
+				const out: Days = {
+					date: day.date,
+					sections: [
+						{ title: i18n.t("meal-plan.breakfast"), meals: [] },
+						{ title: i18n.t("meal-plan.lunch"), meals: [] },
+						{ title: i18n.t("meal-plan.dinner"), meals: [] },
+						{ title: i18n.t("meal-plan.side"), meals: [] },
+					],
+					recipes: [],
+				};
 
-    		for (const meal of day.meals) {
-    			if (meal.entryType === "breakfast") {
-    				out.sections[0].meals.push(meal);
-    			}
-    			else if (meal.entryType === "lunch") {
-    				out.sections[1].meals.push(meal);
-    			}
-    			else if (meal.entryType === "dinner") {
-    				out.sections[2].meals.push(meal);
-    			}
-    			else if (meal.entryType === "side") {
-    				out.sections[3].meals.push(meal);
-    			}
+				for (const meal of day.meals) {
+					if (meal.entryType === "breakfast") {
+						out.sections[0].meals.push(meal);
+					}
+					else if (meal.entryType === "lunch") {
+						out.sections[1].meals.push(meal);
+					}
+					else if (meal.entryType === "dinner") {
+						out.sections[2].meals.push(meal);
+					}
+					else if (meal.entryType === "side") {
+						out.sections[3].meals.push(meal);
+					}
 
-    			if (meal.recipe) {
-    				out.recipes.push(meal.recipe);
-    			}
-    		}
+					if (meal.recipe) {
+						out.recipes.push(meal.recipe);
+					}
+				}
 
-    		// Drop empty sections
-    		out.sections = out.sections.filter(section => section.meals.length > 0);
+				// Drop empty sections
+				out.sections = out.sections.filter(section => section.meals.length > 0);
 
-    		acc.push(out);
+				acc.push(out);
 
-    		return acc;
-    	}, [] as Days[]);
-    });
+				return acc;
+			}, [] as Days[]);
+		});
 
-    return {
-    	plan,
-    };
+		return {
+			plan,
+		};
 	},
 });
 </script>

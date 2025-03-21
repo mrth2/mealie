@@ -290,7 +290,7 @@ export default defineNuxtComponent({
 
 <style scoped>
 .wrap-word {
-  white-space: normal;
-  word-wrap: break-word;
+	white-space: normal;
+	word-wrap: break-word;
 }
 </style>

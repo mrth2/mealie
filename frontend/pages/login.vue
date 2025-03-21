@@ -383,53 +383,53 @@ export default defineNuxtComponent({
 
 <style lang="css">
 .max-button {
-  width: 300px;
+	width: 300px;
 }
 
 .icon-primary {
-  fill: var(--v-primary-base);
+	fill: var(--v-primary-base);
 }
 
 .icon-white {
-  fill: white;
+	fill: white;
 }
 
 .icon-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  position: relative;
-  margin-top: 3.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	position: relative;
+	margin-top: 3.5rem;
 }
 
 .icon-divider {
-  width: 100%;
-  margin-bottom: -3.5rem;
+	width: 100%;
+	margin-bottom: -3.5rem;
 }
 
 .icon-avatar {
-  border-color: rgba(0, 0, 0, 0.12);
-  border: 2px;
+	border-color: rgba(0, 0, 0, 0.12);
+	border: 2px;
 }
 
 .bg-off-white {
-  background: #f5f8fa;
+	background: #f5f8fa;
 }
 
 .absolute {
-  position: absolute;
+	position: absolute;
 }
 
 .div-width {
-  max-width: 75%;
+	max-width: 75%;
 }
 
 .bg-background {
-  background-color: #1e1e1e;
+	background-color: #1e1e1e;
 }
 
 .bg-white {
-  background-color: #fff;
+	background-color: #fff;
 }
 </style>

@@ -31,29 +31,29 @@ export default defineNuxtComponent({
 
 <style>
 @media print {
-  body,
-  html {
-    margin-top: 0 !important;
-  }
+	body,
+	html {
+		margin-top: 0 !important;
+	}
 
-  .print-container {
-    display: block !important;
-  }
+	.print-container {
+		display: block !important;
+	}
 
-  .v-main {
-    display: block;
-  }
+	.v-main {
+		display: block;
+	}
 
-  .v-main__wrap {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
+	.v-main__wrap {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
 }
 </style>
 
 <style scoped>
 .print-container {
-  display: none;
+	display: none;
 }
 </style>

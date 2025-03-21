@@ -86,7 +86,7 @@
 						<v-chip
 							v-if="prop.confidence && showConfidence"
 							dark
-							:color="prop.color"
+							:color="prop.color!"
 							class="mt-2"
 						>
 							{{ $t('admin.average-confident', [prop.confidence]) }}
@@ -211,11 +211,9 @@ export default defineNuxtComponent({
 					const color = getColor(property);
 					const confidence = getConfidence(property);
 					if (color) {
-						// @ts-ignore See above
 						properties[property].color = color;
 					}
 					if (confidence) {
-						// @ts-ignore See above
 						properties[property].confidence = confidence;
 					}
 				});

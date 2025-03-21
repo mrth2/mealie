@@ -61,36 +61,36 @@ export default defineNuxtComponent({
 
 <style lang="scss">
 .ingredient-item {
-  .d-inline {
-    & > p {
-      display: inline;
-      &:has(>sub)>sup {
-        letter-spacing: -0.05rem;
-      }
-    }
-    &:has(sub) {
-      &:after {
-        letter-spacing: -0.2rem;
-      }
-    }
-    sup {
-      &+span{
-        letter-spacing: -0.05rem;
-      }
-      &:before {
-        letter-spacing: 0rem;
-      }
-    }
-  }
+	.d-inline {
+		& > p {
+			display: inline;
+			&:has(> sub) > sup {
+				letter-spacing: -0.05rem;
+			}
+		}
+		&:has(sub) {
+			&:after {
+				letter-spacing: -0.2rem;
+			}
+		}
+		sup {
+			& + span {
+				letter-spacing: -0.05rem;
+			}
+			&:before {
+				letter-spacing: 0rem;
+			}
+		}
+	}
 
-  .text-bold {
-    font-weight: bold;
-  }
+	.text-bold {
+		font-weight: bold;
+	}
 }
 
 .note {
-  line-height: 1.25em;
-  font-size: 0.8em;
-  opacity: 0.7;
+	line-height: 1.25em;
+	font-size: 0.8em;
+	opacity: 0.7;
 }
 </style>

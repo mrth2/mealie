@@ -96,7 +96,7 @@
 				</v-toolbar>
 
 				<v-data-table
-					:headers="headers"
+					:headers="headers as any"
 					:items="backups.imports || []"
 					class="elevation-0"
 					hide-default-footer
@@ -104,10 +104,10 @@
 					:search="search"
 					@click:row="setSelected"
 				>
-					<template #item.date="{ item }">
+					<template #[`item.date`]="{ item }">
 						{{ $d(Date.parse(item.date), "medium") }}
 					</template>
-					<template #item.actions="{ item }">
+					<template #[`item.actions`]="{ item }">
 						<v-btn
 							icon
 							class="mx-1"
@@ -204,7 +204,7 @@ export default defineNuxtComponent({
 			}
 			else {
 				alert.success(i18n.t("settings.backup.restore-success"));
-				$auth.clear();
+				$auth.refresh();
 			}
 		}
 
@@ -273,6 +273,6 @@ export default defineNuxtComponent({
 
 <style>
 .v-input--selection-controls__input {
-  margin-bottom: auto;
+	margin-bottom: auto;
 }
 </style>

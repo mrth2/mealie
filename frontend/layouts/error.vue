@@ -141,12 +141,12 @@ export default defineNuxtComponent({
 
 <style scoped>
 h1 {
-  font-size: 20px;
+	font-size: 20px;
 }
 
 p {
-  padding-bottom: 0 !important;
-  margin-bottom: 0 !important;
-  font-size: 200px;
+	padding-bottom: 0 !important;
+	margin-bottom: 0 !important;
+	font-size: 200px;
 }
 </style>

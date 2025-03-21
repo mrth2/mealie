@@ -223,6 +223,6 @@ export default defineNuxtComponent({
 
 <style>
 .clip-width {
-  max-width: 400px;
+	max-width: 400px;
 }
 </style>

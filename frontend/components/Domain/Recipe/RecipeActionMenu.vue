@@ -221,33 +221,33 @@ export default defineNuxtComponent({
 
 <style scoped>
 .custom-btn-group {
-  flex: 0, 1, auto;
-  display: inline-flex;
+	flex: 0, 1, auto;
+	display: inline-flex;
 }
 
 .gapped {
-  gap: 0.25rem;
+	gap: 0.25rem;
 }
 
 .vertical {
-  flex-direction: column !important;
+	flex-direction: column !important;
 }
 
 .sticky {
-  margin-left: auto;
-  position: fixed !important;
-  margin-top: 4.25rem;
+	margin-left: auto;
+	position: fixed !important;
+	margin-top: 4.25rem;
 }
 
 .fixed-bar {
-  position: sticky;
-  position: -webkit-sticky;
-  /* for Safari */
-  top: 4.5em;
-  z-index: 2;
+	position: sticky;
+	position: -webkit-sticky;
+	/* for Safari */
+	top: 4.5em;
+	z-index: 2;
 }
 
 .fixed-bar-mobile {
-  top: 1.5em !important;
+	top: 1.5em !important;
 }
 </style>

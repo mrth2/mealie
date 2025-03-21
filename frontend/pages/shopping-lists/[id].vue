@@ -1239,6 +1239,6 @@ export default defineNuxtComponent({
 
 <style scoped>
 .number-input-container {
-  max-width: 50px;
+	max-width: 50px;
 }
 </style>

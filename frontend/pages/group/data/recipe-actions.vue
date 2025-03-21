@@ -105,7 +105,7 @@
 					>
 						<template #default="{ item }">
 							<v-list-item class="pb-2">
-								<v-list-item-title>{{ item.name }}</v-list-item-title>
+								<v-list-item-title>{{ item.title }}</v-list-item-title>
 							</v-list-item>
 						</template>
 					</v-virtual-scroll>
@@ -192,12 +192,11 @@ export default defineNuxtComponent({
 		// Create Action
 
 		async function createAction() {
-			// @ts-ignore groupId isn't required
 			await actionStore.actions.createOne({
 				actionType: actionData.data.actionType,
 				title: actionData.data.title,
 				url: actionData.data.url,
-			});
+			} as GroupRecipeActionOut);
 			actionData.reset();
 			state.createDialog = false;
 		}

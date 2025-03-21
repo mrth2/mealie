@@ -440,9 +440,9 @@ export default defineNuxtComponent({
 
 <style scoped lang="css">
 .ingredient-grid {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 0.5rem;
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 0.5rem;
 }
 </style>

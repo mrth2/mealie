@@ -156,6 +156,6 @@ export default defineNuxtComponent({
 
 <style lang="css">
 .max-button {
-  width: 300px;
+	width: 300px;
 }
 </style>

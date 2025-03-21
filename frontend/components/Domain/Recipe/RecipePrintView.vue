@@ -374,90 +374,90 @@ export default defineNuxtComponent({
 <style scoped>
 /* Makes all text solid black */
 .wrapper {
-  background-color: white;
+	background-color: white;
 }
 
 .wrapper,
-.wrapper>>>* {
-  opacity: 1 !important;
-  color: black !important;
+.wrapper >>> * {
+	opacity: 1 !important;
+	color: black !important;
 }
 
 /* Prevents sections from being broken up between pages */
 .print-section {
-  page-break-inside: avoid;
+	page-break-inside: avoid;
 }
 
 p {
-  padding-bottom: 0 !important;
-  margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
+	margin-bottom: 0 !important;
 }
 
 .v-card__text {
-  padding-bottom: 0;
-  margin-bottom: 0;
+	padding-bottom: 0;
+	margin-bottom: 0;
 }
 
 .ingredient-grid {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 0.5rem;
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 0.5rem;
 }
 
 .ingredient-title,
 .instruction-title {
-  grid-column: 1 / span 2;
-  text-decoration: underline;
-  text-underline-offset: 4px;
+	grid-column: 1 / span 2;
+	text-decoration: underline;
+	text-underline-offset: 4px;
 }
 
 .ingredient-body,
 .recipe-step-body,
 .note-body {
-  font-size: 14px;
+	font-size: 14px;
 }
 
 ul {
-  padding-left: 1rem;
+	padding-left: 1rem;
 }
 
 li {
-  list-style-type: none;
-  margin-bottom: 0.25rem;
+	list-style-type: none;
+	margin-bottom: 0.25rem;
 }
 
 .nutrition-table {
-  max-width: 80%;
-  border-collapse: collapse;
+	max-width: 80%;
+	border-collapse: collapse;
 }
 
 .nutrition-table th,
 .nutrition-table td {
-  padding: 6px 10px;
-  text-align: left;
-  vertical-align: top;
-  font-size: 14px;
+	padding: 6px 10px;
+	text-align: left;
+	vertical-align: top;
+	font-size: 14px;
 }
 
 .nutrition-table th {
-  font-weight: bold;
-  padding-bottom: 10px;
+	font-weight: bold;
+	padding-bottom: 10px;
 }
 
 .nutrition-table td:first-child {
-  width: 70%;
-  font-weight: bold;
+	width: 70%;
+	font-weight: bold;
 }
 
 .nutrition-table td:last-child {
-  width: 30%;
-  text-align: right;
+	width: 30%;
+	text-align: right;
 }
 
 .nutrition-table td {
-  padding: 2px;
-  text-align: left;
-  font-size: 14px;
+	padding: 2px;
+	text-align: left;
+	font-size: 14px;
 }
 </style>

@@ -118,6 +118,6 @@ export default defineNuxtComponent({
 
 <style>
 .dense-markdown p {
-  margin: auto !important;
+	margin: auto !important;
 }
 </style>

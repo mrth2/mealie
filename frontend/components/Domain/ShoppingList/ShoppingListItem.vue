@@ -329,6 +329,6 @@ export default defineNuxtComponent({
 
 <style lang="css">
 .strike-through {
-  text-decoration: line-through !important;
+	text-decoration: line-through !important;
 }
 </style>
