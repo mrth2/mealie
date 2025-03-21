@@ -19,7 +19,7 @@
           :hint="$t('recipe.new-recipe-names-must-be-unique')"
           persistent-hint
           @keyup.enter="createByName(newRecipeName)"
-        ></v-text-field>
+        />
       </v-form>
     </v-card-text>
     <v-card-actions class="justify-center">
@@ -72,7 +72,7 @@ export default defineNuxtComponent({
       }
       const { response } = await api.recipes.createOne({ name });
       // TODO createOne claims to return a Recipe, but actually the API only returns a string
-      // @ts-ignore See above
+      // @ts-expect-error See above
       handleResponse(response, true);
     }
     return {

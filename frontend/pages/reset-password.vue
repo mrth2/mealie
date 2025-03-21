@@ -1,22 +1,26 @@
 <template>
   <v-container fill-height fluid class="d-flex justify-center align-center">
     <v-card color="background d-flex flex-column align-center" flat width="600px">
-      <v-card-title class="headline justify-center"> {{ $t("user.reset-password") }} </v-card-title>
+      <v-card-title class="text-h5 justify-center"> {{ $t("user.reset-password") }} </v-card-title>
       <BaseDivider />
       <v-card-text>
         <v-form @submit.prevent="requestLink()">
-          <v-text-field v-model="email" :prepend-icon="$globals.icons.email" variant="filled" rounded autofocus
+          <v-text-field
+v-model="email" :prepend-icon="$globals.icons.email" variant="filled" rounded autofocus
             class="rounded-lg" name="login" :label="$t('user.email')" type="text" />
-          <v-text-field v-model="password" variant="filled" rounded class="rounded-lg"
+          <v-text-field
+v-model="password" variant="filled" rounded class="rounded-lg"
             :prepend-icon="$globals.icons.lock" name="password" :label="$t('user.password')" type="password"
             :rules="[validators.required]" />
-          <v-text-field v-model="passwordConfirm" variant="filled" rounded validate-on="blur" class="rounded-lg"
+          <v-text-field
+v-model="passwordConfirm" variant="filled" rounded validate-on="blur" class="rounded-lg"
             :prepend-icon="$globals.icons.lock" name="password" :label="$t('user.confirm-password')" type="password"
             :rules="[validators.required, passwordMatch]" />
           <p class="text-center">{{ $t("user.please-enter-password") }}</p>
           <v-card-actions class="justify-center">
             <div class="max-button">
-              <v-btn :loading="loading" color="primary" :disabled="token === ''" type="submit" size="large" rounded
+              <v-btn
+:loading="loading" color="primary" :disabled="token === ''" type="submit" size="large" rounded
                 class="rounded-xl" block>
                 <v-icon start>
                   {{ $globals.icons.lock }}
@@ -27,13 +31,12 @@
           </v-card-actions>
         </v-form>
       </v-card-text>
-      <v-btn class="mx-auto" variant="text" nuxt to="/login"> {{ $t("user.login") }} </v-btn>
+      <v-btn class="mx-auto" variant="text" to="/login"> {{ $t("user.login") }} </v-btn>
     </v-card>
   </v-container>
 </template>
 
 <script lang="ts">
-
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { validators } from "@/composables/use-validators";
