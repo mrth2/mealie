@@ -76,7 +76,7 @@
             </div>
           </div>
           <slot name="actions">
-            <v-card-actions class="px-1 w-100">
+            <v-card-actions class="px-3 w-100">
               <RecipeFavoriteBadge
                 v-if="isOwnGroup && showRecipeContent"
                 :recipe-id="recipeId"
