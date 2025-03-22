@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="showDrawer" class="d-flex flex-column d-print-none">
+  <v-navigation-drawer v-model="showDrawer" class="d-flex flex-column d-print-none position-fixed top-10">
     <!-- User Profile -->
     <template v-if="loggedIn">
       <v-list-item lines="two" :to="userProfileLink" exact>
