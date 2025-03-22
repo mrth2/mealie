@@ -99,8 +99,8 @@
       <div class="mt-2">
         <v-row v-if="!useMobileCards">
           <v-col
-            v-for="(recipe, index) in recipes"
-            :key="recipe.slug + index"
+            v-for="recipe in recipes"
+            :key="recipe.id!"
             :sm="6"
             :md="6"
             :lg="4"
@@ -108,14 +108,14 @@
           >
             <v-lazy>
               <RecipeCard
-                :name="recipe.name"
-                :description="recipe.description"
-                :slug="recipe.slug"
-                :rating="recipe.rating"
-                :image="recipe.image"
-                :tags="recipe.tags"
-                :recipe-id="recipe.id"
-                v-on="$attrs"
+                :name="recipe.name!"
+                :description="recipe.description!"
+                :slug="recipe.slug!"
+                :rating="recipe.rating!"
+                :image="recipe.image!"
+                :tags="recipe.tags!"
+                :recipe-id="recipe.id!"
+                v-bind="$attrs"
               />
             </v-lazy>
           </v-col>
@@ -126,7 +126,7 @@
         >
           <v-col
             v-for="recipe in recipes"
-            :key="recipe.name"
+            :key="recipe.id!"
             cols="12"
             :sm="singleColumn ? '12' : '12'"
             :md="singleColumn ? '12' : '6'"
@@ -135,14 +135,14 @@
           >
             <v-lazy>
               <RecipeCardMobile
-                :name="recipe.name"
-                :description="recipe.description"
-                :slug="recipe.slug"
-                :rating="recipe.rating"
-                :image="recipe.image"
-                :tags="recipe.tags"
-                :recipe-id="recipe.id"
-                v-on="$attrs"
+                :name="recipe.name!"
+                :description="recipe.description!"
+                :slug="recipe.slug!"
+                :rating="recipe.rating!"
+                :image="recipe.image!"
+                :tags="recipe.tags!"
+                :recipe-id="recipe.id!"
+                v-bind="$attrs"
               />
             </v-lazy>
           </v-col>
