@@ -2,6 +2,7 @@
   <v-img
     v-if="!fallBackImage"
     :height="height"
+    cover
     min-height="125"
     max-height="fill-height"
     :src="getImage(recipeId)"
