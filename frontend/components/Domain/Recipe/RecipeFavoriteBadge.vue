@@ -8,6 +8,8 @@
       <v-btn
         v-if="isFavorite || showAlways"
         size="small"
+        width="20"
+        height="20"
         :color="buttonStyle ? 'info' : 'secondary'"
         :icon="!buttonStyle"
         :fab="buttonStyle"

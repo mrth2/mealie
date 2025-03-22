@@ -24,7 +24,7 @@
         color="secondary lighten-3"
         length="5"
         :density="small ? 'compact' : 'default'"
-        :size="small ? 20 : undefined"
+        :size="small ? 'x-small' : undefined"
         hover
       />
     </v-hover>

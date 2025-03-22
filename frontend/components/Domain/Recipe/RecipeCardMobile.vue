@@ -12,10 +12,10 @@
         <v-img
           v-if="vertical"
           class="rounded-sm"
+          cover
         >
           <RecipeCardImage
             :icon-size="100"
-            :height="height"
             :slug="slug"
             :recipe-id="recipeId"
             size="small"
@@ -24,34 +24,44 @@
         </v-img>
         <v-list-item
           lines="three"
+          class="py-0"
           :class="vertical ? 'px-2' : 'px-0'"
+          item-props
         >
-          <slot
-            v-if="!vertical"
-            name="avatar"
-          >
-            <v-avatar
-              tile
-              :height="height"
-              width="125"
-              class="v-mobile-img rounded-sm my-0"
+          <template #prepend>
+            <slot
+              v-if="!vertical"
+              name="avatar"
             >
-              <RecipeCardImage
-                :icon-size="100"
-                :height="height"
-                :slug="slug"
-                :recipe-id="recipeId"
-                :image-version="image"
-                size="small"
-              />
-            </v-avatar>
-          </slot>
-          <div class="py-0">
-            <v-list-item-title class="mt-1 mb-1 text-top">
+              <v-img
+                tile
+                height="100%"
+                :min-height="height"
+                width="125"
+                cover
+                class="v-mobile-img rounded-sm mt-n2"
+              >
+                <RecipeCardImage
+                  :icon-size="100"
+                  :slug="slug"
+                  :recipe-id="recipeId"
+                  :image-version="image"
+                  size="small"
+                />
+              </v-img>
+            </slot>
+          </template>
+          <div class="pl-4 d-flex flex-column justify-space-between align-stretch">
+            <v-list-item-title class="mt-1 mb-1 text-top text-truncate w-100">
               {{ name }}
             </v-list-item-title>
             <v-list-item-subtitle class="ma-0 text-top">
-              <SafeMarkdown :source="description" />
+              <SafeMarkdown v-if="description" :source="description" />
+              <p v-else>
+                <br>
+                <br>
+                <br>
+              </p>
             </v-list-item-subtitle>
             <div class="d-flex flex-wrap justify-start ma-0">
               <RecipeChips
@@ -64,46 +74,46 @@
                 v-on="$attrs"
               />
             </div>
-            <div class="d-flex flex-wrap justify-end align-center">
-              <slot name="actions">
-                <RecipeFavoriteBadge
-                  v-if="isOwnGroup && showRecipeContent"
-                  :recipe-id="recipeId"
-                  show-always
-                />
-                <RecipeRating
-                  v-if="showRecipeContent"
-                  :class="isOwnGroup ? 'ml-auto' : 'ml-auto pb-2'"
-                  :value="rating"
-                  :recipe-id="recipeId"
-                  :slug="slug"
-                  small
-                />
-                <v-spacer />
-
-                <!-- If we're not logged-in, no items display, so we hide this menu -->
-                <!-- We also add padding to the v-rating above to compensate -->
-                <RecipeContextMenu
-                  v-if="isOwnGroup && showRecipeContent"
-                  :slug="slug"
-                  :menu-icon="$globals.icons.dotsHorizontal"
-                  :name="name"
-                  :recipe-id="recipeId"
-                  :use-items="{
-                    delete: false,
-                    edit: false,
-                    download: true,
-                    mealplanner: true,
-                    shoppingList: true,
-                    print: false,
-                    printPreferences: false,
-                    share: true,
-                  }"
-                  @deleted="$emit('delete', slug)"
-                />
-              </slot>
-            </div>
           </div>
+          <slot name="actions">
+            <v-card-actions class="px-1 w-100">
+              <RecipeFavoriteBadge
+                v-if="isOwnGroup && showRecipeContent"
+                :recipe-id="recipeId"
+                show-always
+              />
+              <RecipeRating
+                v-if="showRecipeContent"
+                :class="isOwnGroup ? 'ml-auto' : 'ml-auto pb-2'"
+                :value="rating"
+                :recipe-id="recipeId"
+                :slug="slug"
+                small
+              />
+              <v-spacer />
+
+              <!-- If we're not logged-in, no items display, so we hide this menu -->
+              <!-- We also add padding to the v-rating above to compensate -->
+              <RecipeContextMenu
+                v-if="isOwnGroup && showRecipeContent"
+                :slug="slug"
+                :menu-icon="$globals.icons.dotsHorizontal"
+                :name="name"
+                :recipe-id="recipeId"
+                :use-items="{
+                  delete: false,
+                  edit: false,
+                  download: true,
+                  mealplanner: true,
+                  shoppingList: true,
+                  print: false,
+                  printPreferences: false,
+                  share: true,
+                }"
+                @deleted="$emit('delete', slug)"
+              />
+            </v-card-actions>
+            </slot>
         </v-list-item>
         <slot />
       </v-card>
@@ -197,7 +207,10 @@ export default defineNuxtComponent({
 });
 </script>
 
-<style>
+<style scoped>
+:deep(.v-list-item__prepend) {
+  height: 100%;
+}
 .v-mobile-img {
   padding-top: 0;
   padding-bottom: 0;

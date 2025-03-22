@@ -63,7 +63,7 @@ export default defineNuxtComponent({
     },
     height: {
       type: [Number, String],
-      default: "fill-height",
+      default: "100%",
     },
   },
   emits: ["click"],
