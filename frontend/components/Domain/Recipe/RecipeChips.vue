@@ -12,7 +12,8 @@
       label
       class="ma-1"
       color="accent"
-      :small="small"
+      variant="flat"
+      :size="small ? 'small' : 'default'"
       dark
 
       @click.prevent="() => $emit('item-selected', category, urlPrefix)"

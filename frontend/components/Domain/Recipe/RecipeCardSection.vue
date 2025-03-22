@@ -106,18 +106,15 @@
             :lg="4"
             :xl="3"
           >
-            <v-lazy>
-              <RecipeCard
-                :name="recipe.name!"
-                :description="recipe.description!"
-                :slug="recipe.slug!"
-                :rating="recipe.rating!"
-                :image="recipe.image!"
-                :tags="recipe.tags!"
-                :recipe-id="recipe.id!"
-                v-bind="$attrs"
-              />
-            </v-lazy>
+            <RecipeCard
+              :name="recipe.name!"
+              :description="recipe.description!"
+              :slug="recipe.slug!"
+              :rating="recipe.rating!"
+              :image="recipe.image!"
+              :tags="recipe.tags!"
+              :recipe-id="recipe.id!"
+            />
           </v-col>
         </v-row>
         <v-row
@@ -133,18 +130,15 @@
             :lg="singleColumn ? '12' : '4'"
             :xl="singleColumn ? '12' : '3'"
           >
-            <v-lazy>
-              <RecipeCardMobile
-                :name="recipe.name!"
-                :description="recipe.description!"
-                :slug="recipe.slug!"
-                :rating="recipe.rating!"
-                :image="recipe.image!"
-                :tags="recipe.tags!"
-                :recipe-id="recipe.id!"
-                v-bind="$attrs"
-              />
-            </v-lazy>
+            <RecipeCardMobile
+              :name="recipe.name!"
+              :description="recipe.description!"
+              :slug="recipe.slug!"
+              :rating="recipe.rating!"
+              :image="recipe.image!"
+              :tags="recipe.tags!"
+              :recipe-id="recipe.id!"
+            />
           </v-col>
         </v-row>
       </div>

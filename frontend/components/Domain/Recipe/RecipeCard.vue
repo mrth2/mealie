@@ -35,7 +35,7 @@
             </div>
           </v-expand-transition>
         </RecipeCardImage>
-        <v-card-title class="my-n3 px-4">
+        <v-card-title class="mb-n3 px-4">
           <div class="headerClass">
             {{ name }}
           </div>
