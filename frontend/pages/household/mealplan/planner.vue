@@ -23,7 +23,7 @@
       <v-date-picker
         v-model="state.range"
         no-title
-        range
+        :multiple="'range'"
         :first-day-of-week="firstDayOfWeek"
         :local="$i18n.locale"
       >
@@ -101,36 +101,30 @@ export default defineNuxtComponent({
       router.push("/household/mealplan/planner/view");
     }
 
-    function fmtYYYYMMDD(date: Date) {
-      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-    }
-
-    function parseYYYYMMDD(date: string) {
-      const [year, month, day] = date.split("-");
-      return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-    }
-
     const state = ref({
-      range: [fmtYYYYMMDD(new Date()), fmtYYYYMMDD(addDays(new Date(), adjustForToday(numberOfDays.value)))] as [string, string],
+      range: [new Date(), addDays(new Date(), adjustForToday(numberOfDays.value))] as [Date, Date],
       start: new Date(),
       picker: false,
       end: addDays(new Date(), adjustForToday(numberOfDays.value)),
     });
+    console.log(state.value);
 
     const firstDayOfWeek = computed(() => {
       return household.value?.preferences?.firstDayOfWeek || 0;
     });
 
     const weekRange = computed(() => {
-      const sorted = [...state.value.range].sort((a, b) => {
-        return parseYYYYMMDD(a).getTime() - parseYYYYMMDD(b).getTime();
-      });
+      const sorted = [...state.value.range].sort((a, b) => a.getTime() - b.getTime());
 
       if (sorted.length === 2) {
         return {
-          start: parseYYYYMMDD(sorted[0]),
-          end: parseYYYYMMDD(sorted[1]),
+          start: sorted[0],
+          end: sorted[1],
         };
+        // return {
+        //   start: parseYYYYMMDD(sorted[0]),
+        //   end: parseYYYYMMDD(sorted[1]),
+        // };
       }
       return {
         start: new Date(),

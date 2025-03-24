@@ -61,7 +61,6 @@ export default defineNuxtComponent({
   emits: ["update:modelValue"],
   setup(props, context) {
     const { isOwnGroup } = useLoggedInState();
-    console.log("isOwnGroup", isOwnGroup);
     const { userRatings, setRating, ready: ratingsLoaded } = useUserSelfRatings();
 
     const userRating = computed(() => {
