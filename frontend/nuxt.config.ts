@@ -304,7 +304,7 @@ export default defineNuxtConfig({
       strictMessage: false,
       escapeHtml: true,
     },
-    vueI18n: "./i18n.config.ts",
+    vueI18n: "./../i18n.config.ts", // note: we need to up one ../ because the default root of lang dir is the /frontend/i18n, which can not be configured
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
