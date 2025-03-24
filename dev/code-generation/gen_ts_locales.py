@@ -174,7 +174,7 @@ def inject_nuxt_values():
 
     all_langs = []
     for match in locales_dir.glob("*.json"):
-        lang_string = f'{{ code: "{match.stem}", file: "{match.name}" }},'
+        lang_string = f'{{ code: "{match.stem}", file: "{match.name.replace(".json", ".ts")}" }},'
         all_langs.append(lang_string)
 
     log.debug(f"injecting locales into nuxt config -> {nuxt_config}")
