@@ -62,7 +62,7 @@
     </div>
 
     <div>
-      <NuxtChild
+      <NuxtPage
         :mealplans="mealsByDate"
         :actions="actions"
       />
@@ -107,7 +107,6 @@ export default defineNuxtComponent({
       picker: false,
       end: addDays(new Date(), adjustForToday(numberOfDays.value)),
     });
-    console.log(state.value);
 
     const firstDayOfWeek = computed(() => {
       return household.value?.preferences?.firstDayOfWeek || 0;

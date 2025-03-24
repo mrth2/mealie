@@ -27,7 +27,7 @@
     <section>
       <v-scroll-x-transition>
         <div>
-          <NuxtChild />
+          <NuxtPage />
         </div>
       </v-scroll-x-transition>
     </section>
