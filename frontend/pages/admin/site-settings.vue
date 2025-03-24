@@ -109,10 +109,15 @@
       />
       <v-alert
         border="start"
-        border-color="default"
-        :type="appConfig.emailReady ? 'success' : 'error'"
+        :border-color="appConfig.emailReady ? 'success' : 'error'"
+        variant="tonal"
         elevation="2"
       >
+        <template #prepend>
+          <v-icon :color="appConfig.emailReady ? 'success' : 'warning'">
+            {{ appConfig.emailReady ? $globals.icons.checkboxMarkedCircle : $globals.icons.alertCircle }}
+          </v-icon>
+        </template>
         <div class="font-weight-medium">
           {{ $t('settings.email-configuration-status') }}
         </div>
@@ -127,7 +132,7 @@
             :rules="[validators.email]"
           />
           <BaseButton
-            color="info"
+            save
             :disabled="!appConfig.emailReady || !validEmail"
             :loading="loading"
             @click="testEmail"
