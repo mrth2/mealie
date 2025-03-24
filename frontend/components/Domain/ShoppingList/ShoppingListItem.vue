@@ -23,7 +23,7 @@
               <v-tooltip v-if="recipeList && recipeList.length" open-delay="200" transition="slide-x-reverse-transition"
                 density="compact" right content-class="text-caption">
                 <template #activator="{ props: tooltipProps }">
-                  <v-btn size="small" class="ml-2" icon v-bind="tooltipProps"
+                  <v-btn size="small" variant="text" class="ml-2" icon v-bind="tooltipProps"
                     @click="displayRecipeRefs = !displayRecipeRefs">
                     <v-icon>
                       {{ $globals.icons.potSteam }}
@@ -33,14 +33,14 @@
                 <span>Toggle Recipes</span>
               </v-tooltip>
               <!-- Dummy button so the spacing is consistent when labels are enabled -->
-              <v-btn v-else size="small" class="ml-2" icon disabled />
+              <v-btn v-else size="small" variant="text" class="ml-2" icon disabled />
 
-              <v-btn size="small" class="ml-2 handle" icon v-bind="props">
+              <v-btn size="small" variant="text" class="ml-2 handle" icon v-bind="props">
                 <v-icon>
                   {{ $globals.icons.arrowUpDown }}
                 </v-icon>
               </v-btn>
-              <v-btn size="small" class="ml-2" icon @click="toggleEdit(true)">
+              <v-btn size="small" variant="text" class="ml-2" icon @click="toggleEdit(true)">
                 <v-icon>
                   {{ $globals.icons.edit }}
                 </v-icon>

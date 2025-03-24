@@ -7,6 +7,7 @@
     <v-switch
       v-model="wakeLock"
       size="small"
+      color="primary"
       :label="$t('recipe.screen-awake')"
     />
   </div>

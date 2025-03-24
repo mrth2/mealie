@@ -181,7 +181,7 @@ export default defineNuxtComponent({
       () => shoppingListChoices,
       () => {
         if (!disableRedirect.value && shoppingListChoices.value.length === 1) {
-          router.push(`/shopping-lists/${shoppingListChoices.value[0].id}`);
+          navigateTo(`/shopping-lists/${shoppingListChoices.value[0].id}`);
         }
         else {
           ready.value = true;

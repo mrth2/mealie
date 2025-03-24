@@ -11,15 +11,17 @@
         :to="disabled ? '' : '/g/' + groupSlug + '/r/' + recipe.slug"
         :class="attrs.class.listItem"
       >
-        <v-avatar :class="attrs.class.avatar">
-          <v-icon
-            :class="attrs.class.icon"
-            dark
-            :small="small"
-          >
-            {{ $globals.icons.primary }}
-          </v-icon>
-        </v-avatar>
+        <template #prepend>
+          <v-avatar color="primary" :class="attrs.class.avatar">
+            <v-icon
+              :class="attrs.class.icon"
+              dark
+              :size="small ? 'small' : 'default'"
+            >
+              {{ $globals.icons.primary }}
+            </v-icon>
+          </v-avatar>
+        </template>
         <div :class="attrs.class.text">
           <v-list-item-title
             :class="listItem && listItemDescriptions[index] ? '' : 'pr-4'"
@@ -38,10 +40,12 @@
             <div v-html="listItemDescriptions[index]" />
           </v-list-item-subtitle>
         </div>
-        <slot
-          :name="'actions-' + recipe.id"
-          :v-bind="{ item: recipe }"
-        />
+        <template #append>
+            <slot
+              :name="'actions-' + recipe.id"
+              :v-bind="{ item: recipe }"
+            />
+        </template>
       </v-list-item>
     </v-sheet>
   </v-list>
