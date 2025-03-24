@@ -51,7 +51,7 @@
               </v-img>
             </slot>
           </template>
-          <div class="pl-4 d-flex flex-column justify-space-between align-stretch">
+          <div class="pl-4 d-flex flex-column justify-space-between align-stretch pr-2">
             <v-list-item-title class="mt-1 mb-1 text-top text-truncate w-100">
               {{ name }}
             </v-list-item-title>
@@ -76,7 +76,7 @@
             </div>
           </div>
           <slot name="actions">
-            <v-card-actions class="px-3 w-100">
+            <v-card-actions class="pl-3 pr-5 w-100">
               <RecipeFavoriteBadge
                 v-if="isOwnGroup && showRecipeContent"
                 :recipe-id="recipeId"
@@ -90,7 +90,6 @@
                 :slug="slug"
                 small
               />
-              <v-spacer />
 
               <!-- If we're not logged-in, no items display, so we hide this menu -->
               <!-- We also add padding to the v-rating above to compensate -->

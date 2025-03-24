@@ -9,7 +9,7 @@
     >
       <template #activator="{ props }">
         <v-btn
-          :small="small"
+          :size="small ? 'small' : undefined"
           icon
           v-bind="props"
           @click.stop

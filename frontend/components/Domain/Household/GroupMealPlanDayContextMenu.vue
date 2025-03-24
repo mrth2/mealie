@@ -21,9 +21,10 @@
       <template #activator="{ props }">
         <v-btn
           :class="{ 'rounded-circle': fab }"
-          :small="fab"
+          :size="fab ? 'small' : undefined"
           :color="color"
           :icon="!fab"
+          variant="text"
           dark
           v-bind="props"
           @click.prevent
