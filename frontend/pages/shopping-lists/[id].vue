@@ -182,7 +182,7 @@
         </div>
         <v-divider class="my-4" />
         <v-expand-transition>
-          <div v-show="showChecked">
+          <div v-if="showChecked">
             <div v-for="(item, idx) in listItems.checked" :key="item.id">
               <ShoppingListItem v-model="listItems.checked[idx]" class="strike-through-note" :labels="allLabels || []"
                 :units="allUnits || []" :foods="allFoods || []" @checked="saveListItem" @save="saveListItem"

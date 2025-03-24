@@ -308,7 +308,7 @@
               </DropZone>
               <v-expand-transition>
                 <div
-                  v-show="!isChecked(index) && !isEditForm"
+                  v-if="!isChecked(index) && !isEditForm"
                   class="m-0 p-0"
                 >
                   <v-card-text class="markdown">

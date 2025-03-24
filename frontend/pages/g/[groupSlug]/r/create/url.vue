@@ -59,7 +59,7 @@
     </v-form>
     <v-expand-transition>
       <v-alert
-        v-show="error"
+        v-if="error"
         color="error"
         class="mt-6 white--text"
       >

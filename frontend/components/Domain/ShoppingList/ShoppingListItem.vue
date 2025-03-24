@@ -6,7 +6,7 @@
           :label="listItem.note!" @change="$emit('checked', listItem)">
           <template #label>
             <div :class="listItem.checked ? 'strike-through' : ''">
-              <RecipeIngredientListItem :ingredient="listItem as RecipeIngredient"
+              <RecipeIngredientListItem :ingredient="listItem as any"
                 :disable-amount="!(listItem.isFood || listItem.quantity !== 1)" />
             </div>
           </template>
