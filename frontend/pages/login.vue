@@ -128,7 +128,7 @@
               class="absolute px-2"
               :class="{
                 'bg-white': !$vuetify.theme.current.dark && !isDark,
-                'bg-background': $vuetify.theme.current.dark || isDark,
+                'bg-grey-darken-4': $vuetify.theme.current.dark || isDark,
               }"
             >
               {{ $t("user.or") }}
@@ -143,6 +143,7 @@
                 :loading="oidcLoggingIn"
                 color="primary"
                 size="large"
+                variant="elevated"
                 rounded
                 class="rounded-xl"
                 block
@@ -421,10 +422,6 @@ export default defineNuxtComponent({
 
 .div-width {
   max-width: 75%;
-}
-
-.bg-background {
-  background-color: #1e1e1e;
 }
 
 .bg-white {
