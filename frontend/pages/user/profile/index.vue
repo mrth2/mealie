@@ -48,7 +48,7 @@
           sm="12"
           md="12"
         >
-          <v-card variant="outlined">
+          <v-card variant="tonal">
             <v-card-title class="headline pb-0">
               {{ $t('profile.household-statistics') }}
             </v-card-title>

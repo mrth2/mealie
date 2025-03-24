@@ -13,6 +13,7 @@
         <v-icon
           color="white"
           class="pa-1"
+          size="x-large"
         >
           {{ activeIcon }}
         </v-icon>
