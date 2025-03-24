@@ -125,19 +125,21 @@
             class="my-1"
             :class="{ handle: $vuetify.display.smAndUp }"
           >
-            <v-list-item @click="editMeal(mealplan)">
-              <v-avatar :rounded="false">
-                <RecipeCardImage
-                  v-if="mealplan.recipe"
-                  :recipe-id="mealplan.recipe.id!"
-                  tiny
-                  icon-size="25"
-                  :slug="mealplan.recipe ? mealplan.recipe.slug : ''"
-                />
-                <v-icon v-else>
-                  {{ $globals.icons.primary }}
-                </v-icon>
-              </v-avatar>
+            <v-list-item lines="three" @click="editMeal(mealplan)">
+              <template #prepend>
+                <v-avatar>
+                  <RecipeCardImage
+                    v-if="mealplan.recipe"
+                    :recipe-id="mealplan.recipe.id!"
+                    tiny
+                    icon-size="25"
+                    :slug="mealplan.recipe ? mealplan.recipe.slug : ''"
+                  />
+                  <v-icon v-else>
+                    {{ $globals.icons.primary }}
+                  </v-icon>
+                </v-avatar>
+              </template>
               <v-list-item-title class="mb-1">
                 {{ mealplan.recipe ? mealplan.recipe.name : mealplan.title }}
               </v-list-item-title>
@@ -153,6 +155,7 @@
               <v-btn
                 size="small"
                 icon
+                variant="text"
                 :class="{ handle: !$vuetify.display.smAndUp }"
               >
                 <v-icon>
@@ -164,6 +167,7 @@
                   <v-chip
                     v-bind="props"
                     label
+                    variant="elevated"
                     size="small"
                     color="accent"
                     @click.prevent
@@ -187,6 +191,7 @@
               <v-btn
                 class="ml-auto"
                 size="small"
+                variant="text"
                 icon
                 @click="actions.deleteOne(mealplan.id)"
               >
