@@ -5,9 +5,9 @@ test('password login', async ({ page }) => {
     const password = "MyPassword"
     const name = "Change Me"
 
-    await page.goto('http://localhost:9000/login');
-    await page.getByLabel('Email or Username').fill(username);
-    await page.getByLabel('Password').fill(password);
+    await page.goto('/login');
+    await page.getByLabel('Email or Username', { exact: true }).fill(username);
+    await page.getByLabel('Password', { exact: true }).fill(password);
     await page.getByRole('button', { name: 'Login', exact: true }).click();
     // skip admin setup page
     await page.getByRole('link', { name: "I'm already set up, just bring me to the homepage" }).click();
@@ -19,9 +19,9 @@ test('ldap login', async ({ page }) => {
     const password = "bender"
     const name = "Bender Bending Rodríguez"
 
-    await page.goto('http://localhost:9000/login');
-    await page.getByLabel('Email or Username').fill(username);
-    await page.getByLabel('Password').fill(password);
+    await page.goto('/login');
+    await page.getByLabel('Email or Username', { exact: true }).fill(username);
+    await page.getByLabel('Password', { exact: true }).fill(password);
     await page.getByRole('button', { name: 'Login', exact: true }).click();
     await page.waitForURL('**/g/home');
     await expect(page.getByRole('navigation')).toContainText(name);
@@ -33,9 +33,9 @@ test('ldap admin login', async ({ page }) => {
     const password = "professor"
     const name = "Hubert J. Farnsworth"
 
-    await page.goto('http://localhost:9000/login');
-    await page.getByLabel('Email or Username').fill(username);
-    await page.getByLabel('Password').fill(password);
+    await page.goto('/login');
+    await page.getByLabel('Email or Username', { exact: true }).fill(username);
+    await page.getByLabel('Password', { exact: true }).fill(password);
     await page.getByRole('button', { name: 'Login', exact: true }).click();
     // skip admin setup page
     await page.getByRole('link', { name: "I'm already set up, just bring me to the homepage" }).click();
@@ -54,7 +54,7 @@ test.skip('oidc initial login', async ({ page }) => {
         "groups": ["user"]
     }
 
-    await page.goto('http://localhost:9000/login');
+    await page.goto('/login');
     await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
@@ -74,7 +74,7 @@ test.skip('oidc login with user not in propery group', async ({ page }) => {
         "groups": []
     }
 
-    await page.goto('http://localhost:9000/login');
+    await page.goto('/login');
     await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
@@ -94,7 +94,7 @@ test.skip('oidc sequential login', async ({ page }) => {
         "groups": ["user"]
     }
 
-    await page.goto('http://localhost:9000/login');
+    await page.goto('/login');
     await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
@@ -102,7 +102,7 @@ test.skip('oidc sequential login', async ({ page }) => {
     await expect(page.getByRole('navigation')).toContainText(name);
     await page.getByRole('button', { name: 'Logout' }).click();
 
-    await page.goto('http://localhost:9000/login');
+    await page.goto('/login');
     await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
@@ -121,7 +121,7 @@ test.skip('settings page verify oidc', async ({ page }) => {
         "groups": ["user"]
     }
 
-    await page.goto('http://localhost:9000/login');
+    await page.goto('/login');
     await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
@@ -129,7 +129,7 @@ test.skip('settings page verify oidc', async ({ page }) => {
     await expect(page.getByRole('navigation')).toContainText(name);
     await page.getByRole('button', { name: 'Logout' }).click();
 
-    await page.goto('http://localhost:9000/login');
+    await page.goto('/login');
     await page.getByLabel('Email or Username').click();
     await page.getByLabel('Email or Username').fill('changeme@example.com');
     await page.getByLabel('Password').click();
@@ -154,7 +154,7 @@ test.skip('oidc admin user', async ({ page }) => {
         "groups": ["user", "admin"]
     }
 
-    await page.goto('http://localhost:9000/login');
+    await page.goto('/login');
     await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
