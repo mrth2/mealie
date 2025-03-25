@@ -137,7 +137,6 @@ export default defineNuxtComponent({
     const ready = ref(false);
     const userApi = useUserApi();
     const route = useRoute();
-    const router = useRouter();
 
     useSeoMeta({
       title: i18n.t("shopping-list.shopping-list"),
