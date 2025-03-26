@@ -309,7 +309,8 @@ export default defineNuxtComponent({
       if (callback) {
         oidcLoggingIn.value = true;
         try {
-          await $auth.signIn("oidc", { params: new URLSearchParams(window.location.search) });
+          await $auth.oauthSignIn();
+          window.location.href = "/"; // Reload the app to get the new user
         }
         catch (error) {
           await router.replace("/login?direct=1");
@@ -318,7 +319,7 @@ export default defineNuxtComponent({
         oidcLoggingIn.value = false;
       }
       else {
-        window.location.replace("/api/auth/oauth"); // start the redirect process
+        navigateTo("/api/auth/oauth", { external: true }); // start the redirect process
       }
     }
 
