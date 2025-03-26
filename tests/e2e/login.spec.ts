@@ -23,7 +23,7 @@ test('ldap login', async ({ page }) => {
     await page.getByLabel('Email or Username', { exact: true }).fill(username);
     await page.getByLabel('Password', { exact: true }).fill(password);
     await page.getByRole('button', { name: 'Login', exact: true }).click();
-    await page.waitForURL('**/g/home');
+    await expect(page).toHaveURL(/\/g\/home/);
     await expect(page.getByRole('navigation')).toContainText(name);
     await expect(page.getByRole('link', { name: 'Settings' })).not.toBeVisible();
 });
@@ -43,7 +43,7 @@ test('ldap admin login', async ({ page }) => {
     await expect(page.getByRole('link', { name: 'Settings' })).toBeVisible();
 });
 
-test.skip('oidc initial login', async ({ page }) => {
+test('oidc initial login', async ({ page }) => {
     const username = "testUser"
     const name = "Test User"
     const claims = {
@@ -59,11 +59,12 @@ test.skip('oidc initial login', async ({ page }) => {
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
+    await expect(page).toHaveURL(/\/g\/home/);
     await expect(page.getByRole('navigation')).toContainText(name);
     await expect(page.getByRole('link', { name: 'Settings' })).not.toBeVisible();
 });
 
-test.skip('oidc login with user not in propery group', async ({ page }) => {
+test('oidc login with user not in propery group', async ({ page }) => {
     const username = "testUserNoGroup"
     const name = "Test User No Group"
     const claims = {
@@ -79,11 +80,11 @@ test.skip('oidc login with user not in propery group', async ({ page }) => {
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
-    await expect(page).toHaveURL(/.*\/login\/?\?direct=1/)
+    await expect(page).toHaveURL(/\/login\?direct=1/);
     await expect(page.getByRole('button', { name: 'Login with OAuth' })).toBeVisible()
 });
 
-test.skip('oidc sequential login', async ({ page }) => {
+test('oidc sequential login', async ({ page }) => {
     const username = "testUser2"
     const name = "Test User 2"
     const claims = {
@@ -99,18 +100,19 @@ test.skip('oidc sequential login', async ({ page }) => {
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
+    await expect(page).toHaveURL(/\/g\/home/, { timeout: 15000 });
     await expect(page.getByRole('navigation')).toContainText(name);
     await page.getByRole('button', { name: 'Logout' }).click();
 
-    await page.goto('/login');
+    await expect(page).toHaveURL(/\/login\?direct=1/);
     await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
-    await expect(page.getByRole('navigation')).toContainText(name);
+    await expect(page.getByRole('navigation')).toContainText(name, { timeout: 15000 });
 });
 
-test.skip('settings page verify oidc', async ({ page }) => {
+test('settings page verify oidc', async ({ page }) => {
     const username = "oidcUser"
     const name = "OIDC User"
     const claims = {
@@ -129,21 +131,23 @@ test.skip('settings page verify oidc', async ({ page }) => {
     await expect(page.getByRole('navigation')).toContainText(name);
     await page.getByRole('button', { name: 'Logout' }).click();
 
-    await page.goto('/login');
+    await expect(page).toHaveURL(/\/login\?direct=1/);
     await page.getByLabel('Email or Username').click();
     await page.getByLabel('Email or Username').fill('changeme@example.com');
-    await page.getByLabel('Password').click();
-    await page.getByLabel('Password').fill('MyPassword');
+    await page.getByLabel('Password', { exact: true }).click();
+    await page.getByLabel('Password', { exact: true }).fill('MyPassword');
     await page.getByRole('button', { name: 'Login', exact: true }).click();
     // skip admin setup page
+    await expect(page).toHaveURL(/\/admin\/setup/, { timeout: 15000 });
     await page.getByRole('link', { name: "I'm already set up, just bring me to the homepage" }).click();
-    await page.getByRole('link', { name: 'Settings' }).click();
-    await page.getByRole('link', { name: 'Users' }).click();
+    await expect(page).toHaveURL(/\/g\/home/);
+    // validate user settings
+    await page.goto('/admin/manage/users');
     await page.getByRole('cell', { name: username, exact: true }).click();
-    await expect(page.getByText('Permissions Administrator')).toBeVisible();
+    await expect(page.getByText('Administrator')).toBeVisible();
 });
 
-test.skip('oidc admin user', async ({ page }) => {
+test('oidc admin user', async ({ page }) => {
     const username = "oidcAdmin"
     const name = "OIDC Admin"
     const claims = {
@@ -160,6 +164,7 @@ test.skip('oidc admin user', async ({ page }) => {
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
     // skip admin setup page
+    await expect(page).toHaveURL(/\/admin\/setup/, { timeout: 15000 });
     await page.getByRole('link', { name: "I'm already set up, just bring me to the homepage" }).click();
     await expect(page.getByRole('navigation')).toContainText(name);
     await expect(page.getByRole('link', { name: 'Settings' })).toBeVisible();
