@@ -51,7 +51,7 @@
                 </SearchFilter>
                 <div :class="attrs.searchFilter.filterClass">
                   <v-badge
-                    :value="queryFilterJSON.parts && queryFilterJSON.parts.length"
+                    :model-value="!!queryFilterJSON.parts && queryFilterJSON.parts.length > 0"
                     size="small"
                     color="primary"
                     :content="(queryFilterJSON.parts || []).length"

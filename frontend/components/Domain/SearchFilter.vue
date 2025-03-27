@@ -9,7 +9,7 @@
     >
       <template #activator="{ props }">
         <v-badge
-          :value="selected.length > 0"
+          :model-value="selected.length > 0"
           size="small"
           color="primary"
           :content="selected.length"

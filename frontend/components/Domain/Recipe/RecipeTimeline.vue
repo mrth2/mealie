@@ -14,7 +14,7 @@
           <template #activator="{ props }">
             <v-badge
               :content="filterBadgeCount"
-              :value="filterBadgeCount"
+              :model-value="filterBadgeCount > 0"
               bordered
             >
               <v-btn
