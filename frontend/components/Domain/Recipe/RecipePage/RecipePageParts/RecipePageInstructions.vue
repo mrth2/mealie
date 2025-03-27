@@ -810,13 +810,13 @@ export default defineNuxtComponent({
 }
 
 /** Select all li under .markdown class */
-.markdown >>> ul > li {
+.markdown :deep(ul > li) {
   display: list-item;
   list-style-type: disc !important;
 }
 
 /** Select all li under .markdown class */
-.markdown >>> ol > li {
+.markdown :deep(ol > li) {
   display: list-item;
 }
 

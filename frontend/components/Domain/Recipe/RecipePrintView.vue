@@ -359,7 +359,7 @@ export default defineNuxtComponent({
 }
 
 .wrapper,
-.wrapper >>> * {
+.wrapper :deep(*) {
   opacity: 1 !important;
   color: black !important;
 }

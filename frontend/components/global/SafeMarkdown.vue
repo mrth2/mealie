@@ -47,19 +47,18 @@ export default defineNuxtComponent({
 </script>
 
 <style scoped>
-::v-deep table {
+:deep(table) {
   border-collapse: collapse;
   width: 100%;
 }
 
-::v-deep th,
-::v-deep td {
+:deep(th, td) {
   border: 1px solid;
   padding: 8px;
   text-align: left;
 }
 
-::v-deep th {
+:deep(th) {
   font-weight: bold;
 }
 </style>
