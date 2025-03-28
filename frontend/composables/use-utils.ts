@@ -1,4 +1,3 @@
-import type { IncomingMessage } from "connect";
 import { useDark, useToggle } from "@vueuse/core";
 
 export const useToggleDarkMode = () => {
@@ -18,27 +17,6 @@ export const titleCase = function (str: string) {
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 };
-
-export function detectServerBaseUrl(req?: IncomingMessage | null) {
-  if (!req || req === undefined) {
-    return "";
-  }
-  if (req.headers.referer) {
-    const url = new URL(req.headers.referer);
-    return `${url.protocol}//${url.host}`;
-  }
-  else if (req.headers.host) {
-    // TODO Socket.encrypted doesn't exist. What is needed here?
-    const protocol = req.socket.encrypted ? "https:" : "http:";
-    return `${protocol}//${req.headers.host}`;
-  }
-  else if (req.socket.remoteAddress) {
-    const protocol = req.socket.encrypted ? "https:" : "http:";
-    return `${protocol}//${req.socket.localAddress || ""}:${req.socket.localPort || ""}`;
-  }
-
-  return "";
-}
 
 export function uuid4() {
   return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
