@@ -1,16 +1,11 @@
 import type { IncomingMessage } from "connect";
-import { useDark } from "@vueuse/core";
+import { useDark, useToggle } from "@vueuse/core";
 
 export const useToggleDarkMode = () => {
   const isDark = useDark();
-  const theme = useTheme();
+  const toggleDark = useToggle(isDark);
 
-  function toggleDark() {
-    isDark.value = !theme.current.value.dark;
-    theme.global.name.value = isDark.value ? "dark" : "light";
-  }
-
-  return toggleDark;
+  return () => toggleDark();
 };
 
 export const useAsyncKey = function () {
@@ -76,7 +71,7 @@ export function deepCopy<T>(obj: T): T {
             // Clone the RegExp
             rv = new RegExp(obj as unknown as RegExp);
             break;
-            // ...probably a few others
+          // ...probably a few others
           default:
             // Some other kind of object, deep-copy its
             // properties into a new object
