@@ -68,7 +68,7 @@
               :limit="2"
               small
               url-prefix="tags"
-              v-on="$attrs"
+              v-bind="$attrs"
             />
 
             <!-- If we're not logged-in, no items display, so we hide this menu -->

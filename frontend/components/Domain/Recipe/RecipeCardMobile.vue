@@ -66,7 +66,7 @@
                 :limit="2"
                 small
                 url-prefix="tags"
-                v-on="$attrs"
+                v-bind="$attrs"
               />
             </div>
           </div>

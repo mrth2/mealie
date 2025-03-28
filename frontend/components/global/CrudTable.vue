@@ -42,7 +42,7 @@
         mode="event"
         color="info"
         :items="bulkActions"
-        v-on="bulkActionListener"
+        v-bind="bulkActionListener"
       />
       <slot name="button-row" />
     </v-card-actions>

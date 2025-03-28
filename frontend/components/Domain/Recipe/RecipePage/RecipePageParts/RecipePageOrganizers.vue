@@ -20,7 +20,7 @@
         <RecipeChips
           v-else
           :items="recipe.recipeCategory"
-          v-on="$attrs"
+          v-bind="$attrs"
         />
       </v-card-text>
     </v-card>
@@ -46,7 +46,7 @@
           v-else
           :items="recipe.tags"
           url-prefix="tags"
-          v-on="$attrs"
+          v-bind="$attrs"
         />
       </v-card-text>
     </v-card>
@@ -64,7 +64,7 @@
         <RecipeOrganizerSelector
           v-model="recipe.tools"
           selector-type="tools"
-          v-on="$attrs"
+          v-bind="$attrs"
         />
       </v-card-text>
     </v-card>
