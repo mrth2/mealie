@@ -121,7 +121,7 @@ export default defineNuxtConfig({
     compatibilityVersion: 3,
   },
 
-  compatibilityDate: "2025-02-27",
+  compatibilityDate: "2025-03-28",
 
   nitro: {
     baseURL: process.env.SUB_PATH || "",
