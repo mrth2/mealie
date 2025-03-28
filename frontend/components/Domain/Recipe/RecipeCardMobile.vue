@@ -1,11 +1,12 @@
 <template>
-  <div :style="`height: ${height}`">
+  <div :style="`height: 100%`">
     <v-expand-transition>
       <v-card
         :ripple="false"
         :class="isFlat ? 'mx-auto flat' : 'mx-auto'"
         :style="{ cursor }"
         hover
+        height="100%"
         :to="$attrs.selected ? undefined : recipeRoute"
         @click="$emit('selected')"
       >
@@ -27,28 +28,22 @@
           class="py-0"
           :class="vertical ? 'px-2' : 'px-0'"
           item-props
+          height="100%"
+          density="compact"
         >
           <template #prepend>
             <slot
               v-if="!vertical"
               name="avatar"
             >
-              <v-img
-                tile
-                height="100%"
-                :min-height="height"
+              <RecipeCardImage
+                :icon-size="100"
+                :slug="slug"
+                :recipe-id="recipeId"
+                :image-version="image"
+                size="small"
                 width="125"
-                cover
-                class="v-mobile-img rounded-sm mt-n2"
-              >
-                <RecipeCardImage
-                  :icon-size="100"
-                  :slug="slug"
-                  :recipe-id="recipeId"
-                  :image-version="image"
-                  size="small"
-                />
-              </v-img>
+              />
             </slot>
           </template>
           <div class="pl-4 d-flex flex-column justify-space-between align-stretch pr-2">
