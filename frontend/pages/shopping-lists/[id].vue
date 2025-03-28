@@ -217,10 +217,10 @@
                 </v-icon>
               </v-btn>
             </v-list-item-action>
-            <div :key="'item-actions-quantity' + recipe.id" class="pl-3">
+            <div class="pl-3">
               {{ shoppingList.recipeReferences[index].recipeQuantity }}
             </div>
-            <v-list-item-action :key="'item-actions-increase' + recipe.id">
+            <v-list-item-action>
               <v-btn icon :disabled="isOffline" @click.prevent="addRecipeReferenceToList(recipe.id!)">
                 <v-icon color="grey lighten-1">
                   {{ $globals.icons.createAlt }}
