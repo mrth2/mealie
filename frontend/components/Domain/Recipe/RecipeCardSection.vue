@@ -158,7 +158,6 @@ import { useThrottleFn } from "@vueuse/core";
 import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import { useAsyncKey } from "~/composables/use-utils";
 import { useLazyRecipes } from "~/composables/recipes";
 import type { Recipe } from "~/lib/api/types/recipe";
 import { useUserSortPreferences } from "~/composables/use-users/preferences";
@@ -306,28 +305,26 @@ export default defineNuxtComponent({
       context.emit(REPLACE_RECIPES_EVENT, newRecipes);
     }
 
-    const infiniteScroll = useThrottleFn(() => {
-      useAsyncData(useAsyncKey(), async () => {
-        if (!hasMore.value || loading.value) {
-          return;
-        }
+    const infiniteScroll = useThrottleFn(async () => {
+      if (!hasMore.value || loading.value) {
+        return;
+      }
 
-        loading.value = true;
-        page.value = page.value + 1;
+      loading.value = true;
+      page.value = page.value + 1;
 
-        const newRecipes = await fetchRecipes();
-        if (newRecipes.length < perPage) {
-          hasMore.value = false;
-        }
-        if (newRecipes.length) {
-          context.emit(APPEND_RECIPES_EVENT, newRecipes);
-        }
+      const newRecipes = await fetchRecipes();
+      if (newRecipes.length < perPage) {
+        hasMore.value = false;
+      }
+      if (newRecipes.length) {
+        context.emit(APPEND_RECIPES_EVENT, newRecipes);
+      }
 
-        loading.value = false;
-      });
+      loading.value = false;
     }, 500);
 
-    function sortRecipes(sortType: string) {
+    async function sortRecipes(sortType: string) {
       if (state.sortLoading || loading.value) {
         return;
       }
@@ -389,21 +386,19 @@ export default defineNuxtComponent({
           return;
       }
 
-      useAsyncData(useAsyncKey(), async () => {
-        // reset pagination
-        page.value = 1;
-        hasMore.value = true;
+      // reset pagination
+      page.value = 1;
+      hasMore.value = true;
 
-        state.sortLoading = true;
-        loading.value = true;
+      state.sortLoading = true;
+      loading.value = true;
 
-        // fetch new recipes
-        const newRecipes = await fetchRecipes();
-        context.emit(REPLACE_RECIPES_EVENT, newRecipes);
+      // fetch new recipes
+      const newRecipes = await fetchRecipes();
+      context.emit(REPLACE_RECIPES_EVENT, newRecipes);
 
-        state.sortLoading = false;
-        loading.value = false;
-      });
+      state.sortLoading = false;
+      loading.value = false;
     }
 
     async function navigateRandom() {
