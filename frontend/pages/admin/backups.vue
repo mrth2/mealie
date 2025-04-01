@@ -204,7 +204,9 @@ export default defineNuxtComponent({
       }
       else {
         alert.success(i18n.t("settings.backup.restore-success"));
-        $auth.refresh();
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       }
     }
 
