@@ -97,11 +97,15 @@ export default defineNuxtComponent({
 
         const formData = new FormData();
         formData.append(props.fileName, file.value);
-
-        const response = await api.upload.file(props.url, formData);
-
-        if (response) {
-          context.emit(UPLOAD_EVENT, response);
+        try {
+          const response = await api.upload.file(props.url, formData);
+          if (response) {
+            context.emit(UPLOAD_EVENT, response);
+          }
+        }
+        catch (e) {
+          console.error(e);
+          context.emit(UPLOAD_EVENT, null);
         }
         isSelecting.value = false;
       }
