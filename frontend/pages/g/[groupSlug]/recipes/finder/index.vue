@@ -210,7 +210,8 @@
                         label
                         class="ma-1"
                         color="accent custom-transparent"
-                        close
+                        closable
+                        variant="flat"
                         @click:close="removeFood(food)"
                       >
                         <span class="text-hide-overflow">{{ food.pluralName || food.name }}</span>
@@ -229,7 +230,8 @@
                       <v-chip
                         label
                         color="accent custom-transparent"
-                        close
+                        variant="flat"
+                        closable
                         @click:close="removeFood(food)"
                       >
                         <span class="text-hide-overflow">{{ food.pluralName || food.name }}</span>
