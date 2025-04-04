@@ -9,15 +9,16 @@
       :icon="$globals.icons.foods"
       :submit-disabled="isCreateDisabled"
       can-submit
-      @submit="() => {
-        if (newMeal.existing) {
-          actions.updateOne(newMeal);
+      @submit="
+        () => {
+          if (newMeal.existing) {
+            actions.updateOne(newMeal);
+          }
+ else {
+            actions.createOne(newMeal);
+          }
+          resetDialog();
         }
-        else {
-          actions.createOne(newMeal);
-        }
-        resetDialog();
-      }
       "
       @close="resetDialog()"
     >
@@ -70,24 +71,12 @@
             :rules="[requiredRule]"
           />
           <template v-else>
-            <v-text-field
-              v-model="newMeal.title"
-              :rules="[requiredRule]"
-              :label="$t('meal-plan.meal-title')"
-            />
-            <v-textarea
-              v-model="newMeal.text"
-              rows="2"
-              :label="$t('meal-plan.meal-note')"
-            />
+            <v-text-field v-model="newMeal.title" :rules="[requiredRule]" :label="$t('meal-plan.meal-title')" />
+            <v-textarea v-model="newMeal.text" rows="2" :label="$t('meal-plan.meal-note')" />
           </template>
         </v-card-text>
         <v-card-actions class="my-0 py-0">
-          <v-switch
-            v-model="dialog.note"
-            class="mt-n3"
-            :label="$t('meal-plan.note-only')"
-          />
+          <v-switch v-model="dialog.note" class="mt-n3" :label="$t('meal-plan.note-only')" />
         </v-card-actions>
       </v-card-text>
     </BaseDialog>
@@ -148,30 +137,15 @@
               </v-list-item-subtitle>
             </v-list-item>
             <v-divider class="mx-2" />
-            <div
-              class="py-2 px-2 d-flex"
-              style="align-items: center"
-            >
-              <v-btn
-                size="small"
-                icon
-                variant="text"
-                :class="{ handle: !$vuetify.display.smAndUp }"
-              >
+            <div class="py-2 px-2 d-flex" style="align-items: center">
+              <v-btn size="small" icon variant="text" :class="{ handle: !$vuetify.display.smAndUp }">
                 <v-icon>
                   {{ $globals.icons.arrowUpDown }}
                 </v-icon>
               </v-btn>
               <v-menu offset-y>
                 <template #activator="{ props }">
-                  <v-chip
-                    v-bind="props"
-                    label
-                    variant="elevated"
-                    size="small"
-                    color="accent"
-                    @click.prevent
-                  >
+                  <v-chip v-bind="props" label variant="elevated" size="small" color="accent" @click.prevent>
                     <v-icon start>
                       {{ $globals.icons.tags }}
                     </v-icon>
@@ -188,13 +162,7 @@
                   </v-list-item>
                 </v-list>
               </v-menu>
-              <v-btn
-                class="ml-auto"
-                size="small"
-                variant="text"
-                icon
-                @click="actions.deleteOne(mealplan.id)"
-              >
+              <v-btn class="ml-auto" size="small" variant="text" icon @click="actions.deleteOne(mealplan.id)">
                 <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
             </div>

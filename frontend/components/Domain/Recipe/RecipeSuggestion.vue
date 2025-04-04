@@ -25,9 +25,10 @@
               :key="item.item.id"
               label
               color="secondary custom-transparent"
-              class="mr-2 my-1"
+              class="mr-2 my-1 pl-1"
+              variant="flat"
             >
-              <v-checkbox dark :ripple="false" @click="handleCheckbox(item)">
+              <v-checkbox dark :ripple="false" hide-details @click="handleCheckbox(item)">
                 <template #label>
                   {{ organizer.getLabel(item.item) }}
                 </template>
