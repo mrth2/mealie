@@ -11,22 +11,13 @@
           :recipe-id="recipe.id"
         />
       </v-col>
-      <div
-        v-for="(organizer, idx) in missingOrganizers"
-        :key="idx"
-      >
-        <v-col
-          v-if="organizer.show"
-          cols="12"
-        >
+      <div v-for="(organizer, idx) in missingOrganizers" :key="idx">
+        <v-col v-if="organizer.show" cols="12">
           <div class="d-flex flex-row flex-wrap align-center pt-2">
             <v-icon class="ma-0 pa-0">
               {{ organizer.icon }}
             </v-icon>
-            <v-card-text
-              class="mr-0 my-0 pl-1 py-0"
-              style="width: min-content;"
-            >
+            <v-card-text class="mr-0 my-0 pl-1 py-0" style="width: min-content">
               {{ $t("recipe-finder.missing") }}:
             </v-card-text>
             <v-chip
@@ -36,11 +27,7 @@
               color="secondary custom-transparent"
               class="mr-2 my-1"
             >
-              <v-checkbox
-                dark
-                :ripple="false"
-                @click="handleCheckbox(item)"
-              >
+              <v-checkbox dark :ripple="false" @click="handleCheckbox(item)">
                 <template #label>
                   {{ organizer.getLabel(item.item) }}
                 </template>

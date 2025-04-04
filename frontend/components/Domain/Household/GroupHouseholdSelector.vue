@@ -16,7 +16,7 @@
         class="ma-1"
         :input-value="data.item"
         size="small"
-        close
+        closable
         label
         color="accent"
         dark
