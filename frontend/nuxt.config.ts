@@ -155,10 +155,6 @@ export default defineNuxtConfig({
         login: "/login",
       },
     },
-    sessionRefresh: {
-      // enablePeriodically: 30000,
-      enableOnWindowFocus: true,
-    },
   },
 
   // eslint rules
