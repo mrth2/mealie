@@ -17,11 +17,11 @@
 }
 
 .theme--dark.v-application {
-  background-color: rgb(var(--v-theme-background, #1e1e1e)) !important;
+  background-color: rgb(var(--v-theme-background, 30, 30, 30)) !important;
 }
 
 .theme--dark.v-navigation-drawer {
-  background-color: rgb(var(--v-theme-background, #1e1e1e)) !important;
+  background-color: rgb(var(--v-theme-background, 30, 30, 30)) !important;
 }
 
 .theme--dark.v-card {
