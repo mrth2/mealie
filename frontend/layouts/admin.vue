@@ -1,15 +1,5 @@
 <template>
   <v-app dark>
-    <AppSidebar
-      v-model="sidebar"
-      absolute
-      :top-link="topLinks"
-      :bottom-links="bottomLinks"
-      :user="{ data: true }"
-      :secondary-header="$t('sidebar.developer')"
-      :secondary-links="developerLinks"
-    />
-
     <TheSnackbar />
 
     <AppHeader>
@@ -20,6 +10,17 @@
         <v-icon> {{ $globals.icons.menu }}</v-icon>
       </v-btn>
     </AppHeader>
+
+    <AppSidebar
+      v-model="sidebar"
+      absolute
+      :top-link="topLinks"
+      :bottom-links="bottomLinks"
+      :user="{ data: true }"
+      :secondary-header="$t('sidebar.developer')"
+      :secondary-links="developerLinks"
+    />
+
     <v-main>
       <v-scroll-x-transition>
         <div>
