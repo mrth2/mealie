@@ -79,7 +79,7 @@
               />
               <RecipeRating
                 v-if="showRecipeContent"
-                :class="isOwnGroup ? 'ml-auto' : 'ml-auto pb-2'"
+                :class="{ 'pb-2': !isOwnGroup }"
                 :value="rating"
                 :recipe-id="recipeId"
                 :slug="slug"
@@ -94,6 +94,7 @@
                 :menu-icon="$globals.icons.dotsHorizontal"
                 :name="name"
                 :recipe-id="recipeId"
+                class="ml-auto"
                 :use-items="{
                   delete: false,
                   edit: false,
