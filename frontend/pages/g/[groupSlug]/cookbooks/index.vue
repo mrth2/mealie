@@ -16,11 +16,7 @@
       @cancel="deleteCreateTarget()"
     >
       <v-card-text>
-        <CookbookEditor
-          :key="createTargetKey"
-          v-model="createTarget"
-          :actions="actions"
-        />
+        <CookbookEditor :key="createTargetKey" v-model="createTarget" :actions="actions" />
       </v-card-text>
     </BaseDialog>
 
@@ -34,11 +30,8 @@
       @confirm="deleteCookbook()"
     >
       <v-card-text>
-        <p>{{ $t("general.confirm-delete-generic-with-name", { name: $t('cookbook.cookbook') }) }}</p>
-        <p
-          v-if="deleteTarget"
-          class="mt-4 ml-4"
-        >
+        <p>{{ $t("general.confirm-delete-generic-with-name", { name: $t("cookbook.cookbook") }) }}</p>
+        <p v-if="deleteTarget" class="mt-4 ml-4">
           {{ deleteTarget.name }}
         </p>
       </v-card-text>
@@ -49,17 +42,12 @@
     <v-container class="px-12">
       <BasePageTitle divider>
         <template #header>
-          <v-img
-            width="100%"
-            max-height="100"
-            max-width="100"
-            :src="require('~/static/svgs/manage-cookbooks.svg')"
-          />
+          <v-img width="100%" max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')" />
         </template>
         <template #title>
-          {{ $t('cookbook.cookbooks') }}
+          {{ $t("cookbook.cookbooks") }}
         </template>
-        {{ $t('cookbook.description') }}
+        {{ $t("cookbook.description") }}
       </BasePageTitle>
 
       <div class="my-6">
@@ -76,10 +64,7 @@
       </div>
 
       <!-- Create New -->
-      <BaseButton
-        create
-        @click="createCookbook"
-      />
+      <BaseButton create @click="createCookbook" />
 
       <!-- Cookbook List -->
       <v-expansion-panels class="mt-2">
@@ -96,31 +81,18 @@
             :key="cookbook.id"
             class="my-2 left-border rounded"
           >
-            <v-expansion-panel-title
-              disable-icon-rotate
-              class="headline"
-            >
+            <v-expansion-panel-title disable-icon-rotate class="text-h6">
               <div class="d-flex align-center">
-                <v-icon
-                  size="large"
-                  start
-                >
+                <v-icon size="large" start>
                   {{ $globals.icons.pages }}
                 </v-icon>
                 {{ cookbook.name }}
               </div>
               <template #actions>
-                <v-icon
-                  class="handle"
-                  :size="40"
-                >
+                <v-icon class="handle" :size="40">
                   {{ $globals.icons.arrowUpDown }}
                 </v-icon>
-                <v-btn
-                  icon
-                  size="small"
-                  class="ml-2"
-                >
+                <v-btn icon size="small" class="ml-2">
                   <v-icon>
                     {{ $globals.icons.edit }}
                   </v-icon>
@@ -137,17 +109,18 @@
               <v-card-actions>
                 <v-spacer />
                 <BaseButtonGroup
-                  :buttons="[{
-                               icon: $globals.icons.delete,
-                               text: $t('general.delete'),
-                               event: 'delete',
-                             },
-                             {
-                               icon: $globals.icons.save,
-                               text: $t('general.save'),
-                               event: 'save',
-                               disabled: !cookbook.queryFilterString,
-                             },
+                  :buttons="[
+                    {
+                      icon: $globals.icons.delete,
+                      text: $t('general.delete'),
+                      event: 'delete',
+                    },
+                    {
+                      icon: $globals.icons.save,
+                      text: $t('general.save'),
+                      event: 'save',
+                      disabled: !cookbook.queryFilterString,
+                    },
                   ]"
                   @delete="deleteEventHandler(myCookbooks[index])"
                   @save="actions.updateOne(myCookbooks[index])"
@@ -187,9 +160,12 @@ export default defineNuxtComponent({
 
     const $auth = useMealieAuth();
     const { cookbooks: allCookbooks, actions } = useCookbooks();
-    const _myCookbooks = computed(() => allCookbooks.value?.filter((cookbook) => {
-      return cookbook.householdId === $auth.user.value?.householdId;
-    }) ?? []);
+    const _myCookbooks = computed(
+      () =>
+        allCookbooks.value?.filter((cookbook) => {
+          return cookbook.householdId === $auth.user.value?.householdId;
+        }) ?? [],
+    );
     const myCookbooks = toRef(_myCookbooks, "value");
     const { household } = useHouseholdSelf();
     const cookbookPreferences = useCookbookPreferences();
@@ -198,7 +174,10 @@ export default defineNuxtComponent({
     const createTargetKey = ref(0);
     const createTarget = ref<ReadCookBook | null>(null);
     async function createCookbook() {
-      const name = i18n.t("cookbook.household-cookbook-name", [household.value?.name || "", String((myCookbooks.value?.length ?? 0) + 1)]) as string;
+      const name = i18n.t("cookbook.household-cookbook-name", [
+        household.value?.name || "",
+        String((myCookbooks.value?.length ?? 0) + 1),
+      ]) as string;
       await actions.createOne(name).then((cookbook) => {
         createTarget.value = cookbook as ReadCookBook;
         createTargetKey.value++;
