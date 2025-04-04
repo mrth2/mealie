@@ -60,20 +60,13 @@
           <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
             <!-- Multi Items -->
             <v-list-group v-if="nav.children" :key="(nav.key || nav.title) + 'multi-item'"
-              v-model="dropDowns[nav.title]" color="primary" :prepend-icon="nav.icon">
+              v-model="dropDowns[nav.title]" color="primary" :prepend-icon="nav.icon" fluid>
               <template #activator="{ props }">
-                <v-list-item-title v-bind="props">
-                  {{ nav.title }}
-                </v-list-item-title>
+                <v-list-item v-bind="props" :prepend-icon="nav.icon" :title="nav.title" />
               </template>
 
               <v-list-item v-for="child in nav.children" :key="child.key || child.title" exact :to="child.to"
-                class="ml-2">
-                <template #prepend>
-                  <v-icon>{{ child.icon }}</v-icon>
-                </template>
-                <v-list-item-title>{{ child.title }}</v-list-item-title>
-              </v-list-item>
+                class="ml-2" :prepend-icon="child.icon" :title="child.title" />
             </v-list-group>
 
             <!-- Single Item -->
