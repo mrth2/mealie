@@ -112,6 +112,7 @@
               icon
               class="mx-1"
               color="error"
+              variant="text"
               @click.stop="
                 deleteDialog = true;
                 deleteTarget = item.name;
