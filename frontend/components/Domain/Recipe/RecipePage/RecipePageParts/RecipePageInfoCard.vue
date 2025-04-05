@@ -10,7 +10,7 @@
         flat
         class="d-flex flex-column justify-center align-center"
       >
-        <v-card-text>
+        <v-card-text class="w-100">
           <v-card-title class="headline pa-0 d-flex flex-column align-center justify-center">
             {{ recipe.name }}
             <RecipeRating
