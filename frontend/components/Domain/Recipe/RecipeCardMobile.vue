@@ -21,10 +21,11 @@
             :recipe-id="recipeId"
             size="small"
             :image-version="image"
+            height="150"
           />
         </v-img>
         <v-list-item
-          lines="three"
+          lines="two"
           class="py-0"
           :class="vertical ? 'px-2' : 'px-0'"
           item-props
@@ -43,6 +44,7 @@
                 :image-version="image"
                 size="small"
                 width="125"
+                height="150"
               />
             </slot>
           </template>
