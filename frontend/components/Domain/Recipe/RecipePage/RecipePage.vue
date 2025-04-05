@@ -1,23 +1,15 @@
 <template>
   <div>
-    <v-container v-show="!isCookMode"
-                 key="recipe-page"
-                 :class="{ 'pa-0': $vuetify.display.smAndDown }"
-    >
-      <v-card :flat="$vuetify.display.smAndDown"
-              class="d-print-none"
-      >
-        <RecipePageHeader :recipe="recipe"
-                          :recipe-scale="scale"
-                          :landscape="landscape"
-                          @save="saveRecipe"
-                          @delete="deleteRecipe"
+    <v-container v-show="!isCookMode" key="recipe-page" :class="{ 'pa-0': $vuetify.display.smAndDown }">
+      <v-card :flat="$vuetify.display.smAndDown" class="d-print-none">
+        <RecipePageHeader
+          :recipe="recipe"
+          :recipe-scale="scale"
+          :landscape="landscape"
+          @save="saveRecipe"
+          @delete="deleteRecipe"
         />
-        <LazyRecipeJsonEditor v-if="isEditJSON"
-                              v-model="recipe"
-                              class="mt-10"
-                              :options="EDITOR_OPTIONS"
-        />
+        <LazyRecipeJsonEditor v-if="isEditJSON" v-model="recipe" class="mt-10" :options="EDITOR_OPTIONS" />
         <v-card-text v-else>
           <!--
             This is where most of the main content is rendered. Some components include state for both Edit and View modes
@@ -29,19 +21,10 @@
             a significant amount of prop management. When we move to Vue 3 and have access to some of the newer API's the plan to update this
             data management and mutation system we're using.
           -->
-          <RecipePageInfoEditor v-if="isEditMode"
-                                :recipe="recipe"
-                                :landscape="landscape"
-          />
-          <RecipePageEditorToolbar v-if="isEditForm"
-                                   :recipe="recipe"
-          />
-          <RecipePageIngredientEditor v-if="isEditForm"
-                                      :recipe="recipe"
-          />
-          <RecipePageScale v-model:scale="scale"
-                           :recipe="recipe"
-          />
+          <RecipePageInfoEditor v-if="isEditMode" :recipe="recipe" :landscape="landscape" />
+          <RecipePageEditorToolbar v-if="isEditForm" :recipe="recipe" />
+          <RecipePageIngredientEditor v-if="isEditForm" :recipe="recipe" />
+          <RecipePageScale v-model:scale="scale" :recipe="recipe" />
 
           <!--
             This section contains the 2 column layout for the recipe steps and other content.
@@ -50,145 +33,108 @@
             <!--
               The left column is conditionally rendered based on cook mode.
             -->
-            <v-col v-if="!isCookMode || isEditForm"
-                   cols="12"
-                   sm="12"
-                   md="4"
-                   lg="4"
-            >
-              <RecipePageIngredientToolsView v-if="!isEditForm"
-                                             :recipe="recipe"
-                                             :scale="scale"
-              />
-              <RecipePageOrganizers v-if="$vuetify.display.mdAndUp"
-                                    :recipe="recipe"
-                                    @item-selected="chipClicked"
-              />
+            <v-col v-if="!isCookMode || isEditForm" cols="12" sm="12" md="4" lg="4">
+              <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="recipe" :scale="scale" />
+              <RecipePageOrganizers v-if="$vuetify.display.mdAndUp" :recipe="recipe" @item-selected="chipClicked" />
             </v-col>
-            <v-divider v-if="$vuetify.display.mdAndUp && !isCookMode"
-                       class="my-divider"
-                       :vertical="true"
-            />
+            <v-divider v-if="$vuetify.display.mdAndUp && !isCookMode" class="my-divider" :vertical="true" />
 
             <!--
               the right column is always rendered, but it's layout width is determined by where the left column is
               rendered.
             -->
-            <v-col cols="12"
-                   sm="12"
-                   :md="8 + (isCookMode ? 1 : 0) * 4"
-                   :lg="8 + (isCookMode ? 1 : 0) * 4"
-            >
-              <RecipePageInstructions v-model="recipe.recipeInstructions"
-                                      v-model:assets="recipe.assets"
-                                      :recipe="recipe"
-                                      :scale="scale"
+            <v-col cols="12" sm="12" :md="8 + (isCookMode ? 1 : 0) * 4" :lg="8 + (isCookMode ? 1 : 0) * 4">
+              <RecipePageInstructions
+                v-model="recipe.recipeInstructions"
+                v-model:assets="recipe.assets"
+                :recipe="recipe"
+                :scale="scale"
               />
-              <div v-if="isEditForm"
-                   class="d-flex"
-              >
-                <RecipeDialogBulkAdd class="ml-auto my-2 mr-1"
-                                     @bulk-data="addStep"
-                />
-                <BaseButton class="my-2"
-                            @click="addStep()"
-                >
+              <div v-if="isEditForm" class="d-flex">
+                <RecipeDialogBulkAdd class="ml-auto my-2 mr-1" @bulk-data="addStep" />
+                <BaseButton class="my-2" @click="addStep()">
                   {{ $t("general.add") }}
                 </BaseButton>
               </div>
               <div v-if="!$vuetify.display.mdAndUp">
                 <RecipePageOrganizers :recipe="recipe" />
               </div>
-              <RecipeNotes v-model="recipe.notes"
-                           :edit="isEditForm"
-              />
+              <RecipeNotes v-model="recipe.notes" :edit="isEditForm" />
             </v-col>
           </v-row>
           <RecipePageFooter :recipe="recipe" />
         </v-card-text>
       </v-card>
       <WakelockSwitch />
-      <RecipePageComments v-if="!recipe.settings.disableComments && !isEditForm && !isCookMode"
-                          :recipe="recipe"
-                          class="px-1 my-4 d-print-none"
+      <RecipePageComments
+        v-if="!recipe.settings.disableComments && !isEditForm && !isCookMode"
+        :recipe="recipe"
+        class="px-1 my-4 d-print-none"
       />
-      <RecipePrintContainer :recipe="recipe"
-                            :scale="scale"
-      />
+      <RecipePrintContainer :recipe="recipe" :scale="scale" />
     </v-container>
     <!-- Cook mode displayes two columns with ingredients and instructions side by side, each being scrolled individually, allowing to view both at the same timer -->
-    <v-sheet v-show="isCookMode && !hasLinkedIngredients"
-             key="cookmode"
-             :style="{ height: $vuetify.display.smAndUp ? 'calc(100vh - 48px)' : '' }"
+    <v-sheet
+      v-show="isCookMode && !hasLinkedIngredients"
+      key="cookmode"
+      :style="{ height: $vuetify.display.smAndUp ? 'calc(100vh - 48px)' : '' }"
     >
       <!-- the calc is to account for the toolbar a more dynamic solution could be needed  -->
-      <v-row style="height: 100%;"
-             no-gutters
-             class="overflow-hidden"
-      >
-        <v-col cols="12"
-               sm="5"
-               class="overflow-y-auto pl-4 pr-3 py-2"
-               style="height: 100%;"
-        >
+      <v-row style="height: 100%" no-gutters class="overflow-hidden">
+        <v-col cols="12" sm="5" class="overflow-y-auto pl-4 pr-3 py-2" style="height: 100%">
           <div class="d-flex align-center">
-            <RecipePageScale v-model:scale="scale"
-                             :recipe="recipe"
-            />
+            <RecipePageScale v-model:scale="scale" :recipe="recipe" />
           </div>
-          <RecipePageIngredientToolsView v-if="!isEditForm"
-                                         :recipe="recipe"
-                                         :scale="scale"
-                                         :is-cook-mode="isCookMode"
+          <RecipePageIngredientToolsView
+            v-if="!isEditForm"
+            :recipe="recipe"
+            :scale="scale"
+            :is-cook-mode="isCookMode"
           />
           <v-divider />
         </v-col>
-        <v-col class="overflow-y-auto py-2"
-               style="height: 100%;"
-               cols="12"
-               sm="7"
-        >
-          <RecipePageInstructions v-model="recipe.recipeInstructions"
-                                  v-model:assets="recipe.assets"
-                                  class="overflow-y-hidden px-4"
-                                  :recipe="recipe"
-                                  :scale="scale"
+        <v-col class="overflow-y-auto py-2" style="height: 100%" cols="12" sm="7">
+          <RecipePageInstructions
+            v-model="recipe.recipeInstructions"
+            v-model:assets="recipe.assets"
+            class="overflow-y-hidden px-4"
+            :recipe="recipe"
+            :scale="scale"
           />
         </v-col>
       </v-row>
     </v-sheet>
     <v-sheet v-show="isCookMode && hasLinkedIngredients">
       <div class="mt-2 px-2 px-md-4">
-        <RecipePageScale v-model:scale="scale"
-                         :recipe="recipe"
-        />
+        <RecipePageScale v-model:scale="scale" :recipe="recipe" />
       </div>
-      <RecipePageInstructions v-model="recipe.recipeInstructions"
-                              v-model:assets="recipe.assets"
-                              class="overflow-y-hidden mt-n5 px-2 px-md-4"
-                              :recipe="recipe"
-                              :scale="scale"
+      <RecipePageInstructions
+        v-model="recipe.recipeInstructions"
+        v-model:assets="recipe.assets"
+        class="overflow-y-hidden mt-n5 px-2 px-md-4"
+        :recipe="recipe"
+        :scale="scale"
       />
 
-      <div v-if="notLinkedIngredients.length > 0"
-           class="px-2 px-md-4 pb-4 "
-      >
+      <div v-if="notLinkedIngredients.length > 0" class="px-2 px-md-4 pb-4">
         <v-divider />
         <v-card flat>
-          <v-card-title>{{ $t('recipe.not-linked-ingredients') }}</v-card-title>
-          <RecipeIngredients :value="notLinkedIngredients"
-                             :scale="scale"
-                             :disable-amount="recipe.settings.disableAmount"
-                             :is-cook-mode="isCookMode"
+          <v-card-title>{{ $t("recipe.not-linked-ingredients") }}</v-card-title>
+          <RecipeIngredients
+            :value="notLinkedIngredients"
+            :scale="scale"
+            :disable-amount="recipe.settings.disableAmount"
+            :is-cook-mode="isCookMode"
           />
         </v-card>
       </div>
     </v-sheet>
-    <v-btn v-if="isCookMode"
-           icon
-           color="primary"
-           style="position: fixed; right: 12px; top: 60px;"
-           @click="toggleCookMode()"
+    <v-btn
+      v-if="isCookMode"
+      icon
+      color="primary"
+      style="position: fixed; right: 12px; top: 60px"
+      @click="toggleCookMode()"
     >
       <v-icon>{{ $globals.icons.close }}</v-icon>
     </v-btn>
@@ -261,25 +207,27 @@ export default defineNuxtComponent({
     const $auth = useMealieAuth();
     const route = useRoute();
 
-    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user?.value?.groupSlug || "");
+    const groupSlug = computed(() => (route.params.groupSlug as string) || $auth.user?.value?.groupSlug || "");
     const { isOwnGroup } = useLoggedInState();
 
     const router = useRouter();
     const api = useUserApi();
     const { pageMode, editMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, toggleCookMode }
-			= usePageState(props.recipe.slug);
+      = usePageState(props.recipe.slug);
     const { deactivateNavigationWarning } = useNavigationWarning();
     const notLinkedIngredients = computed(() => {
       return props.recipe.recipeIngredient.filter((ingredient) => {
-        return !props.recipe.recipeInstructions.some(step => step.ingredientReferences?.map(ref => ref.referenceId).includes(ingredient.referenceId));
+        return !props.recipe.recipeInstructions.some(step =>
+          step.ingredientReferences?.map(ref => ref.referenceId).includes(ingredient.referenceId),
+        );
       });
     });
 
     /** =============================================================
-		 * Recipe Snapshot on Mount
-		 * this is used to determine if the recipe has been changed since the last save
-		 * and prompts the user to save if they have unsaved changes.
-		 */
+     * Recipe Snapshot on Mount
+     * this is used to determine if the recipe has been changed since the last save
+     * and prompts the user to save if they have unsaved changes.
+     */
     const originalRecipe = ref<Recipe | null>(null);
 
     invoke(async () => {
@@ -290,9 +238,7 @@ export default defineNuxtComponent({
     onUnmounted(async () => {
       const isSame = JSON.stringify(props.recipe) === JSON.stringify(originalRecipe.value);
       if (isEditMode.value && !isSame && props.recipe?.slug !== undefined) {
-        const save = window.confirm(
-          i18n.t("general.unsaved-changes"),
-        );
+        const save = window.confirm(i18n.t("general.unsaved-changes"));
 
         if (save) {
           await api.recipes.updateOne(props.recipe.slug, props.recipe);
@@ -305,120 +251,128 @@ export default defineNuxtComponent({
       console.debug("reset RecipePage state during unmount");
     });
     const hasLinkedIngredients = computed(() => {
-      return props.recipe.recipeInstructions.some(step => step.ingredientReferences && step.ingredientReferences.length > 0);
+      return props.recipe.recipeInstructions.some(
+        step => step.ingredientReferences && step.ingredientReferences.length > 0,
+      );
     });
     /** =============================================================
-		 * Set State onMounted
-		 */
+     * Set State onMounted
+     */
 
-		type BooleanString = "true" | "false" | "";
+    type BooleanString = "true" | "false" | "";
 
-		const edit = useRouteQuery<BooleanString>("edit", "");
+    const edit = useRouteQuery<BooleanString>("edit", "");
 
-		onMounted(() => {
-		  if (edit.value === "true") {
-		    setMode(PageMode.EDIT);
-		  }
-		});
+    onMounted(() => {
+      if (edit.value === "true") {
+        setMode(PageMode.EDIT);
+      }
+    });
 
-		/** =============================================================
-		 * Recipe Save Delete
-		 */
+    /** =============================================================
+     * Recipe Save Delete
+     */
 
-		async function saveRecipe() {
-		  const { data } = await api.recipes.updateOne(props.recipe.slug, props.recipe);
-		  setMode(PageMode.VIEW);
-		  if (data?.slug) {
-		    router.push(`/g/${groupSlug.value}/r/` + data.slug);
-		  }
-		}
+    async function saveRecipe() {
+      const { data } = await api.recipes.updateOne(props.recipe.slug, props.recipe);
+      setMode(PageMode.VIEW);
+      if (data?.slug) {
+        router.push(`/g/${groupSlug.value}/r/` + data.slug);
+      }
+    }
 
-		async function deleteRecipe() {
-		  const { data } = await api.recipes.deleteOne(props.recipe.slug);
-		  if (data?.slug) {
-		    router.push(`/g/${groupSlug.value}`);
-		  }
-		}
+    async function deleteRecipe() {
+      const { data } = await api.recipes.deleteOne(props.recipe.slug);
+      if (data?.slug) {
+        router.push(`/g/${groupSlug.value}`);
+      }
+    }
 
-		/** =============================================================
-		 * View Preferences
-		 */
-		const landscape = computed(() => {
-		  const preferLandscape = props.recipe.settings.landscapeView;
-		  const smallScreen = !$vuetify.display.smAndUp.value;
+    /** =============================================================
+     * View Preferences
+     */
+    const landscape = computed(() => {
+      const preferLandscape = props.recipe.settings.landscapeView;
+      const smallScreen = !$vuetify.display.smAndUp.value;
 
-		  if (preferLandscape) {
-		    return true;
-		  }
-		  else if (smallScreen) {
-		    return true;
-		  }
+      if (preferLandscape) {
+        return true;
+      }
+      else if (smallScreen) {
+        return true;
+      }
 
-		  return false;
-		});
+      return false;
+    });
 
-		/** =============================================================
-		 * Bulk Step Editor
-		 * TODO: Move to RecipePageInstructions component
-		 */
+    /** =============================================================
+     * Bulk Step Editor
+     * TODO: Move to RecipePageInstructions component
+     */
 
-		function addStep(steps: Array<string> | null = null) {
-		  if (!props.recipe.recipeInstructions) {
-		    return;
-		  }
+    function addStep(steps: Array<string> | null = null) {
+      if (!props.recipe.recipeInstructions) {
+        return;
+      }
 
-		  if (steps) {
-		    const cleanedSteps = steps.map((step) => {
-		      return { id: uuid4(), text: step, title: "", ingredientReferences: [] };
-		    });
+      if (steps) {
+        const cleanedSteps = steps.map((step) => {
+          return { id: uuid4(), text: step, title: "", ingredientReferences: [] };
+        });
 
-		    props.recipe.recipeInstructions.push(...cleanedSteps);
-		  }
-		  else {
-		    props.recipe.recipeInstructions.push({ id: uuid4(), text: "", title: "", summary: "", ingredientReferences: [] });
-		  }
-		}
+        props.recipe.recipeInstructions.push(...cleanedSteps);
+      }
+      else {
+        props.recipe.recipeInstructions.push({
+          id: uuid4(),
+          text: "",
+          title: "",
+          summary: "",
+          ingredientReferences: [],
+        });
+      }
+    }
 
-		/** =============================================================
-		 * Meta Tags
-		 */
-		const { user } = usePageUser();
+    /** =============================================================
+     * Meta Tags
+     */
+    const { user } = usePageUser();
 
-		/** =============================================================
-		 * RecipeChip Clicked
-		 */
+    /** =============================================================
+     * RecipeChip Clicked
+     */
 
-		function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: string) {
-		  if (!item.id) {
-		    return;
-		  }
-		  router.push(`/g/${groupSlug.value}?${itemType}=${item.id}`);
-		}
+    function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: string) {
+      if (!item.id) {
+        return;
+      }
+      router.push(`/g/${groupSlug.value}?${itemType}=${item.id}`);
+    }
 
-		return {
-		  user,
-		  isOwnGroup,
-		  api,
-		  scale: ref(1),
-		  EDITOR_OPTIONS,
-		  landscape,
+    return {
+      user,
+      isOwnGroup,
+      api,
+      scale: ref(1),
+      EDITOR_OPTIONS,
+      landscape,
 
-		  pageMode,
-		  editMode,
-		  PageMode,
-		  EditorMode,
-		  isEditMode,
-		  isEditForm,
-		  isEditJSON,
-		  isCookMode,
-		  toggleCookMode,
-		  saveRecipe,
-		  deleteRecipe,
-		  addStep,
-		  hasLinkedIngredients,
-		  notLinkedIngredients,
-		  chipClicked,
-		};
+      pageMode,
+      editMode,
+      PageMode,
+      EditorMode,
+      isEditMode,
+      isEditForm,
+      isEditJSON,
+      isCookMode,
+      toggleCookMode,
+      saveRecipe,
+      deleteRecipe,
+      addStep,
+      hasLinkedIngredients,
+      notLinkedIngredients,
+      chipClicked,
+    };
   },
 });
 </script>
