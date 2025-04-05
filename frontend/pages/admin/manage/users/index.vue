@@ -73,6 +73,7 @@
             icon
             :disabled="+item.id == 1"
             color="error"
+            variant="text"
             @click.stop="
               deleteDialog = true;
               deleteTargetId = item.id;

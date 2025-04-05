@@ -70,6 +70,7 @@
                   class="mr-1"
                   icon
                   color="error"
+                  variant="text"
                   @click.stop="
                     confirmDialog = true;
                     deleteTarget = +item.id;
