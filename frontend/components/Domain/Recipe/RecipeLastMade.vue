@@ -48,10 +48,7 @@
                   </v-menu>
                 </v-col>
                 <v-spacer />
-                <v-col
-                  cols="auto"
-                  align-self="center"
-                >
+                <v-col cols="auto" align-self="center">
                   <AppButtonUpload
                     v-if="!newTimelineEventImage"
                     class="ml-auto"
@@ -63,23 +60,16 @@
                     :post="false"
                     @uploaded="uploadImage"
                   />
-                  <v-btn
-                    v-if="!!newTimelineEventImage"
-                    color="error"
-                    @click="clearImage"
-                  >
+                  <v-btn v-if="!!newTimelineEventImage" color="error" @click="clearImage">
                     <v-icon start>
                       {{ $globals.icons.close }}
                     </v-icon>
-                    {{ $t('recipe.remove-image') }}
+                    {{ $t("recipe.remove-image") }}
                   </v-btn>
                 </v-col>
               </v-row>
               <v-row v-if="newTimelineEventImage && newTimelineEventImagePreviewUrl">
-                <v-col
-                  cols="12"
-                  align-self="center"
-                >
+                <v-col cols="12" align-self="center">
                   <ImageCropper
                     :img="newTimelineEventImagePreviewUrl"
                     cropper-height="20vh"
@@ -94,41 +84,27 @@
       </BaseDialog>
     </div>
     <div>
-      <div
-        v-if="lastMadeReady"
-        class="d-flex justify-center flex-wrap"
-      >
-        <v-row
-          no-gutters
-          class="d-flex flex-wrap align-center"
-          style="font-size: larger;"
-        >
+      <div v-if="lastMadeReady" class="d-flex justify-center flex-wrap">
+        <v-row no-gutters class="d-flex flex-wrap align-center" style="font-size: larger">
           <v-tooltip bottom>
             <template #activator="{ props }">
               <v-btn
                 rounded
                 variant="outlined"
-                x-large
+                size="x-large"
                 color="primary"
                 v-bind="props"
                 @click="madeThisDialog = true"
               >
-                <v-icon
-                  start
-                  size="large"
-                >
+                <v-icon start size="large">
                   {{ $globals.icons.calendar }}
                 </v-icon>
-                <span
-                  class="text--secondary"
-                  style="letter-spacing: normal;"
-                ><b>{{ $t("general.last-made")
-                }}</b><br>{{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $t("general.never")
-                }}</span>
-                <v-icon
-                  end
-                  size="large"
-                >
+                <span class="text--secondary" style="letter-spacing: normal">
+                  <b>{{ $t("general.last-made") }}</b>
+                  <br>
+                  {{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $t("general.never") }}
+                </span>
+                <v-icon end size="large">
                   {{ $globals.icons.createAlt }}
                 </v-icon>
               </v-btn>
@@ -193,9 +169,9 @@ export default defineNuxtComponent({
       () => madeThisDialog.value,
       () => {
         // Set timestamp to now
-        newTimelineEventTimestamp.value = (
-          new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)
-        ).toISOString().substring(0, 10);
+        newTimelineEventTimestamp.value = new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+          .toISOString()
+          .substring(0, 10);
       },
     );
 
