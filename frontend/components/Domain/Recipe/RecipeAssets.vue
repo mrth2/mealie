@@ -86,7 +86,7 @@
               density="compact"
               :prepend-icon="getIconDefinition(state.newAsset.icon).icon"
               :items="iconOptions"
-              item-text="title"
+              item-title="title"
               item-value="name"
               class="mr-2"
             >

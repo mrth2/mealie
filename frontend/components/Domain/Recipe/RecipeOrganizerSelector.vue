@@ -6,7 +6,7 @@
     :items="storeItem"
     :label="label"
     chips
-    deletable-chips
+    closable-chips
     item-title="name"
     multiple
     variant="underlined"
