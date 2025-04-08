@@ -10,17 +10,10 @@
     :prepend-icon="icon || $globals.icons.tags"
     auto-select-first
     clearable
+    color="primary"
     hide-details
     @keyup.enter="emitCreate"
   >
-    <template
-      v-if="$attrs.create"
-      #no-data
-    >
-      <div class="caption text-center pb-2">
-        {{ $t("recipe.press-enter-to-create") }}
-      </div>
-    </template>
     <template
       v-if="$attrs.create"
       #append-item
@@ -98,7 +91,7 @@ export default defineNuxtComponent({
 
     const itemVal = computed({
       get: () => {
-        return props.modelValue;
+        return Object.keys(props.modelValue).length !== 0 ? props.modelValue : null;
       },
       set: (val) => {
         itemIdVal.value = val?.id || undefined;

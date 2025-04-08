@@ -2,35 +2,28 @@
   <div>
     <v-card variant="outlined">
       <v-card-text class="pb-3 pt-1">
-        <div
-          v-if="listItem.isFood"
-          class="d-md-flex align-center mb-2"
-          style="gap: 20px"
-        >
+        <div v-if="listItem.isFood" class="d-md-flex align-center mb-2" style="gap: 20px">
           <div>
             <InputQuantity v-model="listItem.quantity" />
           </div>
           <InputLabelType
-            v-model="listItem.unit"
-            v-model:item-id="listItem.unitId"
+            v-model="listItem.unit as IngredientUnit"
+            v-model:item-id="listItem.unitId!"
             :items="units"
             :label="$t('general.units')"
             :icon="$globals.icons.units"
             @create="createAssignUnit"
           />
           <InputLabelType
-            v-model="listItem.food"
-            v-model:item-id="listItem.foodId"
+            v-model="listItem.food as IngredientFood"
+            v-model:item-id="listItem.foodId!"
             :items="foods"
             :label="$t('shopping-list.food')"
             :icon="$globals.icons.foods"
             @create="createAssignFood"
           />
         </div>
-        <div
-          class="d-md-flex align-center"
-          style="gap: 20px"
-        >
+        <div class="d-md-flex align-center" style="gap: 20px">
           <div v-if="!listItem.isFood">
             <InputQuantity v-model="listItem.quantity" />
           </div>
@@ -44,18 +37,12 @@
             @keypress="handleNoteKeyPress"
           />
         </div>
-        <div
-          class="d-flex flex-wrap align-end"
-          style="gap: 20px"
-        >
+        <div class="d-flex flex-wrap align-end" style="gap: 20px">
           <div class="d-flex align-end">
-            <div
-              style="max-width: 300px"
-              class="mt-3 mr-auto"
-            >
+            <div style="max-width: 300px" class="mt-3 mr-auto">
               <InputLabelType
                 v-model="listItem.label"
-                v-model:item-id="listItem.labelId"
+                v-model:item-id="listItem.labelId!"
                 :items="labels"
                 :label="$t('shopping-list.label')"
               />
@@ -69,19 +56,11 @@
               top
             >
               <template #activator="{ props }">
-                <v-icon
-                  class="mt-auto"
-                  :icon="$globals.icons.alert"
-                  v-bind="props"
-                  color="warning"
-                >
+                <v-icon class="mt-auto" :icon="$globals.icons.alert" v-bind="props" color="warning">
                   {{ $globals.icons.alert }}
                 </v-icon>
               </template>
-              <v-card
-                max-width="350px"
-                class="left-warning-border"
-              >
+              <v-card max-width="350px" class="left-warning-border">
                 <v-card-text>
                   {{ $t("shopping-list.linked-item-warning") }}
                 </v-card-text>
@@ -103,11 +82,15 @@
       <v-card-actions class="ma-0 pt-0 pb-1 justify-end">
         <BaseButtonGroup
           :buttons="[
-            ...(allowDelete ? [{
-              icon: $globals.icons.delete,
-              text: $t('general.delete'),
-              event: 'delete',
-            }] : []),
+            ...(allowDelete
+              ? [
+                  {
+                    icon: $globals.icons.delete,
+                    text: $t('general.delete'),
+                    event: 'delete',
+                  },
+                ]
+              : []),
             {
               icon: $globals.icons.close,
               text: $t('general.cancel'),
@@ -192,7 +175,7 @@ export default defineNuxtComponent({
     async function createAssignFood(val: string) {
       // keep UI reactive
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      listItem.value.food ? listItem.value.food.name = val : listItem.value.food = { name: val };
+      listItem.value.food ? (listItem.value.food.name = val) : (listItem.value.food = { name: val });
 
       foodData.data.name = val;
       const newFood = await foodStore.actions.createOne(foodData.data);
@@ -206,7 +189,7 @@ export default defineNuxtComponent({
     async function createAssignUnit(val: string) {
       // keep UI reactive
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      listItem.value.unit ? listItem.value.unit.name = val : listItem.value.unit = { name: val };
+      listItem.value.unit ? (listItem.value.unit.name = val) : (listItem.value.unit = { name: val });
 
       unitData.data.name = val;
       const newUnit = await unitStore.actions.createOne(unitData.data);
