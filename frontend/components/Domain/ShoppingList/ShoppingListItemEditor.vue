@@ -45,6 +45,7 @@
                 v-model:item-id="listItem.labelId!"
                 :items="labels"
                 :label="$t('shopping-list.label')"
+                width="250"
               />
             </div>
 
