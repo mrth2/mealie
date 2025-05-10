@@ -21,7 +21,7 @@
             />
           </v-card-title>
           <v-divider class="my-2" />
-          <SafeMarkdown :source="recipe.description" />
+          <SafeMarkdown :source="recipe.description" class="my-3" />
           <v-divider v-if="recipe.description" />
           <v-container class="d-flex flex-row flex-wrap justify-center">
             <div class="mx-6">
