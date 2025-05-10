@@ -212,7 +212,7 @@
             :key="'item-actions-decrease' + recipe.id">
             <v-list-item-action>
               <v-btn v-if="recipe" icon :disabled="isOffline" @click.prevent="removeRecipeReferenceToList(recipe.id!)">
-                <v-icon color="grey lighten-1">
+                <v-icon color="grey-lighten-1">
                   {{ $globals.icons.minus }}
                 </v-icon>
               </v-btn>
@@ -222,7 +222,7 @@
             </div>
             <v-list-item-action>
               <v-btn icon :disabled="isOffline" @click.prevent="addRecipeReferenceToList(recipe.id!)">
-                <v-icon color="grey lighten-1">
+                <v-icon color="grey-lighten-1">
                   {{ $globals.icons.createAlt }}
                 </v-icon>
               </v-btn>

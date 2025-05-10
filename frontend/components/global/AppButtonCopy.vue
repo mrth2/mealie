@@ -2,7 +2,7 @@
   <v-tooltip
     ref="copyToolTip"
     v-model="show"
-    :color="copied? 'success lighten-1' : 'red lighten-1'"
+    :color="copied? 'success-lighten-1' : 'red-lighten-1'"
     top
     :open-on-hover="false"
     :open-on-click="true"

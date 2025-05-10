@@ -39,6 +39,11 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     }
     vuetifyOptions.theme = {
       defaultTheme: nuxtApp.$config.public.useDark ? "dark" : "light",
+      variations: {
+        colors: ["primary", "accent", "secondary", "success", "info", "warning", "error", "background"],
+        lighten: 3,
+        darken: 3,
+      },
       themes: {
         dark: {
           dark: true,

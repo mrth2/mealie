@@ -14,7 +14,7 @@
             <v-card
               class="pa-1 px-2"
               dark
-              color="secondary darken-1"
+              color="secondary-darken-1"
               size="small"
               v-bind="props"
               :style="{ cursor: canEditScale ? '' : 'default' }"
@@ -46,7 +46,7 @@
                 />
                 <v-tooltip
                   end
-                  color="secondary darken-1"
+                  color="secondary-darken-1"
                 >
                   <template #activator="{ props }">
                     <v-btn

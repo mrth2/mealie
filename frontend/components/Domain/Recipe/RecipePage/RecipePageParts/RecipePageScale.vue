@@ -4,7 +4,7 @@
       v-if="!isEditMode"
       size="small"
       top
-      color="secondary darken-1"
+      color="secondary-darken-1"
     >
       <template #activator="{ props }">
         <RecipeScaleEditButton

@@ -74,7 +74,7 @@
             <!-- If we're not logged-in, no items display, so we hide this menu -->
             <RecipeContextMenu
               v-if="isOwnGroup"
-              color="grey darken-2"
+              color="grey-darken-2"
               :slug="slug"
               :name="name"
               :recipe-id="recipeId"

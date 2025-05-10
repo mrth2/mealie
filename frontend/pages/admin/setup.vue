@@ -29,7 +29,7 @@
         <v-btn :to="groupSlug ? `/g/${groupSlug}` : '/login'"
                rounded
                variant="outlined"
-               color="grey lighten-1"
+               color="grey-lighten-1"
                class="text-subtitle-2 d-flex mx-auto"
                style="width: fit-content;"
         >

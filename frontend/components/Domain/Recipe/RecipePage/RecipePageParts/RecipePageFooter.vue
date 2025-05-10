@@ -16,7 +16,7 @@
         :ripple="false"
         elevation="0"
         :href="recipe.orgURL"
-        color="secondary darken-1"
+        color="secondary-darken-1"
         target="_blank"
         class="rounded-sm mr-n2"
       >

@@ -60,7 +60,7 @@ export default defineNuxtComponent({
     },
     color: {
       type: String,
-      default: "grey darken-2",
+      default: "grey-darken-2",
     },
   },
 });

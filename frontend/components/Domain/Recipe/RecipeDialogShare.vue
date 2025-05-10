@@ -68,7 +68,7 @@
             icon
             @click.stop="deleteToken(token.id)"
           >
-            <v-icon color="error lighten-1">
+            <v-icon color="error-lighten-1">
               {{ $globals.icons.delete }}
             </v-icon>
           </v-btn>
@@ -78,7 +78,7 @@
             icon
             @click.stop="copyTokenLink(token.id)"
           >
-            <v-icon color="info lighten-1">
+            <v-icon color="info-lighten-1">
               {{ $globals.icons.contentCopy }}
             </v-icon>
           </v-btn>

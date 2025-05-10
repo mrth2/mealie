@@ -10,7 +10,7 @@
       <v-app-bar
         sticky
         dark
-        color="primary lighten-1 top-0 position-relative left-0"
+        color="primary-lighten-1 top-0 position-relative left-0"
         :rounded="!$vuetify.display.xs"
       >
         <v-text-field
@@ -20,7 +20,7 @@
           variant="solo-filled"
           flat
           autocomplete="off"
-          bg-color="primary lighten-1"
+          bg-color="primary-lighten-1"
           color="white"
           density="compact"
           class="mx-2 arrow-search"
@@ -52,10 +52,10 @@
           <div class="mr-auto">
             {{ $t("search.results") }}
           </div>
-          <router-link
+          <!-- <router-link
             :to="advancedSearchUrl"
             class="text-primary"
-          > {{ $t("search.advanced-search") }} </router-link>
+          > {{ $t("search.advanced-search") }} </router-link> -->
         </v-card-actions>
 
         <RecipeCardMobile

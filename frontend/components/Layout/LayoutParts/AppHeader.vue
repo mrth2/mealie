@@ -43,13 +43,11 @@
           readonly
           class="mt-1"
           rounded
-          dark
           variant="solo-filled"
           density="compact"
           flat
           :prepend-inner-icon="$globals.icons.search"
-          bg-color="primary"
-          color="white"
+          bg-color="primary-darken-1"
           :placeholder="$t('search.search-hint')"
         />
       </v-responsive>

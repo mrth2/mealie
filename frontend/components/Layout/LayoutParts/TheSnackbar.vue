@@ -43,7 +43,7 @@
         </div>
         <v-progress-linear
           indeterminate
-          color="white darken-2"
+          color="white-darken-2"
         />
       </div>
     </v-snackbar>
