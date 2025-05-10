@@ -3,12 +3,12 @@
     fluid
     class="pa-0"
   >
-    <div class="search-container py-8">
+    <div class="search-container pb-8">
       <form
         class="search-box pa-2"
         @submit.prevent="search"
       >
-        <div class="d-flex justify-center my-2">
+        <div class="d-flex justify-center mb-2">
           <v-text-field
             ref="input"
             v-model="state.search"

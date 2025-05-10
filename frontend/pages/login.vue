@@ -1,8 +1,7 @@
 <template>
   <v-container
-    fill-height
     fluid
-    class="d-flex fill-height justify-center align-center flex-column"
+    class="d-flex justify-center align-center flex-column fill-height"
     :class="{
       'bg-off-white': !$vuetify.theme.current.dark && !isDark,
     }"
@@ -39,7 +38,7 @@
         class="d-flex justify-center mb-4"
         dark
       >
-        <v-toolbar-title class="text-h5 text-h4 text-center">
+        <v-toolbar-title class="text-h4 text-center">
           Mealie
         </v-toolbar-title>
       </v-toolbar>
