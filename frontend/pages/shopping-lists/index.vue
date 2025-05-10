@@ -63,15 +63,16 @@
       </template>
     </BasePageTitle>
 
-    <v-container class="d-flex justify-end px-0 pt-0 pb-4">
+    <v-container class="d-flex align-center justify-end px-0 pt-0 pb-4">
       <v-checkbox
         v-model="preferences.viewAllLists"
         hide-details
         :label="$t('general.show-all')"
-        class="my-auto mr-4"
+        class="my-0 mr-4"
       />
       <BaseButton
         create
+        class="my-0"
         @click="createDialog = true"
       />
     </v-container>
@@ -91,32 +92,32 @@
         class="my-2 left-border"
         :to="`/shopping-lists/${list.id}`"
       >
-        <v-card-title>
-          <v-icon start>
-            {{ $globals.icons.cartCheck }}
+      <v-card-title class="d-flex align-center">
+        <v-icon class="mr-2">
+          {{ $globals.icons.cartCheck }}
+        </v-icon>
+        <span class="flex-grow-1">
+          {{ list.name }}
+        </span>
+        <v-btn
+          icon
+          variant="plain"
+          @click.prevent="toggleOwnerDialog(list)"
+        >
+          <v-icon>
+            {{ $globals.icons.user }}
           </v-icon>
-          <div class="flex-grow-1">
-            {{ list.name }}
-          </div>
-          <div class="d-flex justify-end">
-            <v-btn
-              icon
-              @click.prevent="toggleOwnerDialog(list)"
-            >
-              <v-icon>
-                {{ $globals.icons.user }}
-              </v-icon>
-            </v-btn>
-            <v-btn
-              icon
-              @click.prevent="openDelete(list.id)"
-            >
-              <v-icon>
-                {{ $globals.icons.delete }}
-              </v-icon>
-            </v-btn>
-          </div>
-        </v-card-title>
+        </v-btn>
+        <v-btn
+          icon
+          variant="plain"
+          @click.prevent="openDelete(list.id)"
+        >
+          <v-icon>
+            {{ $globals.icons.delete }}
+          </v-icon>
+        </v-btn>
+      </v-card-title>
       </v-card>
     </section>
   </v-container>
