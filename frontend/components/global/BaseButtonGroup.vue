@@ -15,6 +15,7 @@
             tile
             :large="large"
             icon
+            variant="plain"
             v-bind="props"
           >
             <v-icon>
@@ -58,6 +59,7 @@
             :large="large"
             :disabled="btn.disabled"
             :style="stretch ? `width: ${maxButtonWidth};` : ''"
+            variant="plain"
             v-bind="props"
             @click="$emit(btn.event)"
           >

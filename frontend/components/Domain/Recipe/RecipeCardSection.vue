@@ -119,7 +119,7 @@
         </v-row>
         <v-row
           v-else
-          density="compact"
+          dense
         >
           <v-col
             v-for="recipe in recipes"

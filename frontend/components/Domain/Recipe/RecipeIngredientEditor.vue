@@ -12,7 +12,7 @@
     />
     <v-row
       :no-gutters="mdAndUp"
-      density="compact"
+      dense
       class="d-flex flex-wrap my-1"
     >
       <v-col

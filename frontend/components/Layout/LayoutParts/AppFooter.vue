@@ -7,7 +7,7 @@
     <v-row
       justify="center"
       align="center"
-      density="compact"
+      dense
       no-gutters
     >
       <v-col
