@@ -505,7 +505,7 @@ export default defineNuxtComponent({
     const foodStore = isOwnGroup.value ? useFoodStore() : usePublicFoodStore(groupSlug.value);
     const selectedFoods = ref<IngredientFood[]>([]);
     function addFood(food: IngredientFood) {
-      selectedFoods.value.push(food);
+      selectedFoods.value = [...selectedFoods.value, food];
       handleFoodUpdates();
     }
     function removeFood(food: IngredientFood) {
@@ -526,7 +526,7 @@ export default defineNuxtComponent({
     const toolStore = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
     const selectedTools = ref<RecipeTool[]>([]);
     function addTool(tool: RecipeTool) {
-      selectedTools.value.push(tool);
+      selectedTools.value = [...selectedTools.value, tool];
       handleToolUpdates();
     }
     function removeTool(tool: RecipeTool) {
