@@ -67,7 +67,7 @@ export default defineNuxtConfig({
     viewTransition: true,
   },
 
-  css: ["~/assets/css/main.css", "~/assets/css/main.css", "~/assets/style-overrides.scss"],
+  css: ["~/assets/css/main.css", "~/assets/style-overrides.scss"],
 
   runtimeConfig: {
     sessionPassword: process.env.SESSION_PASSWORD || "password-with-at-least-32-characters",
