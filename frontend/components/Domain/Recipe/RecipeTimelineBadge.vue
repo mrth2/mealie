@@ -6,15 +6,17 @@
   >
     <template #activator="{ props }">
       <v-btn
+        icon
+        :variant="buttonStyle ? 'flat' : undefined"
+        :rounded="buttonStyle ? 'circle' : undefined"
         size="small"
         :color="buttonStyle ? 'info' : 'secondary'"
         :fab="buttonStyle"
-        class="ml-1"
-        v-bind="props"
+        v-bind="{...props, ...$attrs}"
         @click.prevent="toggleTimeline"
       >
         <v-icon
-          :size="!buttonStyle ? 'small' : undefined"
+          :size="!buttonStyle ? undefined : 'large'"
           :color="buttonStyle ? 'white' : 'secondary'"
         >
           {{ $globals.icons.timelineText }}

@@ -7,17 +7,17 @@
     <template #activator="{ props }">
       <v-btn
         v-if="isFavorite || showAlways"
+        icon
+        :variant="buttonStyle ? 'flat' : undefined"
+        :rounded="buttonStyle ? 'circle' : undefined"
         size="small"
-        width="20"
-        height="20"
         :color="buttonStyle ? 'info' : 'secondary'"
-        :icon="!buttonStyle"
         :fab="buttonStyle"
-        v-bind="props"
+        v-bind="{...props, ...$attrs}"
         @click.prevent="toggleFavorite"
       >
         <v-icon
-          :size="!buttonStyle ? 'small' : undefined"
+          :size="!buttonStyle ? undefined : 'large'"
           :color="buttonStyle ? 'white' : 'secondary'"
         >
           {{ isFavorite ? $globals.icons.heart : $globals.icons.heartOutline }}

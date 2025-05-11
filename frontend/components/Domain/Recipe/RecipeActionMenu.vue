@@ -1,6 +1,10 @@
 <template>
-  <v-toolbar rounded height="0" class="fixed-bar mt-0" color="rgb(255, 0, 0, 0.0)" flat
-    style="z-index: 2; position: sticky">
+  <v-toolbar
+    class="fixed-bar mt-0"
+    style="z-index: 2; position: sticky; background: transparent; box-shadow: none;"
+    density="compact"
+    elevation="0"
+  >
     <BaseDialog v-model="deleteDialog" :title="$t('recipe.delete-recipe')" color="error"
       :icon="$globals.icons.alertCircle" can-confirm @confirm="emitDelete()">
       <v-card-text>
@@ -10,22 +14,41 @@
 
     <v-spacer />
     <div v-if="!open" class="custom-btn-group ma-1">
-      <RecipeFavoriteBadge v-if="loggedIn" class="ml-1" color="info" button-style :recipe-id="recipe.id!" show-always />
-      <RecipeTimelineBadge v-if="loggedIn" button-style class="ml-1" :slug="recipe.slug" :recipe-name="recipe.name!" />
+      <RecipeFavoriteBadge v-if="loggedIn" color="info" button-style :recipe-id="recipe.id!" show-always />
+      <RecipeTimelineBadge v-if="loggedIn" class="ml-1" color="info" button-style :slug="recipe.slug" :recipe-name="recipe.name!" />
       <div v-if="loggedIn">
         <v-tooltip v-if="canEdit" bottom color="info">
           <template #activator="{ props }">
-            <v-btn class="rounded-circle ml-1" size="small" color="info" v-bind="props" @click="$emit('edit', true)">
-              <v-icon> {{ $globals.icons.edit }} </v-icon>
+            <v-btn
+              icon
+              variant="flat"
+              rounded="circle"
+              size="small"
+              color="info"
+              class="ml-1"
+              v-bind="props"
+              @click="$emit('edit', true)"
+            >
+              <v-icon size="large"> {{ $globals.icons.edit }} </v-icon>
             </v-btn>
           </template>
           <span>{{ $t("general.edit") }}</span>
         </v-tooltip>
       </div>
 
-      <RecipeContextMenu show-print :menu-top="false" :name="recipe.name!" :slug="recipe.slug!"
-        :menu-icon="$globals.icons.dotsVertical" fab color="info" :card-menu="false" :recipe="recipe"
-        :recipe-id="recipe.id!" :recipe-scale="recipeScale" :use-items="{
+      <RecipeContextMenu
+        show-print
+        :menu-top="false"
+        :name="recipe.name!"
+        :slug="recipe.slug!"
+        :menu-icon="$globals.icons.dotsVertical"
+        fab
+        color="info"
+        :card-menu="false"
+        :recipe="recipe"
+        :recipe-id="recipe.id!"
+        :recipe-scale="recipeScale"
+        :use-items="{
           edit: false,
           download: loggedIn,
           duplicate: loggedIn,
@@ -36,7 +59,10 @@
           share: loggedIn,
           recipeActions: true,
           delete: loggedIn,
-        }" class="ml-1" @print="$emit('print')" />
+        }"
+        class="ml-1"
+        @print="$emit('print')"
+      />
     </div>
     <div v-if="open" class="custom-btn-group gapped">
       <v-btn v-for="(btn, index) in editorButtons" :key="index" :class="{ 'rounded-circle': $vuetify.display.xs }"
@@ -182,10 +208,13 @@ export default defineNuxtComponent({
 
 .fixed-bar {
   position: sticky;
-  position: -webkit-sticky;
-  /* for Safari */
   top: 4.5em;
   z-index: 2;
+  background: transparent !important;
+  box-shadow: none !important;
+  min-height: 0 !important;
+  height: 48px;
+  padding: 0 8px;
 }
 
 .fixed-bar-mobile {

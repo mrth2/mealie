@@ -95,16 +95,21 @@
     >
       <template #activator="{ props }">
         <v-btn
-          :class="{ 'rounded-circle': fab }"
-          :size="fab ? 'small' : null"
-          :color="color"
-          :icon="!fab"
-          dark
-          variant="plain"
+          icon
+          :variant="fab ? 'flat' : undefined"
+          :rounded="fab ? 'circle' : undefined"
+          :size="fab ? 'small' : undefined"
+          :color="fab ? 'info' : 'secondary'"
+          :fab="fab"
           v-bind="props"
           @click.prevent
         >
-          <v-icon>{{ icon }}</v-icon>
+          <v-icon
+          :size="!fab ? undefined : 'large'"
+          :color="fab ? 'white' : 'secondary'"
+        >
+          {{ icon }}
+        </v-icon>
         </v-btn>
       </template>
       <v-list density="compact">
@@ -162,6 +167,7 @@ export interface ContextMenuIncludes {
   delete: boolean;
   edit: boolean;
   download: boolean;
+  duplicate: boolean;
   mealplanner: boolean;
   shoppingList: boolean;
   print: boolean;
