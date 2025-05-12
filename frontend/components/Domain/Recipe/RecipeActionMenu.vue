@@ -65,8 +65,15 @@
       />
     </div>
     <div v-if="open" class="custom-btn-group gapped">
-      <v-btn v-for="(btn, index) in editorButtons" :key="index" :class="{ 'rounded-circle': $vuetify.display.xs }"
-        :size="$vuetify.display.xs ? 'small' : undefined" :color="btn.color" @click="emitHandler(btn.event)">
+      <v-btn
+        v-for="(btn, index) in editorButtons"
+        :key="index"
+        :class="{ 'rounded-circle': $vuetify.display.xs }"
+        :size="$vuetify.display.xs ? 'small' : undefined"
+        :color="btn.color"
+        variant="flat"
+        @click="emitHandler(btn.event)"
+      >
         <v-icon :left="!$vuetify.display.xs">
           {{ btn.icon }}
         </v-icon>
