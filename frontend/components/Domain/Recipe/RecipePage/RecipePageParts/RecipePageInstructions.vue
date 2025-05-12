@@ -7,11 +7,10 @@
       width="600"
     >
       <v-card :ripple="false">
-        <v-app-bar
-          dark
+        <v-sheet
           color="primary"
-          class="mt-n1 mb-3"
-          density="compact"
+          class="mt-n1 mb-3 pa-3 d-flex align-center"
+          style="border-radius: 6px; width: 100%;"
         >
           <v-icon
             size="large"
@@ -23,7 +22,7 @@
             {{ $t("recipe.ingredient-linker") }}
           </v-toolbar-title>
           <v-spacer />
-        </v-app-bar>
+        </v-sheet>
 
         <v-card-text class="pt-4">
           <p>
@@ -142,32 +141,31 @@
           :key="step.id!"
           class="list-group-item"
         >
-          <v-app-bar
+          <v-sheet
             v-if="step.id && showTitleEditor[step.id]"
-            class="primary mt-6"
-            style="cursor: pointer"
-            dark
-            density="compact"
-            rounded
+            color="primary"
+            class="mt-6 mb-2 pa-3 d-flex align-center"
+            style="border-radius: 6px; cursor: pointer; width: 100%;"
             @click="toggleCollapseSection(index)"
           >
-            <v-toolbar-title
-              v-if="!isEditForm"
-              class="headline"
-            >
-              <v-app-bar-title> {{ step.title }} </v-app-bar-title>
-            </v-toolbar-title>
-            <v-text-field
-              v-if="isEditForm"
-              v-model="step.title"
-              class="headline pa-0 mt-5"
-              density="compact"
-              variant="solo"
-              flat
-              :placeholder="$t('recipe.section-title')"
-              bg-color="primary"
-            />
-          </v-app-bar>
+            <template v-if="isEditForm">
+              <v-text-field
+                v-model="step.title"
+                class="pa-0"
+                density="compact"
+                variant="solo"
+                flat
+                :placeholder="$t('recipe.section-title')"
+                bg-color="primary"
+                hide-details
+              />
+            </template>
+            <template v-else>
+              <v-toolbar-title class="section-title-text">
+                {{ step.title }}
+              </v-toolbar-title>
+            </template>
+          </v-sheet>
           <v-hover v-slot="{ isHovering }">
             <v-card
               class="my-3"
