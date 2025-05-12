@@ -31,9 +31,8 @@
         </v-icon>
         {{ $vuetify.display.xs ? null : $t("general.random") }}
       </v-btn>
-
       <v-menu
-        v-if="$attrs.sortRecipes"
+        v-if="!disableSort"
         offset-y
         start
       >
@@ -173,6 +172,10 @@ export default defineNuxtComponent({
   },
   props: {
     disableToolbar: {
+      type: Boolean,
+      default: false,
+    },
+    disableSort: {
       type: Boolean,
       default: false,
     },

@@ -194,6 +194,7 @@
         :title="$t('general.recipes')"
         :recipes="recipes"
         :query="passedQueryWithSeed"
+        disable-sort
         @item-selected="filterItems"
         @replace-recipes="replaceRecipes"
         @append-recipes="appendRecipes"
