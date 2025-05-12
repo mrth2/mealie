@@ -60,7 +60,7 @@
                 <br>
               </p>
             </v-list-item-subtitle>
-            <div class="d-flex flex-wrap justify-start ma-0">
+            <div class="d-flex flex-wrap justify-start ma-0 pt-2 pb-0">
               <RecipeChips
                 :truncate="true"
                 :items="tags"
@@ -73,7 +73,7 @@
             </div>
           </div>
           <slot name="actions">
-            <v-card-actions class="pl-3 pr-5 w-100">
+            <v-card-actions class="w-100 px-1">
               <RecipeFavoriteBadge
                 v-if="isOwnGroup && showRecipeContent"
                 :recipe-id="recipeId"
@@ -81,7 +81,7 @@
               />
               <RecipeRating
                 v-if="showRecipeContent"
-                :class="{ 'pb-2': !isOwnGroup }"
+                :class="[{ 'pb-2': !isOwnGroup }, 'ml-n2']"
                 :value="rating"
                 :recipe-id="recipeId"
                 :slug="slug"

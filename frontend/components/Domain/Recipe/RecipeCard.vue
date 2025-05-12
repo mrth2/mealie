@@ -54,7 +54,7 @@
             />
 
             <RecipeRating
-              class="pb-1"
+              class="ml-n2"
               :value="rating"
               :recipe-id="recipeId"
               :slug="slug"
