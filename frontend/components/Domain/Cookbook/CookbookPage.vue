@@ -22,38 +22,35 @@
       </v-card-text>
     </BaseDialog>
 
-    <!-- Page -->
     <v-container
       v-if="book"
       fluid
+      class="py-0 my-0"
     >
-      <v-app-bar
+      <v-sheet
         color="transparent"
-        flat
-        class="mt-n1 position-relative left-0 top-0 w-100"
+        class="d-flex flex-column w-100 pa-0 ma-0"
+        elevation="0"
       >
-        <v-icon
-          size="large"
-          start
-        >
-          {{ $globals.icons.pages }}
-        </v-icon>
-        <v-toolbar-title class="headline">
-          {{ book.name }}
-        </v-toolbar-title>
-        <v-spacer />
-        <BaseButton
-          v-if="canEdit"
-          class="mx-1"
-          :edit="true"
-          @click="handleEditCookbook"
-        />
-      </v-app-bar>
-      <v-card flat>
-        <v-card-text class="py-0">
+        <div class="d-flex align-center w-100 mb-2">
+          <v-icon size="large" class="mr-3">
+            {{ $globals.icons.pages }}
+          </v-icon>
+          <v-toolbar-title class="headline mb-0">
+            {{ book.name }}
+          </v-toolbar-title>
+          <v-spacer />
+          <BaseButton
+            v-if="canEdit"
+            class="mx-1"
+            :edit="true"
+            @click="handleEditCookbook"
+          />
+        </div>
+        <div class="subtitle-1 text-grey-lighten-1 mb-2" v-if="book.description">
           {{ book.description }}
-        </v-card-text>
-      </v-card>
+        </div>
+      </v-sheet>
 
       <v-container class="pa-0">
         <RecipeCardSection
