@@ -11,7 +11,7 @@
               {{ sessionUser.fullName }}
             </v-list-item-title>
             <v-list-item-subtitle>
-              <v-btn v-if="isOwnGroup" class="px-2 pa-0" :variant="'tonal'" :to="userFavoritesLink" size="small">
+              <v-btn v-if="isOwnGroup" class="px-2 pa-0" variant="text" :to="userFavoritesLink" size="small">
                 <v-icon start size="small">
                   {{ $globals.icons.heart }}
                 </v-icon>
