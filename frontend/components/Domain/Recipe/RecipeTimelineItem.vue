@@ -1,5 +1,5 @@
 <template>
-  <v-timeline-item :class="attrs.class" fill-dot :small="attrs.small" :icon="icon">
+  <v-timeline-item :class="attrs.class" fill-dot :small="attrs.small" :icon="icon" dot-color="primary">
     <template v-if="!useMobileFormat" #opposite>
       <v-chip v-if="event.timestamp" label large>
         <v-icon class="mr-1">
@@ -36,7 +36,6 @@
               :event="event"
               :menu-icon="$globals.icons.dotsVertical"
               :use-mobile-format="useMobileFormat"
-              fab
               color="transparent"
               :elevation="0"
               :card-menu="false"
