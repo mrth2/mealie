@@ -22,7 +22,7 @@
       </template>
       <v-date-picker
         v-model="state.range"
-        no-title
+        hide-header
         :multiple="'range'"
         :first-day-of-week="firstDayOfWeek"
         :local="$i18n.locale"
