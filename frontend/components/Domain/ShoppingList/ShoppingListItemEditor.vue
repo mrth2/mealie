@@ -7,19 +7,21 @@
             <InputQuantity v-model="listItem.quantity" />
           </div>
           <InputLabelType
-            v-model="listItem.unit as IngredientUnit"
+            v-model="listItem.unit"
             v-model:item-id="listItem.unitId!"
             :items="units"
             :label="$t('general.units')"
             :icon="$globals.icons.units"
+            create
             @create="createAssignUnit"
           />
           <InputLabelType
-            v-model="listItem.food as IngredientFood"
+            v-model="listItem.food"
             v-model:item-id="listItem.foodId!"
             :items="foods"
             :label="$t('shopping-list.food')"
             :icon="$globals.icons.foods"
+            create
             @create="createAssignFood"
           />
         </div>

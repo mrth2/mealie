@@ -15,7 +15,7 @@
     @keyup.enter="emitCreate"
   >
     <template
-      v-if="$attrs.create"
+      v-if="create"
       #append-item
     >
       <div class="px-2">
@@ -75,6 +75,10 @@ export default defineNuxtComponent({
       required: false,
       default: undefined,
     },
+    create: {
+      type: Boolean,
+      default: false,
+    }
   },
   emits: ["update:modelValue", "update:item-id", "create"],
   setup(props, context) {
