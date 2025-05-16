@@ -1,7 +1,12 @@
 <template>
   <div class="text-center">
-    <BaseDialog v-model="recipeEventEditDialog" :title="$t('recipe.edit-timeline-event')" :icon="$globals.icons.edit"
-      :submit-text="$t('general.save')" @submit="$emit('update')">
+    <BaseDialog
+      v-model="recipeEventEditDialog"
+      :title="$t('recipe.edit-timeline-event')"
+      :icon="$globals.icons.edit"
+      :submit-text="$t('general.save')"
+      @submit="$emit('update')"
+    >
       <v-card-text>
         <v-form ref="domMadeThisForm">
           <v-text-field v-model="event.subject" :label="$t('general.subject')" />
@@ -9,23 +14,51 @@
         </v-form>
       </v-card-text>
     </BaseDialog>
-    <BaseDialog v-model="recipeEventDeleteDialog" :title="$t('events.delete-event')" color="error"
-      :icon="$globals.icons.alertCircle" can-confirm @confirm="$emit('delete')">
+
+    <BaseDialog
+      v-model="recipeEventDeleteDialog"
+      :title="$t('events.delete-event')"
+      color="error"
+      :icon="$globals.icons.alertCircle"
+      can-confirm
+      @confirm="$emit('delete')"
+    >
       <v-card-text>
         {{ $t("events.event-delete-confirmation") }}
       </v-card-text>
     </BaseDialog>
-    <v-menu offset-y start :bottom="!menuTop" :nudge-bottom="!menuTop ? '5' : '0'" :top="menuTop"
-      :nudge-top="menuTop ? '5' : '0'" allow-overflow close-delay="125" :open-on-hover="!useMobileFormat"
-      content-class="d-print-none">
+
+    <v-menu
+      offset-y
+      start
+      :bottom="!menuTop"
+      :nudge-bottom="!menuTop ? '5' : '0'"
+      :top="menuTop"
+      :nudge-top="menuTop ? '5' : '0'"
+      allow-overflow
+      close-delay="125"
+      :open-on-hover="!useMobileFormat"
+      content-class="d-print-none"
+    >
       <template #activator="{ props }">
-        <v-btn :class="{ 'rounded-circle': fab }" :x-small="fab" :elevation="elevation" :color="color" :icon="!fab"
-          v-bind="props" @click.prevent>
+        <v-btn
+          :class="{ 'rounded-circle': fab }"
+          :x-small="fab"
+          :elevation="elevation"
+          :color="color"
+          :icon="!fab"
+          v-bind="props"
+          @click.prevent
+        >
           <v-icon>{{ icon }}</v-icon>
         </v-btn>
       </template>
       <v-list density="compact">
-        <v-list-item v-for="(item, index) in menuItems" :key="index" @click="contextMenuEventHandler(item.event)">
+        <v-list-item
+          v-for="(item, index) in menuItems"
+          :key="index"
+          @click="contextMenuEventHandler(item.event)"
+        >
           <template #prepend>
             <v-icon :color="item.color">
               {{ item.icon }}
