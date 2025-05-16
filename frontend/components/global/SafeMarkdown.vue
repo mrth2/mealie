@@ -1,6 +1,6 @@
 <template>
   <MDC
-    :value="sanitizeMarkdown(source)"
+    :value="value"
     tag="article"
   />
 </template>
@@ -15,7 +15,7 @@ export default defineNuxtComponent({
       default: "",
     },
   },
-  setup() {
+  setup(props) {
     function sanitizeMarkdown(rawHtml: string | null | undefined): string {
       if (!rawHtml) {
         return "";
@@ -39,8 +39,12 @@ export default defineNuxtComponent({
       return sanitized;
     }
 
+    const value = computed(() => {
+      return sanitizeMarkdown(props.source) || "";
+    });
+
     return {
-      sanitizeMarkdown,
+      value,
     };
   },
 });
