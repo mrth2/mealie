@@ -51,34 +51,44 @@
         </template>
         <v-list>
           <v-list-item @click="sortRecipes(EVENTS.az)">
-            <v-icon start>
-              {{ $globals.icons.orderAlphabeticalAscending }}
-            </v-icon>
-            <v-list-item-title>{{ $t("general.sort-alphabetically") }}</v-list-item-title>
+            <div class="d-flex align-center flex-nowrap">
+              <v-icon class="mr-2" inline>
+                {{ $globals.icons.orderAlphabeticalAscending }}
+              </v-icon>
+              <v-list-item-title>{{ $t("general.sort-alphabetically") }}</v-list-item-title>
+            </div>
           </v-list-item>
           <v-list-item @click="sortRecipes(EVENTS.rating)">
-            <v-icon start>
-              {{ $globals.icons.star }}
-            </v-icon>
-            <v-list-item-title>{{ $t("general.rating") }}</v-list-item-title>
+            <div class="d-flex align-center flex-nowrap">
+              <v-icon class="mr-2" inline>
+                {{ $globals.icons.star }}
+              </v-icon>
+              <v-list-item-title>{{ $t("general.rating") }}</v-list-item-title>
+            </div>
           </v-list-item>
           <v-list-item @click="sortRecipes(EVENTS.created)">
-            <v-icon start>
-              {{ $globals.icons.newBox }}
-            </v-icon>
-            <v-list-item-title>{{ $t("general.created") }}</v-list-item-title>
+            <div class="d-flex align-center flex-nowrap">
+              <v-icon class="mr-2" inline>
+                {{ $globals.icons.newBox }}
+              </v-icon>
+              <v-list-item-title>{{ $t("general.created") }}</v-list-item-title>
+            </div>
           </v-list-item>
           <v-list-item @click="sortRecipes(EVENTS.updated)">
-            <v-icon start>
-              {{ $globals.icons.update }}
-            </v-icon>
-            <v-list-item-title>{{ $t("general.updated") }}</v-list-item-title>
+            <div class="d-flex align-center flex-nowrap">
+              <v-icon class="mr-2" inline>
+                {{ $globals.icons.update }}
+              </v-icon>
+              <v-list-item-title>{{ $t("general.updated") }}</v-list-item-title>
+            </div>
           </v-list-item>
           <v-list-item @click="sortRecipes(EVENTS.lastMade)">
-            <v-icon start>
-              {{ $globals.icons.chefHat }}
-            </v-icon>
-            <v-list-item-title>{{ $t("general.last-made") }}</v-list-item-title>
+            <div class="d-flex align-center flex-nowrap">
+              <v-icon class="mr-2" inline>
+                {{ $globals.icons.chefHat }}
+              </v-icon>
+              <v-list-item-title>{{ $t("general.last-made") }}</v-list-item-title>
+            </div>
           </v-list-item>
         </v-list>
       </v-menu>
