@@ -1,6 +1,6 @@
 <template>
   <v-card
-    variant="tonal"
+    variant="text"
     nuxt
     :to="link.to"
     height="100%"

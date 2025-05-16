@@ -32,6 +32,7 @@
             class="ml-2 mt-3"
             v-bind="props"
             variant="tonal"
+            elevation="2"
           >
             <v-icon
               start

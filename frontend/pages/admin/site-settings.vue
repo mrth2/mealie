@@ -110,7 +110,7 @@
       <v-alert
         border="start"
         :border-color="appConfig.emailReady ? 'success' : 'error'"
-        variant="tonal"
+        variant="text"
         elevation="2"
       >
         <template #prepend>
