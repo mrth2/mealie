@@ -188,7 +188,7 @@
             {{ key }}
           </v-btn>
           <v-divider />
-          <v-expand-transition group>
+          <v-expand-transition>
             <div v-if="labelOpenState[key]">
               <VueDraggable
                 :model-value="value"
