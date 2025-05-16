@@ -92,19 +92,18 @@
                 rounded
                 variant="outlined"
                 size="x-large"
-                color="primary"
                 v-bind="props"
                 @click="madeThisDialog = true"
               >
-                <v-icon start size="large">
+                <v-icon start size="large" color="primary">
                   {{ $globals.icons.calendar }}
                 </v-icon>
-                <span class="text--secondary" style="letter-spacing: normal">
+                <span class="text-body" style="letter-spacing: normal">
                   <b>{{ $t("general.last-made") }}</b>
                   <br>
                   {{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $t("general.never") }}
                 </span>
-                <v-icon end size="large">
+                <v-icon end size="large" color="primary">
                   {{ $globals.icons.createAlt }}
                 </v-icon>
               </v-btn>
