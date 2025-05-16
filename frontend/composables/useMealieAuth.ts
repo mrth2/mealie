@@ -1,16 +1,36 @@
 import type { UserOut } from "~/lib/api/types/user";
+import { ref, watch, computed } from "vue";
+
+const USER_CACHE_KEY = "mealie_user";
 
 export const useMealieAuth = function () {
   const auth = useAuth();
   const { setToken } = useAuthState();
   const { $axios } = useNuxtApp();
 
-  const user = computed(() => auth.data.value as UserOut);
+  // Try to restore user from cache
+  const cachedUser = localStorage.getItem(USER_CACHE_KEY);
+  const lastUser = ref<UserOut | null>(cachedUser ? JSON.parse(cachedUser) : null);
+
+  watch(
+    () => auth.data.value,
+    (val) => {
+      if (val) {
+        lastUser.value = val as UserOut;
+        localStorage.setItem(USER_CACHE_KEY, JSON.stringify(val));
+      } else {
+        localStorage.removeItem(USER_CACHE_KEY);
+      }
+    },
+    { immediate: true }
+  );
+
+  const user = computed(() => lastUser.value);
   const loggedIn = computed(() => auth.status.value === "authenticated");
 
   async function signIn(...params: Parameters<typeof auth.signIn>) {
     await auth.signIn(...params);
-    refreshCookie(useRuntimeConfig().public.AUTH_TOKEN); // refresh token after login
+    refreshCookie(useRuntimeConfig().public.AUTH_TOKEN);
   }
 
   async function oauthSignIn() {
