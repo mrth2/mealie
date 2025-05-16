@@ -12,10 +12,10 @@
       @submit="
         () => {
           if (newMeal.existing) {
-            actions.updateOne(newMeal);
+            actions.updateOne({...newMeal, date: newMealDateString});
           }
  else {
-            actions.createOne(newMeal);
+            actions.createOne({...newMeal, date: newMealDateString});
           }
           resetDialog();
         }
@@ -33,7 +33,7 @@
         >
           <template #activator="{ props }">
             <v-text-field
-              v-model="newMeal.date"
+              v-model="newMealDateString"
               :label="$t('general.date')"
               :hint="$t('recipe.date-format-hint-yyyy-mm-dd')"
               persistent-hint
@@ -44,10 +44,10 @@
           </template>
           <v-date-picker
             v-model="newMeal.date"
-            no-title
+            hide-header
             :first-day-of-week="firstDayOfWeek"
             :local="$i18n.locale"
-            @input="state.pickerMenu = false"
+            @update:model-value="state.pickerMenu = false"
           />
         </v-menu>
         <v-card-text>
@@ -56,6 +56,8 @@
             :return-object="false"
             :items="planTypeOptions"
             :label="$t('recipe.entry-type')"
+            item-title="text"
+            item-value="value"
           />
           <v-autocomplete
             v-if="!dialog.note"
@@ -302,7 +304,7 @@ export default defineNuxtComponent({
     });
 
     const newMeal = reactive({
-      date: "",
+      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000),
       title: "",
       text: "",
       recipeId: undefined as string | undefined,
@@ -313,6 +315,10 @@ export default defineNuxtComponent({
       userId: $auth.user.value?.id || "",
     });
 
+    const newMealDateString = computed(() => {
+      return format(newMeal.date, "yyyy-MM-dd");
+    });
+
     const isCreateDisabled = computed(() => {
       if (dialog.note) {
         return !newMeal.title.trim();
@@ -321,7 +327,7 @@ export default defineNuxtComponent({
     });
 
     function openDialog(date: Date) {
-      newMeal.date = format(date, "yyyy-MM-dd");
+      newMeal.date = date;
       state.value.dialog = true;
     }
 
@@ -329,7 +335,8 @@ export default defineNuxtComponent({
       const { date, title, text, entryType, recipeId, id, groupId, userId } = mealplan;
       if (!entryType) return;
 
-      newMeal.date = date;
+      const [year, month, day] = date.split("-").map(Number);
+      newMeal.date = new Date(year, month - 1, day);
       newMeal.title = title || "";
       newMeal.text = text || "";
       newMeal.recipeId = recipeId || undefined;
@@ -344,7 +351,7 @@ export default defineNuxtComponent({
     }
 
     function resetDialog() {
-      newMeal.date = "";
+      newMeal.date = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
       newMeal.title = "";
       newMeal.text = "";
       newMeal.entryType = "dinner";
@@ -384,6 +391,7 @@ export default defineNuxtComponent({
       // Dialog
       dialog,
       newMeal,
+      newMealDateString,
       openDialog,
       editMeal,
       resetDialog,
