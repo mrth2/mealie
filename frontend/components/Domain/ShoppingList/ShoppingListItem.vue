@@ -1,30 +1,74 @@
 <template>
-  <v-container v-if="!edit" class="pa-0">
-    <v-row no-gutters class="flex-nowrap align-center">
+  <v-container
+    v-if="!edit"
+    class="pa-0"
+  >
+    <v-row
+      no-gutters
+      class="flex-nowrap align-center"
+    >
       <v-col :cols="itemLabelCols">
-        <v-checkbox v-model="listItem.checked" class="mt-0" color="null" hide-details density="compact"
-          :label="listItem.note!" @change="$emit('checked', listItem)">
+        <v-checkbox
+          v-model="listItem.checked"
+          class="mt-0"
+          color="null"
+          hide-details
+          density="compact"
+          :label="listItem.note!"
+          @change="$emit('checked', listItem)"
+        >
           <template #label>
             <div :class="listItem.checked ? 'strike-through' : ''">
-              <RecipeIngredientListItem :ingredient="listItem as any"
-                :disable-amount="!(listItem.isFood || listItem.quantity !== 1)" />
+              <RecipeIngredientListItem
+                :ingredient="listItem as any"
+                :disable-amount="!(listItem.isFood || listItem.quantity !== 1)"
+              />
             </div>
           </template>
         </v-checkbox>
       </v-col>
       <v-spacer />
-      <v-col v-if="label && showLabel" cols="3" class="text-right">
-        <MultiPurposeLabel :label="label" size="small" />
+      <v-col
+        v-if="label && showLabel"
+        cols="3"
+        class="text-right"
+      >
+        <MultiPurposeLabel
+          :label="label"
+          size="small"
+        />
       </v-col>
-      <v-col cols="auto" class="text-right">
-        <div v-if="!listItem.checked" style="min-width: 72px">
-          <v-menu offset-x start min-width="125px">
+      <v-col
+        cols="auto"
+        class="text-right"
+      >
+        <div
+          v-if="!listItem.checked"
+          style="min-width: 72px"
+        >
+          <v-menu
+            offset-x
+            start
+            min-width="125px"
+          >
             <template #activator="{ props }">
-              <v-tooltip v-if="recipeList && recipeList.length" open-delay="200" transition="slide-x-reverse-transition"
-                density="compact" right content-class="text-caption">
+              <v-tooltip
+                v-if="recipeList && recipeList.length"
+                open-delay="200"
+                transition="slide-x-reverse-transition"
+                density="compact"
+                right
+                content-class="text-caption"
+              >
                 <template #activator="{ props: tooltipProps }">
-                  <v-btn size="small" variant="text" class="ml-2" icon v-bind="tooltipProps"
-                    @click="displayRecipeRefs = !displayRecipeRefs">
+                  <v-btn
+                    size="small"
+                    variant="text"
+                    class="ml-2"
+                    icon
+                    v-bind="tooltipProps"
+                    @click="displayRecipeRefs = !displayRecipeRefs"
+                  >
                     <v-icon>
                       {{ $globals.icons.potSteam }}
                     </v-icon>
@@ -33,35 +77,77 @@
                 <span>Toggle Recipes</span>
               </v-tooltip>
               <!-- Dummy button so the spacing is consistent when labels are enabled -->
-              <v-btn v-else size="small" variant="text" class="ml-2" icon disabled />
+              <v-btn
+                v-else
+                size="small"
+                variant="text"
+                class="ml-2"
+                icon
+                disabled
+              />
 
-              <v-btn size="small" variant="text" class="ml-2 handle" icon v-bind="props">
+              <v-btn
+                size="small"
+                variant="text"
+                class="ml-2 handle"
+                icon
+                v-bind="props"
+              >
                 <v-icon>
                   {{ $globals.icons.arrowUpDown }}
                 </v-icon>
               </v-btn>
-              <v-btn size="small" variant="text" class="ml-2" icon @click="toggleEdit(true)">
+              <v-btn
+                size="small"
+                variant="text"
+                class="ml-2"
+                icon
+                @click="toggleEdit(true)"
+              >
                 <v-icon>
                   {{ $globals.icons.edit }}
                 </v-icon>
               </v-btn>
             </template>
             <v-list density="compact">
-              <v-list-item v-for="action in contextMenu" :key="action.event" density="compact"
-                @click="contextHandler(action.event)">
-                <v-list-item-title>{{ action.text }}</v-list-item-title>
+              <v-list-item
+                v-for="action in contextMenu"
+                :key="action.event"
+                density="compact"
+                @click="contextHandler(action.event)"
+              >
+                <v-list-item-title>
+                  {{ action.text }}
+                </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
         </div>
       </v-col>
     </v-row>
-    <v-row v-if="!listItem.checked && recipeList && recipeList.length && displayRecipeRefs" no-gutters class="mb-2">
-      <v-col cols="auto" style="width: 100%;">
-        <RecipeList :recipes="recipeList" :list-item="listItem" :disabled="isOffline" size="small" tile />
+    <v-row
+      v-if="!listItem.checked && recipeList && recipeList.length && displayRecipeRefs"
+      no-gutters
+      class="mb-2"
+    >
+      <v-col
+        cols="auto"
+        style="width: 100%;"
+      >
+        <RecipeList
+          :recipes="recipeList"
+          :list-item="listItem"
+          :disabled="isOffline"
+          size="small"
+          tile
+        />
       </v-col>
     </v-row>
-    <v-row v-if="listItem.checked" no-gutters class="mb-2">
+    <v-row
+      v-if="listItem.checked"
+      no-gutters
+      class="mb-2"
+    >
       <v-col cols="auto">
         <div class="text-caption font-weight-light font-italic">
           {{ $t("shopping-list.completed-on", {
@@ -72,10 +158,20 @@
       </v-col>
     </v-row>
   </v-container>
-  <div v-else class="mb-1 mt-6">
-    <ShoppingListItemEditor v-model="localListItem" :labels="labels" :units="units" :foods="foods" @save="save"
-      @cancel="toggleEdit(false)" @delete="$emit('delete')"
-      @toggle-foods="localListItem.isFood = !localListItem.isFood" />
+  <div
+    v-else
+    class="mb-1 mt-6"
+  >
+    <ShoppingListItemEditor
+      v-model="localListItem"
+      :labels="labels"
+      :units="units"
+      :foods="foods"
+      @save="save"
+      @cancel="toggleEdit(false)"
+      @delete="$emit('delete')"
+      @toggle-foods="localListItem.isFood = !localListItem.isFood"
+    />
   </div>
 </template>
 
