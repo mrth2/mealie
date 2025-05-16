@@ -65,6 +65,8 @@ export default defineNuxtComponent({
   flex-wrap: wrap;
   align-items: center;
   gap: 0.25em;
+  word-break: break-word;
+  min-width: 0;
 
   .d-inline {
     & > p {
@@ -90,6 +92,8 @@ export default defineNuxtComponent({
 
   .text-bold {
     font-weight: bold;
+    white-space: normal;
+    word-break: break-word;
   }
 }
 
@@ -97,8 +101,10 @@ export default defineNuxtComponent({
   flex-basis: 100%;
   width: 100%;
   display: block;
-  line-height: 1em;
+  line-height: 1.3em;
   font-size: 0.8em;
   opacity: 0.7;
+  white-space: normal;
+  word-break: break-word;
 }
 </style>
