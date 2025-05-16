@@ -21,18 +21,17 @@
             />
             <v-container>
               <v-row>
-                <v-col cols="auto">
+                <v-col cols="6">
                   <v-menu
                     v-model="datePickerMenu"
                     :close-on-content-click="false"
                     transition="scale-transition"
                     offset-y
                     max-width="290px"
-                    min-width="auto"
                   >
                     <template #activator="{ props }">
                       <v-text-field
-                        v-model="newTimelineEventTimestamp"
+                        v-model="newTimelineEventTimestampString"
                         :prepend-icon="$globals.icons.calendar"
                         v-bind="props"
                         readonly
@@ -40,10 +39,10 @@
                     </template>
                     <v-date-picker
                       v-model="newTimelineEventTimestamp"
-                      no-title
+                      hide-header
                       :first-day-of-week="firstDayOfWeek"
                       :local="$i18n.locale"
-                      @input="datePickerMenu = false"
+                      @update:model-value="datePickerMenu = false"
                     />
                   </v-menu>
                 </v-col>
@@ -148,7 +147,10 @@ export default defineNuxtComponent({
     const newTimelineEventImage = ref<Blob | File>();
     const newTimelineEventImageName = ref<string>("");
     const newTimelineEventImagePreviewUrl = ref<string>();
-    const newTimelineEventTimestamp = ref<string>();
+    const newTimelineEventTimestamp = ref<Date>(new Date());
+    const newTimelineEventTimestampString = computed(() => {
+      return newTimelineEventTimestamp.value.toISOString().substring(0, 10);
+    });
 
     const lastMade = ref(props.recipe.lastMade);
     const lastMadeReady = ref(false);
@@ -168,9 +170,7 @@ export default defineNuxtComponent({
       () => madeThisDialog.value,
       () => {
         // Set timestamp to now
-        newTimelineEventTimestamp.value = new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-          .toISOString()
-          .substring(0, 10);
+        newTimelineEventTimestamp.value = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
       },
     );
 
@@ -197,7 +197,7 @@ export default defineNuxtComponent({
 
     const state = reactive({ datePickerMenu: false });
     async function createTimelineEvent() {
-      if (!(newTimelineEventTimestamp.value && props.recipe?.id && props.recipe?.slug)) {
+      if (!(newTimelineEventTimestampString.value && props.recipe?.id && props.recipe?.slug)) {
         return;
       }
 
@@ -207,7 +207,7 @@ export default defineNuxtComponent({
 
       // the user only selects the date, so we set the time to end of day local time
       // we choose the end of day so it always comes after "new recipe" events
-      newTimelineEvent.value.timestamp = new Date(newTimelineEventTimestamp.value + "T23:59:59").toISOString();
+      newTimelineEvent.value.timestamp = new Date(newTimelineEventTimestampString.value + "T23:59:59").toISOString();
 
       const eventResponse = await userApi.recipes.createTimelineEvent(newTimelineEvent.value);
       const newEvent = eventResponse.data;
@@ -249,6 +249,7 @@ export default defineNuxtComponent({
       newTimelineEventImage,
       newTimelineEventImagePreviewUrl,
       newTimelineEventTimestamp,
+      newTimelineEventTimestampString,
       lastMade,
       lastMadeReady,
       createTimelineEvent,
