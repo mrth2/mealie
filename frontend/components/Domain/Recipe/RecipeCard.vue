@@ -52,6 +52,7 @@
               :recipe-id="recipeId"
               show-always
             />
+            <div v-else class="px-1" /> <!-- Empty div to keep the layout consistent -->
 
             <RecipeRating
               class="ml-n2"

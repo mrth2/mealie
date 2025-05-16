@@ -79,6 +79,7 @@
                 :recipe-id="recipeId"
                 show-always
               />
+              <div v-else class="px-1" /> <!-- Empty div to keep the layout consistent -->
               <RecipeRating
                 v-if="showRecipeContent"
                 :class="[{ 'pb-2': !isOwnGroup }, 'ml-n2']"
