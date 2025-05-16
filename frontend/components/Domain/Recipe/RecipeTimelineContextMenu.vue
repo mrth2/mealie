@@ -4,6 +4,7 @@
       v-model="recipeEventEditDialog"
       :title="$t('recipe.edit-timeline-event')"
       :icon="$globals.icons.edit"
+      can-submit
       :submit-text="$t('general.save')"
       @submit="$emit('update')"
     >
