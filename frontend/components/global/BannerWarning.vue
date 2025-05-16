@@ -2,6 +2,7 @@
   <v-alert
     border="start"
     border-color
+    variant="tonal"
     type="warning"
     elevation="2"
     :icon="$globals.icons.alert"
