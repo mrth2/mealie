@@ -498,6 +498,13 @@ export default defineNuxtComponent({
         return;
       }
 
+      // Prevent overwriting local changes with stale backend data when offline
+      if (isOffline.value) {
+        // Do not update shoppingList.value from backend when offline
+        updateListItemOrder();
+        return;
+      }
+
       // if we're not connected to the network, this will be null, so we don't want to clear the list
       if (newListValue) {
         shoppingList.value = newListValue;
@@ -565,15 +572,21 @@ export default defineNuxtComponent({
     // =====================================
     // List Item CRUD
 
-    const listItems = computed(() => {
-      return {
-        unchecked: shoppingList.value?.listItems?.filter(item => !item.checked) ?? [],
-        checked: shoppingList.value?.listItems
-          ?.filter(item => item.checked)
-          .sort((a, b) => (a.updatedAt! < b.updatedAt! ? 1 : -1))
-          ?? [],
-      };
+    // Hydrate listItems from shoppingList.value?.listItems
+    const listItems = reactive({
+      unchecked: [] as ShoppingListItemOut[],
+      checked: [] as ShoppingListItemOut[],
     });
+
+    watch(
+      () => shoppingList.value?.listItems,
+      (items) => {
+        listItems.unchecked = (items?.filter(item => !item.checked) ?? []);
+        listItems.checked = (items?.filter(item => item.checked)
+          .sort((a, b) => (a.updatedAt! < b.updatedAt! ? 1 : -1)) ?? []);
+      },
+      { immediate: true }
+    );
 
     // =====================================
     // Collapsable Labels
@@ -1118,7 +1131,7 @@ export default defineNuxtComponent({
     function updateIndexUnchecked(uncheckedItems: ShoppingListItemOut[]) {
       if (shoppingList.value?.listItems) {
         // move the new unchecked items in front of the checked items
-        shoppingList.value.listItems = uncheckedItems.concat(listItems.value.checked);
+        shoppingList.value.listItems = uncheckedItems.concat(listItems.checked);
       }
 
       // since the user has manually reordered the list, we should preserve this order
@@ -1171,7 +1184,7 @@ export default defineNuxtComponent({
       }
 
       // Set Position
-      shoppingList.value.listItems = listItems.value.unchecked.concat(listItems.value.checked).map((itm: ShoppingListItemOut, idx: number) => {
+      shoppingList.value.listItems = listItems.unchecked.concat(listItems.checked).map((itm: ShoppingListItemOut, idx: number) => {
         itm.position = idx;
         return itm;
       });
