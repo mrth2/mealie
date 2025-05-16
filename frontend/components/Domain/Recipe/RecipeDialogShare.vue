@@ -16,7 +16,7 @@
         >
           <template #activator="{ props }">
             <v-text-field
-              v-model="expirationDate"
+              v-model="expirationDateString"
               :label="$t('recipe-share.expiration-date')"
               :hint="$t('recipe-share.default-30-days')"
               persistent-hint
@@ -27,10 +27,10 @@
           </template>
           <v-date-picker
             v-model="expirationDate"
-            no-title
+            hide-header
             :first-day-of-week="firstDayOfWeek"
             :local="$i18n.locale"
-            @input="datePickerMenu = false"
+            @update:model-value="datePickerMenu = false"
           />
         </v-menu>
       </v-card-text>
@@ -124,8 +124,12 @@ export default defineNuxtComponent({
 
     const state = reactive({
       datePickerMenu: false,
-      expirationDate: "",
+      expirationDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000),
       tokens: [] as RecipeShareToken[],
+    });
+
+    const expirationDateString = computed(() => {
+      return state.expirationDate.toISOString().substring(0, 10);
     });
 
     whenever(
@@ -133,8 +137,7 @@ export default defineNuxtComponent({
       () => {
         // Set expiration date to today + 30 Days
         const today = new Date();
-        const expirationDate = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
-        state.expirationDate = expirationDate.toISOString().substring(0, 10);
+        state.expirationDate = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
         refreshTokens();
       },
     );
@@ -156,11 +159,9 @@ export default defineNuxtComponent({
 
     async function createNewToken() {
       // Convert expiration date to timestamp
-      const expirationDate = new Date(state.expirationDate);
-
       const { data } = await userApi.recipes.share.createOne({
         recipeId: props.recipeId,
-        expiresAt: expirationDate.toISOString(),
+        expiresAt: state.expirationDate.toISOString(),
       });
 
       if (data) {
@@ -223,6 +224,7 @@ export default defineNuxtComponent({
 
     return {
       ...toRefs(state),
+      expirationDateString,
       dialog,
       createNewToken,
       deleteToken,
