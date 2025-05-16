@@ -10,23 +10,27 @@
       <h2 class="mb-2 mt-4">
         {{ $t('tool.required-tools') }}
       </h2>
-      <v-list-item
-        v-for="(tool, index) in recipe.tools"
-        :key="index"
-        density="compact"
-      >
-        <v-checkbox
-          v-model="recipeTools[index].onHand"
-          hide-details
-          class="pt-0 my-auto py-auto"
-          color="secondary"
+      <v-list density="compact">
+        <v-list-item
+          v-for="(tool, index) in recipe.tools"
+          :key="index"
           density="compact"
-          @change="updateTool(index)"
-        />
-        <div>
-          {{ tool.name }}
-        </div>
-      </v-list-item>
+        >
+          <template #prepend>
+            <v-checkbox
+              v-model="recipeTools[index].onHand"
+              hide-details
+              class="pt-0 my-auto py-auto"
+              color="secondary"
+              density="compact"
+              @change="updateTool(index)"
+            />
+          </template>
+          <v-list-item-title>
+            {{ tool.name }}
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
     </div>
   </div>
 </template>

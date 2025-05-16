@@ -61,6 +61,11 @@ export default defineNuxtComponent({
 
 <style lang="scss">
 .ingredient-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25em;
+
   .d-inline {
     & > p {
       display: inline;
@@ -89,7 +94,10 @@ export default defineNuxtComponent({
 }
 
 .note {
-  line-height: 1.25em;
+  flex-basis: 100%;
+  width: 100%;
+  display: block;
+  line-height: 1em;
   font-size: 0.8em;
   opacity: 0.7;
 }

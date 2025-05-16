@@ -1,5 +1,5 @@
 <template>
-  <div v-if="modelValue && modelValue.length > 0">
+  <div v-if="value && value.length > 0">
     <div
       v-if="!isCookMode"
       class="d-flex justify-start"
@@ -14,7 +14,7 @@
     </div>
     <div>
       <div
-        v-for="(ingredient, index) in modelValue"
+        v-for="(ingredient, index) in value"
         :key="'ingredient' + index"
       >
         <template v-if="!isCookMode">
@@ -30,19 +30,21 @@
           density="compact"
           @click.stop="toggleChecked(index)"
         >
-          <v-checkbox
-            hide-details
-            :value="checked[index]"
-            class="pt-0 my-auto py-auto"
-            color="secondary"
-          />
-          <div :key="ingredient.quantity!">
+          <template #prepend>
+            <v-checkbox
+              v-model="checked[index]"
+              hide-details
+              class="pt-0 my-auto py-auto"
+              color="secondary"
+            />
+          </template>
+          <v-list-item-title>
             <RecipeIngredientListItem
               :ingredient="ingredient"
               :disable-amount="disableAmount"
               :scale="scale"
             />
-          </div>
+          </v-list-item-title>
         </v-list-item>
       </div>
     </div>
@@ -57,7 +59,7 @@ import type { RecipeIngredient } from "~/lib/api/types/recipe";
 export default defineNuxtComponent({
   components: { RecipeIngredientListItem },
   props: {
-    modelValue: {
+    value: {
       type: Array as () => RecipeIngredient[],
       default: () => [],
     },
@@ -80,13 +82,13 @@ export default defineNuxtComponent({
     }
 
     const state = reactive({
-      checked: props.modelValue.map(() => false),
-      showTitleEditor: computed(() => props.modelValue.map(x => validateTitle(x.title))),
+      checked: props.value.map(() => false),
+      showTitleEditor: computed(() => props.value.map(x => validateTitle(x.title))),
     });
 
     const ingredientCopyText = computed(() => {
       const components: string[] = [];
-      props.modelValue.forEach((ingredient) => {
+      props.value.forEach((ingredient) => {
         if (ingredient.title) {
           if (components.length) {
             components.push("");
