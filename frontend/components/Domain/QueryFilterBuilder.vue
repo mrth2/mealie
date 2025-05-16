@@ -175,11 +175,11 @@
                   />
                 </template>
                 <v-date-picker
-                  :model-value="field.value"
-                  no-title
+                  :model-value="field.value ? new Date(field.value + 'T00:00:00') : null"
+                  hide-header
                   :first-day-of-week="firstDayOfWeek"
                   :local="$i18n.locale"
-                  @update:model-value="setFieldValue(field, index, $event)"
+                  @update:model-value="val => setFieldValue(field, index, val ? val.toISOString().slice(0, 10) : '')"
                 />
               </v-menu>
               <RecipeOrganizerSelector
