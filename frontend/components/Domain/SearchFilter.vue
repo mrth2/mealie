@@ -43,6 +43,7 @@
               size="small"
               hide-details
               class="my-auto"
+              color="primary"
               :label="`${requireAll ? $t('search.has-all') : $t('search.has-any')}`"
             />
             <v-spacer />
@@ -58,7 +59,7 @@
           <v-card
             v-if="filtered.length > 0"
             flat
-            variant="outlined"
+            variant="text"
           >
             <!-- radio filters -->
             <v-radio-group
@@ -93,7 +94,7 @@
               </v-virtual-scroll>
             </v-radio-group>
             <!-- checkbox filters -->
-            <v-row class="mt-1">
+            <v-row v-else class="mt-1">
               <v-virtual-scroll
                 :items="filtered"
                 height="300"
