@@ -52,7 +52,7 @@
         >
           <template #activator="{ props }">
             <v-text-field
-              v-model="newMealdate"
+              v-model="newMealdateString"
               :label="$t('general.date')"
               :prepend-icon="$globals.icons.calendar"
               v-bind="props"
@@ -61,10 +61,10 @@
           </template>
           <v-date-picker
             v-model="newMealdate"
-            no-title
+            hide-header
             :first-day-of-week="firstDayOfWeek"
             :local="$i18n.locale"
-            @input="pickerMenu = false"
+             @update:model-value="pickerMenu = false"
           />
         </v-menu>
         <v-select
@@ -72,6 +72,8 @@
           :return-object="false"
           :items="planTypeOptions"
           :label="$t('recipe.entry-type')"
+          item-title="text"
+          item-value="value"
         />
       </v-card-text>
     </BaseDialog>
@@ -267,9 +269,13 @@ export default defineNuxtComponent({
       recipeName: props.name,
       loading: false,
       menuItems: [] as ContextMenuItem[],
-      newMealdate: "",
+      newMealdate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000),
       newMealType: "dinner" as PlanEntryType,
       pickerMenu: false,
+    });
+
+    const newMealdateString = computed(() => {
+      return state.newMealdate.toISOString().substring(0, 10);
     });
 
     const i18n = useI18n();
@@ -429,7 +435,7 @@ export default defineNuxtComponent({
 
     async function addRecipeToPlan() {
       const { response } = await api.mealplans.createOne({
-        date: state.newMealdate,
+        date: newMealdateString.value,
         entryType: state.newMealType,
         title: "",
         text: "",
@@ -503,6 +509,7 @@ export default defineNuxtComponent({
 
     return {
       ...toRefs(state),
+      newMealdateString,
       recipeRef,
       recipeRefWithScale,
       executeRecipeAction,
