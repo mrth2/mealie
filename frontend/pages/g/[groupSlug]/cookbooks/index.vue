@@ -89,14 +89,16 @@
                 {{ cookbook.name }}
               </div>
               <template #actions>
-                <v-btn icon size="small" class="ml-2">
-                  <v-icon>
-                    {{ $globals.icons.edit }}
+                <div class="d-flex align-center">
+                  <v-btn icon variant="text" class="ml-2">
+                    <v-icon>
+                      {{ $globals.icons.edit }}
+                    </v-icon>
+                  </v-btn>
+                  <v-icon class="handle" :size="40">
+                    {{ $globals.icons.arrowUpDown }}
                   </v-icon>
-                </v-btn>
-                <v-icon class="handle" :size="40">
-                  {{ $globals.icons.arrowUpDown }}
-                </v-icon>
+                </div>
               </template>
             </v-expansion-panel-title>
             <v-expansion-panel-text>
