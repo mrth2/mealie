@@ -55,10 +55,9 @@
     <v-data-table
       v-model="selected"
       item-key="id"
-      :headers="activeHeaders as any"
+      :headers="activeHeaders"
       :show-select="bulkActions.length > 0"
-      :sort-by="initialSort as any"
-      :sort-desc="initialSortDesc"
+      :sort-by="sortBy"
       :items="data || []"
       :items-per-page="15"
       :search="search"
@@ -165,6 +164,11 @@ export default defineNuxtComponent({
   emits: ["delete-one", "edit-one"],
   setup(props, context) {
     const i18n = useI18n();
+    const sortBy = computed(() => [{
+      key: props.initialSort,
+      order: props.initialSortDesc ? 'desc' : 'asc',
+    }]);
+
     // ===========================================================
     // Reactive Headers
     const filteredHeaders = ref<string[]>([]);
@@ -211,6 +215,7 @@ export default defineNuxtComponent({
     const search = ref("");
 
     return {
+      sortBy,
       selected,
       filteredHeaders,
       activeHeaders,

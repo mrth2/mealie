@@ -3,21 +3,13 @@
     v-model="selected"
     item-key="id"
     show-select
-    :sort-by="'dateAdded' as any"
-    sort-desc
-    :headers="headers as any"
+    :sort-by="[{key: 'dateAdded', order: 'desc'}]"
+    :headers="headers"
     :items="recipes"
     :items-per-page="15"
     class="elevation-0"
     :loading="loading"
   >
-    <template #[`body.prepend`]>
-      <tr>
-        <td />
-        <td>Hello</td>
-        <td colspan="4" />
-      </tr>
-    </template>
     <template #[`item.name`]="{ item }">
       <a
         :href="`/g/${groupSlug}/r/${item.slug}`"
