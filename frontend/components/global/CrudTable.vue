@@ -11,8 +11,7 @@
         <template #activator="{ props }">
           <v-btn
             color="accent"
-            class="mr-2"
-            dark
+            variant="flat"
             v-bind="props"
           >
             <v-icon>
@@ -41,6 +40,7 @@
         :disabled="selected.length < 1"
         mode="event"
         color="info"
+        variant="flat"
         :items="bulkActions"
         v-bind="bulkActionListener"
       />
@@ -230,5 +230,8 @@ export default defineNuxtComponent({
 <style>
 .clip-width {
   max-width: 400px;
+}
+.v-btn--disabled {
+  opacity: 0.5 !important;
 }
 </style>
