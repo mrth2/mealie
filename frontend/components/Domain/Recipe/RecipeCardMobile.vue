@@ -60,7 +60,10 @@
                 <br>
               </p>
             </v-list-item-subtitle>
-            <div class="d-flex flex-wrap justify-start ma-0 pt-2 pb-0">
+            <div
+              class="d-flex flex-nowrap justify-start ma-0 pt-2 pb-0"
+              style="overflow-x: hidden; overflow-y: hidden; white-space: nowrap;"
+            >
               <RecipeChips
                 :truncate="true"
                 :items="tags"
