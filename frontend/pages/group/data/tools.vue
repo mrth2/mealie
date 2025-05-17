@@ -1,56 +1,64 @@
 <template>
   <div>
     <!-- Create Dialog -->
-    <BaseDialog v-model="state.createDialog"
-                :title="$t('data-pages.tools.new-tool')"
-                :icon="$globals.icons.potSteam"
-                can-submit
-                @submit="createTool"
+    <BaseDialog
+      v-model="state.createDialog"
+      :title="$t('data-pages.tools.new-tool')"
+      :icon="$globals.icons.potSteam"
+      can-submit
+      @submit="createTool"
     >
       <v-card-text>
         <v-form ref="domNewToolForm">
-          <v-text-field v-model="createTarget.name"
-                        autofocus
-                        :label="$t('general.name')"
-                        :rules="[validators.required]"
+          <v-text-field
+            v-model="createTarget.name"
+            autofocus
+            :label="$t('general.name')"
+            :rules="[validators.required]"
           />
-          <v-checkbox v-model="createTarget.onHand"
-                      :label="$t('tool.on-hand')"
+          <v-checkbox
+            v-model="createTarget.onHand"
+            :label="$t('tool.on-hand')"
           />
         </v-form>
       </v-card-text>
     </BaseDialog>
 
     <!-- Edit Dialog -->
-    <BaseDialog v-model="state.editDialog"
-                :icon="$globals.icons.potSteam"
-                :title="$t('data-pages.tools.edit-tool')"
-                :submit-text="$t('general.save')"
-                @submit="editSaveTool"
+    <BaseDialog
+      v-model="state.editDialog"
+      :icon="$globals.icons.potSteam"
+      :title="$t('data-pages.tools.edit-tool')"
+      :submit-text="$t('general.save')"
+      @submit="editSaveTool"
     >
       <v-card-text v-if="editTarget">
         <div class="mt-4">
-          <v-text-field v-model="editTarget.name"
-                        :label="$t('general.name')"
+          <v-text-field
+            v-model="editTarget.name"
+            :label="$t('general.name')"
           />
-          <v-checkbox v-model="editTarget.onHand"
-                      :label="$t('tool.on-hand')"
+          <v-checkbox
+            v-model="editTarget.onHand"
+            :label="$t('tool.on-hand')"
           />
         </div>
       </v-card-text>
     </BaseDialog>
 
     <!-- Delete Dialog -->
-    <BaseDialog v-model="state.deleteDialog"
-                :title="$t('general.confirm')"
-                :icon="$globals.icons.alertCircle"
-                color="error"
-                @confirm="deleteTool"
+    <BaseDialog
+      v-model="state.deleteDialog"
+      :title="$t('general.confirm')"
+      :icon="$globals.icons.alertCircle"
+      color="error"
+      @confirm="deleteTool"
     >
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
-        <p v-if="deleteTarget"
-           class="mt-4 ml-4"
+        <p
+          v-if="deleteTarget"
+          class="mt-4 ml-4"
         >
           {{ deleteTarget.name }}
         </p>
@@ -58,21 +66,23 @@
     </BaseDialog>
 
     <!-- Bulk Delete Dialog -->
-    <BaseDialog v-model="state.bulkDeleteDialog"
-                width="650px"
-                :title="$t('general.confirm')"
-                :icon="$globals.icons.alertCircle"
-                color="error"
-                @confirm="deleteSelected"
+    <BaseDialog
+      v-model="state.bulkDeleteDialog"
+      width="650px"
+      :title="$t('general.confirm')"
+      :icon="$globals.icons.alertCircle"
+      color="error"
+      @confirm="deleteSelected"
     >
       <v-card-text>
         <p class="h4">
           {{ $t('general.confirm-delete-generic-items') }}
         </p>
         <v-card variant="outlined">
-          <v-virtual-scroll height="400"
-                            item-height="25"
-                            :items="bulkDeleteTarget"
+          <v-virtual-scroll
+            height="400"
+            item-height="25"
+            :items="bulkDeleteTarget"
           >
             <template #default="{ item }">
               <v-list-item class="pb-2">
@@ -85,22 +95,25 @@
     </BaseDialog>
 
     <!-- Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.potSteam"
-                          section
-                          :title="$t('data-pages.tools.tool-data')"
+    <BaseCardSectionTitle
+      :icon="$globals.icons.potSteam"
+      section
+      :title="$t('data-pages.tools.tool-data')"
     />
-    <CrudTable v-model:headers="tableHeaders"
-               :table-config="tableConfig"
-               :data="tools || []"
-               :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
-               initial-sort="name"
-               @delete-one="deleteEventHandler"
-               @edit-one="editEventHandler"
-               @delete-selected="bulkDeleteEventHandler"
+    <CrudTable
+      v-model:headers="tableHeaders"
+      :table-config="tableConfig"
+      :data="tools || []"
+      :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
+      initial-sort="name"
+      @delete-one="deleteEventHandler"
+      @edit-one="editEventHandler"
+      @delete-selected="bulkDeleteEventHandler"
     >
       <template #button-row>
-        <BaseButton create
-                    @click="state.createDialog = true"
+        <BaseButton
+          create
+          @click="state.createDialog = true"
         >
           {{ $t("general.create") }}
         </BaseButton>
