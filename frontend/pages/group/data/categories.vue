@@ -139,6 +139,7 @@ export default defineNuxtComponent({
         text: i18n.t("general.name"),
         value: "name",
         show: true,
+        sortable: true,
       },
     ];
 

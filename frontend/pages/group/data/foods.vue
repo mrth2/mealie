@@ -378,11 +378,13 @@ export default defineNuxtComponent({
         text: i18n.t("general.name"),
         value: "name",
         show: true,
+        sortable: true,
       },
       {
         text: i18n.t("general.plural-name"),
         value: "pluralName",
         show: true,
+        sortable: true,
       },
       {
         text: i18n.t("recipe.description"),
@@ -393,6 +395,7 @@ export default defineNuxtComponent({
         text: i18n.t("shopping-list.label"),
         value: "label",
         show: true,
+        sortable: true,
         sort: (label1: MultiPurposeLabelOut | null, label2: MultiPurposeLabelOut | null) => {
           const label1Name = label1?.name || "";
           const label2Name = label2?.name || "";
@@ -403,11 +406,13 @@ export default defineNuxtComponent({
         text: i18n.t("tool.on-hand"),
         value: "onHand",
         show: true,
+        sortable: true,
       },
       {
         text: i18n.t("general.date-added"),
         value: "createdAt",
         show: false,
+        sortable: true,
       },
     ];
 

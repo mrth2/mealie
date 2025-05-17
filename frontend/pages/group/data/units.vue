@@ -349,26 +349,31 @@ export default defineNuxtComponent({
         text: i18n.t("general.name"),
         value: "name",
         show: true,
+        sortable: true,
       },
       {
         text: i18n.t("general.plural-name"),
         value: "pluralName",
         show: true,
+        sortable: true,
       },
       {
         text: i18n.t("data-pages.units.abbreviation"),
         value: "abbreviation",
         show: true,
+        sortable: true,
       },
       {
         text: i18n.t("data-pages.units.plural-abbreviation"),
         value: "pluralAbbreviation",
         show: true,
+        sortable: true,
       },
       {
         text: i18n.t("data-pages.units.use-abbv"),
         value: "useAbbreviation",
         show: true,
+        sortable: true,
       },
       {
         text: i18n.t("data-pages.units.description"),
@@ -379,11 +384,13 @@ export default defineNuxtComponent({
         text: i18n.t("data-pages.units.fraction"),
         value: "fraction",
         show: true,
+        sortable: true,
       },
       {
         text: i18n.t("general.date-added"),
         value: "createdAt",
         show: false,
+        sortable: true,
       },
     ];
 

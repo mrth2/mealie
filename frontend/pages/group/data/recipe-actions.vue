@@ -164,6 +164,7 @@ export default defineNuxtComponent({
         text: i18n.t("general.title"),
         value: "title",
         show: true,
+        sortable: true,
       },
       {
         text: i18n.t("general.url"),
@@ -174,6 +175,7 @@ export default defineNuxtComponent({
         text: i18n.t("data-pages.recipe-actions.action-type"),
         value: "actionType",
         show: true,
+        sortable: true,
       },
     ];
 
