@@ -12,10 +12,10 @@
       @submit="
         () => {
           if (newMeal.existing) {
-            actions.updateOne({...newMeal, date: newMealDateString});
+            actions.updateOne({ ...newMeal, date: newMealDateString });
           }
  else {
-            actions.createOne({...newMeal, date: newMealDateString});
+            actions.createOne({ ...newMeal, date: newMealDateString });
           }
           resetDialog();
         }

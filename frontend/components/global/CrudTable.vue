@@ -166,7 +166,7 @@ export default defineNuxtComponent({
     const i18n = useI18n();
     const sortBy = computed(() => [{
       key: props.initialSort,
-      order: props.initialSortDesc ? 'desc' : 'asc',
+      order: props.initialSortDesc ? "desc" : "asc",
     }]);
 
     // ===========================================================

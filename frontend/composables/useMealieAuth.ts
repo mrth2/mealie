@@ -1,5 +1,5 @@
-import type { UserOut } from "~/lib/api/types/user";
 import { ref, watch, computed } from "vue";
+import type { UserOut } from "~/lib/api/types/user";
 
 const USER_CACHE_KEY = "mealie_user";
 
@@ -18,11 +18,12 @@ export const useMealieAuth = function () {
       if (val) {
         lastUser.value = val as UserOut;
         localStorage.setItem(USER_CACHE_KEY, JSON.stringify(val));
-      } else {
+      }
+      else {
         localStorage.removeItem(USER_CACHE_KEY);
       }
     },
-    { immediate: true }
+    { immediate: true },
   );
 
   const user = computed(() => lastUser.value);

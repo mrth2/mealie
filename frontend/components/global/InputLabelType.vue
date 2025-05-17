@@ -78,7 +78,7 @@ export default defineNuxtComponent({
     create: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   emits: ["update:modelValue", "update:item-id", "create"],
   setup(props, context) {

@@ -585,7 +585,7 @@ export default defineNuxtComponent({
         listItems.checked = (items?.filter(item => item.checked)
           .sort((a, b) => (a.updatedAt! < b.updatedAt! ? 1 : -1)) ?? []);
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     // =====================================

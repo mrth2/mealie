@@ -12,7 +12,7 @@
         size="small"
         :color="buttonStyle ? 'info' : 'secondary'"
         :fab="buttonStyle"
-        v-bind="{...props, ...$attrs}"
+        v-bind="{ ...props, ...$attrs }"
         @click.prevent="toggleTimeline"
       >
         <v-icon

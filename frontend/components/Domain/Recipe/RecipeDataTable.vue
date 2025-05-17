@@ -3,7 +3,7 @@
     v-model="selected"
     item-key="id"
     show-select
-    :sort-by="[{key: 'dateAdded', order: 'desc'}]"
+    :sort-by="[{ key: 'dateAdded', order: 'desc' }]"
     :headers="headers"
     :items="recipes"
     :items-per-page="15"
@@ -129,7 +129,7 @@ export default defineNuxtComponent({
     });
 
     const headers = computed(() => {
-      const hdrs: Array<{ title: string; value: string; align?: string; sortable?: boolean; }> = [];
+      const hdrs: Array<{ title: string; value: string; align?: string; sortable?: boolean }> = [];
 
       if (props.showHeaders.id) {
         hdrs.push({ title: i18n.t("general.id"), value: "id" });

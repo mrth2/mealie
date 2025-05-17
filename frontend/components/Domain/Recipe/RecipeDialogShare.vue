@@ -46,9 +46,9 @@
       <v-list-item
         v-for="token in tokens"
         :key="token.id"
-        @click="shareRecipe(token.id)"
         class="px-2"
         style="padding-top: 8px; padding-bottom: 8px;"
+        @click="shareRecipe(token.id)"
       >
         <div class="d-flex align-center" style="width: 100%;">
           <v-avatar color="grey">
@@ -69,8 +69,8 @@
           <v-btn
             icon
             variant="text"
-            @click.stop="deleteToken(token.id)"
             class="ml-2"
+            @click.stop="deleteToken(token.id)"
           >
             <v-icon color="error-lighten-1">
               {{ $globals.icons.delete }}
@@ -79,8 +79,8 @@
           <v-btn
             icon
             variant="text"
-            @click.stop="copyTokenLink(token.id)"
             class="ml-2"
+            @click.stop="copyTokenLink(token.id)"
           >
             <v-icon color="info-lighten-1">
               {{ $globals.icons.contentCopy }}

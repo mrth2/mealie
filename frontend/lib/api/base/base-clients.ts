@@ -29,7 +29,7 @@ export abstract class BaseCRUDAPIReadOnly<ReadType>
   constructor(
     requests: ApiRequestInstance,
     baseRoute: string,
-    itemRoute: (itemId: string | number) => string
+    itemRoute: (itemId: string | number) => string,
   ) {
     super(requests);
     this.baseRoute = baseRoute;
