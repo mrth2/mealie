@@ -129,6 +129,7 @@
             <v-btn
               color="accent"
               class="mr-2"
+              variant="flat"
               dark
               v-bind="props"
             >
@@ -161,6 +162,7 @@
           :disabled="selected.length < 1"
           mode="event"
           color="info"
+          variant="flat"
           :items="actions"
           @export-selected="openDialog(MODES.export)"
           @tag-selected="openDialog(MODES.tag)"
@@ -539,3 +541,9 @@ export default defineNuxtComponent({
   },
 });
 </script>
+
+<style>
+.v-btn--disabled {
+  opacity: 0.5 !important;
+}
+</style>
