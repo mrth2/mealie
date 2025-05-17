@@ -262,7 +262,8 @@
                         label
                         class="ma-1"
                         color="accent custom-transparent"
-                        close
+                        closeable
+                        variant="flat"
                         @click:close="removeTool(tool)"
                       >
                         <span class="text-hide-overflow">{{ tool.name }}</span>
@@ -281,7 +282,8 @@
                       <v-chip
                         label
                         color="accent custom-transparent"
-                        close
+                        closable
+                        variant="flat"
                         @click:close="removeTool(tool)"
                       >
                         <span class="text-hide-overflow">{{ tool.name }}</span>
