@@ -42,18 +42,18 @@
       />
     </template>
     <template #[`item.userId`]="{ item }">
-      <v-list-item class="justify-start">
+      <div class="d-flex align-center">
         <UserAvatar
           :user-id="item.userId!"
           :tooltip="false"
           size="40"
         />
         <div class="pl-2">
-          <v-list-item-title class="text-left">
+          <span class="text-left">
             {{ getMember(item.userId!) }}
-          </v-list-item-title>
+          </span>
         </div>
-      </v-list-item>
+      </div>
     </template>
     <template #[`item.dateAdded`]="{ item }">
       {{ formatDate(item.dateAdded!) }}
@@ -129,36 +129,36 @@ export default defineNuxtComponent({
     });
 
     const headers = computed(() => {
-      const hdrs: Array<{ title: string; value: string; align?: string }> = [];
+      const hdrs: Array<{ title: string; value: string; align?: string; sortable?: boolean; }> = [];
 
       if (props.showHeaders.id) {
         hdrs.push({ title: i18n.t("general.id"), value: "id" });
       }
       if (props.showHeaders.owner) {
-        hdrs.push({ title: i18n.t("general.owner"), value: "userId", align: "center" });
+        hdrs.push({ title: i18n.t("general.owner"), value: "userId", align: "center", sortable: true });
       }
-      hdrs.push({ title: i18n.t("general.name"), value: "name" });
+      hdrs.push({ title: i18n.t("general.name"), value: "name", sortable: true });
       if (props.showHeaders.categories) {
-        hdrs.push({ title: i18n.t("recipe.categories"), value: "recipeCategory" });
+        hdrs.push({ title: i18n.t("recipe.categories"), value: "recipeCategory", sortable: true });
       }
 
       if (props.showHeaders.tags) {
-        hdrs.push({ title: i18n.t("tag.tags"), value: "tags" });
+        hdrs.push({ title: i18n.t("tag.tags"), value: "tags", sortable: true });
       }
       if (props.showHeaders.tools) {
-        hdrs.push({ title: i18n.t("tool.tools"), value: "tools" });
+        hdrs.push({ title: i18n.t("tool.tools"), value: "tools", sortable: true });
       }
       if (props.showHeaders.recipeServings) {
-        hdrs.push({ title: i18n.t("recipe.servings"), value: "recipeServings" });
+        hdrs.push({ title: i18n.t("recipe.servings"), value: "recipeServings", sortable: true });
       }
       if (props.showHeaders.recipeYieldQuantity) {
-        hdrs.push({ title: i18n.t("recipe.yield"), value: "recipeYieldQuantity" });
+        hdrs.push({ title: i18n.t("recipe.yield"), value: "recipeYieldQuantity", sortable: true });
       }
       if (props.showHeaders.recipeYield) {
-        hdrs.push({ title: i18n.t("recipe.yield-text"), value: "recipeYield" });
+        hdrs.push({ title: i18n.t("recipe.yield-text"), value: "recipeYield", sortable: true });
       }
       if (props.showHeaders.dateAdded) {
-        hdrs.push({ title: i18n.t("general.date-added"), value: "dateAdded" });
+        hdrs.push({ title: i18n.t("general.date-added"), value: "dateAdded", sortable: true });
       }
 
       return hdrs;
