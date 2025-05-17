@@ -47,42 +47,46 @@
         v-for="token in tokens"
         :key="token.id"
         @click="shareRecipe(token.id)"
+        class="px-2"
+        style="padding-top: 8px; padding-bottom: 8px;"
       >
-        <v-avatar color="grey">
-          <v-icon
-            dark
-            class="pa-2"
-          >
-            {{ $globals.icons.link }}
-          </v-icon>
-        </v-avatar>
+        <div class="d-flex align-center" style="width: 100%;">
+          <v-avatar color="grey">
+            <v-icon>
+              {{ $globals.icons.link }}
+            </v-icon>
+          </v-avatar>
 
-        <div>
-          <v-list-item-title> {{ $t("recipe-share.expires-at") }} </v-list-item-title>
+          <div class="pl-3 flex-grow-1">
+            <v-list-item-title>
+              {{ $t("recipe-share.expires-at") }}
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              {{ $d(new Date(token.expiresAt!), "long") }}
+            </v-list-item-subtitle>
+          </div>
 
-          <v-list-item-subtitle>{{ $d(new Date(token.expiresAt!), "long") }}</v-list-item-subtitle>
-        </div>
-
-        <v-list-item-action>
           <v-btn
             icon
+            variant="text"
             @click.stop="deleteToken(token.id)"
+            class="ml-2"
           >
             <v-icon color="error-lighten-1">
               {{ $globals.icons.delete }}
             </v-icon>
           </v-btn>
-        </v-list-item-action>
-        <v-list-item-action>
           <v-btn
             icon
+            variant="text"
             @click.stop="copyTokenLink(token.id)"
+            class="ml-2"
           >
             <v-icon color="info-lighten-1">
               {{ $globals.icons.contentCopy }}
             </v-icon>
           </v-btn>
-        </v-list-item-action>
+        </div>
       </v-list-item>
     </BaseDialog>
   </div>
