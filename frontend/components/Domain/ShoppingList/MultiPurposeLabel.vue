@@ -2,6 +2,7 @@
   <v-chip
     v-bind="$attrs"
     label
+    variant="flat"
     :color="label.color || undefined"
     :text-color="textColor"
   >
