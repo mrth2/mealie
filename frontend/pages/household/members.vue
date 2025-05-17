@@ -29,7 +29,7 @@
       </v-container>
     </BasePageTitle>
     <v-data-table
-      :headers="headers as any"
+      :headers="headers"
       :items="members || []"
       item-key="id"
       class="elevation-0"

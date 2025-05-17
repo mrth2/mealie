@@ -20,7 +20,7 @@
           <template #label>
             <div :class="listItem.checked ? 'strike-through' : ''">
               <RecipeIngredientListItem
-                :ingredient="listItem as any"
+                :ingredient="listItem"
                 :disable-amount="!(listItem.isFood || listItem.quantity !== 1)"
               />
             </div>

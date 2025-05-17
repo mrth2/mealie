@@ -43,7 +43,7 @@
       </v-toolbar>
 
       <v-data-table
-        :headers="headers as any"
+        :headers="headers"
         :items="groups || []"
         item-key="id"
         class="elevation-0"

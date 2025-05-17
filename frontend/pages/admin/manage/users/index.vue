@@ -50,7 +50,7 @@
         />
       </v-toolbar>
       <v-data-table
-        :headers="headers as any"
+        :headers="headers"
         :items="users || []"
         item-key="id"
         class="elevation-0"

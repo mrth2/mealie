@@ -96,7 +96,7 @@
         </v-toolbar>
 
         <v-data-table
-          :headers="headers as any"
+          :headers="headers"
           :items="backups.imports || []"
           class="elevation-0"
           hide-default-footer

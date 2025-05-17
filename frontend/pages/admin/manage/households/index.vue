@@ -65,7 +65,7 @@
 
       <v-data-table
         v-if="headers && households"
-        :headers="headers as any"
+        :headers="headers"
         :items="households"
         item-key="id"
         class="elevation-0"
