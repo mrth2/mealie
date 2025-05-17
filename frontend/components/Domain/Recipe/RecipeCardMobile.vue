@@ -1,5 +1,5 @@
 <template>
-  <div :style="`height: 100%`">
+  <div :style="`height: ${height}px;`">
     <v-expand-transition>
       <v-card
         :ripple="false"
@@ -21,7 +21,7 @@
             :recipe-id="recipeId"
             size="small"
             :image-version="image"
-            height="150"
+            :height="height"
           />
         </v-img>
         <v-list-item
@@ -44,12 +44,12 @@
                 :image-version="image"
                 size="small"
                 width="125"
-                height="150"
+                :height="height"
               />
             </slot>
           </template>
           <div class="pl-4 d-flex flex-column justify-space-between align-stretch pr-2">
-            <v-list-item-title class="mt-1 mb-1 text-top text-truncate w-100">
+            <v-list-item-title class="mt-3 mb-1 text-top text-truncate w-100">
               {{ name }}
             </v-list-item-title>
             <v-list-item-subtitle class="ma-0 text-top">
@@ -73,13 +73,14 @@
             </div>
           </div>
           <slot name="actions">
-            <v-card-actions class="w-100 px-1">
+            <v-card-actions class="w-100 my-0 px-1 py-0">
               <RecipeFavoriteBadge
                 v-if="isOwnGroup && showRecipeContent"
                 :recipe-id="recipeId"
                 show-always
+                class="ma-0 pa-0"
               />
-              <div v-else class="px-1" /> <!-- Empty div to keep the layout consistent -->
+              <div v-else class="my-0 px-1 py-0" /> <!-- Empty div to keep the layout consistent -->
               <RecipeRating
                 v-if="showRecipeContent"
                 :class="[{ 'pb-2': !isOwnGroup }, 'ml-n2']"
@@ -174,12 +175,8 @@ export default defineNuxtComponent({
       default: false,
     },
     height: {
-      type: [Number, String],
+      type: [Number],
       default: 150,
-    },
-    imageHeight: {
-      type: [Number, String],
-      default: "fill-height",
     },
   },
   emits: ["selected", "delete"],
