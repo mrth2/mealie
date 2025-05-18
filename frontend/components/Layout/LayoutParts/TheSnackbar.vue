@@ -7,11 +7,11 @@
       timeout="2000"
     >
       <v-icon
+        v-if="icon"
         dark
         start
-      >
-        {{ icon }}
-      </v-icon>
+        :icon="icon"
+      />
 
       {{ toastAlert.title }}
       {{ toastAlert.text }}
@@ -51,24 +51,26 @@
 </template>
 
 <script lang="ts">
+import { useNuxtApp } from "#app";
 import { toastAlert, toastLoading } from "~/composables/use-toast";
 
-export default defineNuxtComponent({
+export default {
   setup() {
+    const { $globals } = useNuxtApp();
     const icon = computed(() => {
       switch (toastAlert.color) {
         case "error":
-          return "mdi-alert";
+          return $globals.icons.alertOutline;
         case "success":
-          return "mdi-check-bold";
+          return $globals.icons.checkBold;
         case "info":
-          return "mdi-information-outline";
+          return $globals.icons.informationOutline;
         default:
-          return "mdi-alert";
+          return $globals.icons.alertOutline;
       }
     });
 
     return { icon, toastAlert, toastLoading };
   },
-});
+};
 </script>
