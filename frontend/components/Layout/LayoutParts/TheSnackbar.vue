@@ -2,7 +2,7 @@
   <div class="text-center">
     <v-snackbar
       v-model="toastAlert.open"
-      top
+      location="top"
       :color="toastAlert.color"
       timeout="2000"
     >
@@ -29,8 +29,7 @@
       v-model="toastLoading.open"
       content-class="py-2"
       density="compact"
-      bottom
-      end
+      location="bottom"
       :timeout="-1"
       :color="toastLoading.color"
     >
