@@ -10,7 +10,7 @@
       v-if="isFirstLogin"
       class="my-4"
       type="info"
-      icon="mdi-information"
+      :icon="$globals.icons.information"
       :style="{ flex: 'none' }"
     >
       <div>
