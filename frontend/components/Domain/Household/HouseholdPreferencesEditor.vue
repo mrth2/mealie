@@ -21,7 +21,7 @@
 			</div>
 		</div>
 		<v-select v-model="preferences.firstDayOfWeek" :prepend-icon="$globals.icons.calendarWeekBegin" :items="allDays"
-			item-title="name" item-value="value" :label="$t('settings.first-day-of-week')" />
+			item-title="name" item-value="value" :label="$t('settings.first-day-of-week')" variant="solo-filled" flat />
 
 		<BaseCardSectionTitle class="mt-5" :title="$t('household.household-recipe-preferences')" />
 		<div class="preference-container">

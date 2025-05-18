@@ -31,23 +31,27 @@
             v-model="household.groupId"
             disabled
             :items="groups"
-            rounded
+            variant="solo-filled"
+            flat
             class="rounded-lg"
             item-title="name"
             item-value="id"
             :return-object="false"
-            variant="filled"
             :label="$t('group.user-group')"
             :rules="[validators.required]"
           />
           <v-text-field
             v-model="household.name"
+            variant="solo-filled"
+            flat
             :label="$t('household.household-name')"
             :rules="[validators.required]"
           />
           <HouseholdPreferencesEditor
             v-if="household.preferences"
             v-model="household.preferences"
+            variant="solo-filled"
+            flat
           />
         </v-card-text>
       </v-card>
