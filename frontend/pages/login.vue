@@ -71,11 +71,10 @@
             v-model="form.email"
             :prepend-inner-icon="$globals.icons.email"
             variant="solo-filled"
+            flat
             width="100%"
-            rounded
             autofocus
             autocomplete="username"
-            class="rounded-lg"
             name="login"
             :label="$t('user.email-or-username')"
             type="text"
@@ -86,9 +85,8 @@
             :prepend-inner-icon="$globals.icons.lock"
             :append-inner-icon="passwordIcon"
             variant="solo-filled"
-            rounded
+            flat
             autocomplete="current-password"
-            class="rounded-lg"
             name="password"
             :label="$t('user.password')"
             :type="inputType"
