@@ -45,6 +45,7 @@
 
         <BaseOverflowButton
           mode="event"
+          variant="elevated"
           :items="ACTIONS_OPTIONS"
           @unlock-all-users="unlockAllUsers"
         />
