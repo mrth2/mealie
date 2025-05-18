@@ -132,9 +132,11 @@
             :rules="[validators.email]"
           />
           <BaseButton
-            save
+            color="info"
+            variant="elevated"
             :disabled="!appConfig.emailReady || !validEmail"
             :loading="loading"
+            class="opacity-100"
             @click="testEmail"
           >
             <template #icon>
