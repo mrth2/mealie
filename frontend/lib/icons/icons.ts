@@ -151,7 +151,6 @@ import {
   mdiKnife,
   mdiCookie,
 } from "@mdi/js";
-import { info } from "sass-embedded";
 
 export const icons = {
   // Primary
