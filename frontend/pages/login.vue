@@ -383,10 +383,6 @@ export default defineNuxtComponent({
   width: 300px;
 }
 
-.icon-primary {
-  fill: var(--v-primary-base);
-}
-
 .icon-white {
   fill: white;
 }
