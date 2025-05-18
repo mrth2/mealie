@@ -2,27 +2,24 @@
   <v-container
     fill-height
     fluid
-    class="d-flex justify-center align-center"
+    class="d-flex justify-center align-center flex-column fill-height"
     :class="{
       'bg-off-white': !$vuetify.theme.current.dark && !isDark,
     }"
   >
-    <LanguageDialog v-model="langDialog" />
-
     <v-card
-      class="d-flex flex-column"
-      width="1200px"
+      class="d-flex flex-column w-100"
+      max-width="1200px"
       min-height="700px"
     >
       <div>
         <v-toolbar
           width="100%"
           color="primary"
-          class="d-flex justify-center"
           style="margin-bottom: 4rem"
           dark
         >
-          <v-toolbar-title class="headline text-h4">
+          <v-toolbar-title class="text-h4 text-center">
             Mealie
           </v-toolbar-title>
         </v-toolbar>
@@ -51,7 +48,7 @@
       <div class="d-flex justify-center grow items-center my-4">
         <template v-if="state.ctx.state === States.Initial">
           <div width="600px">
-            <v-card-title class="headline justify-center my-4 mb-5 pb-0">
+            <v-card-title class="text-h5 my-4 mb-5 pb-0 text-center">
               {{ $t("user-registration.user-registration") }}
             </v-card-title>
 
@@ -109,7 +106,7 @@
               >
                 {{ $globals.icons.group }}
               </v-icon>
-              <span class="headline"> {{ $t("user-registration.join-a-group") }} </span>
+              <span> {{ $t("user-registration.join-a-group") }} </span>
             </v-card-title>
             <v-divider />
             <v-card-text>
@@ -160,7 +157,7 @@
               >
                 {{ $globals.icons.group }}
               </v-icon>
-              <span class="headline"> {{ $t("user-registration.group-details") }}</span>
+              <span> {{ $t("user-registration.group-details") }}</span>
             </v-card-title>
             <v-card-text>
               {{ $t("user-registration.group-details-description") }}
@@ -259,7 +256,7 @@
               >
                 {{ $globals.icons.user }}
               </v-icon>
-              <span class="headline">{{ $t("general.confirm") }}</span>
+              <span>{{ $t("general.confirm") }}</span>
             </v-card-title>
             <v-list>
               <template v-for="(item, idx) in confirmationData">
@@ -310,15 +307,14 @@
         <BaseButton
           size="large"
           color="primary"
+          :icon="$globals.icons.translate"
           @click="langDialog = true"
         >
-          <template #icon>
-            {{ $globals.icons.translate }}
-          </template>
           {{ $t("language-dialog.choose-language") }}
         </BaseButton>
       </v-card-actions>
     </v-card>
+    <LanguageDialog v-model="langDialog" />
   </v-container>
 </template>
 
@@ -569,10 +565,6 @@ export default defineNuxtComponent({
 </script>
 
 <style lang="css" scoped>
-.icon-primary {
-  fill: var(--v-primary-base);
-}
-
 .icon-white {
   fill: white;
 }
