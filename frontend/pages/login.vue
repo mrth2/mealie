@@ -30,8 +30,8 @@
     </v-alert>
     <v-card
       tag="section"
-      class="d-flex flex-column align-center"
-      width="600px"
+      class="d-flex flex-column align-center w-100"
+      max-width="600"
     >
       <v-toolbar
         color="primary"
