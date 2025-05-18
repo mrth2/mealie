@@ -12,7 +12,7 @@
         :loading="isSelecting"
         :small="small"
         :color="color"
-        :variant="textBtn ? 'text' : undefined"
+        :variant="textBtn ? 'text' : 'elevated'"
         :disabled="disabled"
         @click="onButtonClick"
       >
