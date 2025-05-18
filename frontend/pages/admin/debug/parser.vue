@@ -26,11 +26,12 @@
             {{ $t('admin.openai') }}
           </v-btn>
         </v-btn-toggle>
-
+        <v-spacer />
         <v-checkbox
           v-model="showConfidence"
           class="ml-5"
           :label="$t('admin.show-individual-confidence')"
+          hide-details
         />
       </div>
 
