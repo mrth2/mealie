@@ -61,10 +61,9 @@
                 dark
                 hover
                 width="300px"
-                variant="outlined"
                 @click="initial.joinGroup"
               >
-                <v-card-title class="justify-center">
+                <v-card-title class="d-flex align-center justify-center py-3">
                   <v-icon
                     size="large"
                     start
@@ -79,10 +78,9 @@
                 dark
                 hover
                 width="300px"
-                variant="outlined"
-                @click="initial.createGroup"
+                @click="initial.joinGroup"
               >
-                <v-card-title class="justify-center">
+                <v-card-title class="d-flex align-center justify-center py-3">
                   <v-icon
                     size="large"
                     start
