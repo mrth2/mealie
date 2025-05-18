@@ -35,25 +35,18 @@
         <v-checkbox
           v-if="inputField.type === fieldTypes.BOOLEAN"
           v-model="modelValue[inputField.varName]"
-          class="my-0 py-0"
           :name="inputField.varName"
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
-          @change="emitBlur"
-        >
+          :hint="inputField.hint"
+          hide-details="auto"
+          density="comfortable"
+          @change="emitBlur">
           <template #label>
-            <div>
-              <v-card-text class="text-body-1 my-0 py-0">
-                {{ inputField.label }}
-              </v-card-text>
-              <v-card-text
-                v-if="inputField.hint"
-                class="text-caption my-0 py-0"
-              >
-                {{ inputField.hint }}
-              </v-card-text>
-            </div>
-          </template>
-        </v-checkbox>
+            <span class="ml-4">
+              {{ inputField.label }}
+            </span>
+        </template>
+</v-checkbox>
 
         <!-- Text Field -->
         <v-text-field
@@ -61,12 +54,11 @@
           v-model="modelValue[inputField.varName]"
           :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
-          variant="filled"
           :type="inputField.type === fieldTypes.PASSWORD ? 'password' : 'text'"
-          rounded
-          class="rounded-lg"
+          variant="solo-filled"
+          flat
           :autofocus="index === 0"
-          density="compact"
+          density="comfortable"
           :label="inputField.label"
           :name="inputField.varName"
           :hint="inputField.hint || ''"
@@ -81,12 +73,12 @@
           v-model="modelValue[inputField.varName]"
           :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
-          variant="filled"
-          rounded
+          variant="solo-filled"
+          flat
           class="rounded-lg"
           rows="3"
           auto-grow
-          density="compact"
+          density="comfortable"
           :label="inputField.label"
           :name="inputField.varName"
           :hint="inputField.hint || ''"
@@ -101,8 +93,8 @@
           v-model="modelValue[inputField.varName]"
           :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
-          variant="filled"
-          rounded
+          variant="solo-filled"
+          flat
           class="rounded-lg"
           :prepend-icon="inputField.icons ? modelValue[inputField.varName] : null"
           :label="inputField.label"
@@ -112,7 +104,7 @@
           :item-value="inputField.itemValue"
           :return-object="false"
           :hint="inputField.hint"
-          density="compact"
+          density="comfortable"
           persistent-hint
           lazy-validation
           @blur="emitBlur"

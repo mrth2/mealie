@@ -23,7 +23,10 @@
       ref="refNewUserForm"
       @submit.prevent="handleSubmit"
     >
-      <v-card variant="outlined">
+      <v-card
+        variant="outlined"
+        style="border-color: lightgrey;"
+      >
         <v-card-text>
           <div class="d-flex">
             <p> {{ $t("user.user-id-with-value", { id: user.id }) }}</p>
@@ -34,12 +37,11 @@
             v-model="user.group"
             disabled
             :items="groups"
-            rounded
-            class="rounded-lg"
+            variant="solo-filled"
+            flat
             item-title="name"
             item-value="name"
             :return-object="false"
-            variant="filled"
             :label="$t('group.user-group')"
             :rules="[validators.required]"
           />
@@ -47,12 +49,11 @@
             v-if="households"
             v-model="user.household"
             :items="households"
-            rounded
-            class="rounded-lg"
+            variant="solo-filled"
+            flat
             item-title="name"
             item-value="name"
             :return-object="false"
-            variant="filled"
             :label="$t('household.user-household')"
             :rules="[validators.required]"
           />

@@ -11,6 +11,7 @@
   >
     <template #activator="{ props }">
       <v-btn
+        variant="elevated"
         :icon="icon"
         :color="color"
         retain-focus-on-click
