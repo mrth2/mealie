@@ -18,7 +18,7 @@
       @keydown.esc="emit('cancel')"
     >
       <v-card height="100%">
-        <v-app-bar
+        <v-toolbar
           dark
           density="comfortable"
           :color="color"
@@ -31,7 +31,7 @@
             {{ title }}
           </v-toolbar-title>
           <v-spacer />
-        </v-app-bar>
+        </v-toolbar>
         <v-progress-linear
           v-if="loading"
           class="mt-1"
