@@ -87,7 +87,7 @@
         >
           <v-list-item :title="check.text">
             <template #prepend>
-              <v-icon :color="check.color">
+              <v-icon :color="check.color" class="opacity-100">
                 {{ check.icon }}
               </v-icon>
             </template>
