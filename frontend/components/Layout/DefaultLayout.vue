@@ -161,11 +161,11 @@ export default defineNuxtComponent({
       if (!cookbooks.value) {
         return [];
       }
-      [...cookbooks.value].sort((a, b) => (a.position || 0) - (b.position || 0));
+      const sortedCookbooks = [...cookbooks.value].sort((a, b) => (a.position || 0) - (b.position || 0));
 
       const ownLinks: SideBarLink[] = [];
       const links: SideBarLink[] = [];
-      const cookbooksByHousehold = cookbooks.value.reduce((acc, cookbook) => {
+      const cookbooksByHousehold = sortedCookbooks.reduce((acc, cookbook) => {
         const householdName = householdsById.value[cookbook.householdId]?.name || "";
         if (!acc[householdName]) {
           acc[householdName] = [];
@@ -175,6 +175,10 @@ export default defineNuxtComponent({
       }, {} as Record<string, ReadCookBook[]>);
 
       Object.entries(cookbooksByHousehold).forEach(([householdName, cookbooks]) => {
+        if (!cookbooks.length) {
+          return;
+        }
+
         if (cookbooks[0].householdId === currentUserHouseholdId.value) {
           ownLinks.push(...cookbooks.map(cookbookAsLink));
         }
