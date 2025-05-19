@@ -1,33 +1,41 @@
 import { ref, watch, computed } from "vue";
 import type { UserOut } from "~/lib/api/types/user";
 
-const USER_CACHE_KEY = "mealie_user";
-
 export const useMealieAuth = function () {
   const auth = useAuth();
   const { setToken } = useAuthState();
   const { $axios } = useNuxtApp();
 
-  // Try to restore user from cache
-  const cachedUser = localStorage.getItem(USER_CACHE_KEY);
-  const lastUser = ref<UserOut | null>(cachedUser ? JSON.parse(cachedUser) : null);
+  // User Management
+  const lastUser = ref<UserOut | null>(null);
+  const user = computed(() => lastUser.value);
 
   watch(
     () => auth.data.value,
     (val) => {
       if (val) {
         lastUser.value = val as UserOut;
-        localStorage.setItem(USER_CACHE_KEY, JSON.stringify(val));
       }
       else {
-        localStorage.removeItem(USER_CACHE_KEY);
+        lastUser.value = null;
       }
     },
     { immediate: true },
   );
 
-  const user = computed(() => lastUser.value);
-  const loggedIn = computed(() => auth.status.value === "authenticated");
+  // Auth Status Management
+  const lastAuthStatus = ref<string>(auth.status.value);
+  const loggedIn = computed(() => lastAuthStatus.value === "authenticated");
+
+  watch(
+    () => auth.status.value,
+    (val) => {
+      if (val !== "loading") {
+        lastAuthStatus.value = val;
+      }
+    },
+    { immediate: true },
+  );
 
   async function signIn(...params: Parameters<typeof auth.signIn>) {
     await auth.signIn(...params);
