@@ -16,7 +16,7 @@
       absolute
       :top-link="topLinks"
       :secondary-links="cookbookLinks || []"
-      :bottom-links="isAdmin ? bottomLinks : []"
+      :bottom-links="bottomLinks"
     >
       <v-menu
         offset-y
@@ -228,14 +228,18 @@ export default defineNuxtComponent({
       },
     ]);
 
-    const bottomLinks = computed<SideBarLink[]>(() => [
-      {
-        icon: $globals.icons.cog,
-        title: i18n.t("general.settings"),
-        to: "/admin/site-settings",
-        restricted: true,
-      },
-    ]);
+    const bottomLinks = computed<SideBarLink[]>(() =>
+      isAdmin.value
+        ? [
+            {
+              icon: $globals.icons.cog,
+              title: i18n.t("general.settings"),
+              to: "/admin/site-settings",
+              restricted: true,
+            },
+          ]
+        : []
+    );
 
     const topLinks = computed<SideBarLink[]>(() => [
       {
@@ -307,7 +311,6 @@ export default defineNuxtComponent({
       createLinks,
       bottomLinks,
       topLinks,
-      isAdmin,
       isOwnGroup,
       languageDialog,
       toggleDark,
