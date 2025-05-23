@@ -64,10 +64,21 @@
                 :key="item.title"
                 :to="item.to"
                 exact
-                :prepend-icon="item.icon"
-                :title="item.title"
-                :subtitle="item.subtitle"
-              />
+                class="my-1"
+              >
+                <template #prepend>
+                  <v-icon
+                    size="40"
+                    :icon="item.icon"
+                  />
+                </template>
+                <v-list-item-title class="font-weight-medium" style="font-size: small;">
+                  {{ item.title }}
+                </v-list-item-title>
+                <v-list-item-subtitle class="font-weight-medium" style="font-size: small;">
+                  {{ item.subtitle }}
+                </v-list-item-subtitle>
+            </v-list-item>
             </div>
           </template>
         </v-list>
