@@ -16,21 +16,14 @@
       </template>
       {{ $t("profile.household-description") }}
     </BasePageTitle>
-    <v-form ref="refHouseholdEditForm"
-            @submit.prevent="handleSubmit"
-    >
-      <v-card variant="outlined">
+    <v-form ref="refHouseholdEditForm" @submit.prevent="handleSubmit">
+      <v-card variant="outlined" style="border-color: lightgray;">
         <v-card-text>
-          <HouseholdPreferencesEditor v-if="household.preferences"
-                                      v-model="household.preferences"
-          />
+          <HouseholdPreferencesEditor v-if="household.preferences" v-model="household.preferences" />
         </v-card-text>
       </v-card>
       <div class="d-flex pa-2">
-        <BaseButton type="submit"
-                    edit
-                    class="ml-auto"
-        >
+        <BaseButton type="submit" edit class="ml-auto">
           {{ $t("general.update") }}
         </BaseButton>
       </div>

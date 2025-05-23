@@ -2,7 +2,7 @@
   <div class="mt-4">
     <section class="d-flex flex-column align-center">
       <slot name="header" />
-      <h2 class="headline">
+      <h2 class="text-h5">
         <slot name="title">
           👋 Here's a Title
         </slot>

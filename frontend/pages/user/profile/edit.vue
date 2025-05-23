@@ -64,6 +64,7 @@
               <v-card
                 tag="article"
                 variant="outlined"
+                style="border-color: lightgrey;"
               >
                 <v-card-text class="pb-0">
                   <v-form ref="userUpdate">
@@ -72,18 +73,24 @@
                       :label="$t('user.username')"
                       required
                       validate-on="blur"
+                      density="comfortable"
+                      variant="underlined"
                     />
                     <v-text-field
                       v-model="userCopy.fullName"
                       :label="$t('user.full-name')"
                       required
                       validate-on="blur"
+                      density="comfortable"
+                      variant="underlined"
                     />
                     <v-text-field
                       v-model="userCopy.email"
                       :label="$t('user.email')"
                       validate-on="blur"
                       required
+                      density="comfortable"
+                      variant="underlined"
                     />
                   </v-form>
                 </v-card-text>
@@ -115,6 +122,8 @@
                       :type="showPassword ? 'text' : 'password'"
                       :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
                       :rules="[validators.minLength(1)]"
+                      density="comfortable"
+                      variant="underlined"
                       @click:append="showPassword = !showPassword"
                     />
                     <v-text-field
@@ -124,6 +133,8 @@
                       :type="showPassword ? 'text' : 'password'"
                       :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
                       :rules="[validators.minLength(8)]"
+                      density="comfortable"
+                      variant="underlined"
                       @click:append="showPassword = !showPassword"
                     />
                     <v-text-field
@@ -134,6 +145,8 @@
                       validate-on="blur"
                       :type="showPassword ? 'text' : 'password'"
                       :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
+                      density="comfortable"
+                      variant="underlined"
                       @click:append="showPassword = !showPassword"
                     />
                     <UserPasswordStrength :value="password.newOne" />

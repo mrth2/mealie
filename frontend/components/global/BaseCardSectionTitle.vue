@@ -7,9 +7,9 @@
       'mt-8': section,
     }"
   >
-    <v-card-title class="headline pl-0 py-0">
+    <v-card-title class="text-h5 pl-0 py-0" style="font-weight: normal;">
       <v-icon
-        v-if="icon !== ''"
+        v-if="icon"
         start
       >
         {{ icon }}
