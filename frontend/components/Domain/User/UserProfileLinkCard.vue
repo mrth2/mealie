@@ -2,7 +2,6 @@
   <v-card
     variant="outlined"
     style="border-color: lightgrey;"
-    nuxt
     :to="link.to"
     height="100%"
     class="d-flex flex-column mt-4"
@@ -12,8 +11,8 @@
       class="pa-2 mx-auto"
     >
       <v-img
-        max-width="150px"
-        max-height="125"
+        width="150px"
+        height="125"
         :src="image"
       />
     </div>
@@ -33,13 +32,14 @@
         class="py-2 px-10 my-auto"
       >
         <v-img
-          max-width="150px"
-          max-height="125"
+          width="150px"
+          height="125"
           :src="image"
         />
       </div>
     </div>
-    <v-divider class="mt-auto" />
+    <v-spacer />
+    <v-divider />
     <v-card-actions>
       <v-btn
         variant="text"
@@ -52,24 +52,24 @@
   </v-card>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 interface LinkProp {
   text: string;
   url?: string;
   to: string;
 }
 
-export default defineNuxtComponent({
-  props: {
-    link: {
-      type: Object as () => LinkProp,
-      required: true,
-    },
-    image: {
-      type: String,
-      required: false,
-      default: "",
-    },
+const props = defineProps({
+  link: {
+    type: Object as () => LinkProp,
+    required: true,
+  },
+  image: {
+    type: String,
+    required: false,
+    default: "",
   },
 });
+
+console.log("Props", props);
 </script>
