@@ -28,15 +28,15 @@
           <v-btn
             v-if="isOwnGroup"
             rounded
-            large
-            class="ml-2 mt-3"
+            size="large"
+            class="ml-2 mt-3 bg-grey-lighten-4"
             v-bind="props"
-            variant="tonal"
+            variant="elevated"
             elevation="2"
           >
             <v-icon
               start
-              large
+              size="large"
               color="primary"
             >
               {{ $globals.icons.createAlt }}
@@ -242,7 +242,7 @@ export default defineNuxtComponent({
               restricted: true,
             },
           ]
-        : []
+        : [],
     );
 
     const topLinks = computed<SideBarLink[]>(() => [
