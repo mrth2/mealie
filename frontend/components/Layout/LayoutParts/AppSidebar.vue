@@ -10,7 +10,7 @@
             <v-list-item-title class="pr-2 pl-1">
               {{ sessionUser.fullName }}
             </v-list-item-title>
-            <v-list-item-subtitle>
+            <v-list-item-subtitle class="opacity-100">
               <v-btn v-if="isOwnGroup" class="px-2 pa-0" variant="text" :to="userFavoritesLink" size="small">
                 <v-icon start size="small">
                   {{ $globals.icons.heart }}
