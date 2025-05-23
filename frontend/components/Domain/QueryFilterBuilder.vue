@@ -272,19 +272,22 @@
       </v-container>
     </v-card-text>
     <v-card-actions>
-      <v-container fluid class="d-flex justify-end pa-0 mx-2">
+      <v-row fluid class="d-flex justify-end pa-0 mx-2">
+        <v-spacer />
         <v-checkbox
           v-model="showAdvanced"
           hide-details
           :label="$t('general.show-advanced')"
           class="my-auto mr-4"
+          color="primary"
         />
         <BaseButton
           create
           :text="$t('general.add-field')"
+          class="my-auto"
           @click="addField(fieldDefs[0])"
         />
-      </v-container>
+      </v-row>
     </v-card-actions>
   </v-card>
 </template>

@@ -39,7 +39,7 @@
 
     <!-- Cookbook Page -->
     <!-- Page Title -->
-    <v-container class="px-12">
+    <v-container class="px-12" max-width="1000">
       <BasePageTitle divider>
         <template #header>
           <v-img width="100%" max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')" />
@@ -55,6 +55,7 @@
           v-model="cookbookPreferences.hideOtherHouseholds"
           :label="$t('cookbook.hide-cookbooks-from-other-households')"
           hide-details
+          color="primary"
         />
         <div class="ml-10 mt-n3">
           <p class="text-subtitle-2 my-0 py-0">
@@ -81,7 +82,7 @@
             :key="cookbook.id"
             class="my-2 left-border rounded"
           >
-            <v-expansion-panel-title disable-icon-rotate class="text-h6">
+            <v-expansion-panel-title disable-icon-rotate class="text-h6 opacity-80">
               <div class="d-flex align-center">
                 <v-icon size="large" start>
                   {{ $globals.icons.pages }}

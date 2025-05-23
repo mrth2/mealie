@@ -27,6 +27,7 @@
         v-model="cookbook.public"
         hide-details
         single-line
+        color="primary"
       >
         <template #label>
           {{ $t('cookbook.public-cookbook') }}

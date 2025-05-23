@@ -12,6 +12,7 @@
           :size="small ? 'small' : undefined"
           icon
           v-bind="props"
+          variant="flat"
           @click.stop
         >
           <v-icon :small="small">

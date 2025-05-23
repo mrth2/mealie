@@ -175,6 +175,7 @@
         v-model="userCopy.advanced"
         class="mt-n4"
         :label="$t('profile.show-advanced-description')"
+        color="primary"
         @change="updateUser"
       />
       <nuxt-link
