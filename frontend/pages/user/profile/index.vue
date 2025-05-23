@@ -7,7 +7,7 @@
         :user-id="user.id"
       />
 
-      <h2 class="headline">
+      <h2 class="text-h4">
         {{ $t('profile.welcome-user', [user.fullName]) }}
       </h2>
       <p class="subtitle-1 mb-0 text-center">
@@ -24,20 +24,17 @@
             v-if="user.canInvite"
             variant="outlined"
             rounded
+            :prepend-icon="$globals.icons.createAlt"
+            :text="$t('profile.get-invite-link')"
             @click="inviteDialog = true"
-          >
-            <v-icon start>
-              {{ $globals.icons.createAlt }}
-            </v-icon>
-            {{ $t('profile.get-invite-link') }}
-          </v-btn>
+          />
         </v-card-actions>
         <UserInviteDialog v-model="inviteDialog" />
       </v-card>
     </section>
     <section class="my-3">
       <div>
-        <h3 class="headline">
+        <h3 class="text-h5">
           {{ $t('profile.account-summary') }}
         </h3>
         <p>{{ $t('profile.account-summary-description') }}</p>
@@ -48,8 +45,8 @@
           sm="12"
           md="12"
         >
-          <v-card variant="text">
-            <v-card-title class="headline pb-0">
+          <v-card variant="outlined" style="border-color: lightgray;" class="mt-4">
+            <v-card-title class="text-h6 pb-0">
               {{ $t('profile.household-statistics') }}
             </v-card-title>
             <v-card-text class="py-0">
@@ -81,7 +78,7 @@
     <v-divider class="my-7" />
     <section>
       <div>
-        <h3 class="headline">
+        <h3 class="text-h6">
           {{ $t('profile.personal') }}
         </h3>
         <p>{{ $t('profile.personal-description') }}</p>
@@ -124,7 +121,7 @@
     <v-divider class="my-7" />
     <section>
       <div>
-        <h3 class="headline">
+        <h3 class="text-h6">
           {{ $t('household.household') }}
         </h3>
         <p>{{ $t('profile.household-description') }}</p>
@@ -217,7 +214,7 @@
     <v-divider class="my-7" />
     <section v-if="user.canManage || user.canOrganize || user.advanced">
       <div>
-        <h3 class="headline">
+        <h3 class="text-h6">
           {{ $t('group.group') }}
         </h3>
         <p>{{ $t('profile.group-description') }}</p>
