@@ -68,6 +68,7 @@
       <v-card-text class="w-100">
         <v-form @submit.prevent="authenticate">
           <v-text-field
+            v-if="allowPasswordLogin"
             v-model="form.email"
             :prepend-inner-icon="$globals.icons.email"
             variant="solo-filled"
@@ -80,6 +81,7 @@
             type="text"
           />
           <v-text-field
+            v-if="allowPasswordLogin"
             id="password"
             v-model="form.password"
             :prepend-inner-icon="$globals.icons.lock"
@@ -97,7 +99,7 @@
             class="ml-2 mt-n2"
             :label="$t('user.remember-me')"
           />
-          <v-card-actions class="justify-center pt-0">
+          <v-card-actions v-if="allowPasswordLogin" class="justify-center pt-0">
             <div class="max-button">
               <v-btn
                 :loading="loggingIn"
@@ -279,6 +281,7 @@ export default defineNuxtComponent({
     const allowOidc = computed(() => appInfo.value?.enableOidc || false);
     const oidcRedirect = computed(() => appInfo.value?.oidcRedirect || false);
     const oidcProviderName = computed(() => appInfo.value?.oidcProviderName || "OAuth");
+    const allowPasswordLogin = computed(() => appInfo.value?.allowPasswordLogin ?? true);
 
     whenever(
       () => allowOidc.value && oidcRedirect.value && !isCallback() && !isDirectLogin() /* && !$auth.check().valid */,
@@ -364,6 +367,7 @@ export default defineNuxtComponent({
       form,
       loggingIn,
       allowSignup,
+      allowPasswordLogin,
       allowOidc,
       authenticate,
       oidcAuthenticate,
