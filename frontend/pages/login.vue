@@ -95,6 +95,7 @@
             @click:append-inner="togglePasswordShow"
           />
           <v-checkbox
+            v-if="allowPasswordLogin"
             v-model="form.remember"
             class="ml-2 mt-n2"
             :label="$t('user.remember-me')"
@@ -118,7 +119,7 @@
           </v-card-actions>
 
           <div
-            v-if="allowOidc"
+            v-if="allowOidc && allowPasswordLogin"
             class="d-flex my-4 justify-center align-center"
             width="80%"
           >
@@ -156,7 +157,7 @@
       </v-card-text>
       <v-card-actions class="d-flex justify-center flex-column flex-sm-row">
         <v-btn
-          v-if="allowSignup"
+          v-if="allowSignup && allowPasswordLogin"
           variant="text"
           to="/register"
         >
@@ -170,6 +171,7 @@
           {{ $t("user.invite-only") }}
         </v-btn>
         <v-btn
+          v-if="allowPasswordLogin"
           class="mr-auto"
           variant="text"
           to="/forgot-password"
