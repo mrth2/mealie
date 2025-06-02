@@ -11,7 +11,7 @@
         class="d-flex flex-column justify-center align-center"
       >
         <v-card-text class="w-100">
-          <v-card-title class="headline pa-0 d-flex flex-column align-center justify-center">
+          <v-card-title class="text-h5 font-weight-regular pa-0 d-flex flex-column align-center justify-center opacity-80">
             {{ recipe.name }}
             <RecipeRating
               :key="recipe.slug"
