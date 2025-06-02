@@ -4,6 +4,7 @@
       v-if="modelValue.title || showTitle"
       v-model="modelValue.title"
       density="compact"
+      variant="underlined"
       hide-details
       class="mx-1 mt-3 mb-4"
       :placeholder="$t('recipe.section-title')"
