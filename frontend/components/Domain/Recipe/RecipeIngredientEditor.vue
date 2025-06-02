@@ -33,7 +33,6 @@
         >
           <template #prepend>
             <v-icon
-              v-if="$attrs && $attrs.delete"
               class="mr-n1 handle"
             >
               {{ $globals.icons.arrowUpDown }}
