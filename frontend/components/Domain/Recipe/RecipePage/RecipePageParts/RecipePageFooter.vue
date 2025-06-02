@@ -9,16 +9,14 @@
       />
       <v-btn
         v-else-if="recipe.orgURL && !isCookMode"
-        density="compact"
-        size="small"
         :hover="false"
-        type="label"
         :ripple="false"
-        elevation="0"
+        variant="flat"
         :href="recipe.orgURL"
         color="secondary-darken-1"
         target="_blank"
-        class="rounded-sm mr-n2"
+        class="mr-n2"
+        size="small"
       >
         {{ $t("recipe.original-url") }}
       </v-btn>
