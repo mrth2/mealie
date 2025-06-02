@@ -4,7 +4,7 @@
       v-if="!isCookMode"
       class="d-flex justify-start"
     >
-      <h2 class="mb-2 mt-1">
+      <h2 class="mt-1 text-h5 font-weight-medium opacity-80">
         {{ $t("recipe.ingredients") }}
       </h2>
       <AppButtonCopy

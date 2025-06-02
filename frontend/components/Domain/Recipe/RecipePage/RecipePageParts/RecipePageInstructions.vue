@@ -101,7 +101,7 @@
     <div class="d-flex justify-space-between justify-start">
       <h2
         v-if="!isCookMode"
-        class="mb-4 mt-1"
+        class="mt-1 text-h5 font-weight-medium opacity-80"
       >
         {{ $t("recipe.instructions") }}
       </h2>
@@ -506,7 +506,7 @@ export default defineNuxtComponent({
       (newVal) => {
         instructionList.value = [...newVal];
       },
-      { deep: true }
+      { deep: true },
     );
 
     watch(
@@ -514,7 +514,7 @@ export default defineNuxtComponent({
       (newVal) => {
         context.emit("update:modelValue", [...newVal]);
       },
-      { deep: true }
+      { deep: true },
     );
 
     // ===============================================================

@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
   <div>
-    <h2 class="mb-4">
+    <h2 class="mb-4 text-h5 font-weight-medium opacity-80">
       {{ $t("recipe.ingredients") }}
     </h2>
     <VueDraggable

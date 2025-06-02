@@ -7,7 +7,7 @@
       :is-cook-mode="isCookMode"
     />
     <div v-if="!isEditMode && recipe.tools && recipe.tools.length > 0">
-      <h2 class="mb-2 mt-4">
+      <h2 class="mt-4 text-h5 font-weight-medium opacity-80">
         {{ $t('tool.required-tools') }}
       </h2>
       <v-list density="compact">
