@@ -11,7 +11,36 @@
           :close-on-content-click="false"
         >
           <template #activator="{ props }">
+            <v-tooltip
+              v-if="canEditScale"
+              size="small"
+              top
+              color="secondary-darken-1"
+            >
+              <template #activator="{ props: tooltipProps }">
+                <v-card
+                  class="pa-1 px-2"
+                  dark
+                  color="secondary-darken-1"
+                  size="small"
+                  v-bind="{ ...props, ...tooltipProps }"
+                  :style="{ cursor: canEditScale ? '' : 'default' }"
+                >
+                  <v-icon
+                    v-if="canEditScale"
+                    size="small"
+                    class="mr-2"
+                  >
+                    {{ $globals.icons.edit }}
+                  </v-icon>
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <span v-html="yieldDisplay" />
+                </v-card>
+              </template>
+              <span> {{ $t("recipe.edit-scale") }} </span>
+            </v-tooltip>
             <v-card
+              v-else
               class="pa-1 px-2"
               dark
               color="secondary-darken-1"
