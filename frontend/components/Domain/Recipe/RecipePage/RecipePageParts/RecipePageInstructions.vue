@@ -137,7 +137,7 @@
         :name="!drag ? 'flip-list' : ''"
       >
         <div
-          v-for="(step, index) in modelValue"
+          v-for="(step, index) in instructionList"
           :key="step.id!"
           class="list-group-item"
         >
@@ -499,10 +499,23 @@ export default defineNuxtComponent({
       showTitleEditor.value = temp;
     }
 
-    const instructionList = computed({
-      get: () => props.modelValue,
-      set: (value: RecipeStep[]) => context.emit("update:modelValue", value),
-    });
+    const instructionList = ref<RecipeStep[]>([...props.modelValue]);
+
+    watch(
+      () => props.modelValue,
+      (newVal) => {
+        instructionList.value = [...newVal];
+      },
+      { deep: true }
+    );
+
+    watch(
+      instructionList,
+      (newVal) => {
+        context.emit("update:modelValue", [...newVal]);
+      },
+      { deep: true }
+    );
 
     // ===============================================================
     // Ingredient Linker
