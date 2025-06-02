@@ -17,7 +17,7 @@
         @click.prevent="toggleFavorite"
       >
         <v-icon
-          :size="!buttonStyle ? undefined : 'large'"
+          :size="!buttonStyle ? undefined : 'x-large'"
           :color="buttonStyle ? 'white' : 'secondary'"
         >
           {{ isFavorite ? $globals.icons.heart : $globals.icons.heartOutline }}

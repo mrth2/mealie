@@ -16,7 +16,7 @@
         @click.prevent="toggleTimeline"
       >
         <v-icon
-          :size="!buttonStyle ? undefined : 'large'"
+          :size="!buttonStyle ? undefined : 'x-large'"
           :color="buttonStyle ? 'white' : 'secondary'"
         >
           {{ $globals.icons.timelineText }}

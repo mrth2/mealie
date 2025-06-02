@@ -107,7 +107,7 @@
           @click.prevent
         >
           <v-icon
-          :size="!fab ? undefined : 'large'"
+          :size="!fab ? undefined : 'x-large'"
           :color="fab ? 'white' : 'secondary'"
         >
           {{ icon }}

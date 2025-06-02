@@ -29,7 +29,7 @@
               v-bind="props"
               @click="$emit('edit', true)"
             >
-              <v-icon size="large">
+              <v-icon size="x-large">
                 {{ $globals.icons.edit }}
               </v-icon>
             </v-btn>
