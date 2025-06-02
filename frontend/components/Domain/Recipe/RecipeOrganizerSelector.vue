@@ -11,37 +11,32 @@
     multiple
     variant="underlined"
     :prepend-inner-icon="icon"
+    :append-icon="$globals.icons.create"
     return-object
     auto-select-first
     class="pa-0"
     @update:model-value="resetSearchInput"
+    @click:append="dialog = true"
   >
-    <template #chip="data">
+    <template #chip="{ item, index }">
       <v-chip
-        :key="data.index"
+        :key="index"
         class="ma-1"
-        :input-value="data.item.raw.selected"
-        size="small"
-        :append-icon="$globals.icons.close"
-        color="white"
-        dark
-        @click:close="removeByIndex(data.index)"
+        color="accent"
+        variant="flat"
+        label
+
+        closable
+        @click:close="removeByIndex(index)"
       >
-        {{ data.item.raw.name }}
+        {{ item.value }}
       </v-chip>
     </template>
+
     <template
       v-if="showAdd"
       #append
     >
-      <v-btn
-        icon
-        @click="dialog = true"
-      >
-        <v-icon>
-          {{ $globals.icons.create }}
-        </v-icon>
-      </v-btn>
       <RecipeOrganizerDialog
         v-model="dialog"
         :item-type="selectorType"
