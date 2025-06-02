@@ -21,7 +21,6 @@
     >
       <TransitionGroup
         type="transition"
-        :name="!drag ? 'flip-list' : ''"
       >
         <RecipeIngredientEditor
           v-for="(ingredient, index) in recipe.recipeIngredient"
