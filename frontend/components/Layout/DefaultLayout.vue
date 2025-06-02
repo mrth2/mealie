@@ -170,9 +170,10 @@ export default defineNuxtComponent({
 
     const currentUserHouseholdId = computed(() => $auth.user.value?.householdId);
     const cookbookLinks = computed<SideBarLink[]>(() => {
-      if (!cookbooks.value) {
+      if (!cookbooks.value || !households.value) {
         return [];
       }
+
       const sortedCookbooks = [...cookbooks.value].sort((a, b) => (a.position || 0) - (b.position || 0));
 
       const ownLinks: SideBarLink[] = [];
@@ -190,11 +191,9 @@ export default defineNuxtComponent({
         if (!cookbooks.length) {
           return;
         }
-
         if (cookbooks[0].householdId === currentUserHouseholdId.value) {
           ownLinks.push(...cookbooks.map(cookbookAsLink));
-        }
-        else {
+        } else {
           links.push({
             key: householdName,
             icon: $globals.icons.book,
@@ -208,8 +207,7 @@ export default defineNuxtComponent({
       links.sort((a, b) => a.title.localeCompare(b.title));
       if ($auth.user.value && cookbookPreferences.value.hideOtherHouseholds) {
         return ownLinks;
-      }
-      else {
+      } else {
         return [...ownLinks, ...links];
       }
     });
