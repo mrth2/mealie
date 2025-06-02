@@ -36,6 +36,7 @@
               hide-details
               class="pt-0 my-auto py-auto"
               color="secondary"
+              density="comfortable"
             />
           </template>
           <v-list-item-title>
