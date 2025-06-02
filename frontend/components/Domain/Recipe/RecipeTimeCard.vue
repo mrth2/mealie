@@ -18,7 +18,7 @@
           {{ $globals.icons.clockOutline }}
         </v-icon>
         <p class="my-0">
-          <span class="font-weight-bold">{{ validateTotalTime.name }}</span><br>{{ validateTotalTime.value }}
+          <span class="font-weight-bold opacity-80">{{ validateTotalTime.name }}</span><br>{{ validateTotalTime.value }}
         </p>
       </v-row>
     </div>
@@ -50,7 +50,7 @@
             {{ $globals.icons.knfife }}
           </v-icon>
           <p class="my-0">
-            <span class="font-weight-bold">{{ validatePrepTime.name }}</span><br>{{ validatePrepTime.value }}
+            <span class="font-weight-bold opacity-80">{{ validatePrepTime.name }}</span><br>{{ validatePrepTime.value }}
           </p>
         </div>
         <v-divider
@@ -70,7 +70,7 @@
             {{ $globals.icons.potSteam }}
           </v-icon>
           <p class="my-0">
-            <span class="font-weight-bold">{{ validatePerformTime.name }}</span><br>{{ validatePerformTime.value }}
+            <span class="font-weight-bold opacity-80">{{ validatePerformTime.name }}</span><br>{{ validatePerformTime.value }}
           </p>
         </div>
       </v-row>

@@ -15,7 +15,7 @@
       >
         {{ $globals.icons.bread }}
       </v-icon>
-      <p class="my-0">
+      <p class="my-0 opacity-80">
         <span class="font-weight-bold">{{ $t("recipe.yield") }}</span><br>
         <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-html="scaledAmount" /> {{ text }}
