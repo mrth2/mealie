@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container v-show="!isCookMode" key="recipe-page" :class="{ 'pa-0': $vuetify.display.smAndDown }">
+    <v-container v-show="!isCookMode" key="recipe-page" class="pt-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
       <v-card :flat="$vuetify.display.smAndDown" class="d-print-none">
         <RecipePageHeader
           :recipe="recipe"
