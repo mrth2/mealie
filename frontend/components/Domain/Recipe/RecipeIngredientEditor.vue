@@ -132,6 +132,7 @@
             density="compact"
             variant="solo"
             :placeholder="$t('recipe.notes')"
+            class="mb-auto"
             @click="$emit('clickIngredientField', 'note')"
           >
             <template #prepend>
