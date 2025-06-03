@@ -175,104 +175,106 @@
               @click="toggleDisabled(index)"
             >
               <v-card-title :class="{ 'pb-0': !isChecked(index) }">
-                <v-text-field
-                  v-if="isEditForm"
-                  v-model="step.summary"
-                  class="headline handle"
-                  hide-details
-                  density="compact"
-                  variant="solo"
-                  flat
-                  :placeholder="$t('recipe.step-index', { step: index + 1 })"
-                >
-                  <template #prepend>
-                    <v-icon size="26">
-                      {{ $globals.icons.arrowUpDown }}
-                    </v-icon>
-                  </template>
-                </v-text-field>
-                <span v-else>
-                  {{ step.summary ? step.summary : $t("recipe.step-index", { step: index + 1 }) }}
-                </span>
-                <template v-if="isEditForm">
-                  <div class="ml-auto">
-                    <BaseButtonGroup
-                      :large="false"
-                      :buttons="[
-                        {
-                          icon: $globals.icons.delete,
-                          text: $t('general.delete'),
-                          event: 'delete',
-                        },
-                        {
-                          icon: $globals.icons.dotsVertical,
-                          text: '',
-                          event: 'open',
-                          children: [
-                            {
-                              text: $t('recipe.toggle-section'),
-                              event: 'toggle-section',
-                            },
-                            {
-                              text: $t('recipe.link-ingredients'),
-                              event: 'link-ingredients',
-                            },
-                            {
-                              text: $t('recipe.upload-image'),
-                              event: 'upload-image',
-                            },
-                            {
-                              icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
-                              text: previewStates[index] ? $t('recipe.edit-markdown') : $t('markdown-editor.preview-markdown-button-label'),
-                              event: 'preview-step',
-                              divider: true,
-                            },
-                            {
-                              text: $t('recipe.merge-above'),
-                              event: 'merge-above',
-                            },
-                            {
-                              text: $t('recipe.move-to-top'),
-                              event: 'move-to-top',
-                            },
-                            {
-                              text: $t('recipe.move-to-bottom'),
-                              event: 'move-to-bottom',
-                            },
-                            {
-                              text: $t('recipe.insert-above'),
-                              event: 'insert-above',
-                            },
-                            {
-                              text: $t('recipe.insert-below'),
-                              event: 'insert-below',
-                            },
-                          ],
-                        },
-                      ]"
-                      @merge-above="mergeAbove(index - 1, index)"
-                      @move-to-top="moveTo('top', index)"
-                      @move-to-bottom="moveTo('bottom', index)"
-                      @insert-above="insert(index)"
-                      @insert-below="insert(index + 1)"
-                      @toggle-section="toggleShowTitle(step.id!)"
-                      @link-ingredients="openDialog(index, step.text, step.ingredientReferences)"
-                      @preview-step="togglePreviewState(index)"
-                      @upload-image="openImageUpload(index)"
-                      @delete="instructionList.splice(index, 1)"
-                    />
-                  </div>
-                </template>
-                <v-fade-transition>
-                  <v-icon
-                    v-show="isChecked(index)"
-                    size="24"
-                    class="ml-auto"
-                    color="success"
+                <div class="d-flex">
+                  <v-text-field
+                    v-if="isEditForm"
+                    v-model="step.summary"
+                    class="headline handle"
+                    hide-details
+                    density="compact"
+                    variant="solo"
+                    flat
+                    :placeholder="$t('recipe.step-index', { step: index + 1 })"
                   >
-                    {{ $globals.icons.checkboxMarkedCircle }}
-                  </v-icon>
-                </v-fade-transition>
+                    <template #prepend>
+                      <v-icon size="26">
+                        {{ $globals.icons.arrowUpDown }}
+                      </v-icon>
+                    </template>
+                  </v-text-field>
+                  <span v-else>
+                    {{ step.summary ? step.summary : $t("recipe.step-index", { step: index + 1 }) }}
+                  </span>
+                  <template v-if="isEditForm">
+                    <div class="ml-auto">
+                      <BaseButtonGroup
+                        :large="false"
+                        :buttons="[
+                          {
+                            icon: $globals.icons.delete,
+                            text: $t('general.delete'),
+                            event: 'delete',
+                          },
+                          {
+                            icon: $globals.icons.dotsVertical,
+                            text: '',
+                            event: 'open',
+                            children: [
+                              {
+                                text: $t('recipe.toggle-section'),
+                                event: 'toggle-section',
+                              },
+                              {
+                                text: $t('recipe.link-ingredients'),
+                                event: 'link-ingredients',
+                              },
+                              {
+                                text: $t('recipe.upload-image'),
+                                event: 'upload-image',
+                              },
+                              {
+                                icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
+                                text: previewStates[index] ? $t('recipe.edit-markdown') : $t('markdown-editor.preview-markdown-button-label'),
+                                event: 'preview-step',
+                                divider: true,
+                              },
+                              {
+                                text: $t('recipe.merge-above'),
+                                event: 'merge-above',
+                              },
+                              {
+                                text: $t('recipe.move-to-top'),
+                                event: 'move-to-top',
+                              },
+                              {
+                                text: $t('recipe.move-to-bottom'),
+                                event: 'move-to-bottom',
+                              },
+                              {
+                                text: $t('recipe.insert-above'),
+                                event: 'insert-above',
+                              },
+                              {
+                                text: $t('recipe.insert-below'),
+                                event: 'insert-below',
+                              },
+                            ],
+                          },
+                        ]"
+                        @merge-above="mergeAbove(index - 1, index)"
+                        @move-to-top="moveTo('top', index)"
+                        @move-to-bottom="moveTo('bottom', index)"
+                        @insert-above="insert(index)"
+                        @insert-below="insert(index + 1)"
+                        @toggle-section="toggleShowTitle(step.id!)"
+                        @link-ingredients="openDialog(index, step.text, step.ingredientReferences)"
+                        @preview-step="togglePreviewState(index)"
+                        @upload-image="openImageUpload(index)"
+                        @delete="instructionList.splice(index, 1)"
+                      />
+                    </div>
+                  </template>
+                  <v-fade-transition>
+                    <v-icon
+                      v-show="isChecked(index)"
+                      size="24"
+                      class="ml-auto"
+                      color="success"
+                    >
+                      {{ $globals.icons.checkboxMarkedCircle }}
+                    </v-icon>
+                  </v-fade-transition>
+                </div>
               </v-card-title>
 
               <v-progress-linear
