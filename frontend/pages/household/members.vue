@@ -54,6 +54,7 @@
           <v-checkbox
             v-model="item.canManageHousehold"
             :disabled="item.id === sessionUser?.id || item.admin"
+            color="primary"
             class=""
             style="max-width: 30px"
             hide-details
@@ -72,6 +73,7 @@
             class=""
             style="max-width: 30px"
             hide-details
+            color="primary"
             @change="setPermissions(item)"
           />
         </div>
@@ -87,6 +89,7 @@
             class=""
             style="max-width: 30px"
             hide-details
+            color="primary"
             @change="setPermissions(item)"
           />
         </div>
@@ -102,6 +105,7 @@
             class=""
             style="max-width: 30px"
             hide-details
+            color="primary"
             @change="setPermissions(item)"
           />
         </div>
