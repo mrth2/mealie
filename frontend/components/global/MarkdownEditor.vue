@@ -24,6 +24,7 @@
       auto-grow
       density="compact"
       rows="4"
+      variant="underlined"
     />
     <SafeMarkdown
       v-else
