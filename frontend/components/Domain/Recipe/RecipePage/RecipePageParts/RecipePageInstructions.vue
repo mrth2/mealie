@@ -144,7 +144,8 @@
           <v-sheet
             v-if="step.id && showTitleEditor[step.id]"
             color="primary"
-            class="mt-6 mb-2 pa-3 d-flex align-center"
+            class="mt-6 mb-2 d-flex align-center"
+            :class="isEditForm ? 'pa-2' : 'pa-3'"
             style="border-radius: 6px; cursor: pointer; width: 100%;"
             @click="toggleCollapseSection(index)"
           >
@@ -175,7 +176,7 @@
               @click="toggleDisabled(index)"
             >
               <v-card-title :class="{ 'pb-0': !isChecked(index) }">
-                <div class="d-flex">
+                <div class="d-flex align-center">
                   <v-text-field
                     v-if="isEditForm"
                     v-model="step.summary"
@@ -868,5 +869,9 @@ export default defineNuxtComponent({
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1;
+}
+
+.v-text-field >>> input {
+  font-size: 1.5rem;
 }
 </style>
