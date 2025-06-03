@@ -17,6 +17,7 @@
           <div class="d-flex align-center">
             <v-text-field
               v-model="modelValue[index]['title']"
+              variant="underlined"
               :label="$t('recipe.title')"
             />
             <v-btn
@@ -30,6 +31,7 @@
           </div>
           <v-textarea
             v-model="modelValue[index]['text']"
+            variant="underlined"
             auto-grow
             :placeholder="$t('recipe.note')"
           />
