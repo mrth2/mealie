@@ -56,6 +56,7 @@
             :disabled="item.id === sessionUser?.id || item.admin"
             class=""
             style="max-width: 30px"
+            hide-details
             @change="setPermissions(item)"
           />
         </div>
@@ -70,6 +71,7 @@
             :disabled="item.id === sessionUser?.id || item.admin"
             class=""
             style="max-width: 30px"
+            hide-details
             @change="setPermissions(item)"
           />
         </div>
@@ -84,6 +86,7 @@
             :disabled="item.id === sessionUser?.id || item.admin"
             class=""
             style="max-width: 30px"
+            hide-details
             @change="setPermissions(item)"
           />
         </div>
@@ -98,6 +101,7 @@
             :disabled="item.id === sessionUser?.id || item.admin"
             class=""
             style="max-width: 30px"
+            hide-details
             @change="setPermissions(item)"
           />
         </div>
