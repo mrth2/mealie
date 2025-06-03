@@ -11,7 +11,7 @@
         <template #activator="{ props }">
           <v-btn
             color="accent"
-            variant="flat"
+            variant="elevated"
             v-bind="props"
           >
             <v-icon>
@@ -40,7 +40,7 @@
         :disabled="selected.length < 1"
         mode="event"
         color="info"
-        variant="flat"
+        variant="elevated"
         :items="bulkActions"
         v-bind="bulkActionListener"
       />
@@ -49,6 +49,7 @@
     <div class="mx-2 clip-width">
       <v-text-field
         v-model="search"
+        variant="underlined"
         :label="$t('search.search')"
       />
     </div>
