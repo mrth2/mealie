@@ -5,6 +5,7 @@
                   :label="$t('recipe.recipe-name')"
                   :rules="[validators.required]"
                   density="compact"
+                  variant="underlined"
     />
     <v-container class="ma-0 pa-0">
       <v-row>
@@ -15,6 +16,7 @@
                         hide-spin-buttons
                         density="compact"
                         :label="$t('recipe.servings')"
+                        variant="underlined"
                         @update:model-value="validateInput($event, 'recipeServings')"
           />
         </v-col>
@@ -25,6 +27,7 @@
                         hide-spin-buttons
                         density="compact"
                         :label="$t('recipe.yield')"
+                        variant="underlined"
                         @update:model-value="validateInput($event, 'recipeYieldQuantity')"
           />
         </v-col>
@@ -32,6 +35,7 @@
           <v-text-field v-model="recipe.recipeYield"
                         density="compact"
                         :label="$t('recipe.yield-text')"
+                        variant="underlined"
           />
         </v-col>
       </v-row>
@@ -43,14 +47,17 @@
       <v-text-field v-model="recipe.totalTime"
                     :label="$t('recipe.total-time')"
                     density="compact"
+                    variant="underlined"
       />
       <v-text-field v-model="recipe.prepTime"
                     :label="$t('recipe.prep-time')"
                     density="compact"
+                    variant="underlined"
       />
       <v-text-field v-model="recipe.performTime"
                     :label="$t('recipe.perform-time')"
                     density="compact"
+                    variant="underlined"
       />
     </div>
     <v-textarea v-model="recipe.description"
@@ -58,6 +65,7 @@
                 min-height="100"
                 :label="$t('recipe.description')"
                 density="compact"
+                variant="underlined"
     />
   </div>
 </template>

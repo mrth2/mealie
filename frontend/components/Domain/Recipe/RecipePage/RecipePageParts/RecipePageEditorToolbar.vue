@@ -25,6 +25,7 @@
         :label="$t('general.owner')"
         hide-details
         :disabled="!canEditOwner"
+        variant="underlined"
       >
         <template #prepend>
           <UserAvatar

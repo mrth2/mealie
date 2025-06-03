@@ -5,6 +5,7 @@
         v-if="isEditForm"
         v-model="recipe.orgURL"
         class="mt-10"
+        variant="underlined"
         :label="$t('recipe.original-url')"
       />
       <v-btn
