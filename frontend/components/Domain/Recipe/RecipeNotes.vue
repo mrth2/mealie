@@ -3,7 +3,7 @@
     v-if="modelValue.length > 0 || edit"
     class="mt-8"
   >
-    <h2 class="my-4">
+    <h2 class="my-4 text-h5 font-weight-medium opacity-80">
       {{ $t("recipe.note") }}
     </h2>
     <div
