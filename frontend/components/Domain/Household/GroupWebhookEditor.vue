@@ -3,15 +3,18 @@
     <v-card-text>
       <v-switch
         v-model="webhookCopy.enabled"
+        color="primary"
         :label="$t('general.enabled')"
       />
       <v-text-field
         v-model="webhookCopy.name"
         :label="$t('settings.webhooks.webhook-name')"
+        variant="underlined"
       />
       <v-text-field
         v-model="webhookCopy.url"
         :label="$t('settings.webhooks.webhook-url')"
+        variant="underlined"
       />
       <v-time-picker
         v-model="scheduledTime"

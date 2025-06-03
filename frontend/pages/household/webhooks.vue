@@ -45,6 +45,7 @@
             <v-btn
               size="small"
               icon
+              flat
               class="ml-2"
             >
               <v-icon>
