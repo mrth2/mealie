@@ -90,15 +90,15 @@
               <v-btn
                 rounded
                 variant="outlined"
-                color="primary"
                 size="x-large"
                 v-bind="props"
+                style="border-color: rgb(var(--v-theme-primary));"
                 @click="madeThisDialog = true"
               >
                 <v-icon start size="large" color="primary">
                   {{ $globals.icons.calendar }}
                 </v-icon>
-                <span class="text-body-1 text-black opacity-80">
+                <span class="text-body-1 opacity-80">
                   <b>{{ $t("general.last-made") }}</b>
                   <br>
                   {{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $t("general.never") }}
