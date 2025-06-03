@@ -25,6 +25,7 @@
           v-model="group.preferences.privateGroup"
           hide-details
           density="compact"
+          color="primary"
           :label="$t('group.private-group')"
           @change="groupActions.updatePreferences()"
         />
