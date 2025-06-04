@@ -7,7 +7,7 @@
     >
       <v-row
         no-gutters
-        class="d-flex flex-no-wrap align-center "
+        class="d-flex flex-no-wrap align-center"
         :style="fontSize"
       >
         <v-icon
@@ -40,7 +40,7 @@
       >
         <div
           v-if="validatePrepTime"
-          class="d-flex flex-no-wrap my-1"
+          class="d-flex flex-no-wrap my-1 align-center"
         >
           <v-icon
             :size="small ? 'small' : 'large'"
@@ -60,7 +60,7 @@
         />
         <div
           v-if="validatePerformTime"
-          class="d-flex flex-no-wrap my-1"
+          class="d-flex flex-no-wrap my-1 align-center"
         >
           <v-icon
             :size="small ? 'small' : 'large'"
