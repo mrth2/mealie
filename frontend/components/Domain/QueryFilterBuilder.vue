@@ -348,9 +348,6 @@ export default defineNuxtComponent({
       const newIndex: number = event.newIndex;
       state.datePickers[oldIndex] = false;
       state.datePickers[newIndex] = false;
-
-      const field = fields.value.splice(oldIndex, 1)[0];
-      fields.value.splice(newIndex, 0, field);
     }
 
 		// add id to fields to prevent reactivity issues
