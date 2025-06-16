@@ -4,6 +4,7 @@
       v-for="(_, key) in modelValue"
       :key="key"
       v-model="modelValue[key]"
+      color="primary"
       xs
       density="compact"
       :disabled="key == 'locked' && !isOwner"

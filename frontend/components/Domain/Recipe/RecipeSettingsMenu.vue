@@ -27,7 +27,7 @@
         <v-divider class="mx-2" />
         <v-card-text class="mt-n5 pt-6 pb-2">
           <RecipeSettingsSwitches
-            v-model="modelValue"
+            v-model="value"
             :is-owner="isOwner"
           />
         </v-card-text>
@@ -42,7 +42,7 @@ import RecipeSettingsSwitches from "./RecipeSettingsSwitches.vue";
 export default defineNuxtComponent({
   components: { RecipeSettingsSwitches },
   props: {
-    modelValue: {
+    value: {
       type: Object,
       required: true,
     },
