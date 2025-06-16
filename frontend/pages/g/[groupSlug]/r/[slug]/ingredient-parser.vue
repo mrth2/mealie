@@ -1,9 +1,9 @@
 <template>
   <v-container v-if="recipe">
     <v-container>
-      <BaseCardSectionTitle :title="$tc('recipe.parser.ingredient-parser')">
+      <BaseCardSectionTitle :title="$t('recipe.parser.ingredient-parser')">
         <div class="mt-4">
-          {{ $tc("recipe.parser.explanation") }}
+          {{ $t("recipe.parser.explanation") }}
         </div>
 
         <div class="my-4">
