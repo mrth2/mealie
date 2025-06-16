@@ -6,7 +6,6 @@
     />
     <v-dialog
       v-model="dialog"
-      absolute
       :width="width"
       :max-width="maxWidth ?? undefined"
       :content-class="top ? 'top-dialog' : undefined"
