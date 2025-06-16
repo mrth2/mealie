@@ -860,12 +860,18 @@ export default defineNuxtComponent({
     }
 
     function sortItems(a: ShoppingListItemOut | ListItemGroup, b: ShoppingListItemOut | ListItemGroup) {
-      return (
-        ((a.position || 0) > (b.position || 0))
-        || ((a.createdAt || "") < (b.createdAt || ""))
-          ? 1
-          : -1
-      );
+      // Sort by position ASC, then by createdAt ASC
+      const posA = a.position ?? 0;
+      const posB = b.position ?? 0;
+      if (posA !== posB) {
+        return posA - posB;
+      }
+      const createdA = a.createdAt ?? "";
+      const createdB = b.createdAt ?? "";
+      if (createdA !== createdB) {
+        return createdA < createdB ? -1 : 1;
+      }
+      return 0;
     }
 
     function groupAndSortListItemsByFood() {
