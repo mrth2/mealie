@@ -99,7 +99,7 @@
           </p>
         </v-card>
         <VueDraggable
-          v-model="plan.meals"
+          v-model="mealplansByDate[plan.date.toString()]"
           tag="div"
           handle=".handle"
           :delay="250"
@@ -111,7 +111,7 @@
           @end="onMoveCallback"
         >
           <v-card
-            v-for="mealplan in plan.meals"
+            v-for="mealplan in mealplansByDate[plan.date.toString()]"
             :key="mealplan.id"
             class="my-1"
             :class="{ handle: $vuetify.display.smAndUp }"
@@ -262,6 +262,24 @@ export default defineNuxtComponent({
       return household.value?.preferences?.firstDayOfWeek || 0;
     });
 
+    // Local mutable meals object
+    const mealplansByDate = reactive<{ [date: string]: UpdatePlanEntry[] }>({});
+    watch(
+      () => props.mealplans,
+      (plans) => {
+        for (const plan of plans) {
+          mealplansByDate[plan.date.toString()] = plan.meals ? [...plan.meals] : [];
+        }
+        // Remove any dates that no longer exist
+        Object.keys(mealplansByDate).forEach((date) => {
+          if (!plans.find((p) => p.date.toString() === date)) {
+            delete mealplansByDate[date];
+          }
+        });
+      },
+      { immediate: true, deep: true }
+    );
+
     function onMoveCallback(evt: SortableEvent) {
       const supportedEvents = ["drop", "touchend"];
 
@@ -278,8 +296,8 @@ export default defineNuxtComponent({
         const toMealsByIndex = parseInt(evt.to.getAttribute("data-index") ?? "");
 
         if (!isNaN(fromMealsByIndex) && !isNaN(toMealsByIndex)) {
-          const mealData = props.mealplans[fromMealsByIndex].meals[evt.oldIndex as number];
           const destDate = props.mealplans[toMealsByIndex].date;
+          const mealData = mealplansByDate[destDate.toString()][evt.newIndex as number];
 
           mealData.date = format(destDate, "yyyy-MM-dd");
 
@@ -400,6 +418,7 @@ export default defineNuxtComponent({
       // Search
       search,
       firstDayOfWeek,
+      mealplansByDate,
     };
   },
 });
