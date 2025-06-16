@@ -21,10 +21,18 @@
             a significant amount of prop management. When we move to Vue 3 and have access to some of the newer API's the plan to update this
             data management and mutation system we're using.
           -->
-          <RecipePageInfoEditor v-if="isEditMode" :recipe="recipe" :landscape="landscape" />
-          <RecipePageEditorToolbar v-if="isEditForm" :recipe="recipe" />
-          <RecipePageIngredientEditor v-if="isEditForm" :recipe="recipe" />
-          <RecipePageScale v-model:scale="scale" :recipe="recipe" />
+          <div>
+            <RecipePageInfoEditor v-if="isEditMode" :recipe="recipe" :landscape="landscape" />
+          </div>
+          <div>
+            <RecipePageEditorToolbar v-if="isEditForm" :recipe="recipe" />
+          </div>
+          <div>
+            <RecipePageIngredientEditor v-if="isEditForm" :recipe="recipe" />
+          </div>
+          <div>
+            <RecipePageScale v-model:scale="scale" :recipe="recipe" />
+          </div>
 
           <!--
             This section contains the 2 column layout for the recipe steps and other content.
