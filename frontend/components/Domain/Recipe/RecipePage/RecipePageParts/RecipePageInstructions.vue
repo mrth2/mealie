@@ -130,11 +130,10 @@
         ghostClass: 'ghost',
       }"
       @start="drag = true"
-      @end="drag = false"
+      @end="onDragEnd"
     >
       <TransitionGroup
         type="transition"
-        :name="!drag ? 'flip-list' : ''"
       >
         <div
           v-for="(step, index) in instructionList"
@@ -512,13 +511,10 @@ export default defineNuxtComponent({
       { deep: true },
     );
 
-    watch(
-      instructionList,
-      (newVal) => {
-        context.emit("update:modelValue", [...newVal]);
-      },
-      { deep: true },
-    );
+    function onDragEnd() {
+      context.emit("update:modelValue", [...instructionList.value]);
+      drag.value = false;
+    }
 
     // ===============================================================
     // Ingredient Linker
@@ -784,6 +780,7 @@ export default defineNuxtComponent({
       loadingStates,
 
       // Rest
+      onDragEnd,
       drag,
       togglePreviewState,
       toggleCollapseSection,
