@@ -75,7 +75,7 @@
           :delay="250"
           :delay-on-touch-only="true"
           style="width: 100%"
-          @change="actions.updateOrder(myCookbooks)"
+          @end="actions.updateOrder(myCookbooks)"
         >
           <v-expansion-panel
             v-for="(cookbook, index) in myCookbooks"
@@ -163,13 +163,20 @@ export default defineNuxtComponent({
 
     const $auth = useMealieAuth();
     const { cookbooks: allCookbooks, actions } = useCookbooks();
-    const _myCookbooks = computed(
-      () =>
-        allCookbooks.value?.filter((cookbook) => {
-          return cookbook.householdId === $auth.user.value?.householdId;
-        }) ?? [],
+
+    // Make a local reactive copy of myCookbooks
+    const myCookbooks = ref<ReadCookBook[]>([]);
+    watch(
+      allCookbooks,
+      (cookbooks) => {
+        myCookbooks.value =
+          cookbooks?.filter(
+            (cookbook) => cookbook.householdId === $auth.user.value?.householdId,
+          ) ?? [];
+      },
+      { immediate: true }
     );
-    const myCookbooks = toRef(_myCookbooks, "value");
+
     const { household } = useHouseholdSelf();
     const cookbookPreferences = useCookbookPreferences();
 
@@ -182,6 +189,11 @@ export default defineNuxtComponent({
         String((myCookbooks.value?.length ?? 0) + 1),
       ]) as string;
       await actions.createOne(name).then((cookbook) => {
+        if (!cookbook) {
+          return;
+        }
+
+        myCookbooks.value.push(cookbook);
         createTarget.value = cookbook as ReadCookBook;
         createTargetKey.value++;
       });
@@ -194,21 +206,22 @@ export default defineNuxtComponent({
       deleteTarget.value = item;
       dialogStates.delete = true;
     }
-    function deleteCookbook() {
+    async function deleteCookbook() {
       if (!deleteTarget.value) {
         return;
       }
-      actions.deleteOne(deleteTarget.value.id);
+      await actions.deleteOne(deleteTarget.value.id);
+      myCookbooks.value = myCookbooks.value.filter((c) => c.id !== deleteTarget.value?.id);
       dialogStates.delete = false;
       deleteTarget.value = null;
     }
 
-    function deleteCreateTarget() {
+    async function deleteCreateTarget() {
       if (!createTarget.value?.id) {
         return;
       }
-
-      actions.deleteOne(createTarget.value.id);
+      await actions.deleteOne(createTarget.value.id);
+      myCookbooks.value = myCookbooks.value.filter((c) => c.id !== createTarget.value?.id);
       dialogStates.create = false;
       createTarget.value = null;
     }
@@ -216,7 +229,6 @@ export default defineNuxtComponent({
       if (!createTarget.value?.id || createTarget.value.queryFilterString) {
         return;
       }
-
       deleteCreateTarget();
     }
     onMounted(() => {
