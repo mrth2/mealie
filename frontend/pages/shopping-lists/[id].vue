@@ -197,7 +197,7 @@
                 :delay-on-touch-only="true"
                 @start="loadingCounter += 1"
                 @end="loadingCounter -= 1"
-                @update="updateIndexUncheckedByLabel(key.toString(), $event)"
+                @update:modelValue="updateIndexUncheckedByLabel(key.toString(), $event)"
               >
                 <v-lazy
                   v-for="(item, index) in value"
@@ -578,12 +578,19 @@ export default defineNuxtComponent({
       checked: [] as ShoppingListItemOut[],
     });
 
+    function sortCheckedItems(a: ShoppingListItemOut, b: ShoppingListItemOut) {
+      if (a.updatedAt! === b.updatedAt!) {
+        return ((a.position || 0) > (b.position || 0)) ? -1 : 1;
+      }
+      return a.updatedAt! < b.updatedAt! ? 1 : -1;
+    }
+
     watch(
       () => shoppingList.value?.listItems,
       (items) => {
         listItems.unchecked = (items?.filter(item => !item.checked) ?? []);
         listItems.checked = (items?.filter(item => item.checked)
-          .sort((a, b) => (a.updatedAt! < b.updatedAt! ? 1 : -1)) ?? []);
+          .sort(sortCheckedItems) ?? []);
       },
       { immediate: true },
     );
@@ -1027,13 +1034,6 @@ export default defineNuxtComponent({
         return;
       }
 
-      if (item.checked && shoppingList.value.listItems) {
-        const lst = shoppingList.value.listItems.filter(itm => itm.id !== item.id);
-        lst.push(item);
-
-        // make sure the item is at the end of the list with the other checked items
-        item.position = shoppingList.value.listItems.length;
-      }
       // set a temporary updatedAt timestamp prior to refresh so it appears at the top of the checked items
       item.updatedAt = new Date().toISOString();
 
@@ -1044,11 +1044,14 @@ export default defineNuxtComponent({
             shoppingList.value.listItems[idx] = item;
           }
         });
+        // Immediately update checked/unchecked arrays for UI
+        listItems.unchecked = shoppingList.value.listItems.filter(i => !i.checked);
+        listItems.checked = shoppingList.value.listItems.filter(i => i.checked)
+          .sort(sortCheckedItems);
       }
 
       updateListItemOrder();
-      shoppingListItemActions.updateItem(item);
-      refresh();
+      updateListItems();
     }
 
     function deleteListItem(item: ShoppingListItemOut) {
@@ -1134,10 +1137,8 @@ export default defineNuxtComponent({
     }
 
     function updateIndexUnchecked(uncheckedItems: ShoppingListItemOut[]) {
-      if (shoppingList.value?.listItems) {
-        // move the new unchecked items in front of the checked items
-        shoppingList.value.listItems = uncheckedItems.concat(listItems.checked);
-      }
+      listItems.unchecked = uncheckedItems;
+      listItems.checked = shoppingList.value?.listItems?.filter(item => item.checked) || [];
 
       // since the user has manually reordered the list, we should preserve this order
       preserveItemOrder.value = true;
@@ -1163,7 +1164,9 @@ export default defineNuxtComponent({
       preserveItemOrder.value = true;
 
       // save changes
-      return updateIndexUnchecked(allUncheckedItems);
+      listItems.unchecked = allUncheckedItems;
+      listItems.checked = shoppingList.value?.listItems?.filter(item => item.checked) || [];
+      updateListItems();
     }
 
     function deleteListItems(items: ShoppingListItemOut[]) {
