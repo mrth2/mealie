@@ -95,7 +95,11 @@ export default defineNuxtComponent({
 
     const itemVal = computed({
       get: () => {
-        return Object.keys(props.modelValue).length !== 0 ? props.modelValue : null;
+        try {
+          return Object.keys(props.modelValue).length !== 0 ? props.modelValue : null;
+        } catch {
+          return null;
+        }
       },
       set: (val) => {
         itemIdVal.value = val?.id || undefined;
