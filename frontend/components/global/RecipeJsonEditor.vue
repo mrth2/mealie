@@ -1,27 +1,51 @@
 <template>
   <JsonEditorVue
-    v-model="modelValue"
+    :modelValue="modelValue"
     v-bind="$attrs"
     :style="{ height }"
-    @input="$emit('update:modelValue', $event)"
+    :stringified="false"
+    @change="onChange"
   />
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { defineProps, defineEmits } from 'vue'
 import JsonEditorVue from 'json-editor-vue'
 
-export default defineNuxtComponent({
-  components: { JsonEditorVue },
-  props: {
-    modelValue: {
-      type: Object,
-      default: () => ({}),
-    },
-    height: {
-      type: String,
-      default: "1500px",
-    },
+const props = defineProps({
+  modelValue: {
+    type: Object,
+    default: () => ({}),
   },
-  emits: ["update:modelValue"],
-});
+  height: {
+    type: String,
+    default: '1500px',
+  },
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+function parseEvent(event: any): object {
+  if (!event) {
+    return {};
+  }
+
+  try {
+    if (event.json) {
+      return event.json;
+    }
+    else if (event.text) {
+      return JSON.parse(event.text);
+    }
+    else {
+      return event;
+    }
+  } catch {
+    return {};
+  }
+}
+
+function onChange(event: any) {
+  emit('update:modelValue', parseEvent(event));
+}
 </script>
