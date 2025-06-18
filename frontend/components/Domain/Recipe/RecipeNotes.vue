@@ -1,13 +1,13 @@
 <template>
   <div
-    v-if="modelValue.length > 0 || edit"
+    v-if="model.length > 0 || edit"
     class="mt-8"
   >
     <h2 class="my-4 text-h5 font-weight-medium opacity-80">
       {{ $t("recipe.note") }}
     </h2>
     <div
-      v-for="(note, index) in modelValue"
+      v-for="(note, index) in model"
       :id="'note' + index"
       :key="'note' + index"
       class="mt-1"
@@ -16,7 +16,7 @@
         <v-card-text>
           <div class="d-flex align-center">
             <v-text-field
-              v-model="modelValue[index]['title']"
+              v-model="model[index]['title']"
               variant="underlined"
               :label="$t('recipe.title')"
             />
@@ -24,13 +24,13 @@
               icon
               class="mr-2"
               elevation="0"
-              @click="removeByIndex(modelValue, index)"
+              @click="removeByIndex(index)"
             >
               <v-icon>{{ $globals.icons.delete }}</v-icon>
             </v-btn>
           </div>
           <v-textarea
-            v-model="modelValue[index]['text']"
+            v-model="model[index]['text']"
             variant="underlined"
             auto-grow
             :placeholder="$t('recipe.note')"
@@ -61,41 +61,25 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { RecipeNote } from "~/lib/api/types/recipe";
 
-export default defineNuxtComponent({
-  props: {
-    modelValue: {
-      type: Array as () => RecipeNote[],
-      required: false,
-      default: () => [],
-    },
+const model = defineModel<RecipeNote[]>({ default: () => [] });
 
-    edit: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  emits: ["update:modelValue"],
-  setup(props, { emit }) {
-    function addNote() {
-      const newNotes = [...props.modelValue, { title: "", text: "" }];
-      emit("update:modelValue", newNotes);
-    }
-
-    function removeByIndex(list: RecipeNote[], index: number) {
-      const newNotes = [...props.modelValue];
-      newNotes.splice(index, 1);
-      emit("update:modelValue", newNotes);
-    }
-
-    return {
-      addNote,
-      removeByIndex,
-    };
+defineProps({
+  edit: {
+    type: Boolean,
+    default: true,
   },
 });
-</script>
 
-<style></style>
+function addNote() {
+  model.value = [...model.value, { title: "", text: "" }];
+}
+
+function removeByIndex(index: number) {
+  const newNotes = [...model.value];
+  newNotes.splice(index, 1);
+  model.value = newNotes;
+}
+</script>
