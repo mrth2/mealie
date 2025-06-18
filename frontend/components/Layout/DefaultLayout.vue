@@ -135,7 +135,13 @@ export default defineNuxtComponent({
     const isAdmin = computed(() => $auth.user.value?.admin);
     const route = useRoute();
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
-    const { cookbooks } = isOwnGroup.value ? useCookbooks() : usePublicCookbooks(groupSlug.value || "");
+
+    const loggedInCookbooks = useCookbooks();
+    const publicCookbooks = usePublicCookbooks(groupSlug.value || "");
+    const cookbooks = computed(() =>
+      isOwnGroup.value ? loggedInCookbooks.cookbooks.value : publicCookbooks.cookbooks.value
+    );
+
     const cookbookPreferences = useCookbookPreferences();
     const { store: households } = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value || "");
 
