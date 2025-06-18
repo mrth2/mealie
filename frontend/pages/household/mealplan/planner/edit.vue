@@ -273,7 +273,7 @@ export default defineNuxtComponent({
         // Remove any dates that no longer exist
         Object.keys(mealplansByDate).forEach((date) => {
           if (!plans.find(p => p.date.toString() === date)) {
-            delete mealplansByDate[date];
+            mealplansByDate[date] = [];
           }
         });
       },
