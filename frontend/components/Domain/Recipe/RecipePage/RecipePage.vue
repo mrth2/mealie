@@ -162,14 +162,11 @@ import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageInfoEditor from "./RecipePageParts/RecipePageInfoEditor.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipePrintContainer from "~/components/Domain/Recipe/RecipePrintContainer.vue";
 import {
   clearPageState,
-  EditorMode,
   PageMode,
   usePageState,
-  usePageUser,
 } from "~/composables/recipe-page/shared-state";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
@@ -194,11 +191,10 @@ const $auth = useMealieAuth();
 const route = useRoute();
 
 const groupSlug = computed(() => (route.params.groupSlug as string) || $auth.user?.value?.groupSlug || "");
-const { isOwnGroup } = useLoggedInState();
 
 const router = useRouter();
 const api = useUserApi();
-const { pageMode, editMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, toggleCookMode }
+const { setMode, isEditForm, isEditJSON, isCookMode, isEditMode, toggleCookMode }
   = usePageState(recipe.value.slug);
 const { deactivateNavigationWarning } = useNavigationWarning();
 const notLinkedIngredients = computed(() => {
@@ -318,11 +314,6 @@ function addStep(steps: Array<string> | null = null) {
     });
   }
 }
-
-/** =============================================================
- * Meta Tags
- */
-const { user } = usePageUser();
 
 /** =============================================================
  * RecipeChip Clicked
