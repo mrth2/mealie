@@ -149,7 +149,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { invoke, until } from "@vueuse/core";
 import RecipeIngredients from "../RecipeIngredients.vue";
 import RecipePageEditorToolbar from "./RecipePageParts/RecipePageEditorToolbar.vue";
@@ -186,203 +186,159 @@ const EDITOR_OPTIONS = {
   mainMenuBar: false,
 };
 
-export default defineNuxtComponent({
-  components: {
-    RecipePageHeader,
-    RecipePrintContainer,
-    RecipePageComments,
-    RecipePageInfoEditor,
-    RecipePageEditorToolbar,
-    RecipePageIngredientEditor,
-    RecipePageOrganizers,
-    RecipePageScale,
-    RecipePageIngredientToolsView,
-    RecipeDialogBulkAdd,
-    RecipeNotes,
-    RecipePageInstructions,
-    RecipePageFooter,
-    RecipeIngredients,
-  },
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const { $vuetify } = useNuxtApp();
-    const i18n = useI18n();
-    const $auth = useMealieAuth();
-    const route = useRoute();
+const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 
-    const groupSlug = computed(() => (route.params.groupSlug as string) || $auth.user?.value?.groupSlug || "");
-    const { isOwnGroup } = useLoggedInState();
+const { $vuetify } = useNuxtApp();
+const i18n = useI18n();
+const $auth = useMealieAuth();
+const route = useRoute();
 
-    const router = useRouter();
-    const api = useUserApi();
-    const { pageMode, editMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, toggleCookMode }
-      = usePageState(props.recipe.slug);
-    const { deactivateNavigationWarning } = useNavigationWarning();
-    const notLinkedIngredients = computed(() => {
-      return props.recipe.recipeIngredient.filter((ingredient) => {
-        return !props.recipe.recipeInstructions.some(step =>
-          step.ingredientReferences?.map(ref => ref.referenceId).includes(ingredient.referenceId),
-        );
-      });
-    });
+const groupSlug = computed(() => (route.params.groupSlug as string) || $auth.user?.value?.groupSlug || "");
+const { isOwnGroup } = useLoggedInState();
 
-    /** =============================================================
-     * Recipe Snapshot on Mount
-     * this is used to determine if the recipe has been changed since the last save
-     * and prompts the user to save if they have unsaved changes.
-     */
-    const originalRecipe = ref<Recipe | null>(null);
-
-    invoke(async () => {
-      await until(props.recipe).not.toBeNull();
-      originalRecipe.value = deepCopy(props.recipe);
-    });
-
-    onUnmounted(async () => {
-      const isSame = JSON.stringify(props.recipe) === JSON.stringify(originalRecipe.value);
-      if (isEditMode.value && !isSame && props.recipe?.slug !== undefined) {
-        const save = window.confirm(i18n.t("general.unsaved-changes"));
-
-        if (save) {
-          await api.recipes.updateOne(props.recipe.slug, props.recipe);
-        }
-      }
-      deactivateNavigationWarning();
-      toggleCookMode();
-
-      clearPageState(props.recipe.slug || "");
-      console.debug("reset RecipePage state during unmount");
-    });
-    const hasLinkedIngredients = computed(() => {
-      return props.recipe.recipeInstructions.some(
-        step => step.ingredientReferences && step.ingredientReferences.length > 0,
-      );
-    });
-    /** =============================================================
-     * Set State onMounted
-     */
-
-    type BooleanString = "true" | "false" | "";
-
-    const edit = useRouteQuery<BooleanString>("edit", "");
-
-    onMounted(() => {
-      if (edit.value === "true") {
-        setMode(PageMode.EDIT);
-      }
-    });
-
-    /** =============================================================
-     * Recipe Save Delete
-     */
-
-    async function saveRecipe() {
-      const { data } = await api.recipes.updateOne(props.recipe.slug, props.recipe);
-      setMode(PageMode.VIEW);
-      if (data?.slug) {
-        router.push(`/g/${groupSlug.value}/r/` + data.slug);
-      }
-    }
-
-    async function deleteRecipe() {
-      const { data } = await api.recipes.deleteOne(props.recipe.slug);
-      if (data?.slug) {
-        router.push(`/g/${groupSlug.value}`);
-      }
-    }
-
-    /** =============================================================
-     * View Preferences
-     */
-    const landscape = computed(() => {
-      const preferLandscape = props.recipe.settings.landscapeView;
-      const smallScreen = !$vuetify.display.smAndUp.value;
-
-      if (preferLandscape) {
-        return true;
-      }
-      else if (smallScreen) {
-        return true;
-      }
-
-      return false;
-    });
-
-    /** =============================================================
-     * Bulk Step Editor
-     * TODO: Move to RecipePageInstructions component
-     */
-
-    function addStep(steps: Array<string> | null = null) {
-      if (!props.recipe.recipeInstructions) {
-        return;
-      }
-
-      if (steps) {
-        const cleanedSteps = steps.map((step) => {
-          return { id: uuid4(), text: step, title: "", ingredientReferences: [] };
-        });
-
-        props.recipe.recipeInstructions.push(...cleanedSteps);
-      }
-      else {
-        props.recipe.recipeInstructions.push({
-          id: uuid4(),
-          text: "",
-          title: "",
-          summary: "",
-          ingredientReferences: [],
-        });
-      }
-    }
-
-    /** =============================================================
-     * Meta Tags
-     */
-    const { user } = usePageUser();
-
-    /** =============================================================
-     * RecipeChip Clicked
-     */
-
-    function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: string) {
-      if (!item.id) {
-        return;
-      }
-      router.push(`/g/${groupSlug.value}?${itemType}=${item.id}`);
-    }
-
-    return {
-      user,
-      isOwnGroup,
-      api,
-      scale: ref(1),
-      EDITOR_OPTIONS,
-      landscape,
-
-      pageMode,
-      editMode,
-      PageMode,
-      EditorMode,
-      isEditMode,
-      isEditForm,
-      isEditJSON,
-      isCookMode,
-      toggleCookMode,
-      saveRecipe,
-      deleteRecipe,
-      addStep,
-      hasLinkedIngredients,
-      notLinkedIngredients,
-      chipClicked,
-    };
-  },
+const router = useRouter();
+const api = useUserApi();
+const { pageMode, editMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, toggleCookMode }
+  = usePageState(recipe.value.slug);
+const { deactivateNavigationWarning } = useNavigationWarning();
+const notLinkedIngredients = computed(() => {
+  return recipe.value.recipeIngredient.filter((ingredient) => {
+    return !recipe.value.recipeInstructions.some(step =>
+      step.ingredientReferences?.map(ref => ref.referenceId).includes(ingredient.referenceId),
+    );
+  });
 });
+
+/** =============================================================
+ * Recipe Snapshot on Mount
+ * this is used to determine if the recipe has been changed since the last save
+ * and prompts the user to save if they have unsaved changes.
+ */
+const originalRecipe = ref<Recipe | null>(null);
+
+invoke(async () => {
+  await until(recipe.value).not.toBeNull();
+  originalRecipe.value = deepCopy(recipe.value);
+});
+
+onUnmounted(async () => {
+  const isSame = JSON.stringify(recipe.value) === JSON.stringify(originalRecipe.value);
+  if (isEditMode.value && !isSame && recipe.value?.slug !== undefined) {
+    const save = window.confirm(i18n.t("general.unsaved-changes"));
+
+    if (save) {
+      await api.recipes.updateOne(recipe.value.slug, recipe.value);
+    }
+  }
+  deactivateNavigationWarning();
+  toggleCookMode();
+
+  clearPageState(recipe.value.slug || "");
+  console.debug("reset RecipePage state during unmount");
+});
+const hasLinkedIngredients = computed(() => {
+  return recipe.value.recipeInstructions.some(
+    step => step.ingredientReferences && step.ingredientReferences.length > 0,
+  );
+});
+/** =============================================================
+ * Set State onMounted
+ */
+
+type BooleanString = "true" | "false" | "";
+
+const edit = useRouteQuery<BooleanString>("edit", "");
+
+onMounted(() => {
+  if (edit.value === "true") {
+    setMode(PageMode.EDIT);
+  }
+});
+
+/** =============================================================
+ * Recipe Save Delete
+ */
+
+async function saveRecipe() {
+  const { data } = await api.recipes.updateOne(recipe.value.slug, recipe.value);
+  setMode(PageMode.VIEW);
+  if (data?.slug) {
+    router.push(`/g/${groupSlug.value}/r/` + data.slug);
+  }
+}
+
+async function deleteRecipe() {
+  const { data } = await api.recipes.deleteOne(recipe.value.slug);
+  if (data?.slug) {
+    router.push(`/g/${groupSlug.value}`);
+  }
+}
+
+/** =============================================================
+ * View Preferences
+ */
+const landscape = computed(() => {
+  const preferLandscape = recipe.value.settings.landscapeView;
+  const smallScreen = !$vuetify.display.smAndUp.value;
+
+  if (preferLandscape) {
+    return true;
+  }
+  else if (smallScreen) {
+    return true;
+  }
+
+  return false;
+});
+
+/** =============================================================
+ * Bulk Step Editor
+ * TODO: Move to RecipePageInstructions component
+ */
+
+function addStep(steps: Array<string> | null = null) {
+  if (!recipe.value.recipeInstructions) {
+    return;
+  }
+
+  if (steps) {
+    const cleanedSteps = steps.map((step) => {
+      return { id: uuid4(), text: step, title: "", ingredientReferences: [] };
+    });
+
+    recipe.value.recipeInstructions.push(...cleanedSteps);
+  }
+  else {
+    recipe.value.recipeInstructions.push({
+      id: uuid4(),
+      text: "",
+      title: "",
+      summary: "",
+      ingredientReferences: [],
+    });
+  }
+}
+
+/** =============================================================
+ * Meta Tags
+ */
+const { user } = usePageUser();
+
+/** =============================================================
+ * RecipeChip Clicked
+ */
+
+function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: string) {
+  if (!item.id) {
+    return;
+  }
+  router.push(`/g/${groupSlug.value}?${itemType}=${item.id}`);
+}
+
+const scale = ref(1);
+
+// expose to template
+// (all variables used in template are top-level in <script setup>)
 </script>
 
 <style lang="css">

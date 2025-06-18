@@ -3,7 +3,7 @@
     <client-only>
       <RecipePage
         v-if="recipe"
-        :recipe="recipe"
+        v-model="recipe"
       />
     </client-only>
   </div>

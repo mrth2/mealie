@@ -2,7 +2,7 @@
   <div>
     <RecipePage
       v-if="recipe"
-      :recipe="recipe"
+      v-model="recipe"
     />
   </div>
 </template>
