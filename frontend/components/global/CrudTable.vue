@@ -65,7 +65,7 @@
       class="elevation-2"
     >
       <template
-        v-for="header in activeHeaders"
+        v-for="header in headersWithoutActions"
         #[`item.${header.value}`]="{ item }"
       >
         <slot
@@ -172,27 +172,23 @@ export default defineNuxtComponent({
 
     // ===========================================================
     // Reactive Headers
-    const filteredHeaders = ref<string[]>([]);
-
-    // Set default filtered
-    filteredHeaders.value = (() => {
-      const filtered: string[] = [];
-      props.headers.forEach((element) => {
-        if (element.show) {
-          filtered.push(element.value);
-        }
-      });
-      return filtered;
-    })();
-
-    const activeHeaders = computed(() => {
-      const filtered = props.headers.filter(header => filteredHeaders.value.includes(header.value)).map((h) => {
-        const { text, ...rest } = h;
-        return { ...rest, title: i18n.t(text) };
-      });
-      filtered.push({ title: "", value: "actions", show: true, align: "right" });
-      return filtered;
+    const filteredHeaders = computed<string[]>(() => {
+      return props.headers.filter(header => header.show).map(header => header.value);
     });
+
+    const headersWithoutActions = computed(() =>
+      props.headers
+        .filter(header => filteredHeaders.value.includes(header.value))
+        .map(header => ({
+          ...header,
+          title: i18n.t(header.text),
+        })),
+    );
+
+    const activeHeaders = computed(() => [
+      ...headersWithoutActions.value,
+      { title: "", value: "actions", show: true, align: "end" },
+    ]);
 
     const selected = ref<any[]>([]);
 
@@ -219,6 +215,7 @@ export default defineNuxtComponent({
       sortBy,
       selected,
       filteredHeaders,
+      headersWithoutActions,
       activeHeaders,
       bulkActionListener,
       search,
