@@ -76,7 +76,7 @@
       <WakelockSwitch />
       <RecipePageComments
         v-if="!recipe.settings.disableComments && !isEditForm && !isCookMode"
-        :recipe="recipe"
+        v-model="recipe"
         class="px-1 my-4 d-print-none"
       />
       <RecipePrintContainer :recipe="recipe" :scale="scale" />

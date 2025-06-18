@@ -82,7 +82,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { useUserApi } from "~/composables/api";
 import type { Recipe } from "~/lib/api/types/recipe";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
@@ -90,48 +90,29 @@ import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { usePageUser } from "~/composables/recipe-page/shared-state";
 import SafeMarkdown from "~/components/global/SafeMarkdown.vue";
 
-export default defineNuxtComponent({
-  components: {
-    UserAvatar,
-    SafeMarkdown,
-  },
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const api = useUserApi();
+const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
+const api = useUserApi();
+const { user } = usePageUser();
+const comment = ref("");
 
-    const { user } = usePageUser();
+async function submitComment() {
+  const { data } = await api.recipes.comments.createOne({
+    recipeId: recipe.value.id,
+    text: comment.value,
+  });
 
-    const state = reactive({
-      comment: "",
-    });
+  if (data) {
+    recipe.value.comments.push(data);
+  }
 
-    async function submitComment() {
-      const { data } = await api.recipes.comments.createOne({
-        recipeId: props.recipe.id,
-        text: state.comment,
-      });
+  comment.value = "";
+}
 
-      if (data) {
-        props.recipe.comments.push(data);
-      }
+async function deleteComment(id: string) {
+  const { response } = await api.recipes.comments.deleteOne(id);
 
-      state.comment = "";
-    }
-
-    async function deleteComment(id: string) {
-      const { response } = await api.recipes.comments.deleteOne(id);
-
-      if (response?.status === 200) {
-        props.recipe.comments = props.recipe.comments.filter(comment => comment.id !== id);
-      }
-    }
-
-    return { api, ...toRefs(state), submitComment, deleteComment, user };
-  },
-});
+  if (response?.status === 200) {
+    recipe.value.comments = recipe.value.comments.filter(comment => comment.id !== id);
+  }
+}
 </script>
