@@ -50,7 +50,7 @@
         <v-autocomplete
           ref="unitAutocomplete"
           v-model="modelValue.unit"
-          v-model:search-input="unitSearch"
+          v-model:search="unitSearch"
           auto-select-first
           hide-details
           density="compact"
@@ -91,7 +91,7 @@
         <v-autocomplete
           ref="foodAutocomplete"
           v-model="modelValue.food"
-          v-model:search-input="foodSearch"
+          v-model:search="foodSearch"
           auto-select-first
           hide-details
           density="compact"
