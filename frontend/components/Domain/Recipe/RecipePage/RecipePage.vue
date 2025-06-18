@@ -9,7 +9,13 @@
           @save="saveRecipe"
           @delete="deleteRecipe"
         />
-        <LazyRecipeJsonEditor v-if="isEditJSON" v-model="recipe" class="mt-10" :options="EDITOR_OPTIONS" />
+        <RecipeJsonEditor
+          v-if="isEditJSON"
+          v-model="recipe"
+          class="mt-10"
+          mode="text"
+          :main-menu-bar="false"
+        />
         <v-card-text v-else>
           <!--
             This is where most of the main content is rendered. Some components include state for both Edit and View modes
@@ -176,12 +182,6 @@ import { uuid4, deepCopy } from "~/composables/use-utils";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
 import { useNavigationWarning } from "~/composables/use-navigation-warning";
-
-const EDITOR_OPTIONS = {
-  mode: "code",
-  search: false,
-  mainMenuBar: false,
-};
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 

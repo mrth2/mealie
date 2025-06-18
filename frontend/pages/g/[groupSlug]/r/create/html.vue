@@ -24,12 +24,13 @@
           class="mt-2"
           @change="handleIsEditJson"
         />
-        <LazyRecipeJsonEditor
+        <RecipeJsonEditor
           v-if="isEditJSON"
           v-model="newRecipeData"
           height="250px"
           class="mt-10"
-          :options="EDITOR_OPTIONS"
+          mode="code"
+          :main-menu-bar="false"
         />
         <v-textarea
           v-else
@@ -78,12 +79,6 @@ import { useTagStore } from "~/composables/store/use-tag-store";
 import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import type { VForm } from "~/types/auto-forms";
-
-const EDITOR_OPTIONS = {
-  mode: "code",
-  search: false,
-  mainMenuBar: false,
-};
 
 export default defineNuxtComponent({
   setup() {
@@ -176,7 +171,6 @@ export default defineNuxtComponent({
     }
 
     return {
-      EDITOR_OPTIONS,
       domUrlForm,
       importKeywordsAsTags,
       stayInEditMode,

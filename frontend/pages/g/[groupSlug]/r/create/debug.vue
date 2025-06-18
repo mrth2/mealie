@@ -56,16 +56,12 @@
         v-model="debugTreeView"
         :label="$t('recipe.tree-view')"
       />
-      <LazyRecipeJsonEditor
+      <RecipeJsonEditor
         v-model="debugData"
-        class="primary"
-        :options="{
-          mode: debugTreeView ? 'tree' : 'code',
-          search: false,
-          indentation: 4,
-          mainMenuBar: false,
-        }"
         height="700px"
+        :mode="debugTreeView ? 'tree' : 'text'"
+        :main-menu-bar="false"
+        :read-only="true"
       />
     </section>
   </div>
