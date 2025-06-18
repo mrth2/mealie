@@ -2,7 +2,7 @@
   <v-autocomplete
     v-model="selected"
     v-bind="inputAttrs"
-    v-model:search-input="searchInput"
+    v-model:search="searchInput"
     :items="storeItem"
     :label="label"
     chips

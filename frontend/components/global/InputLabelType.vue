@@ -3,7 +3,7 @@
     ref="autocompleteRef"
     v-model="itemVal"
     v-bind="$attrs"
-    v-model:search-input="searchInput"
+    v-model:search="searchInput"
     item-title="name"
     return-object
     :items="items"
@@ -97,7 +97,8 @@ export default defineNuxtComponent({
       get: () => {
         try {
           return Object.keys(props.modelValue).length !== 0 ? props.modelValue : null;
-        } catch {
+        }
+        catch {
           return null;
         }
       },

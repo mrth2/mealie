@@ -62,7 +62,7 @@
           <v-autocomplete
             v-if="!dialog.note"
             v-model="newMeal.recipeId"
-            v-model:search-input="search.query.value"
+            v-model:search="search.query.value"
             :label="$t('meal-plan.meal-recipe')"
             :items="search.data.value"
             :loading="search.loading.value"
@@ -272,12 +272,12 @@ export default defineNuxtComponent({
         }
         // Remove any dates that no longer exist
         Object.keys(mealplansByDate).forEach((date) => {
-          if (!plans.find((p) => p.date.toString() === date)) {
+          if (!plans.find(p => p.date.toString() === date)) {
             delete mealplansByDate[date];
           }
         });
       },
-      { immediate: true, deep: true }
+      { immediate: true, deep: true },
     );
 
     function onMoveCallback(evt: SortableEvent) {
