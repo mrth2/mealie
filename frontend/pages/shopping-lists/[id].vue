@@ -144,7 +144,7 @@
           :delay-on-touch-only="true"
           @start="loadingCounter += 1"
           @end="loadingCounter -= 1"
-          @update:modelValue="updateIndexUnchecked"
+          @update:model-value="updateIndexUnchecked"
         >
           <v-lazy
             v-for="(item, index) in listItems.unchecked"
@@ -197,7 +197,7 @@
                 :delay-on-touch-only="true"
                 @start="loadingCounter += 1"
                 @end="loadingCounter -= 1"
-                @update:modelValue="updateIndexUncheckedByLabel(key.toString(), $event)"
+                @update:model-value="updateIndexUncheckedByLabel(key.toString(), $event)"
               >
                 <v-lazy
                   v-for="(item, index) in value"
@@ -268,7 +268,7 @@
             :delay="250"
             :delay-on-touch-only="true"
             class="my-2"
-            @update:modelValue="updateLabelOrder"
+            @update:model-value="updateLabelOrder"
           >
             <div
               v-for="(labelSetting, index) in localLabels"

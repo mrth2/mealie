@@ -169,12 +169,12 @@ export default defineNuxtComponent({
     watch(
       allCookbooks,
       (cookbooks) => {
-        myCookbooks.value =
-          cookbooks?.filter(
-            (cookbook) => cookbook.householdId === $auth.user.value?.householdId,
+        myCookbooks.value
+          = cookbooks?.filter(
+            cookbook => cookbook.householdId === $auth.user.value?.householdId,
           ) ?? [];
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     const { household } = useHouseholdSelf();
@@ -211,7 +211,7 @@ export default defineNuxtComponent({
         return;
       }
       await actions.deleteOne(deleteTarget.value.id);
-      myCookbooks.value = myCookbooks.value.filter((c) => c.id !== deleteTarget.value?.id);
+      myCookbooks.value = myCookbooks.value.filter(c => c.id !== deleteTarget.value?.id);
       dialogStates.delete = false;
       deleteTarget.value = null;
     }
@@ -221,7 +221,7 @@ export default defineNuxtComponent({
         return;
       }
       await actions.deleteOne(createTarget.value.id);
-      myCookbooks.value = myCookbooks.value.filter((c) => c.id !== createTarget.value?.id);
+      myCookbooks.value = myCookbooks.value.filter(c => c.id !== createTarget.value?.id);
       dialogStates.create = false;
       createTarget.value = null;
     }

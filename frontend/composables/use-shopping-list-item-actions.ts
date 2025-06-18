@@ -93,20 +93,21 @@ export function useShoppingListItemActions(shoppingListId: string) {
 
   function mergeListItemsByLatest(
     list1: ShoppingListItemOut[],
-    list2: ShoppingListItemOut[]
+    list2: ShoppingListItemOut[],
   ) {
     const mergedList = [...list1];
     list2.forEach((list2Item) => {
-      const conflictingItem = mergedList.find((item) => item.id === list2Item.id)
-      if (conflictingItem &&
-        list2Item.updatedAt && conflictingItem.updatedAt &&
-        list2Item.updatedAt > conflictingItem.updatedAt) {
-        mergedList.splice(mergedList.indexOf(conflictingItem), 1, list2Item)
-      } else if (!conflictingItem) {
-        mergedList.push(list2Item)
+      const conflictingItem = mergedList.find(item => item.id === list2Item.id);
+      if (conflictingItem
+        && list2Item.updatedAt && conflictingItem.updatedAt
+        && list2Item.updatedAt > conflictingItem.updatedAt) {
+        mergedList.splice(mergedList.indexOf(conflictingItem), 1, list2Item);
       }
-    })
-    return mergedList
+      else if (!conflictingItem) {
+        mergedList.push(list2Item);
+      }
+    });
+    return mergedList;
   }
 
   async function getList() {
@@ -115,7 +116,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
       const createAndUpdateQueues = mergeListItemsByLatest(queue.update, queue.create);
       response.data.listItems = mergeListItemsByLatest(response.data.listItems ?? [], createAndUpdateQueues);
     }
-    return response.data
+    return response.data;
   }
 
   function createItem(item: ShoppingListItemOut) {

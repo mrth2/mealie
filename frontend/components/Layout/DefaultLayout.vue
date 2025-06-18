@@ -139,7 +139,7 @@ export default defineNuxtComponent({
     const loggedInCookbooks = useCookbooks();
     const publicCookbooks = usePublicCookbooks(groupSlug.value || "");
     const cookbooks = computed(() =>
-      isOwnGroup.value ? loggedInCookbooks.cookbooks.value : publicCookbooks.cookbooks.value
+      isOwnGroup.value ? loggedInCookbooks.cookbooks.value : publicCookbooks.cookbooks.value,
     );
 
     const cookbookPreferences = useCookbookPreferences();
@@ -199,7 +199,8 @@ export default defineNuxtComponent({
         }
         if (cookbooks[0].householdId === currentUserHouseholdId.value) {
           ownLinks.push(...cookbooks.map(cookbookAsLink));
-        } else {
+        }
+        else {
           links.push({
             key: householdName,
             icon: $globals.icons.book,
@@ -213,7 +214,8 @@ export default defineNuxtComponent({
       links.sort((a, b) => a.title.localeCompare(b.title));
       if ($auth.user.value && cookbookPreferences.value.hideOtherHouseholds) {
         return ownLinks;
-      } else {
+      }
+      else {
         return [...ownLinks, ...links];
       }
     });
