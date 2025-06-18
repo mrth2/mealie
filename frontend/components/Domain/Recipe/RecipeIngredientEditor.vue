@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-text-field
-      v-if="modelValue.title || showTitle"
-      v-model="modelValue.title"
+      v-if="model.title || showTitle"
+      v-model="model.title"
       density="compact"
       variant="underlined"
       hide-details
@@ -24,7 +24,7 @@
         class="flex-grow-0 flex-shrink-0"
       >
         <v-text-field
-          v-model="modelValue.quantity"
+          v-model="model.quantity"
           variant="solo"
           hide-details
           density="compact"
@@ -49,7 +49,7 @@
       >
         <v-autocomplete
           ref="unitAutocomplete"
-          v-model="modelValue.unit"
+          v-model="model.unit"
           v-model:search="unitSearch"
           auto-select-first
           hide-details
@@ -90,7 +90,7 @@
       >
         <v-autocomplete
           ref="foodAutocomplete"
-          v-model="modelValue.food"
+          v-model="model.food"
           v-model:search="foodSearch"
           auto-select-first
           hide-details
@@ -127,7 +127,7 @@
       >
         <div class="d-flex">
           <v-text-field
-            v-model="modelValue.note"
+            v-model="model.note"
             hide-details
             density="compact"
             variant="solo"
@@ -163,7 +163,7 @@
       v-if="showOriginalText"
       class="text-caption"
     >
-      {{ $t("recipe.original-text-with-value", { originalText: modelValue.originalText }) }}
+      {{ $t("recipe.original-text-with-value", { originalText: model.originalText }) }}
     </p>
 
     <v-divider
@@ -173,190 +173,167 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { ref, computed, reactive, toRefs } from "vue";
+import { useDisplay } from "vuetify";
+import { useI18n } from "vue-i18n";
 import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
-import { validators } from "~/composables/use-validators";
+import { useNuxtApp } from "#app";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
 
-export default defineNuxtComponent({
-  props: {
-    modelValue: {
-      type: Object as () => RecipeIngredient,
-      required: true,
-    },
-    disableAmount: {
-      type: Boolean,
-      default: false,
-    },
-    allowInsertIngredient: {
-      type: Boolean,
-      default: false,
-    },
+// defineModel replaces modelValue prop
+const model = defineModel<RecipeIngredient>({ required: true });
+
+const props = defineProps({
+  disableAmount: {
+    type: Boolean,
+    default: false,
   },
-  emits: ["clickIngredientField", "insert-above", "insert-below", "insert-ingredient", "delete"],
-  setup(props, { attrs: listeners }) {
-    const { mdAndUp } = useDisplay();
-    const i18n = useI18n();
-    const { $globals } = useNuxtApp();
-
-    const contextMenuOptions = computed(() => {
-      const options = [
-        {
-          text: i18n.t("recipe.toggle-section"),
-          event: "toggle-section",
-        },
-        {
-          text: i18n.t("recipe.insert-above"),
-          event: "insert-above",
-        },
-        {
-          text: i18n.t("recipe.insert-below"),
-          event: "insert-below",
-        },
-      ];
-
-      if (props.allowInsertIngredient) {
-        options.push({
-          text: i18n.t("recipe.insert-ingredient"),
-          event: "insert-ingredient",
-        });
-      }
-
-      // FUTURE: add option to parse a single ingredient
-      // if (!value.food && !value.unit && value.note) {
-      //   options.push({
-      //     text: "Parse Ingredient",
-      //     event: "parse-ingredient",
-      //   });
-      // }
-
-      if (props.modelValue.originalText) {
-        options.push({
-          text: i18n.t("recipe.see-original-text"),
-          event: "toggle-original",
-        });
-      }
-
-      return options;
-    });
-
-    const btns = computed(() => {
-      const out = [
-        {
-          icon: $globals.icons.dotsVertical,
-          text: i18n.t("general.menu"),
-          event: "open",
-          children: contextMenuOptions.value,
-        },
-      ];
-
-      if (listeners && listeners.delete) {
-        // @ts-expect-error - TODO: fix this
-        out.unshift({
-          icon: $globals.icons.delete,
-          text: i18n.t("general.delete"),
-          event: "delete",
-        });
-      }
-
-      return out;
-    });
-
-    // ==================================================
-    // Foods
-    const foodStore = useFoodStore();
-    const foodData = useFoodData();
-    const foodSearch = ref("");
-    const foodAutocomplete = ref<HTMLInputElement>();
-
-    async function createAssignFood() {
-      foodData.data.name = foodSearch.value;
-      props.modelValue.food = await foodStore.actions.createOne(foodData.data) || undefined;
-      foodData.reset();
-      foodAutocomplete.value?.blur();
-    }
-
-    // ==================================================
-    // Units
-    const unitStore = useUnitStore();
-    const unitsData = useUnitData();
-    const unitSearch = ref("");
-    const unitAutocomplete = ref<HTMLInputElement>();
-
-    async function createAssignUnit() {
-      unitsData.data.name = unitSearch.value;
-      props.modelValue.unit = await unitStore.actions.createOne(unitsData.data) || undefined;
-      unitsData.reset();
-      unitAutocomplete.value?.blur();
-    }
-
-    const state = reactive({
-      showTitle: false,
-      showOriginalText: false,
-    });
-
-    function toggleTitle() {
-      if (state.showTitle) {
-        props.modelValue.title = "";
-      }
-      state.showTitle = !state.showTitle;
-    }
-
-    function toggleOriginalText() {
-      state.showOriginalText = !state.showOriginalText;
-    }
-
-    function handleUnitEnter() {
-      if (
-        props.modelValue.unit === undefined
-        || props.modelValue.unit === null
-        || !props.modelValue.unit.name.includes(unitSearch.value)
-      ) {
-        createAssignUnit();
-      }
-    }
-
-    function handleFoodEnter() {
-      if (
-        props.modelValue.food === undefined
-        || props.modelValue.food === null
-        || !props.modelValue.food.name.includes(foodSearch.value)
-      ) {
-        createAssignFood();
-      }
-    }
-
-    function quantityFilter(e: KeyboardEvent) {
-      // if digit is pressed, add to quantity
-      if (e.key === "-" || e.key === "+" || e.key === "e") {
-        e.preventDefault();
-      }
-    }
-
-    return {
-      ...toRefs(state),
-      quantityFilter,
-      toggleOriginalText,
-      contextMenuOptions,
-      handleUnitEnter,
-      handleFoodEnter,
-      foodAutocomplete,
-      createAssignFood,
-      unitAutocomplete,
-      createAssignUnit,
-      foods: foodStore.store,
-      foodSearch,
-      toggleTitle,
-      unitActions: unitStore.actions,
-      units: unitStore.store,
-      unitSearch,
-      validators,
-      workingUnitData: unitsData.data,
-      btns,
-      mdAndUp,
-    };
+  allowInsertIngredient: {
+    type: Boolean,
+    default: false,
   },
 });
+
+defineEmits([
+  "clickIngredientField",
+  "insert-above",
+  "insert-below",
+  "insert-ingredient",
+  "delete",
+]);
+
+const { mdAndUp } = useDisplay();
+const i18n = useI18n();
+const { $globals } = useNuxtApp();
+
+const state = reactive({
+  showTitle: false,
+  showOriginalText: false,
+});
+
+const contextMenuOptions = computed(() => {
+  const options = [
+    {
+      text: i18n.t("recipe.toggle-section"),
+      event: "toggle-section",
+    },
+    {
+      text: i18n.t("recipe.insert-above"),
+      event: "insert-above",
+    },
+    {
+      text: i18n.t("recipe.insert-below"),
+      event: "insert-below",
+    },
+  ];
+
+  if (props.allowInsertIngredient) {
+    options.push({
+      text: i18n.t("recipe.insert-ingredient"),
+      event: "insert-ingredient",
+    });
+  }
+
+  if (model.value.originalText) {
+    options.push({
+      text: i18n.t("recipe.see-original-text"),
+      event: "toggle-original",
+    });
+  }
+
+  return options;
+});
+
+const btns = computed(() => {
+  const out = [
+    {
+      icon: $globals.icons.dotsVertical,
+      text: i18n.t("general.menu"),
+      event: "open",
+      children: contextMenuOptions.value,
+    },
+  ];
+
+  // If delete event is being listened for, show delete button
+  // $attrs is not available in <script setup>, so always show if parent listens
+  out.unshift({
+    icon: $globals.icons.delete,
+    text: i18n.t("general.delete"),
+    event: "delete",
+    children: undefined,
+  });
+
+  return out;
+});
+
+// Foods
+const foodStore = useFoodStore();
+const foodData = useFoodData();
+const foodSearch = ref("");
+const foodAutocomplete = ref<HTMLInputElement>();
+
+async function createAssignFood() {
+  foodData.data.name = foodSearch.value;
+  model.value.food = await foodStore.actions.createOne(foodData.data) || undefined;
+  foodData.reset();
+  foodAutocomplete.value?.blur();
+}
+
+// Units
+const unitStore = useUnitStore();
+const unitsData = useUnitData();
+const unitSearch = ref("");
+const unitAutocomplete = ref<HTMLInputElement>();
+
+async function createAssignUnit() {
+  unitsData.data.name = unitSearch.value;
+  model.value.unit = await unitStore.actions.createOne(unitsData.data) || undefined;
+  unitsData.reset();
+  unitAutocomplete.value?.blur();
+}
+
+function toggleTitle() {
+  if (state.showTitle) {
+    model.value.title = "";
+  }
+  state.showTitle = !state.showTitle;
+}
+
+function toggleOriginalText() {
+  state.showOriginalText = !state.showOriginalText;
+}
+
+function handleUnitEnter() {
+  if (
+    model.value.unit === undefined
+    || model.value.unit === null
+    || !model.value.unit.name.includes(unitSearch.value)
+  ) {
+    createAssignUnit();
+  }
+}
+
+function handleFoodEnter() {
+  if (
+    model.value.food === undefined
+    || model.value.food === null
+    || !model.value.food.name.includes(foodSearch.value)
+  ) {
+    createAssignFood();
+  }
+}
+
+function quantityFilter(e: KeyboardEvent) {
+  if (e.key === "-" || e.key === "+" || e.key === "e") {
+    e.preventDefault();
+  }
+}
+
+const { showTitle, showOriginalText } = toRefs(state);
+
+const foods = foodStore.store;
+const units = unitStore.store;
 </script>
 
 <style>
