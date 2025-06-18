@@ -1,18 +1,17 @@
 <template>
-  <VJsoneditor
-    :value="modelValue"
-    :height="height"
-    :options="options"
-    :attrs="$attrs"
+  <JsonEditorVue
+    v-model="modelValue"
+    v-bind="$attrs"
+    :style="{ height }"
     @input="$emit('update:modelValue', $event)"
   />
 </template>
 
 <script lang="ts">
-import VJsoneditor from "v-jsoneditor";
+import JsonEditorVue from 'json-editor-vue'
 
 export default defineNuxtComponent({
-  components: { VJsoneditor },
+  components: { JsonEditorVue },
   props: {
     modelValue: {
       type: Object,
@@ -21,10 +20,6 @@ export default defineNuxtComponent({
     height: {
       type: String,
       default: "1500px",
-    },
-    options: {
-      type: Object,
-      default: () => ({}),
     },
   },
   emits: ["update:modelValue"],
