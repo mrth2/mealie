@@ -76,7 +76,7 @@
               <RecipeNotes v-model="recipe.notes" :edit="isEditForm" />
             </v-col>
           </v-row>
-          <RecipePageFooter :recipe="recipe" />
+          <RecipePageFooter v-model="recipe" />
         </v-card-text>
       </v-card>
       <WakelockSwitch />
