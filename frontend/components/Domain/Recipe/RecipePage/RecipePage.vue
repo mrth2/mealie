@@ -34,7 +34,7 @@
             <RecipePageEditorToolbar v-if="isEditForm" v-model="recipe" />
           </div>
           <div>
-            <RecipePageIngredientEditor v-if="isEditForm" :recipe="recipe" />
+            <RecipePageIngredientEditor v-if="isEditForm" v-model="recipe" />
           </div>
           <div>
             <RecipePageScale v-model:scale="scale" :recipe="recipe" />

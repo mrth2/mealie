@@ -77,122 +77,92 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
-import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import { uuid4 } from "~/composables/use-utils";
 
-export default defineNuxtComponent({
-  components: {
-    VueDraggable,
-    RecipeDialogBulkAdd,
-    RecipeIngredientEditor,
-  },
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const { user } = usePageUser();
-    const { imageKey } = usePageState(props.recipe.slug);
-    const i18n = useI18n();
-    const $auth = useMealieAuth(); // Using useMealieAuth directly
+const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
+const i18n = useI18n();
+const $auth = useMealieAuth();
 
-    const drag = ref(false);
+const drag = ref(false);
 
-    const route = useRoute();
-    // Note: $auth.user is a ref, so we need to use .value to access its properties
-    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+const route = useRoute();
+const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
-    const hasFoodOrUnit = computed(() => {
-      if (!props.recipe) {
-        return false;
-      }
-      if (props.recipe.recipeIngredient) {
-        for (const ingredient of props.recipe.recipeIngredient) {
-          if (ingredient.food || ingredient.unit) {
-            return true;
-          }
-        }
-      }
-
-      return false;
-    });
-
-    const parserToolTip = computed(() => {
-      if (props.recipe.settings.disableAmount) {
-        return i18n.t("recipe.enable-ingredient-amounts-to-use-this-feature");
-      }
-      else if (hasFoodOrUnit.value) {
-        return i18n.t("recipe.recipes-with-units-or-foods-defined-cannot-be-parsed");
-      }
-      return i18n.t("recipe.parse-ingredients");
-    });
-
-    function addIngredient(ingredients: Array<string> | null = null) {
-      if (ingredients?.length) {
-        const newIngredients = ingredients.map((x) => {
-          return {
-            referenceId: uuid4(),
-            title: "",
-            note: x,
-            unit: undefined,
-            food: undefined,
-            disableAmount: true,
-            quantity: 1,
-          };
-        });
-
-        if (newIngredients) {
-          // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
-          props.recipe.recipeIngredient.push(...newIngredients);
-        }
-      }
-      else {
-        props.recipe.recipeIngredient.push({
-          referenceId: uuid4(),
-          title: "",
-          note: "",
-          // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
-          unit: undefined,
-          // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
-          food: undefined,
-          disableAmount: true,
-          quantity: 1,
-        });
+const hasFoodOrUnit = computed(() => {
+  if (!recipe.value) {
+    return false;
+  }
+  if (recipe.value.recipeIngredient) {
+    for (const ingredient of recipe.value.recipeIngredient) {
+      if (ingredient.food || ingredient.unit) {
+        return true;
       }
     }
+  }
+  return false;
+});
 
-    function insertNewIngredient(dest: number) {
-      props.recipe.recipeIngredient.splice(dest, 0, {
+const parserToolTip = computed(() => {
+  if (recipe.value.settings.disableAmount) {
+    return i18n.t("recipe.enable-ingredient-amounts-to-use-this-feature");
+  }
+  else if (hasFoodOrUnit.value) {
+    return i18n.t("recipe.recipes-with-units-or-foods-defined-cannot-be-parsed");
+  }
+  return i18n.t("recipe.parse-ingredients");
+});
+
+function addIngredient(ingredients: Array<string> | null = null) {
+  if (ingredients?.length) {
+    const newIngredients = ingredients.map((x) => {
+      return {
         referenceId: uuid4(),
         title: "",
-        note: "",
-        // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
+        note: x,
         unit: undefined,
-        // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
         food: undefined,
         disableAmount: true,
         quantity: 1,
-      });
-    }
+      };
+    });
 
-    return {
-      user,
-      groupSlug,
-      addIngredient,
-      parserToolTip,
-      hasFoodOrUnit,
-      imageKey,
-      drag,
-      insertNewIngredient,
-    };
-  },
-});
+    if (newIngredients) {
+      // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
+      recipe.value.recipeIngredient.push(...newIngredients);
+    }
+  }
+  else {
+    recipe.value.recipeIngredient.push({
+      referenceId: uuid4(),
+      title: "",
+      note: "",
+      // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
+      unit: undefined,
+      // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
+      food: undefined,
+      disableAmount: true,
+      quantity: 1,
+    });
+  }
+}
+
+function insertNewIngredient(dest: number) {
+  recipe.value.recipeIngredient.splice(dest, 0, {
+    referenceId: uuid4(),
+    title: "",
+    note: "",
+    // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
+    unit: undefined,
+    // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
+    food: undefined,
+    disableAmount: true,
+    quantity: 1,
+  });
+}
 </script>
