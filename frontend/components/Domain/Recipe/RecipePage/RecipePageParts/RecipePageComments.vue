@@ -46,15 +46,15 @@
       </div>
     </div>
     <div
-      v-for="comment in recipe.comments"
-      :key="comment.id"
+      v-for="recipeComment in recipe.comments"
+      :key="recipeComment.id"
       class="d-flex my-2"
       style="gap: 10px"
     >
       <UserAvatar
         :tooltip="false"
         size="40"
-        :user-id="comment.userId"
+        :user-id="recipeComment.userId"
       />
       <v-card
         variant="outlined"
@@ -62,17 +62,17 @@
       >
         <v-card-text class="pa-3 pb-0">
           <p class="">
-            {{ comment.user.fullName }} • {{ $d(Date.parse(comment.createdAt), "medium") }}
+            {{ recipeComment.user.fullName }} • {{ $d(Date.parse(recipeComment.createdAt), "medium") }}
           </p>
-          <SafeMarkdown :source="comment.text" />
+          <SafeMarkdown :source="recipeComment.text" />
         </v-card-text>
         <v-card-actions class="justify-end mt-0 pt-0">
           <v-btn
-            v-if="user.id == comment.user.id || user.admin"
+            v-if="user.id == recipeComment.user.id || user.admin"
             color="error"
             variant="text"
             size="x-small"
-            @click="deleteComment(comment.id)"
+            @click="deleteComment(recipeComment.id)"
           >
             {{ $t("general.delete") }}
           </v-btn>
