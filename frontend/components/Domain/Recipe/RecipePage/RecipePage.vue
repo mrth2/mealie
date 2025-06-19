@@ -49,7 +49,7 @@
             -->
             <v-col v-if="!isCookMode || isEditForm" cols="12" sm="12" md="4" lg="4">
               <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="recipe" :scale="scale" />
-              <RecipePageOrganizers v-if="$vuetify.display.mdAndUp" :recipe="recipe" @item-selected="chipClicked" />
+              <RecipePageOrganizers v-if="$vuetify.display.mdAndUp" v-model="recipe" @item-selected="chipClicked" />
             </v-col>
             <v-divider v-if="$vuetify.display.mdAndUp && !isCookMode" class="my-divider" :vertical="true" />
 
@@ -71,7 +71,7 @@
                 </BaseButton>
               </div>
               <div v-if="!$vuetify.display.mdAndUp">
-                <RecipePageOrganizers :recipe="recipe" />
+                <RecipePageOrganizers v-model="recipe" />
               </div>
               <RecipeNotes v-model="recipe.notes" :edit="isEditForm" />
             </v-col>

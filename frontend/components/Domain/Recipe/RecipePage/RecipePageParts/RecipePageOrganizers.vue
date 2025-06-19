@@ -85,8 +85,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
+<script lang="ts" setup>
+import { usePageState } from "~/composables/recipe-page/shared-state";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
 import RecipeOrganizerSelector from "@/components/Domain/Recipe/RecipeOrganizerSelector.vue";
@@ -94,27 +94,6 @@ import RecipeNutrition from "~/components/Domain/Recipe/RecipeNutrition.vue";
 import RecipeChips from "@/components/Domain/Recipe/RecipeChips.vue";
 import RecipeAssets from "@/components/Domain/Recipe/RecipeAssets.vue";
 
-export default defineNuxtComponent({
-  components: {
-    RecipeOrganizerSelector,
-    RecipeNutrition,
-    RecipeChips,
-    RecipeAssets,
-  },
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const { user } = usePageUser();
-    const { isEditForm } = usePageState(props.recipe.slug);
-
-    return {
-      isEditForm,
-      user,
-    };
-  },
-});
+const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
+const { isEditForm } = usePageState(recipe.value.slug);
 </script>
