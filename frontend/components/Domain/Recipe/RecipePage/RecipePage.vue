@@ -28,7 +28,7 @@
             data management and mutation system we're using.
           -->
           <div>
-            <RecipePageInfoEditor v-if="isEditMode" :recipe="recipe" :landscape="landscape" />
+            <RecipePageInfoEditor v-if="isEditMode" v-model="recipe" />
           </div>
           <div>
             <RecipePageEditorToolbar v-if="isEditForm" v-model="recipe" />

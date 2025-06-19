@@ -79,58 +79,43 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { validators } from "~/composables/use-validators";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
 
-export default defineNuxtComponent({
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
+const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
+
+const recipeServings = computed<number>({
+  get() {
+    return recipe.value.recipeServings;
   },
-  setup(props) {
-    const recipeServings = computed<number>({
-      get() {
-        return props.recipe.recipeServings;
-      },
-      set(val) {
-        validateInput(val.toString(), "recipeServings");
-      },
-    });
-
-    const recipeYieldQuantity = computed<number>({
-      get() {
-        return props.recipe.recipeYieldQuantity;
-      },
-      set(val) {
-        validateInput(val.toString(), "recipeYieldQuantity");
-      },
-    });
-
-    function validateInput(value: string | null, property: "recipeServings" | "recipeYieldQuantity") {
-      if (!value) {
-        props.recipe[property] = 0;
-        return;
-      }
-
-      const number = parseFloat(value.replace(/[^0-9.]/g, ""));
-      if (isNaN(number) || number <= 0) {
-        props.recipe[property] = 0;
-        return;
-      }
-
-      props.recipe[property] = number;
-    }
-
-    return {
-      validators,
-      recipeServings,
-      recipeYieldQuantity,
-      validateInput,
-    };
+  set(val) {
+    validateInput(val.toString(), "recipeServings");
   },
 });
+
+const recipeYieldQuantity = computed<number>({
+  get() {
+    return recipe.value.recipeYieldQuantity;
+  },
+  set(val) {
+    validateInput(val.toString(), "recipeYieldQuantity");
+  },
+});
+
+function validateInput(value: string | null, property: "recipeServings" | "recipeYieldQuantity") {
+  if (!value) {
+    recipe.value[property] = 0;
+    return;
+  }
+
+  const number = parseFloat(value.replace(/[^0-9.]/g, ""));
+  if (isNaN(number) || number <= 0) {
+    recipe.value[property] = 0;
+    return;
+  }
+
+  recipe.value[property] = number;
+}
 </script>
