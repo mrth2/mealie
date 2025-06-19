@@ -47,7 +47,8 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { computed } from "vue";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
@@ -58,57 +59,34 @@ import { useUserStore } from "~/composables/store/use-user-store";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import { useHouseholdStore } from "~/composables/store";
 
-export default defineNuxtComponent({
-  components: {
-    RecipeImageUploadBtn,
-    RecipeSettingsMenu,
-    UserAvatar,
-  },
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const { user } = usePageUser();
-    const api = useUserApi();
-    const { imageKey } = usePageState(props.recipe.slug);
+const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 
-    const canEditOwner = computed(() => {
-      return user.id === props.recipe.userId || user.admin;
-    });
+const { user } = usePageUser();
+const api = useUserApi();
+const { imageKey } = usePageState(recipe.value.slug);
 
-    const { store: allUsers } = useUserStore();
-    const { store: households } = useHouseholdStore();
-    const ownerHousehold = computed(() => {
-      const owner = allUsers.value.find(u => u.id === props.recipe.userId);
-      if (!owner) {
-        return null;
-      };
-
-      return households.value.find(h => h.id === owner.householdId);
-    });
-
-    async function uploadImage(fileObject: File) {
-      if (!props.recipe || !props.recipe.slug) {
-        return;
-      }
-      const newVersion = await api.recipes.updateImage(props.recipe.slug, fileObject);
-      if (newVersion?.data?.image) {
-        props.recipe.image = newVersion.data.image;
-      }
-      imageKey.value++;
-    }
-
-    return {
-      user,
-      canEditOwner,
-      uploadImage,
-      imageKey,
-      allUsers,
-      ownerHousehold,
-    };
-  },
+const canEditOwner = computed(() => {
+  return user.id === recipe.value.userId || user.admin;
 });
+
+const { store: allUsers } = useUserStore();
+const { store: households } = useHouseholdStore();
+const ownerHousehold = computed(() => {
+  const owner = allUsers.value.find(u => u.id === recipe.value.userId);
+  if (!owner) {
+    return null;
+  }
+  return households.value.find(h => h.id === owner.householdId);
+});
+
+async function uploadImage(fileObject: File) {
+  if (!recipe.value || !recipe.value.slug) {
+    return;
+  }
+  const newVersion = await api.recipes.updateImage(recipe.value.slug, fileObject);
+  if (newVersion?.data?.image) {
+    recipe.value.image = newVersion.data.image;
+  }
+  imageKey.value++;
+}
 </script>

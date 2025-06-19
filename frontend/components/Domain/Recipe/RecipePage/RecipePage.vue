@@ -31,7 +31,7 @@
             <RecipePageInfoEditor v-if="isEditMode" :recipe="recipe" :landscape="landscape" />
           </div>
           <div>
-            <RecipePageEditorToolbar v-if="isEditForm" :recipe="recipe" />
+            <RecipePageEditorToolbar v-if="isEditForm" v-model="recipe" />
           </div>
           <div>
             <RecipePageIngredientEditor v-if="isEditForm" :recipe="recipe" />
