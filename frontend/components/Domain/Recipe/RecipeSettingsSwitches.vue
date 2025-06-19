@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-switch
-      v-for="(_, key) in modelValue"
+      v-for="(_, key) in model"
       :key="key"
-      v-model="modelValue[key]"
+      v-model="model[key]"
       color="primary"
       xs
       density="compact"
@@ -15,37 +15,25 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import { defineModel, defineProps } from "vue";
 import type { RecipeSettings } from "~/lib/api/types/recipe";
+import { useI18n } from "#imports";
 
-export default defineNuxtComponent({
-  props: {
-    modelValue: {
-      type: Object as () => RecipeSettings,
-      required: true,
-    },
-    isOwner: {
-      type: Boolean,
-      required: false,
-    },
-  },
-  setup() {
-    const i18n = useI18n();
-    const labels: Record<keyof RecipeSettings, string> = {
-      public: i18n.t("recipe.public-recipe"),
-      showNutrition: i18n.t("recipe.show-nutrition-values"),
-      showAssets: i18n.t("asset.show-assets"),
-      landscapeView: i18n.t("recipe.landscape-view-coming-soon"),
-      disableComments: i18n.t("recipe.disable-comments"),
-      disableAmount: i18n.t("recipe.disable-amount"),
-      locked: i18n.t("recipe.locked"),
-    };
+defineProps<{ isOwner?: boolean }>();
 
-    return {
-      labels,
-    };
-  },
-});
+const model = defineModel<RecipeSettings>({ required: true });
+
+const i18n = useI18n();
+const labels: Record<keyof RecipeSettings, string> = {
+  public: i18n.t("recipe.public-recipe"),
+  showNutrition: i18n.t("recipe.show-nutrition-values"),
+  showAssets: i18n.t("asset.show-assets"),
+  landscapeView: i18n.t("recipe.landscape-view-coming-soon"),
+  disableComments: i18n.t("recipe.disable-comments"),
+  disableAmount: i18n.t("recipe.disable-amount"),
+  locked: i18n.t("recipe.locked"),
+};
 </script>
 
 <style lang="scss" scoped></style>
