@@ -81,61 +81,39 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
 
-export default defineNuxtComponent({
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const { isEditForm, isCookMode } = usePageState(props.recipe.slug);
-    const apiNewKey = ref("");
+const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
+const { isEditForm, isCookMode } = usePageState(recipe.value.slug);
+const apiNewKey = ref("");
 
-    function createApiExtra() {
-      if (!props.recipe) {
-        return;
-      }
+function createApiExtra() {
+  if (!recipe.value) {
+    return;
+  }
+  if (!recipe.value.extras) {
+    recipe.value.extras = {};
+  }
+  // check for duplicate keys
+  if (Object.keys(recipe.value.extras).includes(apiNewKey.value)) {
+    return;
+  }
+  recipe.value.extras[apiNewKey.value] = "";
+  apiNewKey.value = "";
+}
 
-      if (!props.recipe.extras) {
-        props.recipe.extras = {};
-      }
-
-      // check for duplicate keys
-      if (Object.keys(props.recipe.extras).includes(apiNewKey.value)) {
-        return;
-      }
-
-      props.recipe.extras[apiNewKey.value] = "";
-
-      apiNewKey.value = "";
-    }
-
-    function removeApiExtra(key: string | number) {
-      if (!props.recipe) {
-        return;
-      }
-
-      if (!props.recipe.extras) {
-        return;
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-      delete props.recipe.extras[key];
-      props.recipe.extras = { ...props.recipe.extras };
-    }
-    return {
-      removeApiExtra,
-      createApiExtra,
-      apiNewKey,
-      isEditForm,
-      isCookMode,
-    };
-  },
-});
+function removeApiExtra(key: string | number) {
+  if (!recipe.value) {
+    return;
+  }
+  if (!recipe.value.extras) {
+    return;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+  delete recipe.value.extras[key];
+  recipe.value.extras = { ...recipe.value.extras };
+}
 </script>
