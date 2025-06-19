@@ -36,22 +36,12 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import RecipeSettingsSwitches from "./RecipeSettingsSwitches.vue";
 
-export default defineNuxtComponent({
-  components: { RecipeSettingsSwitches },
-  props: {
-    value: {
-      type: Object,
-      required: true,
-    },
-    isOwner: {
-      type: Boolean,
-      required: false,
-    },
-  },
-});
+const value = defineModel<object>({ required: true });
+
+defineProps<{ isOwner?: boolean }>();
 </script>
 
 <style lang="scss" scoped></style>

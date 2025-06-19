@@ -7,8 +7,8 @@
       @refresh="imageKey++"
     />
     <RecipeSettingsMenu
+      v-model="recipe.settings"
       class="my-1 mx-1"
-      :value="recipe.settings"
       :is-owner="recipe.userId == user.id"
       @upload="uploadImage"
     />
