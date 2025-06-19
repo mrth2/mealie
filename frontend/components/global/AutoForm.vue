@@ -124,13 +124,13 @@
           style="width: 100%"
         >
           <v-menu offset-y>
-            <template #activator="{ props }">
+            <template #activator="{ props: templateProps }">
               <v-btn
                 class="my-2 ml-auto"
                 style="min-width: 200px"
                 :color="modelValue[inputField.varName]"
                 dark
-                v-bind="props"
+                v-bind="templateProps"
               >
                 {{ inputField.label }}
               </v-btn>
@@ -196,7 +196,7 @@
   </v-card>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { validators } from "@/composables/use-validators";
 import { fieldTypes } from "@/composables/forms";
 import type { AutoFormItems } from "~/types/auto-forms";
@@ -205,101 +205,87 @@ const BLUR_EVENT = "blur";
 
 type ValidatorKey = keyof typeof validators;
 
-export default defineNuxtComponent({
-  name: "AutoForm",
-  props: {
-    modelValue: {
-      default: null,
-      type: [Object, Array],
-    },
-    updateMode: {
-      default: false,
-      type: Boolean,
-    },
-    items: {
-      default: null,
-      type: Array as () => AutoFormItems,
-    },
-    width: {
-      type: [Number, String],
-      default: "max",
-    },
-    globalRules: {
-      default: null,
-      type: Array as () => string[],
-    },
-    color: {
-      default: null,
-      type: String,
-    },
-    dark: {
-      default: false,
-      type: Boolean,
-    },
-    disabledFields: {
-      default: null,
-      type: Array as () => string[],
-    },
-    readonlyFields: {
-      default: null,
-      type: Array as () => string[],
-    },
+// Use defineModel for v-model
+const modelValue = defineModel<[object, Array<any>]>();
+
+const props = defineProps({
+  updateMode: {
+    default: false,
+    type: Boolean,
   },
-  emits: ["blur", "update:modelValue"],
-  setup(props, context) {
-    function rulesByKey(keys?: ValidatorKey[] | null) {
-      if (keys === undefined || keys === null) {
-        return [];
-      }
-
-      const list = [] as ((v: string) => boolean | string)[];
-      keys.forEach((key) => {
-        const split = key.split(":");
-        const validatorKey = split[0] as ValidatorKey;
-        if (validatorKey in validators) {
-          if (split.length === 1) {
-            list.push(validators[validatorKey]);
-          }
-          else {
-            list.push(validators[validatorKey](split[1]));
-          }
-        }
-      });
-      return list;
-    }
-
-    const defaultRules = computed(() => rulesByKey(props.globalRules as ValidatorKey[]));
-
-    function removeByIndex(list: never[], index: number) {
-      // Removes the item at the index
-      list.splice(index, 1);
-    }
-
-    function getTemplate(item: AutoFormItems) {
-      const obj = {} as { [key: string]: string };
-
-      item.forEach((field) => {
-        obj[field.varName] = "";
-      });
-
-      return obj;
-    }
-
-    function emitBlur() {
-      context.emit(BLUR_EVENT, props.modelValue);
-    }
-
-    return {
-      rulesByKey,
-      defaultRules,
-      removeByIndex,
-      getTemplate,
-      emitBlur,
-      fieldTypes,
-      validators,
-    };
+  items: {
+    default: null,
+    type: Array as () => AutoFormItems,
+  },
+  width: {
+    type: [Number, String],
+    default: "max",
+  },
+  globalRules: {
+    default: null,
+    type: Array as () => string[],
+  },
+  color: {
+    default: null,
+    type: String,
+  },
+  dark: {
+    default: false,
+    type: Boolean,
+  },
+  disabledFields: {
+    default: null,
+    type: Array as () => string[],
+  },
+  readonlyFields: {
+    default: null,
+    type: Array as () => string[],
   },
 });
+
+const emit = defineEmits(["blur", "update:modelValue"]);
+
+function rulesByKey(keys?: ValidatorKey[] | null) {
+  if (keys === undefined || keys === null) {
+    return [];
+  }
+
+  const list = [] as ((v: string) => boolean | string)[];
+  keys.forEach((key) => {
+    const split = key.split(":");
+    const validatorKey = split[0] as ValidatorKey;
+    if (validatorKey in validators) {
+      if (split.length === 1) {
+        list.push(validators[validatorKey]);
+      }
+      else {
+        list.push(validators[validatorKey](split[1]));
+      }
+    }
+  });
+  return list;
+}
+
+const defaultRules = computed(() => rulesByKey(props.globalRules as ValidatorKey[]));
+
+function removeByIndex(list: never[], index: number) {
+  // Removes the item at the index
+  list.splice(index, 1);
+}
+
+function getTemplate(item: AutoFormItems) {
+  const obj = {} as { [key: string]: string };
+
+  item.forEach((field) => {
+    obj[field.varName] = "";
+  });
+
+  return obj;
+}
+
+function emitBlur() {
+  emit(BLUR_EVENT, modelValue.value);
+}
 </script>
 
 <style lang="scss" scoped></style>
